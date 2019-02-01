@@ -1,0 +1,23 @@
+@import "../../scss/variables.scss";
+
+/*
+TODO: use the scoped styles later
+*/
+/*:local {
+}*/
+
+.woleet {
+  &-widget {
+    &__wrapper {
+      display: block;
+      height: 300px;
+      width: 300px;
+
+      &-item {
+        display: block;
+        height: 100px;
+        width: 100%;
+      }
+    }
+  }
+}

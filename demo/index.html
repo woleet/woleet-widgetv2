@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo page of the woleet-widget.v2</title>
+</head>
+<body>
+<div class="woleet-widget"></div>
+<script>
+  var configuration = {
+    mode: 'ICON',
+    hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    colors: {
+      'primary-color': '#3A98D8',
+      'secondary-color': '#FC1158',
+      'link-color': '#005c9a'
+    }
+  };
+
+  (function (w,d,s,o,f,js,fjs) {
+    w['woleet-widget']=o;w[o] = w[o] || function () { (w[o] = arguments) };
+    js = d.createElement(s); fjs = d.getElementsByTagName(s)[0];
+    js.id = o; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
+  }(window, document, 'script', 'ww', 'woleet-widget.js'));
+  ww('woleet-widget', configuration);
+</script>
+</body>
+</html>
