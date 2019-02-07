@@ -1,16 +1,23 @@
 @import "../../scss/variables.scss";
 
-.woleet {
-  &_file-hasher-widget {
-    &__wrapper {
-      display: block;
-      height: 300px;
-      width: 300px;
-      
-      &-item {
+:local {
+  .woleet {
+    &_file-hasher-widget {
+      &__wrapper {
         display: block;
-        height: 100px;
-        width: 100%;
+        height: 300px;
+        width: 300px;
+        
+        &-item {
+          display: flex;
+          height: 100px;
+          width: 100%;
+          background-color: $primary-color;
+          span {
+            color: $light-color;
+            padding: 20px;
+          }
+        }
       }
     }
   }

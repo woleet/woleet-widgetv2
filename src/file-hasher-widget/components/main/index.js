@@ -1,14 +1,14 @@
-import html from './index.html';
-import styles from'./index.scss';
+import template from './index.handlebars';
+import styles from './index.scss';
 
 /**
  *
  * @param globalObject
  */
 export function displayIcon(globalObject) {
-  // convert plain HTML string into DOM elements
-  globalObject.widgetElement.innerHTML = html;
-  globalObject.widgetElement
-    .getElementsByClassName('woleet_file-hasher-widget__wrapper')[0]
-    .textContent = JSON.stringify(globalObject.configurations);
+  const {configuration} = globalObject;
+  const {mode, type, lang, colors} = configuration;
+
+  // render the final html according with parameters
+  globalObject.widgetElement.innerHTML = template({styles, mode, type, lang, colors});
 }

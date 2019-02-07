@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const devtool = 'source-map';
 
@@ -12,18 +13,18 @@ module.exports = (resourcePath = '') => {
   };
   const modules = {
     rules: [
-      { test: /\.html$/i, use: 'html-loader' },
+      { test: /\.handlebars$/, loader: 'handlebars-loader' },
       {
         test: /\.(css|scss)$/i,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
             {
-              loader: 'css-loader'
-              /* options: {
-                  modules: true,
-                  localIdentName: '[hash:base64:5]--[local]'
-                } */
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[hash:base64:5]--[local]'
+              }
             },
             {
               loader: 'sass-loader'
@@ -51,7 +52,12 @@ module.exports = (resourcePath = '') => {
     ]
   };
   const plugins = [
-    new ExtractTextPlugin({ filename: (getPath) => { return getPath(resourcePath + '[name].css'); } })
+    new ExtractTextPlugin({ filename: (getPath) => { return getPath(resourcePath + '[name].css'); } }),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        handlebarsLoader: {}
+      }
+    })
   ];
 
   return {

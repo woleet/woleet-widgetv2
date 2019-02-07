@@ -9,14 +9,14 @@ import { displayIcon } from './components/main'
  * @param window
  */
 function app(window) {
-  let configurations = {
+  let configuration = {
     mode: constants.DEFAULT_WIDGET_MODE,
     lang: document.documentElement.lang,
     type: constants.PROOF_VERIFIER_WIDGET_TYPE,
     colors: {
-      'primary-color': '#ADFF2F',
-      'secondary-color': '#9ACD32',
-      'link-color': '#98FB98'
+      'primary-color': '#FC1158',
+      'secondary-color': '#FC1158',
+      'third-color': '#FC1158'
     }
   };
   
@@ -31,16 +31,16 @@ function app(window) {
   if (!widgetElement)
     throw Error(`Widget Element with class ${widgetClass} wasn't found`);
 
-  console.log('configurations', configurations);
+  console.log('configuration', configuration);
 
-  configurations = utils.extendObject(configurations, customConfiguration);
-  globalObject.configurations = configurations;
+  configuration = utils.extendObject(configuration, customConfiguration);
+  globalObject.configuration = configuration;
   globalObject.widgetElement = widgetElement;
   
   /**
    * TODO: refactor this
    * */
-  if(configurations.mode !== constants.WIDGET_MODE_ICON) {
+  if(configuration.mode !== constants.WIDGET_MODE_ICON) {
     loader.getWoleetLibs().then(woleet => {
       globalObject.woleet = woleet;
       onAppLoaded(globalObject);
@@ -51,7 +51,7 @@ function app(window) {
 }
 
 function onAppLoaded(globalObject) {
-  addCssLink(globalObject.configurations.dev);
+  addCssLink(globalObject.configuration.dev);
   displayIcon(globalObject);
 }
 
