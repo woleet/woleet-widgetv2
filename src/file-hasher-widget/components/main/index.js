@@ -8,5 +8,7 @@ import styles from'./index.scss';
 export function displayIcon(globalObject) {
   // convert plain HTML string into DOM elements
   globalObject.widgetElement.innerHTML = html;
-  globalObject.widgetElement.getElementsByClassName('woleet-widget__wrapper')[0].textContent = JSON.stringify(globalObject.configurations);
+  globalObject.widgetElement
+    .getElementsByClassName('woleet_file-hasher-widget__wrapper')[0]
+    .textContent = JSON.stringify(globalObject.configurations);
 }

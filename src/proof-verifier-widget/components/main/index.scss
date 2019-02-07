@@ -1,13 +1,7 @@
 @import "../../scss/variables.scss";
 
-/*
-TODO: use the scoped styles later
-*/
-/*:local {
-}*/
-
 .woleet {
-  &-widget {
+  &_proof-verifier-widget {
     &__wrapper {
       display: block;
       height: 300px;

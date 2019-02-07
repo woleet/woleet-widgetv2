@@ -6,7 +6,10 @@ module.exports = (resourcePath = '') => {
     resourcePath += '/';
   }
 
-  const entry = './src/index.js';
+  const entry = {
+    'file-hasher-widget': './src/file-hasher-widget/index.js',
+    'proof-verifier-widget': './src/proof-verifier-widget/index.js'
+  };
   const modules = {
     rules: [
       { test: /\.html$/i, use: 'html-loader' },
@@ -48,7 +51,7 @@ module.exports = (resourcePath = '') => {
     ]
   };
   const plugins = [
-    new ExtractTextPlugin({ filename: (getPath) => { return getPath(resourcePath + '[name].css'); }})
+    new ExtractTextPlugin({ filename: (getPath) => { return getPath(resourcePath + '[name].css'); } })
   ];
 
   return {

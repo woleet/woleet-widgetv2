@@ -10,7 +10,7 @@ const config = require('./webpack.config')(resourcePath);
 config.mode = 'production';
 
 config.output = {
-  filename: resourcePath + '/woleet-widget.js',
+  filename: resourcePath + '/[name].js',
   chunkFilename: resourcePath + '/[name].js',
   path: path.resolve(__dirname),
   publicPath: '/'

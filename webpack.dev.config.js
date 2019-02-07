@@ -12,7 +12,7 @@ config.mode = 'development';
 config.optimization = { minimize: true };
 
 config.output = {
-  filename: 'woleet-widget.js',
+  filename: '[name].js',
   chunkFilename: '[name].js',
   path: path.resolve(__dirname),
   publicPath: '/' // Uses webpack-dev-server in development

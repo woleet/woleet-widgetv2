@@ -7,9 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 </head>
 <body>
-<div class="woleet-widget"></div>
+<div class="file-hasher-widget"></div>
+<div class="proof-verifier-widget"></div>
 <script>
-  var configuration = {
+  var fileHasherWidgetConfiguration = {
+    dev: true,
     mode: 'ICON',
     hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
     colors: {
@@ -18,13 +20,31 @@
       'link-color': '#005c9a'
     }
   };
+  var proofVerifierWidgetConfiguration = {
+    dev: true,
+    mode: 'ICON',
+    hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    colors: {
+      'primary-color': '#3A11D8',
+      'secondary-color': '#AA11AA',
+      'link-color': '#F01166'
+    }
+  };
 
   (function (w,d,s,o,f,js,fjs) {
-    w['woleet-widget']=o;w[o] = w[o] || function () { (w[o] = arguments) };
+    w['file-hasher-widget']=o;w[o] = w[o] || function () { (w[o] = arguments) };
     js = d.createElement(s); fjs = d.getElementsByTagName(s)[0];
     js.id = o; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
-  }(window, document, 'script', 'ww', 'woleet-widget.js'));
-  ww('woleet-widget', configuration);
+  }(window, document, 'script', 'fhw', 'file-hasher-widget.js'));
+
+  (function (w,d,s,o,f,js,fjs) {
+    w['proof-verifier-widget']=o;w[o] = w[o] || function () { (w[o] = arguments) };
+    js = d.createElement(s); fjs = d.getElementsByTagName(s)[0];
+    js.id = o; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
+  }(window, document, 'script', 'pvw', 'proof-verifier-widget.js'));
+
+  fhw('file-hasher-widget', fileHasherWidgetConfiguration);
+  pvw('proof-verifier-widget', proofVerifierWidgetConfiguration);
 </script>
 </body>
 </html>

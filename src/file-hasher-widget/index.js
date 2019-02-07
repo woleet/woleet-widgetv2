@@ -1,6 +1,6 @@
-import constants from './constants'
-import loader from './services/loader'
-import utils from './services/utils'
+import constants from '../common/constants'
+import loader from '../common/services/loader'
+import utils from '../common/services/utils'
 
 import { displayIcon } from './components/main'
 
@@ -12,6 +12,7 @@ function app(window) {
   let configurations = {
     mode: constants.DEFAULT_WIDGET_MODE,
     lang: document.documentElement.lang,
+    type: constants.FILE_HASHER_WIDGET_TYPE,
     colors: {
       'primary-color': '#ADFF2F',
       'secondary-color': '#9ACD32',
@@ -19,7 +20,7 @@ function app(window) {
     }
   };
   
-  let globalObject = window[window['woleet-widget']];
+  let globalObject = window[window['file-hasher-widget']];
   /**
    * TODO: handle all errors
    * */
@@ -29,8 +30,6 @@ function app(window) {
   
   if (!widgetElement)
     throw Error(`Widget Element with class ${widgetClass} wasn't found`);
-
-  console.log('configurations', configurations);
 
   configurations = utils.extendObject(configurations, customConfiguration);
   globalObject.configurations = configurations;
@@ -50,19 +49,19 @@ function app(window) {
 }
 
 function onAppLoaded(globalObject) {
-  addCssLink();
+  addCssLink(globalObject.configurations.dev);
   displayIcon(globalObject);
 }
 
 /**
  * Load CSS styles
  */
-function addCssLink() {
+function addCssLink(isDevMode) {
   const head = document.getElementsByTagName('head')[0];
   const link = document.createElement('link');
   link.rel = 'stylesheet';
   link.type = 'text/css';
-  link.href = constants.URLS.css.file_hasher;
+  link.href = constants[isDevMode ? 'DEV_URLS' : 'URLS'].css.file_hasher_widget;
   link.media = 'all';
   head.appendChild(link);
 }
