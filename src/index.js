@@ -11,6 +11,7 @@ import { displayIcon } from './components/main'
 function app(window) {
   let configurations = {
     mode: constants.DEFAULT_WIDGET_MODE,
+    lang: document.documentElement.lang,
     colors: {
       'primary-color': '#ADFF2F',
       'secondary-color': '#9ACD32',
@@ -24,12 +25,13 @@ function app(window) {
    * */
   let widgetClass = globalObject[0];
   let customConfiguration = globalObject[1];
-  
   let widgetElement = document.getElementsByClassName(widgetClass)[0];
   
   if (!widgetElement)
     throw Error(`Widget Element with class ${widgetClass} wasn't found`);
-  
+
+  console.log('configurations', configurations);
+
   configurations = utils.extendObject(configurations, customConfiguration);
   globalObject.configurations = configurations;
   globalObject.widgetElement = widgetElement;
@@ -49,9 +51,7 @@ function app(window) {
 
 function onAppLoaded(globalObject) {
   addCssLink();
-  
   displayIcon(globalObject);
-  console.log('globalObject', globalObject);
 }
 
 /**
@@ -62,7 +62,7 @@ function addCssLink() {
   const link = document.createElement('link');
   link.rel = 'stylesheet';
   link.type = 'text/css';
-  link.href = '../dist/main.css';
+  link.href = constants.URLS.css.file_hasher;
   link.media = 'all';
   head.appendChild(link);
 }

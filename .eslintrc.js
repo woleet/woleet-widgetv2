@@ -2,7 +2,11 @@ module.exports = {
   extends: [
     'airbnb-base/legacy'
   ],
+  parserOptions: {
+    ecmaVersion: 2017
+  },
   env: {
+    es6: true,
     browser: true,
     jasmine: true
   },
@@ -26,6 +30,7 @@ module.exports = {
     'no-loop-func': 0,
     'no-use-before-define': 0,
     'no-var': 0,
+    'const': 0,
     'object-shorthand': 0,
     'prefer-arrow-callback': 0,
     'vars-on-top': 0,
