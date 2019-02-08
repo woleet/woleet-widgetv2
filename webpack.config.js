@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const devtool = 'source-map';
 
 module.exports = (resourcePath = '') => {
@@ -59,7 +60,7 @@ module.exports = (resourcePath = '') => {
 
   const plugins = [
     new ExtractTextPlugin({ filename: (getPath) => { return getPath(resourcePath + '[name].css'); } }),
-    // new CopyWebpackPlugin([{ from: 'node_modules/@woleet/woleet-weblibs/dist/*.min.js', to: resourcePath, flatten: true }]),
+    new CopyWebpackPlugin([{ from: 'node_modules/@woleet/woleet-weblibs/dist/*.min.js', to: resourcePath, flatten: true }]),
     new webpack.LoaderOptionsPlugin({
       options: {
         handlebarsLoader: {}

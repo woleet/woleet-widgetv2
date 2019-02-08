@@ -13,7 +13,7 @@ config.output = {
   filename: resourcePath + '/[name].js',
   chunkFilename: resourcePath + '/[name].js',
   path: path.resolve(__dirname),
-  publicPath: '/'
+  publicPath: '../'
 };
 
 /**
