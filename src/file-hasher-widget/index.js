@@ -1,56 +1,78 @@
 import constants from '../common/constants'
 import loader from '../common/services/loader'
+import initializer from '../common/services/initializer'
 import utils from '../common/services/utils'
 
-import { displayIcon } from './components/main'
+import { fileHasherWidget } from './components'
 
 /**
- * The main entry of the application
+ * The main entry of the widget
  * @param window
  */
-function app(window) {
-  let configuration = {
-    mode: constants.DEFAULT_WIDGET_MODE,
-    lang: document.documentElement.lang,
-    type: constants.FILE_HASHER_WIDGET_TYPE,
-    colors: {
-      'primary-color': '#3A98D8',
-      'secondary-color': '#3A98D8',
-      'third-color': '#3A98D8'
-    }
-  };
-  
-  let globalObject = window[window['file-hasher-widget']];
+function widget(window) {
   /**
-   * TODO: handle all errors
-   * */
+   * Grab the object created during the widget creation
+   */
+  let globalObject = window[window['file-hasher-widget']];
+  
   let widgetClass = globalObject[0];
-  let customConfiguration = globalObject[1];
+  let customConfiguration = globalObject[1] || {};
+  
+  if (!widgetClass)
+    throw Error(`The widget class wasn't provided`);
+  
   let widgetElement = document.getElementsByClassName(widgetClass)[0];
   
   if (!widgetElement)
     throw Error(`Widget Element with class ${widgetClass} wasn't found`);
-
-  configuration = utils.extendObject(configuration, customConfiguration);
-  globalObject.configuration = configuration;
-  globalObject.widgetElement = widgetElement;
   
   /**
-   * TODO: refactor this
-   * */
-  if(configuration.mode !== constants.WIDGET_MODE_ICON) {
-    loader.getWoleetLibs().then(woleet => {
-      globalObject.woleet = woleet;
-      onAppLoaded(globalObject);
-    });
-  } else {
-    onAppLoaded(globalObject);
-  }
+   * Initialize the widget
+   */
+  initialize(widgetElement, customConfiguration);
 }
 
-function onAppLoaded(globalObject) {
-  addCssLink(globalObject.configuration.dev);
-  displayIcon(globalObject);
+/**
+ * Load widget libraries and dependencies
+ * @param widgetElement - The HTML element into which the widget is injected
+ * @param customConfiguration - Custom widget configuration
+ */
+function initialize(widgetElement, customConfiguration) {
+  /**
+   * Extend the default widget configuration
+   */
+  let defaultConfiguration = initializer.getFileHasherDefaults();
+  const configuration = utils.extendObject(defaultConfiguration, customConfiguration);
+  
+  getWidgetDependencies().then(dependencies => {
+    onWidgetInitialized(widgetElement, configuration, dependencies)
+  });
+}
+
+/**
+ * Get all widget library dependencies
+ * @returns {Promise<[]>}
+ */
+function getWidgetDependencies() {
+  const promises = [];
+  
+  promises.push(loader.getWoleetLibs());
+  promises.push(loader.getI18mService());
+  
+  return Promise.all(promises);
+}
+
+/**
+ * It's called when all dependencies are loaded and configuration is defined
+ * @param widgetElement
+ * @param configuration
+ * @param dependencies
+ */
+function onWidgetInitialized(widgetElement, configuration, dependencies) {
+  console.log('dependencies', dependencies);
+  
+  addCssLink(configuration.dev);
+  fileHasherWidget(widgetElement, configuration, dependencies);
 }
 
 /**
@@ -66,4 +88,4 @@ function addCssLink(isDevMode) {
   head.appendChild(link);
 }
 
-app(window);
+widget(window);

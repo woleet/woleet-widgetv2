@@ -1,4 +1,4 @@
-@import "../../scss/variables.scss";
+@import "../scss/variables.scss";
 
 :local {
   .woleet {
@@ -7,7 +7,7 @@
         display: block;
         height: 300px;
         width: 300px;
-        
+
         &-item {
           display: flex;
           height: 100px;

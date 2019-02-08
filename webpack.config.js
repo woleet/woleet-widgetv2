@@ -11,6 +11,11 @@ module.exports = (resourcePath = '') => {
     'file-hasher-widget': './src/file-hasher-widget/index.js',
     'proof-verifier-widget': './src/proof-verifier-widget/index.js'
   };
+
+  const node = {
+    fs: 'empty'
+  };
+
   const modules = {
     rules: [
       { test: /\.handlebars$/, loader: 'handlebars-loader' },
@@ -51,8 +56,10 @@ module.exports = (resourcePath = '') => {
       }
     ]
   };
+
   const plugins = [
     new ExtractTextPlugin({ filename: (getPath) => { return getPath(resourcePath + '[name].css'); } }),
+    // new CopyWebpackPlugin([{ from: 'node_modules/@woleet/woleet-weblibs/dist/*.min.js', to: resourcePath, flatten: true }]),
     new webpack.LoaderOptionsPlugin({
       options: {
         handlebarsLoader: {}
@@ -62,6 +69,7 @@ module.exports = (resourcePath = '') => {
 
   return {
     devtool,
+    node,
     entry,
     module: modules,
     plugins

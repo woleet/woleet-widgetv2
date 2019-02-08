@@ -19,7 +19,7 @@ config.output = {
 /**
  * Add production plugins
  */
-config.plugins.push(new CleanWebpackPlugin([
+config.plugins.unshift(new CleanWebpackPlugin([
   path.resolve(__dirname, resourcePath)
 ]));
 
