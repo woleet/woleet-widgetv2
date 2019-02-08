@@ -1,4 +1,4 @@
-import template from './index.handlebars';
+import template from './index.hbs';
 import styles from './index.scss';
 
 /**

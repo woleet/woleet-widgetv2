@@ -4,13 +4,13 @@ function getWoleetLibs() {
   }).catch(error => 'An error occurred while loading the component');
 }
 
-function getI18mService() {
-  return import(/* webpackChunkName: "i18n" */'i18n').then(({ default: __ }) => {
+function getI18nService() {
+  return import(/* webpackChunkName: "i18next" */'i18next').then(({ default: __ }) => {
     return __;
   }).catch(error => 'An error occurred while loading the component');
 }
 
 export default  {
   getWoleetLibs,
-  getI18mService
+  getI18nService
 }

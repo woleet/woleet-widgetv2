@@ -1,0 +1,80 @@
+import utils from './utils';
+
+function DOM(element) {
+  if ((!element instanceof Element)) {
+    throw new TypeError;
+  }
+  
+  /**
+   * @type {DOM}
+   */
+  const self = this;
+  const target = element;
+  const getSelf = () => self;
+  const defineProp = utils.defineProperty(this);
+  
+  defineProp('target', () => target);
+  
+  defineProp('attr', (attr, val) => getSelf(val ? target.setAttribute(attr, val) : target.removeAttribute(attr)));
+  
+  defineProp('removeClass', (e) => getSelf(Array.isArray(e) ? e.forEach(e => target.classList.remove(e)) : target.classList.remove(e)));
+  
+  defineProp('addClass', (e) => getSelf(Array.isArray(e) ? e.forEach(e => target.classList.add(e)) : target.classList.add(e)));
+  
+  defineProp('text', (text, add) => getSelf(add ? target.innerText += text : target.innerText = text));
+  
+  defineProp('html', (text, add) => getSelf(add ? target.innerHTML += text : target.innerHTML = text));
+  
+  defineProp('link', (url) => getSelf(self.text(url).attr('href', url)));
+  
+  defineProp('clear', () => getSelf(self.text(''), self.attr('href', null)));
+  
+  defineProp('show', () => self.removeClass('hidden'));
+  
+  defineProp('hide', () => self.addClass('hidden'));
+  
+  defineProp('style', (props) => {
+    if (Array.isArray(props)) {
+      return props.map((p) => target.style[p])
+    }
+    else if (typeof props === 'string') return target.style[props];
+    else {
+      for (let prop in props) {
+        //noinspection JSUnfilteredForInLoop
+        target.style[prop] = props[prop];
+      }
+    }
+  });
+  
+  defineProp('on', (type, listener, capture) => getSelf(target.addEventListener(type, listener, capture)));
+  
+  defineProp('render', () => {
+    let root = self.target();
+    for (let e in self) {
+      if(self.hasOwnProperty(e)) {
+        const elt = self[e];
+        try {
+          if (Array.isArray(elt))
+            elt.forEach((e) => root.appendChild(e.toDom()));
+          else
+            root.appendChild(elt.toDom())
+        } catch (err) {
+          console.warn(e, target, self[e], err);
+        }
+      }
+    }
+    return root;
+  });
+}
+
+function createElement(element = 'div', {classes = ''}) {
+  const domElement = new DOM(document.createElement(element));
+  if (classes) {
+    domElement.addClass(classes);
+  }
+  return domElement;
+}
+
+export default {
+  createElement
+}

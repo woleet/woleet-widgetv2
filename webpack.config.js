@@ -19,41 +19,22 @@ module.exports = (resourcePath = '') => {
 
   const modules = {
     rules: [
-      { test: /\.handlebars$/, loader: 'handlebars-loader' },
+      { test: /\.hbs/, loader: 'handlebars-loader' },
+      { test: /locales/, loader: '@alienfast/i18next-loader' },
       {
         test: /\.(css|scss)$/i,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                localIdentName: '[hash:base64:5]--[local]'
-              }
-            },
-            {
-              loader: 'sass-loader'
-            }
+            { loader: 'css-loader', options: { modules: true, localIdentName: '[hash:base64:5]--[local]' } },
+            { loader: 'sass-loader' }
           ]
         })
       },
       {
         test: /\.js$/i,
-        exclude: [
-          /node_modules/,
-          /dist/
-        ],
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [['@babel/env', {
-              targets: {
-                browsers: ['ie 6', 'safari 7']
-              }
-            }]]
-          }
-        }
+        exclude: [/node_modules/, /dist/],
+        use: { loader: 'babel-loader', options: { presets: [['@babel/env', { targets: { browsers: ['ie 6', 'safari 7'] } }]] } }
       }
     ]
   };

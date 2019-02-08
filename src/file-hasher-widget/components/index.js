@@ -1,15 +1,22 @@
-import template from './index.handlebars';
+import virtualDOMService from '../../common/services/virtualDOM';
+import utils from '../../common/services/utils';
 import styles from './index.scss';
 
 /**
- *
- * @param widgetElement
- * @param configuration
- * @param dependencies
+ * Define a class of the widget
  */
-export function fileHasherWidget(widgetElement, configuration, dependencies) {
-  const {provenFile, lang} = configuration;
-
-  // render the final html according with parameters
-  widgetElement.innerHTML = template({styles, lang});
+class FileHasherWidget {
+  constructor(configuration) {
+    this.classCodes = ['woleet_file-hasher-widget__wrapper'];
+    this.provenFile = {configuration};
+    this.lang = {configuration};
+  }
+  
+  render() {
+    const element = virtualDOMService.createElement('div', {classes: utils.extractClasses(styles, this.classCodes)});
+    element.text(window.i18n.t('select_file_to_hash'));
+    return element.render();
+  }
 }
+
+export default FileHasherWidget;

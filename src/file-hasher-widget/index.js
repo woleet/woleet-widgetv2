@@ -2,8 +2,9 @@ import constants from '../common/constants'
 import loader from '../common/services/loader'
 import initializer from '../common/services/initializer'
 import utils from '../common/services/utils'
+import resources from '../resources/locales'
 
-import { fileHasherWidget } from './components'
+import FileHasherWidget from './components'
 
 /**
  * The main entry of the widget
@@ -44,8 +45,18 @@ function initialize(widgetElement, customConfiguration) {
   let defaultConfiguration = initializer.getFileHasherDefaults();
   const configuration = utils.extendObject(defaultConfiguration, customConfiguration);
   
-  getWidgetDependencies().then(dependencies => {
-    onWidgetInitialized(widgetElement, configuration, dependencies)
+  getWidgetDependencies(configuration).then(dependencies => {
+    const {woleet, i18n} = dependencies;
+    
+    if (!window.woleet) {
+      window.woleet = woleet;
+    }
+    
+    if (!window.i18n) {
+      window.i18n = i18n;
+    }
+    
+    onWidgetInitialized(widgetElement, configuration)
   });
 }
 
@@ -53,26 +64,40 @@ function initialize(widgetElement, customConfiguration) {
  * Get all widget library dependencies
  * @returns {Promise<[]>}
  */
-function getWidgetDependencies() {
-  const promises = [];
+function getWidgetDependencies(configuration) {
+  const {lang, dev} = configuration;
+  const dependenciesPromises = [];
   
-  promises.push(loader.getWoleetLibs());
-  promises.push(loader.getI18mService());
+  dependenciesPromises.push(loader.getWoleetLibs());
+  dependenciesPromises.push(loader.getI18nService());
   
-  return Promise.all(promises);
+  return Promise.all(dependenciesPromises)
+    .then(([woleet, i18n]) => {
+      const initializationPromises = [];
+      console.log('lang', lang);
+      /**
+       * Configure i18next
+       */
+      initializationPromises.push(
+        i18n.init({fallbackLng: initializer.getDefaultLanguage(), lng: lang, debug: dev, resources})
+      );
+      return Promise.all(initializationPromises)
+        .then(() => {return {woleet, i18n}})
+    });
 }
 
 /**
  * It's called when all dependencies are loaded and configuration is defined
  * @param widgetElement
  * @param configuration
- * @param dependencies
  */
-function onWidgetInitialized(widgetElement, configuration, dependencies) {
-  console.log('dependencies', dependencies);
-  
+function onWidgetInitialized(widgetElement, configuration) {
   addCssLink(configuration.dev);
-  fileHasherWidget(widgetElement, configuration, dependencies);
+  
+  /**
+   * Render a widget instance and render it
+   */
+  widgetElement.appendChild(new FileHasherWidget(configuration).render());
 }
 
 /**

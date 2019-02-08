@@ -3,7 +3,7 @@ import constants from "../constants";
 const fileHasherWidgetConfiguration = {
   dev: false,
   provenFile: null,
-  lang: document.documentElement.lang,
+  lang: constants.DEFAULT_WIDGET_LANGUAGE,
   type: constants.FILE_HASHER_WIDGET_TYPE
 };
 
@@ -11,6 +11,11 @@ function getFileHasherDefaults() {
   return fileHasherWidgetConfiguration;
 }
 
+function getDefaultLanguage() {
+  return constants.DEFAULT_WIDGET_LANGUAGE;
+}
+
 export default {
-  getFileHasherDefaults
+  getFileHasherDefaults,
+  getDefaultLanguage,
 }

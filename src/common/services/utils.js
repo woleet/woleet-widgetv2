@@ -5,6 +5,21 @@ function extendObject(a, b) {
   return a;
 }
 
+function defineProperty(target) {
+  return (name, value) => Object.defineProperty(target, name, {
+    enumerable: false,
+    value
+  })
+}
+
+function extractClasses(styles, classCodes) {
+  return Object.keys(styles)
+    .map(classCode => classCodes.indexOf(classCode) !== -1 ? styles[classCode] : '')
+    .filter(className => className && className.length > 0);
+}
+
 export default  {
-  extendObject
+  extendObject,
+  defineProperty,
+  extractClasses
 }
