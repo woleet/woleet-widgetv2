@@ -55,9 +55,9 @@ function DOM(element) {
         const elt = self[e];
         try {
           if (Array.isArray(elt))
-            elt.forEach((e) => root.appendChild(e.toDom()));
+            elt.forEach((e) => root.appendChild(e.render()));
           else
-            root.appendChild(elt.toDom())
+            root.appendChild(elt.render())
         } catch (err) {
           console.warn(e, target, self[e], err);
         }
@@ -67,14 +67,31 @@ function DOM(element) {
   });
 }
 
-function createElement(element = 'div', {classes = ''}) {
+function createElement(element = 'div', options = {classes: ''}, attrs = {}) {
   const domElement = new DOM(document.createElement(element));
-  if (classes) {
-    domElement.addClass(classes);
+  if (options.classes) {
+    domElement.addClass(options.classes);
+  }
+  
+  if (attrs) {
+    const attributes = Object.keys(attrs);
+    attributes.forEach(attribute => {
+      domElement.attr(attribute, attrs[attribute]);
+    });
   }
   return domElement;
 }
 
+/**
+ * Create input file
+ * @param options
+ * @param attrs
+ */
+function createFileInput(options = {classes: ''}, attrs = {}) {
+  return createElement('input', options, utils.extendObject({ type: 'file' }, attrs));
+}
+
 export default {
-  createElement
+  createElement,
+  createFileInput
 }

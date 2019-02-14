@@ -9,16 +9,23 @@
 <body>
 <div id="file-hasher-widget-de"></div>
 <div id="file-hasher-widget-fr"></div>
-<div id="proof-verifier-widget-1"></div>
+<div style="padding-top: 50px" id="log"></div>
+<!--<div id="proof-verifier-widget-1"></div>-->
 <script>
   var dev = true;
 
   var fileHasherWidgetConfigurationDE = {
-    lang: 'de'
+    lang: 'de',
+    observers: {
+      hashUpdated: hashUpdated
+    }
   };
 
   var fileHasherWidgetConfigurationFR = {
-    lang: 'fr'
+    lang: 'fr',
+    observers: {
+      hashUpdated: hashUpdated
+    }
   };
   /*var proofVerifierWidgetConfiguration = {
     mode: 'FULL',
@@ -29,6 +36,15 @@
       'third-color': '#F01166'
     }
   };*/
+
+  function hashUpdated(widgetId, hash) {
+    let widgetElement = document.getElementById('log');
+    let element = document.createElement('div');
+    element.innerHTML = 'Hash "' + hash + '" was given by widget with id "' + widgetId + '"';
+
+    widgetElement.appendChild(element);
+    console.log(widgetId, hash);
+  }
 
   (function (w,d,i,s,o,f,js,fjs) {
     w[i]=o;w[o] = w[o]||function () { return w[o] = arguments };

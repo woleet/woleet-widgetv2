@@ -1,6 +1,6 @@
 import constants from '../common/constants'
 import loader from '../common/services/loader'
-import initializer from '../common/services/initializer'
+import configurator from '../common/services/configurator'
 import utils from '../common/services/utils'
 import widgetLogger from '../common/services/logger'
 import resources from '../resources/locales'
@@ -38,7 +38,7 @@ function initialize(widgetConfiguration) {
   addCssLink();
   
   getWidgetDependencies().then(dependencies => {
-    const {woleet, i18n} = dependencies;
+    const {woleet, i18n, solidIconsModule} = dependencies;
     
     if (!window.woleet) {
       window.woleet = woleet;
@@ -46,6 +46,10 @@ function initialize(widgetConfiguration) {
     
     if (!window.i18n) {
       window.i18n = i18n;
+    }
+    
+    if (!window.solidIconsModule) {
+      window.solidIconsModule = solidIconsModule;
     }
   
     /**
@@ -55,13 +59,14 @@ function initialize(widgetConfiguration) {
     
     widgetIds.forEach(widgetId => {
       const customConfiguration = widgetConfiguration[widgetId];
+      customConfiguration.widgetId = widgetId;
       /**
        * Extend the default widget configuration
        */
-      let defaultConfiguration = initializer.getFileHasherDefaults();
+      let defaultConfiguration = configurator.getFileHasherDefaults();
       const configuration = utils.extendObject(defaultConfiguration, customConfiguration);
       
-      console.log('configuration', configuration, configuration.lang);
+      console.log('configuration', configuration.lang);
       
       onWidgetInitialized(widgetId, configuration)
     });
@@ -77,18 +82,19 @@ function getWidgetDependencies() {
   
   dependenciesPromises.push(loader.getWoleetLibs());
   dependenciesPromises.push(loader.getI18nService());
+  dependenciesPromises.push(loader.getSolidFontAwesomeIcons());
   
   return Promise.all(dependenciesPromises)
-    .then(([woleet, i18n]) => {
+    .then(([woleet, i18n, solidIconsModule]) => {
       const initializationPromises = [];
       /**
        * Configure i18next
        */
       initializationPromises.push(
-        i18n.init({fallbackLng: initializer.getDefaultLanguage(), debug: window.dev, resources})
+        i18n.init({fallbackLng: configurator.getDefaultLanguage(), debug: window.dev, resources})
       );
       return Promise.all(initializationPromises)
-        .then(() => {return {woleet, i18n}})
+        .then(() => {return {woleet, i18n, solidIconsModule}})
     });
 }
 

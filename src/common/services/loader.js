@@ -10,7 +10,21 @@ function getI18nService() {
   }).catch(error => 'An error occurred while loading the component');
 }
 
+function getReguralFontAwesomeIcons() {
+  return import(/* webpackChunkName: "regular-icons" */'@fortawesome/free-regular-svg-icons').then((module) => {
+    return module;
+  }).catch(error => 'An error occurred while loading the component');
+}
+
+function getSolidFontAwesomeIcons() {
+  return import(/* webpackChunkName: "solid-icons" */'@fortawesome/free-solid-svg-icons').then((module) => {
+    return module;
+  }).catch(error => 'An error occurred while loading the component');
+}
+
 export default  {
   getWoleetLibs,
-  getI18nService
+  getI18nService,
+  getReguralFontAwesomeIcons,
+  getSolidFontAwesomeIcons
 }

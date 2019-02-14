@@ -5,18 +5,38 @@
     &_file-hasher-widget {
       &__wrapper {
         display: block;
-        height: 300px;
-        width: 300px;
+        height: 180px;
+        width: 130px;
+        text-align: center;
+        padding: 10px;
 
-        &-item {
-          display: flex;
-          height: 100px;
-          width: 100%;
-          background-color: $primary-color;
-          span {
-            color: $light-color;
-            padding: 20px;
+        .drop_zone {
+          position: relative;
+          &-icon {
+            color: $primary-color;
+            svg {
+              width: 85%;
+              height: 85%;
+            }
           }
+          &-file_input {
+            outline: none;
+            opacity: 0;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            top: 0;
+            cursor: pointer;
+          }
+        }
+
+        .title {
+          &_wrapper {
+
+          }
+
+          font-size: 14px;
         }
       }
     }
