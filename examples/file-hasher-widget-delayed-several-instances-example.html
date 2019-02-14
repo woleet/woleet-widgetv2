@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Woleet widget V2 examples</title>
+    <!-- IE ZONE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+</head>
+<body>
+<div id="file-hasher-widget-fr"></div>
+<div id="file-hasher-widget-de"></div>
+<script>
+  var fileHasherWidgetConfigurationDE = {
+    lang: 'de'
+  };
+
+  var fileHasherWidgetConfigurationFR = {
+    lang: 'fr'
+  };
+
+  var fileHasherWidgetConfigurationEN = {
+    lang: 'en'
+  };
+
+  (function (w,d,i,s,o,f,js,fjs) {
+    w[i]=o;w[o] = w[o]||function () { return w[o] = arguments };
+    js = d.createElement(s); fjs = d.getElementsByTagName(s)[0];
+    js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
+  }(window, document, 'file-hasher-widget', 'script', 'fhw', '../dist/file-hasher-widget.js'));
+
+  setTimeout(function () {
+    fileHasherWidget.init({
+      'file-hasher-widget-fr': fileHasherWidgetConfigurationFR,
+      'file-hasher-widget-de': fileHasherWidgetConfigurationDE,
+    });
+
+    setTimeout(function () {
+      fileHasherWidget.init({
+        'file-hasher-widget-de': fileHasherWidgetConfigurationEN,
+      });
+    }, 3000);
+  }, 3000);
+</script>
+</body>
+</html>

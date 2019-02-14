@@ -7,9 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 </head>
 <body>
-<div id="file-hasher-widget"></div>
+<div id="file-hasher-widget-fr"></div>
+<div id="file-hasher-widget-de"></div>
 <script>
-  var configuration = {};
+  var fileHasherWidgetConfigurationDE = {
+    lang: 'de'
+  };
+
+  var fileHasherWidgetConfigurationFR = {
+    lang: 'fr'
+  };
 
   (function (w,d,i,s,o,f,js,fjs) {
     w[i]=o;w[o] = w[o]||function () { return w[o] = arguments };
@@ -18,7 +25,8 @@
   }(window, document, 'file-hasher-widget', 'script', 'fhw', '../dist/file-hasher-widget.js'));
 
   fhw({
-    'file-hasher-widget': configuration
+    'file-hasher-widget-fr': fileHasherWidgetConfigurationFR,
+    'file-hasher-widget-de': fileHasherWidgetConfigurationDE
   });
 </script>
 </body>

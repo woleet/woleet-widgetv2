@@ -13,23 +13,7 @@ const AVAILABLE_WIDGET_MODES = [WIDGET_MODE_ICON, WIDGET_MODE_BANNER, WIDGET_MOD
 const FILE_HASHER_WIDGET_TYPE = 'FILE_HASHER_WIDGET';
 const PROOF_VERIFIER_WIDGET_TYPE = 'PROOF_VERIFIER_WIDGET';
 
-/**
- * TODO: use real urls
- * @type {{css: {file_hasher: string}}}
- */
-const URLS = {
-  css: {
-    file_hasher_widget: '../dist/file-hasher-widget.css',
-    proof_verifier_widget: '../dist/proof-verifier-widget.css'
-  }
-};
-
-const DEV_URLS = {
-  css: {
-    file_hasher_widget: 'file-hasher-widget.css',
-    proof_verifier_widget: 'proof-verifier-widget.css'
-  }
-};
+const FILE_HASHER_WIDGET_ID = 'file-hasher-widget';
 
 export default {
   DEFAULT_WIDGET_MODE,
@@ -39,7 +23,6 @@ export default {
   AVAILABLE_WIDGET_MODES,
   FILE_HASHER_WIDGET_TYPE,
   PROOF_VERIFIER_WIDGET_TYPE,
-  DEFAULT_WIDGET_LANGUAGE,
-  DEV_URLS,
-  URLS
+  FILE_HASHER_WIDGET_ID,
+  DEFAULT_WIDGET_LANGUAGE
 };

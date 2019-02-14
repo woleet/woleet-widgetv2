@@ -1,7 +1,6 @@
 import constants from "../constants";
 
 const fileHasherWidgetConfiguration = {
-  dev: false,
   provenFile: null,
   lang: constants.DEFAULT_WIDGET_LANGUAGE,
   type: constants.FILE_HASHER_WIDGET_TYPE

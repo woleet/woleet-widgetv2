@@ -2,6 +2,7 @@ import constants from '../common/constants'
 import loader from '../common/services/loader'
 import initializer from '../common/services/initializer'
 import utils from '../common/services/utils'
+import widgetLogger from '../common/services/logger'
 import resources from '../resources/locales'
 
 import FileHasherWidget from './components'
@@ -15,37 +16,28 @@ function widget(window) {
    * Grab the object created during the widget creation
    */
   let globalObject = window[window['file-hasher-widget']];
+  let widgetConfiguration = globalObject[0];
   
-  let widgetClass = globalObject[0];
-  let customConfiguration = globalObject[1] || {};
-  
-  if (!widgetClass)
-    throw Error(`The widget class wasn't provided`);
-  
-  let widgetElement = document.getElementsByClassName(widgetClass)[0];
-  
-  if (!widgetElement)
-    throw Error(`Widget Element with class ${widgetClass} wasn't found`);
+  if (!widgetConfiguration)
+    widgetLogger.error(`The widget configuration isn't provided`);
   
   /**
    * Initialize the widget
    */
-  initialize(widgetElement, customConfiguration);
+  initialize(widgetConfiguration);
 }
 
 /**
- * Load widget libraries and dependencies
- * @param widgetElement - The HTML element into which the widget is injected
- * @param customConfiguration - Custom widget configuration
+ * Load widget libraries and dependencies and initialize the widget
+ * @param widgetConfiguration - Custom widget configuration
  */
-function initialize(widgetElement, customConfiguration) {
+function initialize(widgetConfiguration) {
   /**
-   * Extend the default widget configuration
+   * Load the widget styles
    */
-  let defaultConfiguration = initializer.getFileHasherDefaults();
-  const configuration = utils.extendObject(defaultConfiguration, customConfiguration);
+  addCssLink();
   
-  getWidgetDependencies(configuration).then(dependencies => {
+  getWidgetDependencies().then(dependencies => {
     const {woleet, i18n} = dependencies;
     
     if (!window.woleet) {
@@ -55,8 +47,24 @@ function initialize(widgetElement, customConfiguration) {
     if (!window.i18n) {
       window.i18n = i18n;
     }
+  
+    /**
+     * Initialize all instances of the widget
+     */
+    const widgetIds = Object.keys(widgetConfiguration);
     
-    onWidgetInitialized(widgetElement, configuration)
+    widgetIds.forEach(widgetId => {
+      const customConfiguration = widgetConfiguration[widgetId];
+      /**
+       * Extend the default widget configuration
+       */
+      let defaultConfiguration = initializer.getFileHasherDefaults();
+      const configuration = utils.extendObject(defaultConfiguration, customConfiguration);
+      
+      console.log('configuration', configuration, configuration.lang);
+      
+      onWidgetInitialized(widgetId, configuration)
+    });
   });
 }
 
@@ -64,8 +72,7 @@ function initialize(widgetElement, customConfiguration) {
  * Get all widget library dependencies
  * @returns {Promise<[]>}
  */
-function getWidgetDependencies(configuration) {
-  const {lang, dev} = configuration;
+function getWidgetDependencies() {
   const dependenciesPromises = [];
   
   dependenciesPromises.push(loader.getWoleetLibs());
@@ -74,12 +81,11 @@ function getWidgetDependencies(configuration) {
   return Promise.all(dependenciesPromises)
     .then(([woleet, i18n]) => {
       const initializationPromises = [];
-      console.log('lang', lang);
       /**
        * Configure i18next
        */
       initializationPromises.push(
-        i18n.init({fallbackLng: initializer.getDefaultLanguage(), lng: lang, debug: dev, resources})
+        i18n.init({fallbackLng: initializer.getDefaultLanguage(), debug: window.dev, resources})
       );
       return Promise.all(initializationPromises)
         .then(() => {return {woleet, i18n}})
@@ -88,29 +94,47 @@ function getWidgetDependencies(configuration) {
 
 /**
  * It's called when all dependencies are loaded and configuration is defined
- * @param widgetElement
+ * @param widgetElementId
  * @param configuration
  */
-function onWidgetInitialized(widgetElement, configuration) {
-  addCssLink(configuration.dev);
+function onWidgetInitialized(widgetElementId, configuration) {
+  let widgetElement = document.getElementById(widgetElementId);
   
+  if (!widgetElement)
+    widgetLogger.error(`Widget Element with id ${widgetElementId} wasn't found`);
   /**
    * Render a widget instance and render it
    */
+  while (widgetElement.firstChild) {
+    widgetElement.removeChild(widgetElement.firstChild);
+  }
   widgetElement.appendChild(new FileHasherWidget(configuration).render());
 }
 
 /**
  * Load CSS styles
+ * Check if the styles weren't loaded before
  */
-function addCssLink(isDevMode) {
-  const head = document.getElementsByTagName('head')[0];
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.type = 'text/css';
-  link.href = constants[isDevMode ? 'DEV_URLS' : 'URLS'].css.file_hasher_widget;
-  link.media = 'all';
-  head.appendChild(link);
+function addCssLink() {
+  const styleId = `${constants.FILE_HASHER_WIDGET_ID}-style`;
+  const script = document.getElementById(constants.FILE_HASHER_WIDGET_ID);
+  const style = document.getElementById(styleId);
+  
+  if (script && script.src && style === null) {
+    const styleSrc = script.src.replace('.js', '.css');
+    const head = document.getElementsByTagName('head')[0];
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.id = styleId;
+    link.type = 'text/css';
+    link.href = styleSrc;
+    link.media = 'all';
+    head.appendChild(link);
+  }
 }
+
+window.fileHasherWidget = {
+  init: initialize
+};
 
 widget(window);
