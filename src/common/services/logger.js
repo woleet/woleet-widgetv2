@@ -1,6 +1,7 @@
 class WidgetLogger {
   constructor() {
     this.errors = [];
+    this.logs = [];
   }
   
   error(error) {
@@ -8,6 +9,12 @@ class WidgetLogger {
     console.log('errors', this.errors, error);
   
     throw Error(error);
+  }
+  
+  log(message) {
+    this.logs.push(message);
+    
+    console.log('this.logs', this.logs);
   }
 }
 

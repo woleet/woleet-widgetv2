@@ -17,14 +17,14 @@
   var fileHasherWidgetConfigurationDE = {
     lang: 'de',
     observers: {
-      hashUpdated: hashUpdated
+      hashCalculated: hashCalculated
     }
   };
 
   var fileHasherWidgetConfigurationFR = {
     lang: 'fr',
     observers: {
-      hashUpdated: hashUpdated
+      hashCalculated: hashCalculated
     }
   };
   /*var proofVerifierWidgetConfiguration = {
@@ -37,13 +37,12 @@
     }
   };*/
 
-  function hashUpdated(widgetId, hash) {
+  function hashCalculated(widgetId, hash) {
     let widgetElement = document.getElementById('log');
     let element = document.createElement('div');
     element.innerHTML = 'Hash "' + hash + '" was given by widget with id "' + widgetId + '"';
 
     widgetElement.appendChild(element);
-    console.log(widgetId, hash);
   }
 
   (function (w,d,i,s,o,f,js,fjs) {

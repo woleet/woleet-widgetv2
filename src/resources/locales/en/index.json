@@ -1,6 +1,6 @@
 {
   "translation": {
-    "select_file_to_hash": "Select file to hash",
+    "select_file_to_hash": "Please select a file",
     "errors": {
       "need_receipt": {
         "main": "No public proof found at Woleet",

@@ -1,6 +1,6 @@
 import constants from '../common/constants'
 import loader from '../common/services/loader'
-import configurator from '../common/services/configurator'
+import {getDefaultLanguage, getFileHasherDefaults} from '../common/services/configurator'
 import utils from '../common/services/utils'
 import widgetLogger from '../common/services/logger'
 import resources from '../resources/locales'
@@ -63,10 +63,8 @@ function initialize(widgetConfiguration) {
       /**
        * Extend the default widget configuration
        */
-      let defaultConfiguration = configurator.getFileHasherDefaults();
+      let defaultConfiguration = getFileHasherDefaults();
       const configuration = utils.extendObject(defaultConfiguration, customConfiguration);
-      
-      console.log('configuration', configuration.lang);
       
       onWidgetInitialized(widgetId, configuration)
     });
@@ -91,7 +89,7 @@ function getWidgetDependencies() {
        * Configure i18next
        */
       initializationPromises.push(
-        i18n.init({fallbackLng: configurator.getDefaultLanguage(), debug: window.dev, resources})
+        i18n.init({fallbackLng: getDefaultLanguage(), debug: window.dev, resources})
       );
       return Promise.all(initializationPromises)
         .then(() => {return {woleet, i18n, solidIconsModule}})
@@ -105,6 +103,8 @@ function getWidgetDependencies() {
  */
 function onWidgetInitialized(widgetElementId, configuration) {
   let widgetElement = document.getElementById(widgetElementId);
+  
+  widgetLogger.log(`The widget ${widgetElementId} was initialized`);
   
   if (!widgetElement)
     widgetLogger.error(`Widget Element with id ${widgetElementId} wasn't found`);

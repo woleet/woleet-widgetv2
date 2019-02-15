@@ -14,18 +14,18 @@
   var fileHasherWidgetConfigurationDE = {
     lang: 'de',
     observers: {
-      hashUpdated: hashUpdated
+      hashCalculated: hashCalculated
     }
   };
 
   var fileHasherWidgetConfigurationFR = {
     lang: 'fr',
     observers: {
-      hashUpdated: hashUpdated
+      hashCalculated: hashCalculated
     }
   };
 
-  function hashUpdated(widgetId, hash) {
+  function hashCalculated(widgetId, hash) {
     let widgetElement = document.getElementById('log');
     let element = document.createElement('div');
     element.innerHTML = 'Hash "' + hash + '" was given by widget with id "' + widgetId + '"';

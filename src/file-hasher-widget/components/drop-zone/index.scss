@@ -1,0 +1,24 @@
+@import "../../scss/variables.scss";
+
+:local {
+  .drop_zone {
+    position: relative;
+    &-icon {
+      color: $primary-color;
+      svg {
+        width: 85% !important;
+        height: 85%;
+      }
+    }
+    &-file_input {
+      outline: none;
+      opacity: 0;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      top: 0;
+      cursor: pointer;
+    }
+  }
+}

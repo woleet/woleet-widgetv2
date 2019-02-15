@@ -6,17 +6,17 @@ const fileHasherWidgetConfiguration = {
   type: constants.FILE_HASHER_WIDGET_TYPE
 };
 
+function getFileHasherDefaults() {
+  return fileHasherWidgetConfiguration;
+}
+
+function getDefaultLanguage() {
+  return constants.DEFAULT_WIDGET_LANGUAGE;
+}
+
 class ConfigurationService {
   constructor() {
     this.configuration = [];
-  }
-  
-  getFileHasherDefaults() {
-    return fileHasherWidgetConfiguration;
-  }
-  
-  getDefaultLanguage() {
-    return constants.DEFAULT_WIDGET_LANGUAGE;
   }
   
   /**
@@ -50,6 +50,9 @@ class ConfigurationService {
   }
 }
 
-let configurator = new ConfigurationService();
+export {
+  getFileHasherDefaults,
+  getDefaultLanguage
+}
 
-export default configurator;
+export default ConfigurationService;

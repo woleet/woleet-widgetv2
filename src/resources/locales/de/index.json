@@ -1,5 +1,71 @@
 {
   "translation": {
-    "select_file_to_hash": "Datei zum Hash auswählen"
+    "select_file_to_hash": "Bitte wählen Sie eine Datei aus",
+    "errors": {
+      "need_receipt": {
+        "main": "No public proof found at Woleet",
+        "sub": "No public proof receipt found at Woleet: you must provide one to verify this file"
+      },
+      "file_matched_but_anchor_not_yet_processed": {
+        "main": "No public proof found at Woleet",
+        "sub": "No public proof receipt found at Woleet: you must provide one to verify this file"
+      },
+      "target_hash_mismatch": {
+        "main": "The proof mismatches the file",
+        "sub": "The proof receipt's target hash attribute doesn't match the file hash"
+      },
+      "unable_to_parse_json": {
+        "main": "The proof cannot be parsed",
+        "sub": "The file you provided is not a valid Chainpoint 1 or 2 proof receipt"
+      },
+      "merkle_root_mismatch": {
+        "main": "The proof is corrupted",
+        "sub": "The proof receipt's merkle root attribute does not match the proof result"
+      },
+      "non_sha256_target_proof_element": {
+        "main": "The proof is corrupted",
+        "sub": "An attribute in the proof (parent or left or right) in not a SHA256 hash"
+      },
+      "invalid_parent_in_proof_element": {
+        "main": "The proof is corrupted",
+        "sub": "A parent in the proof is not the SHA256 of its children"
+      },
+      "invalid_receipt_format": {
+        "main": "The proof is corrupted",
+        "sub": "The proof receipt does not conform to the Chainpoint 1 or 2 format"
+      },
+      "invalid_target_proof": {
+        "main": "The proof is corrupted",
+        "sub": "The proof receipt's merkle proof attribute is invalid"
+      },
+      "op_return_mismatches_merkle_root": {
+        "main": "The proof is corrupted",
+        "sub": "The transaction's OP_RETURN mismatches the proof receipt's merkle root"
+      },
+      "http_error": {
+        "main": "Unexpected HTTP error",
+        "sub": "An unexpected HTTP error occurred during the verification process"
+      },
+      "tx_not_found": {
+        "main": "The transaction cannot be found",
+        "sub": "The proof receipt's transaction doesn't exist in the blockchain"
+      },
+      "tx_not_confirmed": {
+        "main": "The transaction is not confirmed",
+        "sub": "The proof receipt's transaction is not yet confirmed by the blockchain"
+      },
+      "invalid_receipt_signature": {
+        "main": "Die Unterschrift ist ungültig",
+        "sub": "Die Signatur des Korrekturbelegs ist für die Attribute signsHash und pubKey nicht gültig"
+      },
+      "invalid_receipt_signature_format": {
+        "main": "Die Signatur ist beschädigt",
+        "sub": "Der Beleg entspricht nicht dem Chainpoint 1- oder 2-Format mit Signaturerweiterung"
+      },
+      "file_too_big_to_be_hashed_without_worker": {
+        "main": "Kann nicht ohne Arbeiter hash",
+        "sub": "Die Datei ist zu groß, um ohne Arbeiter gehasht zu werden"
+      }
+    }
   }
 }
