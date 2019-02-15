@@ -1,0 +1,13 @@
+@import "../../../../scss/animation";
+@import "../../../../scss/variables";
+
+:local {
+  .progress_bar {
+    height: 4px;
+    width: 0;
+    animation: $progress_animation;
+    background: $progress-bar-color;
+    transition: $progress_transition;
+    border-radius: 10px;
+  }
+}

@@ -1,0 +1,13 @@
+@import "../../../scss/animation";
+@import "../../../scss/variables";
+
+:local {
+  .progress_title {
+    padding: 0 10px;
+    &__span {
+      color: $primary-color;
+      font-size: 10px;
+      font-weight: bold;
+    }
+  }
+}

@@ -1,6 +1,8 @@
 {
   "translation": {
     "select_file_to_hash": "Veuillez sélectionner un fichier",
+    "file_hashing_in_progress": "Hachage de fichier...",
+    "file_hashing_done": "Le hachage de fichier est terminé",
     "errors": {
       "need_receipt": {
         "main": "No public proof found at Woleet",

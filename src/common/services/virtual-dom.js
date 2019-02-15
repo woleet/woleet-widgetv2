@@ -5,6 +5,8 @@ function DOM(element) {
     throw new TypeError;
   }
   
+  // Allow class customization
+  let hiddenClass = 'hidden';
   /**
    * @type {DOM}
    */
@@ -29,9 +31,11 @@ function DOM(element) {
   
   defineProp('clear', () => getSelf(self.text(''), self.attr('href', null)));
   
-  defineProp('show', () => self.removeClass('hidden'));
+  defineProp('show', () => self.removeClass(hiddenClass));
   
-  defineProp('hide', () => self.addClass('hidden'));
+  defineProp('hide', () => self.addClass(hiddenClass));
+  
+  defineProp('setHiddenClass', className => hiddenClass = className);
   
   defineProp('style', (props) => {
     if (Array.isArray(props)) {
@@ -67,10 +71,14 @@ function DOM(element) {
   });
 }
 
-function createElement(element = 'div', options = {classes: ''}, attrs = {}) {
+function createElement(element = 'div', options = {}, attrs = {}) {
   const domElement = new DOM(document.createElement(element));
   if (options.classes) {
     domElement.addClass(options.classes);
+  }
+  
+  if (options.hidden) {
+    domElement.setHiddenClass(options.hidden);
   }
   
   if (attrs) {
@@ -87,7 +95,7 @@ function createElement(element = 'div', options = {classes: ''}, attrs = {}) {
  * @param options
  * @param attrs
  */
-function createFileInput(options = {classes: ''}, attrs = {}) {
+function createFileInput(options = {}, attrs = {}) {
   return createElement('input', options, utils.extendObject({ type: 'file' }, attrs));
 }
 

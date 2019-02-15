@@ -1,0 +1,15 @@
+@import "../../../scss/animation";
+@import "../../../scss/variables";
+
+:local {
+  .progress_bar {
+    &_wrapper {
+      width: 78%;
+      margin: 6px auto 0;
+      padding: 2px;
+      height: 4px;
+      border-radius: 16px;
+      border: 1px solid $progress-bar-color;
+    }
+  }
+}

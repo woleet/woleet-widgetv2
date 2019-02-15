@@ -1,15 +1,13 @@
-@import "../scss/variables.scss";
+@import "../scss/variables";
+@import "../scss/common";
 
 :local {
-  .woleet {
-    &_file-hasher-widget {
-      &__wrapper {
-        display: block;
-        height: 180px;
-        width: 130px;
-        text-align: center;
-        padding: 10px;
-      }
+  .file_hasher_widget {
+    &_wrapper {
+      display: block;
+      width: 130px;
+      text-align: center;
+      padding: 10px;
     }
   }
 }
