@@ -17,8 +17,7 @@ class ProgressBarWrapper {
   
   init() {
     this.element = virtualDOMService.createElement('div', {
-      classes: utils.extractClasses(styles, styleCodes.progress.wrapper.code),
-      hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
+      classes: utils.extractClasses(styles, styleCodes.progress.wrapper.code)
     });
     this.element.progressBar = (new ProgressBar(this.widget)).get();
   }

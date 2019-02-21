@@ -5,18 +5,13 @@ import styleCodes from '../style-codes';
 import styles from './index.scss';
 
 /**
- * DropZone area
+ * DropContainer area
  */
-class DropZone {
+class DropContainer {
   constructor(widget) {
     this.element = null;
     this.widget = widget;
     this.hasher = window.woleet ? new window.woleet.file.Hasher : null;
-  
-    /**
-     * Bindings
-     */
-    this.onInputFileChanged.bind(this);
     
     this.init();
   }
@@ -24,13 +19,13 @@ class DropZone {
   init() {
     const self = this;
     this.element = virtualDOMService.createElement('div', {
-      classes: utils.extractClasses(styles, styleCodes.dropZone.code)
+      classes: utils.extractClasses(styles, styleCodes.drop.code)
     });
     this.element.icon = virtualDOMService.createElement('i', {
-      classes: utils.extractClasses(styles, styleCodes.dropZone.icon.code)
+      classes: utils.extractClasses(styles, styleCodes.drop.icon.code)
     });
     this.element.input = virtualDOMService.createFileInput({
-      classes: utils.extractClasses(styles, styleCodes.dropZone.input.code)
+      classes: utils.extractClasses(styles, styleCodes.drop.input.code)
     });
     this.element.icon.html(utils.getSolidIconSVG('faFileDownload'));
   
@@ -40,7 +35,7 @@ class DropZone {
     this.element.input.on('change', function () {
       self.onInputFileChanged.call(this, self)
         .then((hash) => {
-          self.widget.observers.dropZoneHashingFinishedObserver.broadcast(hash);
+          self.widget.observers.dropContainerHashingFinishedObserver.broadcast(hash);
         });
     });
   }
@@ -53,7 +48,11 @@ class DropZone {
     }
   
     progress = progress.toFixed(0);
-    this.widget.observers.dropZoneHashingProgressObserver.broadcast(progress);
+    this.widget.observers.dropContainerHashingProgressObserver.broadcast(progress);
+  }
+
+  handleError(event) {
+    this.widget.observers.errorCaughtObserver.broadcast(event.error);
   }
   
   onInputFileChanged(self) {
@@ -68,12 +67,15 @@ class DropZone {
     this.value = null;
   
     self.updateProgress({progress: 0});
-    self.widget.observers.dropZoneHashingStartedObserver.broadcast();
+    self.widget.observers.dropContainerHashingStartedObserver.broadcast();
   
     return new Promise((resolve) => {
       self.hasher.start(file);
       self.hasher.on('progress', (r) => {
         self.updateProgress(r);
+      });
+      self.hasher.on('error', (r) => {
+        self.handleError(r);
       });
       self.hasher.on('result', (r) => {
         resolve(r.result);
@@ -86,4 +88,4 @@ class DropZone {
   }
 }
 
-export default DropZone;
+export default DropContainer;

@@ -23,11 +23,11 @@ class ProgressTitle {
     });
   
     // Initialize the observers
-    this.widget.observers.dropZoneHashingProgressObserver.subscribe((data) => {
+    this.widget.observers.dropContainerHashingProgressObserver.subscribe((data) => {
       this.hashingProgressObserver(data)
     });
   
-    this.widget.observers.dropZoneHashingStartedObserver.subscribe((data) => {
+    this.widget.observers.dropContainerHashingStartedObserver.subscribe((data) => {
       this.hashingStartedObserver(data)
     });
     

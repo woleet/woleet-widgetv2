@@ -3,16 +3,22 @@ const styleCodes = {
   title: {
     code: ['title'],
     container: {
-      code: ['title_zone'],
+      code: ['title_container'],
     }
   },
-  dropZone: {
-    code: ['drop_zone'],
+  error: {
+    code: ['error'],
+    container: {
+      code: ['error_container'],
+    }
+  },
+  drop: {
+    code: ['drop_container'],
     icon: {
-      code: ['drop_zone-icon']
+      code: ['drop_container-icon']
     },
     input: {
-      code: ['drop_zone-file_input']
+      code: ['drop_container-file_input']
     }
   },
   progress: {

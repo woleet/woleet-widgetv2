@@ -1,12 +1,12 @@
 import utils from './utils';
 
+// Allow class customization
+let hiddenClass = 'hidden';
+
 function DOM(element) {
   if ((!element instanceof Element)) {
     throw new TypeError;
   }
-  
-  // Allow class customization
-  let hiddenClass = 'hidden';
   /**
    * @type {DOM}
    */

@@ -15,7 +15,12 @@ const PROOF_VERIFIER_WIDGET_TYPE = 'PROOF_VERIFIER_WIDGET';
 
 const FILE_HASHER_WIDGET_ID = 'file-hasher-widget';
 
+const TIMINGS = {
+  error_displaying: 2000
+};
+
 export default {
+  TIMINGS,
   DEFAULT_WIDGET_MODE,
   WIDGET_MODE_ICON,
   WIDGET_MODE_BANNER,

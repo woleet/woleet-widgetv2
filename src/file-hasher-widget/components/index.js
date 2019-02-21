@@ -5,9 +5,10 @@ import utils from '../../common/services/utils';
 import styleCodes from './style-codes';
 import styles from './index.scss';
 
-import DropZone from './drop-zone';
+import DropContainer from './drop-container';
 import TitleContainer from './title-container';
 import ProgressBarContainer from "./progress-bar-container";
+import ErrorContainer from "./error-container";
 
 /**
  * Define a class of the widget
@@ -30,9 +31,12 @@ class FileHasherWidget {
      * @type {EventObserver}
      */
     this.observers = {
-      dropZoneHashingProgressObserver: new EventObserver(),
-      dropZoneHashingStartedObserver: new EventObserver(),
-      dropZoneHashingFinishedObserver: new EventObserver()
+      dropContainerHashingProgressObserver: new EventObserver(),
+      dropContainerHashingStartedObserver: new EventObserver(),
+      dropContainerHashingFinishedObserver: new EventObserver(),
+      titleShownObserver: new EventObserver(),
+      titleHiddenObserver: new EventObserver(),
+      errorCaughtObserver: new EventObserver()
     };
   }
   
@@ -45,7 +49,7 @@ class FileHasherWidget {
         const observer = configuration.observers[observerName];
         switch (observerName) {
           case 'hashCalculated':
-            this.observers.dropZoneHashingFinishedObserver.subscribe(hash => observer(self.widgetId, hash));
+            this.observers.dropContainerHashingFinishedObserver.subscribe(hash => observer(self.widgetId, hash));
             break;
           default:
             break;
@@ -55,12 +59,16 @@ class FileHasherWidget {
   }
   
   render() {
-    const element = virtualDOMService.createElement('div', {classes: utils.extractClasses(styles, styleCodes.code)});
+    const element = virtualDOMService.createElement('div', {
+      classes: utils.extractClasses(styles, styleCodes.code),
+      hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
+    });
     
-    element.dropZone = (new DropZone(this)).get();
+    element.dropContainer = (new DropContainer(this)).get();
     element.progressBarContainer = (new ProgressBarContainer(this)).get();
     element.titleContainer = (new TitleContainer(this)).get();
-    
+    element.errorContainer = (new ErrorContainer(this)).get();
+
     return element.render();
   }
 }

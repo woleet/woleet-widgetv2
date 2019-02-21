@@ -1,0 +1,12 @@
+@import "../../scss/variables.scss";
+
+:local {
+  .error {
+    &_container {
+
+    }
+
+    font-size: 16px;
+    color: $error-color;
+  }
+}

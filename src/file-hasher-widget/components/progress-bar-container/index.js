@@ -18,18 +18,17 @@ class ProgressBarContainer {
   
   init() {
     this.element = virtualDOMService.createElement('div', {
-      classes: utils.extractClasses(styles, styleCodes.progress.container.code),
-      hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
+      classes: utils.extractClasses(styles, styleCodes.progress.container.code)
     });
     this.element.progressBarWrapper = (new ProgressBarWrapper(this.widget)).get();
     this.element.progressTitle = (new ProgressTitle(this.widget)).get();
     this.element.hide();
   
     // Initialize the observers
-    this.widget.observers.dropZoneHashingStartedObserver.subscribe((data) => {
+    this.widget.observers.dropContainerHashingStartedObserver.subscribe((data) => {
       this.hashingStartedObserver(data)
     });
-    this.widget.observers.dropZoneHashingFinishedObserver.subscribe((data) => {
+    this.widget.observers.dropContainerHashingFinishedObserver.subscribe((data) => {
       this.hashingFinishedObserver(data)
     })
   }
@@ -39,7 +38,7 @@ class ProgressBarContainer {
   }
   
   hashingFinishedObserver() {
-    // this.element.hide();
+    this.element.hide();
   }
   
   get() {

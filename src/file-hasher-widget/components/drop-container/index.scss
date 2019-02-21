@@ -1,7 +1,7 @@
 @import "../../scss/variables.scss";
 
 :local {
-  .drop_zone {
+  .drop_container {
     position: relative;
     &-icon {
       color: $primary-color;

@@ -25,12 +25,18 @@ class TitleContainer {
     this.element.title.text(utils.translate('select_file_to_hash', this.lang));
     
     // Initialize the observers
-    this.widget.observers.dropZoneHashingStartedObserver.subscribe((data) => {
+    this.widget.observers.dropContainerHashingStartedObserver.subscribe((data) => {
       this.hashingStartedObserver(data)
     });
-    this.widget.observers.dropZoneHashingFinishedObserver.subscribe((data) => {
+    this.widget.observers.dropContainerHashingFinishedObserver.subscribe((data) => {
       this.hashingFinishedObserver(data)
-    })
+    });
+    this.widget.observers.titleShownObserver.subscribe((data) => {
+      this.titleShownObserver(data)
+    });
+    this.widget.observers.titleHiddenObserver.subscribe((data) => {
+      this.titleHiddenObserver(data)
+    });
   }
   
   hashingStartedObserver() {
@@ -39,6 +45,14 @@ class TitleContainer {
   
   hashingFinishedObserver() {
     this.element.title.text(utils.translate('file_hashing_done', this.lang));
+  }
+
+  titleShownObserver() {
+    this.element.show();
+  }
+
+  titleHiddenObserver() {
+    this.element.hide();
   }
   
   get() {

@@ -67,6 +67,12 @@ function s4() {
   return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
 }
 
+function setTimer(callback, delay) {
+  if (delay && delay > 0) {
+    setTimeout(callback, delay)
+  }
+}
+
 /**
  * Get nested object property by string
  * @param o
@@ -91,6 +97,7 @@ function byString(o, s) {
 
 export default  {
   byString,
+  setTimer,
   translate,
   getUniqueId,
   extendObject,
