@@ -21,7 +21,7 @@ class FileHasherWidget {
     this.configurator.init(configuration);
   
     this.initializeObservers();
-    this.initializeApplicationObservers(configuration);
+    this.initializeExternalObservers(configuration);
   }
   
   initializeObservers() {
@@ -36,7 +36,7 @@ class FileHasherWidget {
     };
   }
   
-  initializeApplicationObservers(configuration) {
+  initializeExternalObservers(configuration) {
     const self = this;
     if (configuration.observers) {
       const observerNames = Object.keys(configuration.observers);

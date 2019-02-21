@@ -2,40 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Woleet widget V2 examples</title>
-    <!-- IE ZONE -->
+    <title>Woleet widget V2: development page</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 </head>
 <body>
-<div id="file-hasher-widget-de"></div>
-<div id="file-hasher-widget-fr"></div>
-<div style="padding-top: 50px" id="log"></div>
-<!--<div id="proof-verifier-widget-1"></div>-->
 <script>
   var dev = true;
 
-  var fileHasherWidgetConfigurationDE = {
-    lang: 'de',
-    observers: {
-      hashCalculated: hashCalculated
+  var test = {
+    testObserver: function() {
+      console.log("test observer");
     }
   };
-
-  var fileHasherWidgetConfigurationFR = {
-    lang: 'fr',
-    observers: {
-      hashCalculated: hashCalculated
-    }
-  };
-  /*var proofVerifierWidgetConfiguration = {
-    mode: 'FULL',
-    hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-    colors: {
-      'primary-color': '#3A11D8',
-      'secondary-color': '#AA11AA',
-      'third-color': '#F01166'
-    }
-  };*/
 
   function hashCalculated(widgetId, hash) {
     let widgetElement = document.getElementById('log');
@@ -45,23 +23,13 @@
     widgetElement.appendChild(element);
   }
 
-  (function (w,d,i,s,o,f,js,fjs) {
-    w[i]=o;w[o] = w[o]||function () { return w[o] = arguments };
-    js = d.createElement(s); fjs = d.getElementsByTagName(s)[0];
+  (function (d,s,i,f) {
+    var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
     js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
-  }(window, document, 'file-hasher-widget', 'script', 'fhw', 'file-hasher-widget.js'));
-
-  /*(function (w,d,s,o,f,js,fjs) {
-    w['proof-verifier-widget']=o;w[o] = w[o] || function () { (w[o] = arguments) };
-    js = d.createElement(s); fjs = d.getElementsByTagName(s)[0];
-    js.id = o; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
-  }(window, document, 'script', 'pvw', 'proof-verifier-widget.js'));*/
-
-  fhw({
-    'file-hasher-widget-de': fileHasherWidgetConfigurationDE,
-    'file-hasher-widget-fr': fileHasherWidgetConfigurationFR,
-  });
-  //pvw('proof-verifier-widget', proofVerifierWidgetConfiguration);
+  }(document, 'script', 'file-hasher-widget', 'file-hasher-widget.js'));
 </script>
+<div class="file-hasher-widget" config='{"lang": "de", "id": "file-hasher-widget-de", "observers": {"hashCalculated": "window.hashCalculated"}}'></div>
+<div class="file-hasher-widget" config='{"lang": "fr", "observers": {"hashCalculated": "test.testObserver"}}'></div>
+<div style="padding-top: 50px" id="log"></div>
 </body>
 </html>

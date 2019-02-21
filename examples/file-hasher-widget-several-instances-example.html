@@ -7,21 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 </head>
 <body>
-<div id="file-hasher-widget-fr"></div>
-<div id="file-hasher-widget-de"></div>
-<div style="padding-top: 50px" id="log"></div>
 <script>
-  var fileHasherWidgetConfigurationDE = {
-    lang: 'de',
-    observers: {
-      hashCalculated: hashCalculated
-    }
-  };
+  var test = {
+    deep: {
+      testObserver: function(widgetId, hash) {
+        let widgetElement = document.getElementById('log');
+        let element = document.createElement('div');
+        element.innerHTML = 'Deep observer: Hash "' + hash + '" was given by widget with id "' + widgetId + '"';
 
-  var fileHasherWidgetConfigurationFR = {
-    lang: 'fr',
-    observers: {
-      hashCalculated: hashCalculated
+        widgetElement.appendChild(element);
+      }
     }
   };
 
@@ -31,19 +26,15 @@
     element.innerHTML = 'Hash "' + hash + '" was given by widget with id "' + widgetId + '"';
 
     widgetElement.appendChild(element);
-    console.log(widgetId, hash);
   }
 
-  (function (w,d,i,s,o,f,js,fjs) {
-    w[i]=o;w[o] = w[o]||function () { return w[o] = arguments };
-    js = d.createElement(s); fjs = d.getElementsByTagName(s)[0];
+  (function (d,s,i,f) {
+    var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
     js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
-  }(window, document, 'file-hasher-widget', 'script', 'fhw', '../dist/file-hasher-widget.js'));
-
-  fhw({
-    'file-hasher-widget-fr': fileHasherWidgetConfigurationFR,
-    'file-hasher-widget-de': fileHasherWidgetConfigurationDE
-  });
+  }(document, 'script', 'file-hasher-widget', '../dist/file-hasher-widget.js'));
 </script>
+<div class="file-hasher-widget" config='{"lang": "de", "id": "file-hasher-widget-de", "observers": {"hashCalculated": "hashCalculated"}}'></div>
+<div class="file-hasher-widget" config='{"lang": "fr", "observers": {"hashCalculated": "test.deep.testObserver"}}'></div>
+<div style="padding-top: 50px" id="log"></div>
 </body>
 </html>

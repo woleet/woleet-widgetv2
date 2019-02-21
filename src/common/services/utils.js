@@ -53,8 +53,46 @@ function getSolidIconSVG(iconCode, options = {}) {
   return false;
 }
 
+/**
+ * Get unique id
+ * @returns {*}
+ */
+function getUniqueId(prefix = '', suffix = '') {
+  const uniqueId = (s4()+s4()+"-"+s4()+"-"+s4()+"-"+s4()+"-"+s4()+s4()+s4());
+
+  return prefix + uniqueId + suffix;
+}
+
+function s4() {
+  return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+}
+
+/**
+ * Get nested object property by string
+ * @param o
+ * @param s
+ * @returns {*}
+ */
+function byString(o, s) {
+  s = s.replace(/^window./g, '');
+  s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+  s = s.replace(/^\./, '');           // strip a leading dot
+  const a = s.split('.');
+  for (let i = 0, n = a.length; i < n; ++i) {
+    let k = a[i];
+    if (k in o) {
+      o = o[k];
+    } else {
+      return false;
+    }
+  }
+  return o;
+}
+
 export default  {
+  byString,
   translate,
+  getUniqueId,
   extendObject,
   defineProperty,
   extractClasses,

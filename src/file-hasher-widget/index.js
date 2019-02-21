@@ -10,34 +10,68 @@ import FileHasherWidget from './components'
 /**
  * The main entry of the widget
  * @param window
+ * @param document
  */
-function widget(window) {
+function widget(window, document) {
+  /**
+   * TODO: customize it somehow
+   * @type {string}
+   */
+  const widgetConfigurations = [];
+  const widgetClassName = 'file-hasher-widget';
+
   /**
    * Grab the object created during the widget creation
    */
-  let globalObject = window[window['file-hasher-widget']];
-  let widgetConfiguration = globalObject[0];
+  const widgetElementCollection = document.getElementsByClassName(widgetClassName);
   
-  if (!widgetConfiguration)
-    widgetLogger.error(`The widget configuration isn't provided`);
+  if (!widgetElementCollection.length === 0)
+    widgetLogger.error(`The widget elements were not found`);
+
+  const widgetElements = [...widgetElementCollection];
+
+  widgetElements.forEach(widgetElement => {
+    let widgetConfiguration = widgetElement.getAttribute('config');
+    let parsedWidgetConfiguration = JSON.parse(widgetConfiguration);
+
+    if (parsedWidgetConfiguration && parsedWidgetConfiguration.observers) {
+      const observerCodes = Object.keys(parsedWidgetConfiguration.observers);
+
+      /**
+       * Try to find the observers
+       */
+      observerCodes.forEach(observerCode => {
+        const observerName = parsedWidgetConfiguration.observers[observerCode];
+        parsedWidgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function() {};
+      })
+    }
+
+    widgetConfigurations.push({
+      el: widgetElement,
+      id: parsedWidgetConfiguration.id || utils.getUniqueId(widgetClassName + '-'),
+      config: parsedWidgetConfiguration
+    });
+  });
+
+  console.log('widgetConfigurations', widgetConfigurations);
   
   /**
    * Initialize the widget
    */
-  initialize(widgetConfiguration);
+  loadDependencies()
+    .then(response => initialize(widgetConfigurations));
 }
 
 /**
- * Load widget libraries and dependencies and initialize the widget
- * @param widgetConfiguration - Custom widget configuration
+ * Load widget styles, libraries and dependencies
  */
-function initialize(widgetConfiguration) {
+function loadDependencies() {
   /**
    * Load the widget styles
    */
   addCssLink();
   
-  getWidgetDependencies().then(dependencies => {
+  return getWidgetDependencies().then(dependencies => {
     const {woleet, i18n, solidIconsModule} = dependencies;
     
     if (!window.woleet) {
@@ -51,23 +85,8 @@ function initialize(widgetConfiguration) {
     if (!window.solidIconsModule) {
       window.solidIconsModule = solidIconsModule;
     }
-  
-    /**
-     * Initialize all instances of the widget
-     */
-    const widgetIds = Object.keys(widgetConfiguration);
-    
-    widgetIds.forEach(widgetId => {
-      const customConfiguration = widgetConfiguration[widgetId];
-      customConfiguration.widgetId = widgetId;
-      /**
-       * Extend the default widget configuration
-       */
-      let defaultConfiguration = getFileHasherDefaults();
-      const configuration = utils.extendObject(defaultConfiguration, customConfiguration);
-      
-      onWidgetInitialized(widgetId, configuration)
-    });
+
+    return new Promise((resolve, reject) => resolve(true));
   });
 }
 
@@ -97,24 +116,33 @@ function getWidgetDependencies() {
 }
 
 /**
- * It's called when all dependencies are loaded and configuration is defined
- * @param widgetElementId
- * @param configuration
+ * Initialize the widget
+ * @param widgetConfigurations
  */
-function onWidgetInitialized(widgetElementId, configuration) {
-  let widgetElement = document.getElementById(widgetElementId);
-  
-  widgetLogger.log(`The widget ${widgetElementId} was initialized`);
-  
-  if (!widgetElement)
-    widgetLogger.error(`Widget Element with id ${widgetElementId} wasn't found`);
+function initialize(widgetConfigurations) {
   /**
-   * Render a widget instance and render it
+   * Initialize all instances of the widget
    */
-  while (widgetElement.firstChild) {
-    widgetElement.removeChild(widgetElement.firstChild);
-  }
-  widgetElement.appendChild(new FileHasherWidget(configuration).render());
+  widgetConfigurations.forEach(widgetConfiguration => {
+    const {config: customConfiguration, el: widgetElement, id: widgetId} = widgetConfiguration;
+    customConfiguration.widgetId = widgetId;
+    /**
+     * Extend the default widget configuration
+     */
+    let defaultConfiguration = getFileHasherDefaults();
+    const configuration = utils.extendObject(defaultConfiguration, customConfiguration);
+
+    if (!widgetElement)
+      widgetLogger.error(`Widget element wasn't found`);
+
+    /**
+     * Render a widget instance and render it
+     */
+    while (widgetElement.firstChild) {
+      widgetElement.removeChild(widgetElement.firstChild);
+    }
+    widgetElement.appendChild(new FileHasherWidget(configuration).render());
+  });
 }
 
 /**
@@ -143,4 +171,4 @@ window.fileHasherWidget = {
   init: initialize
 };
 
-widget(window);
+widget(window, document);
