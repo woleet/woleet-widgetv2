@@ -4,6 +4,7 @@
 :local {
   .progress_title {
     padding: 0 10px;
+    text-align: right;
     &__span {
       color: $primary-color;
       font-size: 10px;

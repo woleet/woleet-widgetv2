@@ -1,10 +1,10 @@
-import virtualDOMService from '../../../common/services/virtual-dom';
-import utils from '../../../common/services/utils';
-import styleCodes from '../style-codes';
+import virtualDOMService from 'Common/services/virtual-dom';
+import utils from 'Common/services/utils';
+import styleCodes from 'FileHasherComponets/style-codes';
 import styles from './index.scss';
 
-import ProgressBarWrapper from "./progress-bar-wrapper";
 import ProgressTitle from "./progress-title";
+import ProgressBarBody from "./progress-bar-body";
 
 /**
  * ProgressBarContainer
@@ -20,7 +20,7 @@ class ProgressBarContainer {
     this.element = virtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.progress.container.code)
     });
-    this.element.progressBarWrapper = (new ProgressBarWrapper(this.widget)).get();
+    this.element.progressBarBody = (new ProgressBarBody(this.widget)).get();
     this.element.progressTitle = (new ProgressTitle(this.widget)).get();
     this.element.hide();
   
@@ -30,7 +30,10 @@ class ProgressBarContainer {
     });
     this.widget.observers.dropContainerHashingFinishedObserver.subscribe((data) => {
       this.hashingFinishedObserver(data)
-    })
+    });
+    this.widget.observers.dropContainerHashingCanceledObserver.subscribe((data) => {
+      this.hashingFinishedObserver(data)
+    });
   }
   
   hashingStartedObserver() {

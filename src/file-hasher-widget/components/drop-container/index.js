@@ -1,7 +1,7 @@
-import virtualDOMService from '../../../common/services/virtual-dom';
-import utils from '../../../common/services/utils';
-import widgetLogger from '../../../common/services/logger';
-import styleCodes from '../style-codes';
+import virtualDOMService from 'Common/services/virtual-dom';
+import utils from 'Common/services/utils';
+import widgetLogger from 'Common/services/logger';
+import styleCodes from 'FileHasherComponets/style-codes';
 import styles from './index.scss';
 
 /**
@@ -37,6 +37,11 @@ class DropContainer {
         .then((hash) => {
           self.widget.observers.dropContainerHashingFinishedObserver.broadcast(hash);
         });
+    });
+
+    // Initialize the observers
+    this.widget.observers.dropContainerHashingCanceledObserver.subscribe((data) => {
+      this.hashingCanceled(data)
     });
   }
   
@@ -82,7 +87,11 @@ class DropContainer {
       })
     })
   }
-  
+
+  hashingCanceled() {
+    this.hasher.cancel();
+  }
+
   get() {
     return this.element;
   }

@@ -4,7 +4,6 @@
     "file_hashing_in_progress": "Hachage de fichier...",
     "file_hashing_done": "Le hachage de fichier est terminé",
     "errors": {
-      "common": "Erreur: {{error_message}}",
       "need_receipt": {
         "main": "No public proof found at Woleet",
         "sub": "No public proof receipt found at Woleet: you must provide one to verify this file"

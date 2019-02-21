@@ -1,9 +1,9 @@
-import constants from '../common/constants'
-import loader from '../common/services/loader'
-import {getDefaultLanguage, getFileHasherDefaults} from '../common/services/configurator'
-import utils from '../common/services/utils'
-import widgetLogger from '../common/services/logger'
-import resources from '../resources/locales'
+import constants from 'Common/constants'
+import loader from 'Common/services/loader'
+import {getDefaultLanguage, getFileHasherDefaults} from 'Common/services/configurator'
+import utils from 'Common/services/utils'
+import widgetLogger from 'Common/services/logger'
+import resources from 'Resources/locales'
 
 import FileHasherWidget from './components'
 

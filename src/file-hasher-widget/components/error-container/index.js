@@ -1,7 +1,7 @@
-import virtualDOMService from '../../../common/services/virtual-dom';
-import utils from '../../../common/services/utils';
-import constants from '../../../common/constants';
-import styleCodes from '../style-codes';
+import virtualDOMService from 'Common/services/virtual-dom';
+import utils from 'Common/services/utils';
+import constants from 'Common/constants';
+import styleCodes from 'FileHasherComponets/style-codes';
 import styles from './index.scss';
 
 /**
@@ -35,13 +35,16 @@ class ErrorContainer {
   errorCaughtObserver(message) {
     const self = this;
     self.element.show();
-    self.element.title.text(utils.translate('errors.common', this.lang, {error_message: message}));
+
+    console.log(`errors.${message}.main`);
+    self.element.title.text(utils.translate(`errors.${message}.main`, this.lang));
 
     self.widget.observers.titleHiddenObserver.broadcast();
+    self.widget.observers.dropContainerHashingCanceledObserver.broadcast();
 
-    utils.setTimer(() => {
+    /*utils.setTimer(() => {
       self.hideErrorElement();
-    }, constants.TIMINGS.error_displaying)
+    }, constants.TIMINGS.error_displaying)*/
   }
 
   hideErrorElement() {

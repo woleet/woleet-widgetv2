@@ -1,0 +1,16 @@
+@import "../../../../scss/animation";
+@import "../../../../scss/variables";
+
+:local {
+  .progress_bar {
+    &--control {
+      width: 16%;
+  
+      &-icon {
+        color: $error-color;
+        font-size: 11px;
+        cursor: pointer;
+      }
+    }
+  }
+}

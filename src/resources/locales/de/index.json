@@ -4,7 +4,6 @@
     "file_hashing_in_progress": "Datei-Hashing...",
     "file_hashing_done": "Datei-Hashing ist abgeschlossen",
     "errors": {
-      "common": "Error: {{error_message}}",
       "need_receipt": {
         "main": "No public proof found at Woleet",
         "sub": "No public proof receipt found at Woleet: you must provide one to verify this file"

@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -15,6 +16,16 @@ module.exports = (resourcePath = '') => {
 
   const node = {
     fs: 'empty'
+  };
+
+  const resolve = {
+    alias: {
+      Common: path.resolve(__dirname, 'src/common/'),
+      FileHasherWidget: path.resolve(__dirname, 'src/file-hasher-widget/'),
+      FileHasherComponets: path.resolve(__dirname, 'src/file-hasher-widget/components'),
+      Resources: path.resolve(__dirname, 'src/resources/'),
+      ProofVerifierWidget: path.resolve(__dirname, 'src/proof-verifier-widget/')
+    }
   };
 
   const modules = {
@@ -53,6 +64,7 @@ module.exports = (resourcePath = '') => {
     devtool,
     node,
     entry,
+    resolve,
     module: modules,
     plugins
   };

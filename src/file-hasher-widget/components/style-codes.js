@@ -1,5 +1,5 @@
 const styleCodes = {
-  code: ['file_hasher_widget_wrapper'],
+  code: ['file_hasher_widget--wrapper'],
   title: {
     code: ['title'],
     container: {
@@ -23,13 +23,22 @@ const styleCodes = {
   },
   progress: {
     container: {
-      code: ['progress_bar_container']
-    },
-    wrapper: {
-      code: ['progress_bar_wrapper']
+      code: ['progress_bar--container']
     },
     bar: {
       code: ['progress_bar']
+    },
+    control: {
+      code: ['progress_bar--control'],
+      icon: {
+        code: ['progress_bar--control-icon']
+      },
+    },
+    wrapper: {
+      code: ['progress_bar--wrapper']
+    },
+    body: {
+      code: ['progress_bar--body']
     },
     title: {
       code: ['progress_title'],

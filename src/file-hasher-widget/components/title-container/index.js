@@ -1,6 +1,6 @@
-import virtualDOMService from '../../../common/services/virtual-dom';
-import utils from '../../../common/services/utils';
-import styleCodes from '../style-codes';
+import virtualDOMService from 'Common/services/virtual-dom';
+import utils from 'Common/services/utils';
+import styleCodes from 'FileHasherComponets/style-codes';
 import styles from './index.scss';
 
 /**
@@ -29,6 +29,9 @@ class TitleContainer {
       this.hashingStartedObserver(data)
     });
     this.widget.observers.dropContainerHashingFinishedObserver.subscribe((data) => {
+      this.hashingFinishedObserver(data)
+    });
+    this.widget.observers.dropContainerHashingCanceledObserver.subscribe((data) => {
       this.hashingFinishedObserver(data)
     });
     this.widget.observers.titleShownObserver.subscribe((data) => {

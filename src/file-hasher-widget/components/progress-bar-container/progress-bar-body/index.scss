@@ -1,0 +1,13 @@
+@import "../../../scss/animation";
+@import "../../../scss/variables";
+
+:local {
+  .progress_bar {
+    &--body {
+      & > div {
+        display: inline-block;
+        vertical-align: top;
+      }
+    }
+  }
+}

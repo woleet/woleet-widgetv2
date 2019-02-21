@@ -1,7 +1,7 @@
-import ConfigurationService from '../../common/services/configurator';
-import virtualDOMService from '../../common/services/virtual-dom';
-import EventObserver from "../../common/patterns/event-observer";
-import utils from '../../common/services/utils';
+import ConfigurationService from 'Common//services/configurator';
+import virtualDOMService from 'Common/services/virtual-dom';
+import EventObserver from "Common/patterns/event-observer";
+import utils from 'Common/services/utils';
 import styleCodes from './style-codes';
 import styles from './index.scss';
 
@@ -34,6 +34,7 @@ class FileHasherWidget {
       dropContainerHashingProgressObserver: new EventObserver(),
       dropContainerHashingStartedObserver: new EventObserver(),
       dropContainerHashingFinishedObserver: new EventObserver(),
+      dropContainerHashingCanceledObserver: new EventObserver(),
       titleShownObserver: new EventObserver(),
       titleHiddenObserver: new EventObserver(),
       errorCaughtObserver: new EventObserver()
