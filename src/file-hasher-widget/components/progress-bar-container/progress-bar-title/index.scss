@@ -1,0 +1,16 @@
+@import "../../../scss/animation";
+@import "../../../scss/variables";
+
+:local {
+  .progress_bar {
+    &--title {
+      padding: 0 10px;
+      text-align: right;
+      &__span {
+        color: $primary-color;
+        font-size: 10px;
+        font-weight: bold;
+      }
+    }
+  }
+}

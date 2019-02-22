@@ -4,9 +4,9 @@ import styleCodes from 'FileHasherComponets/style-codes';
 import styles from './index.scss';
 
 /**
- * ProgressTitle
+ * ProgressBarTitle
  */
-class ProgressTitle {
+class ProgressBarTitle {
   constructor(widget) {
     this.element = null;
     this.widget = widget;
@@ -51,4 +51,4 @@ class ProgressTitle {
   }
 }
 
-export default ProgressTitle;
+export default ProgressBarTitle;

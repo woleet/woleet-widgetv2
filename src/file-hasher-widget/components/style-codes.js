@@ -41,9 +41,9 @@ const styleCodes = {
       code: ['progress_bar--body']
     },
     title: {
-      code: ['progress_title'],
+      code: ['progress_bar--title'],
       span: {
-        code: ['progress_title__span']
+        code: ['progress_bar--title__span']
       }
     }
   },

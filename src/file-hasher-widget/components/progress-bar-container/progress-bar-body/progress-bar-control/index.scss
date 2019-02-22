@@ -5,7 +5,8 @@
   .progress_bar {
     &--control {
       width: 16%;
-  
+      padding-top: 1px;
+
       &-icon {
         color: $error-color;
         font-size: 11px;

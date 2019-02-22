@@ -3,8 +3,8 @@ import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponets/style-codes';
 import styles from './index.scss';
 
-import ProgressTitle from "./progress-title";
 import ProgressBarBody from "./progress-bar-body";
+import ProgressBarTitle from "./progress-bar-title";
 
 /**
  * ProgressBarContainer
@@ -21,7 +21,7 @@ class ProgressBarContainer {
       classes: utils.extractClasses(styles, styleCodes.progress.container.code)
     });
     this.element.progressBarBody = (new ProgressBarBody(this.widget)).get();
-    this.element.progressTitle = (new ProgressTitle(this.widget)).get();
+    this.element.progressBarTitle = (new ProgressBarTitle(this.widget)).get();
     this.element.hide();
   
     // Initialize the observers
