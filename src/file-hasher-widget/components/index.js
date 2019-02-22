@@ -9,6 +9,7 @@ import DropContainer from './drop-container';
 import TitleContainer from './title-container';
 import ProgressBarContainer from "./progress-bar-container";
 import ErrorContainer from "./error-container";
+import DownloadContainer from "./download-container";
 
 /**
  * Define a class of the widget
@@ -16,11 +17,13 @@ import ErrorContainer from "./error-container";
 class FileHasherWidget {
   constructor(configuration) {
     this.widgetId = configuration.widgetId;
+    this.provenFileUrl = configuration.proven_file;
+    this.configuration = configuration;
     this.configurator = new ConfigurationService();
     this.observers = {};
   
     this.configurator.init(configuration);
-  
+    
     this.initializeObservers();
     this.initializeExternalObservers(configuration);
   }
@@ -31,6 +34,7 @@ class FileHasherWidget {
      * @type {EventObserver}
      */
     this.observers = {
+      fileLoadingFinishedObserver: new EventObserver(),
       dropContainerHashingProgressObserver: new EventObserver(),
       dropContainerHashingStartedObserver: new EventObserver(),
       dropContainerHashingFinishedObserver: new EventObserver(),
@@ -64,12 +68,20 @@ class FileHasherWidget {
       classes: utils.extractClasses(styles, styleCodes.code),
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
     });
+    element.attr('id', this.widgetId);
+    element.style({width: `${this.configuration.styles.width}px`});
     
     element.dropContainer = (new DropContainer(this)).get();
+  
+    if (this.provenFileUrl && this.provenFileUrl !== null) {
+      element.downloadContainer = (new DownloadContainer(this)).get();
+      element.dropContainer.hide();
+    }
+    
     element.progressBarContainer = (new ProgressBarContainer(this)).get();
     element.titleContainer = (new TitleContainer(this)).get();
     element.errorContainer = (new ErrorContainer(this)).get();
-
+    
     return element.render();
   }
 }

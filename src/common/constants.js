@@ -19,8 +19,11 @@ const TIMINGS = {
   error_displaying: 2000
 };
 
+const PROXY_URL = 'http://localhost:3000/download?url=';
+
 export default {
   TIMINGS,
+  PROXY_URL,
   DEFAULT_WIDGET_MODE,
   WIDGET_MODE_ICON,
   WIDGET_MODE_BANNER,

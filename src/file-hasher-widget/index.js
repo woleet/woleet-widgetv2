@@ -129,7 +129,7 @@ function initialize(widgetConfigurations) {
     /**
      * Extend the default widget configuration
      */
-    let defaultConfiguration = getFileHasherDefaults();
+    const defaultConfiguration = getFileHasherDefaults();
     const configuration = utils.extendObject(defaultConfiguration, customConfiguration);
 
     if (!widgetElement)

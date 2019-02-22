@@ -1,7 +1,10 @@
 import constants from "../constants";
 
 const fileHasherWidgetConfiguration = {
-  provenFile: null,
+  proven_file: null,
+  styles: {
+    width: 130
+  },
   lang: constants.DEFAULT_WIDGET_LANGUAGE,
   type: constants.FILE_HASHER_WIDGET_TYPE
 };
@@ -36,6 +39,27 @@ class ConfigurationService {
       return this.configuration.lang;
     }
     return this.getDefaultLanguage();
+  }
+  
+  /**
+   * Get the widget configuration
+   * @returns {*}
+   */
+  get() {
+    if (this.configuration) {
+      return this.configuration;
+    }
+    return {};
+  }
+  
+  /**
+   * Get the widget styles
+   * @returns {*}
+   */
+  getStyles() {
+    if (this.configuration && this.configuration.styles) {
+      return this.configuration.styles;
+    }
   }
   
   /**

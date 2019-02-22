@@ -43,6 +43,12 @@ class DropContainer {
     this.widget.observers.dropContainerHashingCanceledObserver.subscribe((data) => {
       this.hashingCanceled(data)
     });
+    // Initialize the observers
+    this.widget.observers.fileLoadingFinishedObserver.subscribe((data) => {
+      this.hash(data).then((hash) => {
+        self.widget.observers.dropContainerHashingFinishedObserver.broadcast(hash);
+      });
+    });
   }
   
   updateProgress(event) {
@@ -60,16 +66,11 @@ class DropContainer {
     this.widget.observers.errorCaughtObserver.broadcast(event.error);
   }
   
-  onInputFileChanged(self) {
-    let file = this.files[0];
-    if (!self.hasher || self.hasher === null)
-      widgetLogger.error(`${this.widget.widgetId}: Woleet Hasher isn't found`);
+  hash(file) {
+    const self = this;
     
-    if (!file)
-      widgetLogger.error(`${this.widget.widgetId}: File isn't found`);
-  
-    // Reset input value
-    this.value = null;
+    if (!self.hasher || self.hasher === null)
+      widgetLogger.error(`${self.widget.widgetId}: Woleet Hasher isn't found`);
   
     self.updateProgress({progress: 0});
     self.widget.observers.dropContainerHashingStartedObserver.broadcast();
@@ -86,6 +87,18 @@ class DropContainer {
         resolve(r.result);
       })
     })
+  }
+  
+  onInputFileChanged(self) {
+    let file = this.files[0];
+  
+    if (!file)
+      widgetLogger.error(`${this.widget.widgetId}: File isn't found`);
+  
+    // Reset input value
+    this.value = null;
+    
+    return self.hash(file);
   }
 
   hashingCanceled() {

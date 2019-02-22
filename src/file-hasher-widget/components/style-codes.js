@@ -21,6 +21,12 @@ const styleCodes = {
       code: ['drop_container-file_input']
     }
   },
+  download: {
+    code: ['download_container'],
+    body: {
+      code: ['download_container--body']
+    },
+  },
   progress: {
     container: {
       code: ['progress_bar--container']

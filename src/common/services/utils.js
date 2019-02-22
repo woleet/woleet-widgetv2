@@ -74,6 +74,16 @@ function setTimer(callback, delay) {
 }
 
 /**
+ * The function converts Blob to File
+ * @param blob
+ * @param filename
+ * @returns {File}
+ */
+function blobToFile(blob, filename) {
+  return new File([blob], filename, {type: blob.type, lastModifiedDate: new Date()});
+}
+
+/**
  * Get nested object property by string
  * @param o
  * @param s
@@ -99,6 +109,7 @@ export default  {
   byString,
   setTimer,
   translate,
+  blobToFile,
   getUniqueId,
   extendObject,
   defineProperty,

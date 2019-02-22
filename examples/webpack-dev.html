@@ -10,8 +10,12 @@
   var dev = true;
 
   var test = {
-    testObserver: function() {
-      console.log("test observer");
+    testObserver: function(widgetId, hash) {
+      let widgetElement = document.getElementById('log');
+      let element = document.createElement('div');
+      element.innerHTML = 'Hash "' + hash + '" was given by widget with id "' + widgetId + '"';
+
+      widgetElement.appendChild(element);
     }
   };
 
@@ -22,14 +26,14 @@
 
     widgetElement.appendChild(element);
   }
-
+/*https://archive.org/download/Mahabharata_201712/6_Mahabharata.pdf*/
   (function (d,s,i,f) {
     var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
     js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'file-hasher-widget', 'file-hasher-widget.js'));
 </script>
 <div class="file-hasher-widget" config='{"lang": "de", "id": "file-hasher-widget-de", "observers": {"hashCalculated": "window.hashCalculated"}}'></div>
-<div class="file-hasher-widget" config='{"lang": "fr", "observers": {"hashCalculated": "test.testObserver"}}'></div>
+<div class="file-hasher-widget" config='{"lang": "fr", "proven_file": "https://s3.eu-west-3.amazonaws.com/cdn-whitelabel/acciona.png", "styles": {"width": 150}, "observers": {"hashCalculated": "test.testObserver"}}'></div>
 <div style="padding-top: 50px" id="log"></div>
 </body>
 </html>
