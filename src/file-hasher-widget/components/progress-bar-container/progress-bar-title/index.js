@@ -7,9 +7,10 @@ import styles from './index.scss';
  * ProgressBarTitle
  */
 class ProgressBarTitle {
-  constructor(widget) {
+  constructor(widget, observerMapper) {
     this.element = null;
     this.widget = widget;
+    this.observerMapper = observerMapper;
     this.init();
   }
   
@@ -21,17 +22,25 @@ class ProgressBarTitle {
     this.element.span = virtualDOMService.createElement('span', {
       classes: utils.extractClasses(styles, styleCodes.progress.title.span.code)
     });
-  
-    // Initialize the observers
-    this.widget.observers.dropContainerHashingProgressObserver.subscribe((data) => {
-      this.hashingProgressObserver(data)
-    });
-  
-    this.widget.observers.dropContainerHashingStartedObserver.subscribe((data) => {
-      this.hashingStartedObserver(data)
-    });
     
     this.reset();
+    this.initializeObservers();
+  }
+
+  // Initialize the observers
+  initializeObservers() {
+    if (this.observerMapper['processProgressObserver']) {
+      let processProgressObserver = this.observerMapper['processProgressObserver'];
+      this.widget.observers[processProgressObserver].subscribe((data) => {
+        this.hashingProgressObserver(data)
+      });
+    }
+    if (this.observerMapper['processStartedObserver']) {
+      let processStartedObserver = this.observerMapper['processStartedObserver'];
+      this.widget.observers.observers[processStartedObserver].subscribe((data) => {
+        this.hashingStartedObserver(data)
+      });
+    }
   }
   
   hashingProgressObserver(progress) {

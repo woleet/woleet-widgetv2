@@ -1,4 +1,5 @@
-import ConfigurationService from 'Common//services/configurator';
+import {getFileHasherObserverMappers} from 'Common/services/configurator';
+import ConfigurationService from "Common/services/configurator";
 import virtualDOMService from 'Common/services/virtual-dom';
 import EventObserver from "Common/patterns/event-observer";
 import utils from 'Common/services/utils';
@@ -67,6 +68,7 @@ class FileHasherWidget {
   }
   
   render() {
+    const widgetObserverMappers = getFileHasherObserverMappers();
     const element = virtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.code),
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
@@ -80,7 +82,7 @@ class FileHasherWidget {
       element.downloadContainer = (new DownloadContainer(this)).get();
     }
     
-    element.hashingProgressBar = (new ProgressBarContainer(this)).get();
+    element.hashingProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.hashProgressBar)).get();
     element.titleContainer = (new TitleContainer(this)).get();
     element.errorContainer = (new ErrorContainer(this)).get();
 

@@ -7,9 +7,10 @@ import styles from './index.scss';
  * ProgressBar
  */
 class ProgressBar {
-  constructor(widget) {
+  constructor(widget, observerMapper) {
     this.element = null;
     this.widget = widget;
+    this.observerMapper = observerMapper;
     this.init();
   }
   
@@ -17,11 +18,18 @@ class ProgressBar {
     this.element = virtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.progress.bar.code)
     });
-  
-    // Initialize the observers
-    this.widget.observers.dropContainerHashingProgressObserver.subscribe((data) => {
-      this.hashingProgressObserver(data)
-    });
+
+    this.initializeObservers();
+  }
+
+  // Initialize the observers
+  initializeObservers() {
+    if (this.observerMapper['processProgressObserver']) {
+      let processProgressObserver = this.observerMapper['processProgressObserver'];
+      this.widget.observers[processProgressObserver].subscribe((data) => {
+        this.hashingProgressObserver(data)
+      });
+    }
   }
   
   hashingProgressObserver(progress) {

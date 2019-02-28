@@ -9,8 +9,24 @@ const fileHasherWidgetConfiguration = {
   type: constants.FILE_HASHER_WIDGET_TYPE
 };
 
+const fileHasherObserverMappers = {
+  downloadProgressBar: {
+
+  },
+  hashProgressBar: {
+    processProgressObserver: 'dropContainerHashingProgressObserver',
+    processStartedObserver: 'dropContainerHashingStartedObserver',
+    processFinishedObserver: 'dropContainerHashingFinishedObserver',
+    processCanceledObserver: 'dropContainerHashingCanceledObserver',
+  }
+};
+
 function getFileHasherDefaults() {
   return fileHasherWidgetConfiguration;
+}
+
+function getFileHasherObserverMappers() {
+  return fileHasherObserverMappers;
 }
 
 function getDefaultLanguage() {
@@ -76,7 +92,8 @@ class ConfigurationService {
 
 export {
   getFileHasherDefaults,
-  getDefaultLanguage
+  getDefaultLanguage,
+  getFileHasherObserverMappers
 }
 
 export default ConfigurationService;

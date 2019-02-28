@@ -7,9 +7,10 @@ import styles from './index.scss';
  * ProgressBarControl
  */
 class ProgressBarControl {
-  constructor(widget) {
+  constructor(widget, observerMapper) {
     this.element = null;
     this.widget = widget;
+    this.observerMapper = observerMapper;
     this.init();
   }
   
@@ -25,12 +26,20 @@ class ProgressBarControl {
 
     this.element.icon.html(utils.getSolidIconSVG('faTimes'));
 
-    /**
-     * Events
-     */
-    this.element.icon.on('click', function () {
-      self.widget.observers.dropContainerHashingCanceledObserver.broadcast();
-    });
+    this.initializeEvents();
+  }
+
+  /**
+   * Events
+   */
+  initializeEvents() {
+    if (this.observerMapper['processCanceledObserver']) {
+      let processCanceledObserver = this.observerMapper['processCanceledObserver'];
+
+      this.element.icon.on('click', function () {
+        self.widget.observers[processCanceledObserver].broadcast();
+      });
+    }
   }
   
   get() {

@@ -10,9 +10,10 @@ import ProgressBar from "./progress-bar";
  * ProgressBarBody
  */
 class ProgressBarBody {
-  constructor(widget) {
+  constructor(widget, observerMapper) {
     this.element = null;
     this.widget = widget;
+    this.observerMapper = observerMapper;
     this.init();
   }
   
@@ -23,9 +24,8 @@ class ProgressBarBody {
     this.element.progressBarWrapper = virtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.progress.wrapper.code)
     });
-    this.element.progressBarControl = (new ProgressBarControl(this.widget)).get();
-  
-    this.element.progressBarWrapper.progressBar = (new ProgressBar(this.widget)).get();
+    this.element.progressBarControl = (new ProgressBarControl(this.widget, this.observerMapper)).get();
+    this.element.progressBarWrapper.progressBar = (new ProgressBar(this.widget, this.observerMapper)).get();
   }
   
   get() {
