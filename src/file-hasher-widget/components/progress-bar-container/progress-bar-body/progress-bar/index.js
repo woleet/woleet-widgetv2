@@ -27,12 +27,12 @@ class ProgressBar {
     if (this.observerMapper['processProgressObserver']) {
       let processProgressObserver = this.observerMapper['processProgressObserver'];
       this.widget.observers[processProgressObserver].subscribe((data) => {
-        this.hashingProgressObserver(data)
+        this.processProgress(data)
       });
     }
   }
-  
-  hashingProgressObserver(progress) {
+
+  processProgress(progress) {
     this.element.style({width: `${progress}%`});
   }
   

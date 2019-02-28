@@ -33,6 +33,7 @@ class ProgressBarControl {
    * Events
    */
   initializeEvents() {
+    const self = this;
     if (this.observerMapper['processCanceledObserver']) {
       let processCanceledObserver = this.observerMapper['processCanceledObserver'];
 

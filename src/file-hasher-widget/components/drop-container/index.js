@@ -17,7 +17,6 @@ class DropContainer {
   }
   
   init() {
-    const self = this;
     this.element = virtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.drop.code)
     });
@@ -28,28 +27,43 @@ class DropContainer {
       classes: utils.extractClasses(styles, styleCodes.drop.input.code)
     });
     this.element.icon.html(utils.getSolidIconSVG('faFileDownload'));
-  
-    /**
-     * Events
-     */
-    this.element.input.on('change', function () {
-      self.onInputFileChanged.call(this, self)
-        .then((hash) => {
-          self.widget.observers.dropContainerHashingFinishedObserver.broadcast(hash);
-        });
-    });
 
-    // Initialize the observers
+    this.initializeObservers();
+    this.initializeEvents();
+  }
+
+  /**
+   * Initialize the observers
+   */
+  initializeObservers() {
+    const self = this;
     this.widget.observers.downloadModeInitiatedObserver.subscribe((data) => {
       this.downloadModeInitiated(data)
     });
-    this.widget.observers.dropContainerHashingCanceledObserver.subscribe((data) => {
+    this.widget.observers.hashingCanceledObserver.subscribe((data) => {
       this.hashingCanceled(data)
     });
-    this.widget.observers.fileLoadingFinishedObserver.subscribe((data) => {
+    this.widget.observers.downloadingCanceledObserver.subscribe((data) => {
+      this.downloadingCanceled(data)
+    });
+    this.widget.observers.downloadingFinishedObserver.subscribe((data) => {
+      this.downloadingCanceled();
       this.hash(data).then((hash) => {
-        self.widget.observers.dropContainerHashingFinishedObserver.broadcast(hash);
+        self.widget.observers.hashingFinishedObserver.broadcast(hash);
       });
+    });
+  }
+
+  /**
+   * Initialize the events
+   */
+  initializeEvents() {
+    const self = this;
+    this.element.input.on('change', function () {
+      self.onInputFileChanged.call(this, self)
+        .then((hash) => {
+          self.widget.observers.hashingFinishedObserver.broadcast(hash);
+        });
     });
   }
   
@@ -61,7 +75,7 @@ class DropContainer {
     }
   
     progress = progress.toFixed(0);
-    this.widget.observers.dropContainerHashingProgressObserver.broadcast(progress);
+    this.widget.observers.hashingProgressObserver.broadcast(progress);
   }
 
   handleError(event) {
@@ -75,7 +89,7 @@ class DropContainer {
       widgetLogger.error(`${self.widget.widgetId}: Woleet Hasher isn't found`);
   
     self.updateProgress({progress: 0});
-    self.widget.observers.dropContainerHashingStartedObserver.broadcast();
+    self.widget.observers.hashingStartedObserver.broadcast();
   
     return new Promise((resolve) => {
       self.hasher.start(file);
@@ -105,6 +119,10 @@ class DropContainer {
 
   downloadModeInitiated() {
     this.element.hide();
+  }
+
+  downloadingCanceled() {
+    this.element.show();
   }
 
   hashingCanceled() {

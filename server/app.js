@@ -14,8 +14,9 @@ app.use(cors());
 
 app.get('/download', function (req, res) {
   const { url: fileUrl } = req.query;
+  const requestObject = request(fileUrl);
 
-  progress(request(fileUrl), {})
+  progress(requestObject, {})
     .on('progress', function (state) {
       // The state is an object that looks like this:
       // {
@@ -32,11 +33,14 @@ app.get('/download', function (req, res) {
       // }
       console.log('progress', state);
     })
-    .on('error', function (err) {
-      // Do something with err
+    .on('abort', function () {
+      console.log('abort');
+    })
+    .on('error', function () {
+      console.log('error');
     })
     .on('end', function () {
-      // Do something after request finishes
+      console.log('end');
     })
     .pipe(res);
 });

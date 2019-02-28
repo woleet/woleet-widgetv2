@@ -22,7 +22,16 @@
     setTimeout(function () {
       fileHasherWidget.init([
         {id: 'file-hasher-widget-fr', el: document.getElementById('file-hasher-widget-de'), config: {lang: 'fr'}},
-        {id: 'file-hasher-widget-en', el: document.getElementById('file-hasher-widget-en'), config: {lang: 'en'}}
+        {id: 'file-hasher-widget-en', el: document.getElementById('file-hasher-widget-en'), config:
+            {
+              proven_file:{
+                  url: "http://pngimg.com/uploads/google/google_PNG19644.png"
+              },
+              styles: {
+                width: 250
+              }
+            }
+        }
       ]);
     }, 3000);
   }, 3000);

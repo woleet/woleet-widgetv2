@@ -11,13 +11,16 @@ const fileHasherWidgetConfiguration = {
 
 const fileHasherObserverMappers = {
   downloadProgressBar: {
-
+    processProgressObserver: 'downloadingProgressObserver',
+    processStartedObserver: 'downloadingStartedObserver',
+    processFinishedObserver: 'downloadingFinishedObserver',
+    processCanceledObserver: 'downloadingCanceledObserver',
   },
   hashProgressBar: {
-    processProgressObserver: 'dropContainerHashingProgressObserver',
-    processStartedObserver: 'dropContainerHashingStartedObserver',
-    processFinishedObserver: 'dropContainerHashingFinishedObserver',
-    processCanceledObserver: 'dropContainerHashingCanceledObserver',
+    processProgressObserver: 'hashingProgressObserver',
+    processStartedObserver: 'hashingStartedObserver',
+    processFinishedObserver: 'hashingFinishedObserver',
+    processCanceledObserver: 'hashingCanceledObserver',
   }
 };
 

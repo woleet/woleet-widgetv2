@@ -27,6 +27,9 @@ const styleCodes = {
       code: ['download_container--body'],
       icon: {
         code: ['download_container--body-icon']
+      },
+      progressBarWrapper: {
+        code: ['download_container--body-progress_bar--wrapper']
       }
     }
   },

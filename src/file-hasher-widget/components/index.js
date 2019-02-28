@@ -37,14 +37,23 @@ class FileHasherWidget {
     this.observers = {
       /*States*/
       downloadModeInitiatedObserver: new EventObserver(),
-      /*Events*/
-      fileLoadingFinishedObserver: new EventObserver(),
-      dropContainerHashingProgressObserver: new EventObserver(),
-      dropContainerHashingStartedObserver: new EventObserver(),
-      dropContainerHashingFinishedObserver: new EventObserver(),
-      dropContainerHashingCanceledObserver: new EventObserver(),
+      /*Events: file downloading*/
+      downloadingProgressObserver: new EventObserver(),
+      downloadingStartedObserver: new EventObserver(),
+      downloadingFinishedObserver: new EventObserver(),
+      downloadingCanceledObserver: new EventObserver(),
+
+      /*Events: file hashing*/
+      hashingProgressObserver: new EventObserver(),
+      hashingStartedObserver: new EventObserver(),
+      hashingFinishedObserver: new EventObserver(),
+      hashingCanceledObserver: new EventObserver(),
+
+      /*Events: title*/
       titleShownObserver: new EventObserver(),
       titleHiddenObserver: new EventObserver(),
+
+      /*Events: errors*/
       errorCaughtObserver: new EventObserver()
     };
   }
@@ -58,7 +67,7 @@ class FileHasherWidget {
         const observer = configuration.observers[observerName];
         switch (observerName) {
           case 'hashCalculated':
-            this.observers.dropContainerHashingFinishedObserver.subscribe(hash => observer(self.widgetId, hash));
+            this.observers.hashingFinishedObserver.subscribe(hash => observer(self.widgetId, hash));
             break;
           default:
             break;
@@ -82,7 +91,7 @@ class FileHasherWidget {
       element.downloadContainer = (new DownloadContainer(this)).get();
     }
     
-    element.hashingProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.hashProgressBar)).get();
+    element.hashProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.hashProgressBar)).get();
     element.titleContainer = (new TitleContainer(this)).get();
     element.errorContainer = (new ErrorContainer(this)).get();
 

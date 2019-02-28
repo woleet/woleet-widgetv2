@@ -53,7 +53,7 @@ class PreviewContainer {
     }
   
     progress = progress.toFixed(0);
-    this.widget.observers.dropContainerHashingProgressObserver.broadcast(progress);*/
+    this.widget.observers.hashingProgressObserver.broadcast(progress);*/
   }
 
   handleError(event) {

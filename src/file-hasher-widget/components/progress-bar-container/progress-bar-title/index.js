@@ -32,22 +32,22 @@ class ProgressBarTitle {
     if (this.observerMapper['processProgressObserver']) {
       let processProgressObserver = this.observerMapper['processProgressObserver'];
       this.widget.observers[processProgressObserver].subscribe((data) => {
-        this.hashingProgressObserver(data)
+        this.processProgress(data)
       });
     }
     if (this.observerMapper['processStartedObserver']) {
       let processStartedObserver = this.observerMapper['processStartedObserver'];
-      this.widget.observers.observers[processStartedObserver].subscribe((data) => {
-        this.hashingStartedObserver(data)
+      this.widget.observers[processStartedObserver].subscribe((data) => {
+        this.processStarted(data)
       });
     }
   }
-  
-  hashingProgressObserver(progress) {
+
+  processProgress(progress) {
     this.element.span.text(`${progress}%`);
   }
-  
-  hashingStartedObserver() {
+
+  processStarted() {
     this.reset();
   }
   

@@ -23,18 +23,28 @@ class TitleContainer {
       classes: utils.extractClasses(styles, styleCodes.title.code)
     });
     this.element.title.text(utils.translate('select_file_to_hash', this.lang));
-    
-    // Initialize the observers
+
+    this.initializeObservers();
+  }
+
+  // Initialize the observers
+  initializeObservers() {
     this.widget.observers.downloadModeInitiatedObserver.subscribe((data) => {
       this.downloadModeInitiated(data)
     });
-    this.widget.observers.dropContainerHashingStartedObserver.subscribe((data) => {
+    this.widget.observers.hashingStartedObserver.subscribe((data) => {
       this.hashingStarted(data)
     });
-    this.widget.observers.dropContainerHashingFinishedObserver.subscribe((data) => {
+    this.widget.observers.downloadingFinishedObserver.subscribe((data) => {
+      this.downloadingFinished(data)
+    });
+    this.widget.observers.downloadingCanceledObserver.subscribe((data) => {
+      this.downloadingFinished(data);
+    });
+    this.widget.observers.hashingFinishedObserver.subscribe((data) => {
       this.hashingFinished(data)
     });
-    this.widget.observers.dropContainerHashingCanceledObserver.subscribe((data) => {
+    this.widget.observers.hashingCanceledObserver.subscribe((data) => {
       this.hashingFinished(data)
     });
     this.widget.observers.titleShownObserver.subscribe((data) => {
@@ -51,6 +61,10 @@ class TitleContainer {
   
   hashingFinished() {
     this.element.title.text(utils.translate('file_hashing_done', this.lang));
+  }
+
+  downloadingFinished() {
+    this.element.title.text(utils.translate('select_file_to_hash', this.lang));
   }
 
   downloadModeInitiated(fileConfiguration) {

@@ -42,7 +42,7 @@ class ErrorContainer {
     }
 
     self.widget.observers.titleHiddenObserver.broadcast();
-    self.widget.observers.dropContainerHashingCanceledObserver.broadcast();
+    self.widget.observers.hashingCanceledObserver.broadcast();
   }
 
   hideErrorElement() {

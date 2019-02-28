@@ -1,11 +1,10 @@
 import virtualDOMService from 'Common/services/virtual-dom';
-import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponets/style-codes';
+import utils from 'Common/services/utils';
 import styles from './index.scss';
 
 import ProgressBarBody from "./progress-bar-body";
 import ProgressBarTitle from "./progress-bar-title";
-import EventObserver from "Common/patterns/event-observer";
 
 /**
  * ProgressBarContainer
@@ -34,28 +33,28 @@ class ProgressBarContainer {
     if (this.observerMapper['processStartedObserver']) {
       let processStartedObserver = this.observerMapper['processStartedObserver'];
       this.widget.observers[processStartedObserver].subscribe((data) => {
-        this.hashingStartedObserver(data)
+        this.processStarted(data)
       });
     }
     if (this.observerMapper['processFinishedObserver']) {
       let processFinishedObserver = this.observerMapper['processFinishedObserver'];
       this.widget.observers[processFinishedObserver].subscribe((data) => {
-        this.hashingFinishedObserver(data)
+        this.processFinished(data)
       });
     }
     if (this.observerMapper['processCanceledObserver']) {
       let processCanceledObserver = this.observerMapper['processCanceledObserver'];
       this.widget.observers[processCanceledObserver].subscribe((data) => {
-        this.hashingFinishedObserver(data)
+        this.processFinished(data)
       });
     }
   }
-  
-  hashingStartedObserver() {
+
+  processStarted() {
     this.element.show();
   }
-  
-  hashingFinishedObserver() {
+
+  processFinished() {
     this.element.hide();
   }
   
