@@ -17,9 +17,9 @@ import DownloadContainer from "./download-container";
 class FileHasherWidget {
   constructor(configuration) {
     this.widgetId = configuration.widgetId;
-    this.provenFileUrl = configuration.proven_file;
-    this.configuration = configuration;
     this.configurator = new ConfigurationService();
+    this.configuration = configuration;
+    this.provenFileConfiguration = configuration.proven_file;
     this.observers = {};
   
     this.configurator.init(configuration);
@@ -34,6 +34,9 @@ class FileHasherWidget {
      * @type {EventObserver}
      */
     this.observers = {
+      /*States*/
+      downloadModeInitiatedObserver: new EventObserver(),
+      /*Events*/
       fileLoadingFinishedObserver: new EventObserver(),
       dropContainerHashingProgressObserver: new EventObserver(),
       dropContainerHashingStartedObserver: new EventObserver(),
@@ -72,15 +75,18 @@ class FileHasherWidget {
     element.style({width: `${this.configuration.styles.width}px`});
     
     element.dropContainer = (new DropContainer(this)).get();
-  
-    if (this.provenFileUrl && this.provenFileUrl !== null) {
+
+    if (this.provenFileConfiguration && this.provenFileConfiguration !== null) {
       element.downloadContainer = (new DownloadContainer(this)).get();
-      element.dropContainer.hide();
     }
     
-    element.progressBarContainer = (new ProgressBarContainer(this)).get();
+    element.hashingProgressBar = (new ProgressBarContainer(this)).get();
     element.titleContainer = (new TitleContainer(this)).get();
     element.errorContainer = (new ErrorContainer(this)).get();
+
+    if (this.provenFileConfiguration && this.provenFileConfiguration !== null) {
+      this.observers.downloadModeInitiatedObserver.broadcast(this.provenFileConfiguration);
+    }
     
     return element.render();
   }

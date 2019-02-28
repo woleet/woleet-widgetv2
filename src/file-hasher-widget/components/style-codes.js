@@ -24,8 +24,11 @@ const styleCodes = {
   download: {
     code: ['download_container'],
     body: {
-      code: ['download_container--body']
-    },
+      code: ['download_container--body'],
+      icon: {
+        code: ['download_container--body-icon']
+      }
+    }
   },
   progress: {
     container: {

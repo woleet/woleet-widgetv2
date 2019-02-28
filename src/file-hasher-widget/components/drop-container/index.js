@@ -40,10 +40,12 @@ class DropContainer {
     });
 
     // Initialize the observers
+    this.widget.observers.downloadModeInitiatedObserver.subscribe((data) => {
+      this.downloadModeInitiated(data)
+    });
     this.widget.observers.dropContainerHashingCanceledObserver.subscribe((data) => {
       this.hashingCanceled(data)
     });
-    // Initialize the observers
     this.widget.observers.fileLoadingFinishedObserver.subscribe((data) => {
       this.hash(data).then((hash) => {
         self.widget.observers.dropContainerHashingFinishedObserver.broadcast(hash);
@@ -99,6 +101,10 @@ class DropContainer {
     this.value = null;
     
     return self.hash(file);
+  }
+
+  downloadModeInitiated() {
+    this.element.hide();
   }
 
   hashingCanceled() {

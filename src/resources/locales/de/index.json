@@ -1,6 +1,8 @@
 {
   "translation": {
     "select_file_to_hash": "Bitte wählen Sie eine Datei aus",
+    "click_to_download": "Klicken Sie auf das Symbol, um die Datei herunterzuladen",
+    "file_downloading_in_progress": "Herunterladen von Dateien...",
     "file_hashing_in_progress": "Datei-Hashing...",
     "file_hashing_done": "Datei-Hashing ist abgeschlossen",
     "errors": {

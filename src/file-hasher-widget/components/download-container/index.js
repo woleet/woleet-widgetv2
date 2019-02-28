@@ -1,18 +1,22 @@
 import virtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponets/style-codes';
-import styles from './index.scss';
 import constants from "Common/constants";
+import styles from './index.scss';
 
 /**
  * DownloadContainer
  */
 class DownloadContainer {
   constructor(widget) {
+    const {url: provenFileUrl, fast_download: fastDownload} = widget.configuration.proven_file;
+
     this.element = null;
     this.widget = widget;
-    this.url = this.widget.configuration.proven_file;
-    
+    this.url = provenFileUrl || null;
+    this.fastDownload = fastDownload || false;
+    this.lang = this.widget.configurator.getLanguage();
+
     this.init();
   }
   
@@ -30,11 +34,12 @@ class DownloadContainer {
     });
   
     this.element.body.icon = virtualDOMService.createElement('i', {
-      classes: utils.extractClasses(styles, styleCodes.progress.control.icon.code)
+      classes: utils.extractClasses(styles, styleCodes.download.body.icon.code)
     });
   
     this.element.body.icon.html(utils.getSolidIconSVG('faDownload'));
-  
+    this.element.body.icon.attr('title', utils.translate('click_to_download', this.lang));
+
     /**
      * Events
      */

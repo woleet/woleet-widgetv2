@@ -1,6 +1,8 @@
 {
   "translation": {
     "select_file_to_hash": "Please select a file",
+    "click_to_download": "Click the icon to download the file",
+    "file_downloading_in_progress": "File downloading...",
     "file_hashing_in_progress": "File hashing...",
     "file_hashing_done": "File hashing is done",
     "errors": {
