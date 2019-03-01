@@ -11,15 +11,25 @@ import ProgressBarContainer from "FileHasherWidget/components/progress-bar-conta
  */
 class DownloadContainer {
   constructor(widget) {
-    const {url: provenFileUrl, fast_download: fastDownload} = widget.configuration.proven_file;
+    const {url: provenFileUrl} = widget.configuration.proven_file;
 
     this.element = null;
+    this.request = null;
     this.widget = widget;
     this.url = provenFileUrl || null;
-    this.request = null;
-    this.fastDownload = fastDownload || false;
     this.lang = this.widget.configurator.getLanguage();
-
+    
+    this.observerMapper = {
+      'downloadingProgress': 'downloadingProgressObserver',
+      'downloadingStarted': 'downloadingStartedObserver',
+      'downloadingFinished': 'downloadingFinishedObserver'
+    };
+    
+    if (this.url !== null) {
+      const downloadFilename = utils.getUrlToDownload(this.url);
+      this.request = utils.getHttpRequest(downloadFilename, this.widget, this.observerMapper);
+    }
+  
     this.init();
   }
   
@@ -82,47 +92,10 @@ class DownloadContainer {
     });
   }
   
-  download(url) {
-    const self = this;
-    const proxyFileUrl = constants.PROXY_URL + url;
-    console.log('download proxy url', proxyFileUrl);
-
-    this.request = new XMLHttpRequest();
-    
-    return new Promise((resolve, reject) => {
-      this.request.addEventListener('readystatechange', () => {
-        if(this.request.readyState === 2 && this.request.status === 200) {
-          // Download is being started
-        } else if(this.request.readyState === 3) {
-          // Download is under progress
-        } else if(this.request.readyState === 4) {
-          // Downloading has finished
-          if (this.request.response) {
-            const file = utils.blobToFile(this.request.response, 'loaded_file');
-            self.widget.observers.downloadingFinishedObserver.broadcast(file);
-          }
-        }
-      });
-
-      this.request.addEventListener("progress", function (evt) {
-        if (evt.lengthComputable) {
-          const percentComplete = parseInt((evt.loaded / evt.total) * 100, 10);
-          self.widget.observers.downloadingProgressObserver.broadcast(percentComplete);
-        }
-      }, false);
-
-      this.request.responseType = 'blob';
-      this.request.open("GET", proxyFileUrl, true);
-      this.request.send();
-
-      self.widget.observers.downloadingStartedObserver.broadcast();
-
-      this.request.onerror = function () {
-        reject({code: 0});
-      };
-    }).catch((err) => {
-      console.log('error', err);
-    });
+  download() {
+    if (this.request !== null) {
+      this.request.start();
+    }
   }
 
   downloadFile() {
@@ -139,7 +112,9 @@ class DownloadContainer {
   }
 
   downloadingCanceled() {
-    this.request.abort();
+    if (this.request !== null) {
+      this.request.abort();
+    }
   }
 
   downloadingFinished() {

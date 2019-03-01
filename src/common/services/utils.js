@@ -1,10 +1,13 @@
 import { icon } from '@fortawesome/fontawesome-svg-core'
+import constants from "Common/constants";
 
 function extendObject(a, b) {
+  const clone = {...a};
+  
   for (let key in b)
     if (b.hasOwnProperty(key))
-      a[key] = b[key];
-  return a;
+      clone[key] = b[key];
+  return clone;
 }
 
 function defineProperty(target) {
@@ -84,6 +87,76 @@ function blobToFile(blob, filename) {
 }
 
 /**
+ * Get url to download file using Proxy Server
+ * @param filename
+ * @returns {*}
+ */
+function getUrlToDownload(filename) {
+  return constants.PROXY_URL + filename;
+}
+
+/**
+ * @param downloadFilename
+ * @param widget
+ * @param observerMapper
+ * @returns {XMLHttpRequest}
+ */
+function getHttpRequest(downloadFilename, widget, observerMapper) {
+  let request = new XMLHttpRequest();
+  
+  request.addEventListener('readystatechange', () => {
+    if(request.readyState === 2 && request.status === 200) {
+      // Download is being started
+      if (observerMapper['downloadingStarted']) {
+        const downloadingStartedObserver = observerMapper['downloadingStarted'];
+        widget.observers[downloadingStartedObserver].broadcast();
+      }
+    } else if(request.readyState === 3) {
+      // Download is under progress
+    } else if(request.readyState === 4) {
+      // Downloading has finished
+      if (request.response) {
+        const filename = downloadFilename.substring(downloadFilename.lastIndexOf('/')+1);
+        const file = blobToFile(request.response, filename);
+        
+        if (observerMapper['downloadingFinished']) {
+          const downloadingFinishedObserver = observerMapper['downloadingFinished'];
+          widget.observers[downloadingFinishedObserver].broadcast(file);
+        }
+      }
+    }
+  });
+  
+  request.addEventListener("progress", function (evt) {
+    if (evt.lengthComputable) {
+      const percentComplete = parseInt((evt.loaded / evt.total) * 100, 10);
+      if (observerMapper['downloadingProgress']) {
+        const downloadingProgressObserver = observerMapper['downloadingProgress'];
+        widget.observers[downloadingProgressObserver].broadcast(percentComplete);
+      }
+    }
+  }, false);
+  
+  request.responseType = 'blob';
+  
+  
+  
+  request.onerror = function (error) {
+    if (observerMapper['downloadingFailed']) {
+      const downloadingFailedObserver = observerMapper['downloadingFailed'];
+      widget.observers[downloadingFailedObserver].broadcast(error);
+    }
+  };
+  
+  request.start = () => {
+    request.open("GET", downloadFilename, true);
+    request.send();
+  };
+  
+  return request;
+}
+
+/**
  * Get nested object property by string
  * @param o
  * @param s
@@ -113,7 +186,9 @@ export default  {
   getUniqueId,
   extendObject,
   defineProperty,
+  getHttpRequest,
   extractClasses,
   getSolidIconSVG,
+  getUrlToDownload,
   getRegularIconSVG
 }

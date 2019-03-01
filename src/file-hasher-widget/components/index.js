@@ -69,6 +69,9 @@ class FileHasherWidget {
           case 'hashCalculated':
             this.observers.hashingFinishedObserver.subscribe(hash => observer(self.widgetId, hash));
             break;
+          case 'fileDownloaded':
+            this.observers.downloadingFinishedObserver.subscribe(file => observer(self.widgetId, file));
+            break;
           default:
             break;
         }
