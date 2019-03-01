@@ -26,7 +26,7 @@ class DownloadContainer {
     
     if (this.url !== null) {
       const downloadFilename = utils.getUrlToDownload(this.url);
-      this.request = utils.getHttpRequest(downloadFilename, this.widget, this.observerMapper);
+      this.request = utils.getHttpRequest(downloadFilename, this.widget, this.observerMapper, this.url);
     }
   
     this.init();

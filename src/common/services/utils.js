@@ -96,12 +96,31 @@ function getUrlToDownload(filename) {
 }
 
 /**
+ * Get filename of a URL
+ * @param url
+ * @returns {string}
+ */
+function getFilenameUrl(url) {
+  return url.substring(url.lastIndexOf('/')+1);
+}
+
+/**
+ * Get filename of a URL
+ * @param filename
+ * @returns {string}
+ */
+function getFileExtension(filename) {
+  return filename.substring(filename.lastIndexOf('.')+1).toLowerCase();
+}
+
+/**
  * @param downloadFilename
  * @param widget
  * @param observerMapper
+ * @param url
  * @returns {XMLHttpRequest}
  */
-function getHttpRequest(downloadFilename, widget, observerMapper) {
+function getHttpRequest(downloadFilename, widget, observerMapper, url = false) {
   let request = new XMLHttpRequest();
   
   request.addEventListener('readystatechange', () => {
@@ -116,8 +135,12 @@ function getHttpRequest(downloadFilename, widget, observerMapper) {
     } else if(request.readyState === 4) {
       // Downloading has finished
       if (request.response) {
-        const filename = downloadFilename.substring(downloadFilename.lastIndexOf('/')+1);
+        
+        
+        const filename = getFilenameUrl(downloadFilename);
         const file = blobToFile(request.response, filename);
+  
+        file.url = url;
         
         if (observerMapper['downloadingFinished']) {
           const downloadingFinishedObserver = observerMapper['downloadingFinished'];
@@ -188,7 +211,9 @@ export default  {
   defineProperty,
   getHttpRequest,
   extractClasses,
+  getFilenameUrl,
   getSolidIconSVG,
+  getFileExtension,
   getUrlToDownload,
   getRegularIconSVG
 }

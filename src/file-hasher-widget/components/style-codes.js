@@ -37,6 +37,9 @@ const styleCodes = {
     code: ['preview_container'],
     body: {
       code: ['preview_container--body'],
+      icon: {
+        code: ['preview_container--body-icon']
+      },
       image: {
         code: ['preview_container--body-image'],
         wrapper: {
