@@ -79,9 +79,15 @@ class DownloadContainer {
       this.downloadingCanceled(data);
       this.downloadingFinished(data);
     });
-    this.widget.observers.errorCaughtObserver.subscribe((data) => {
-      this.downloadingCanceled(data);
-      this.downloadingFinished(data);
+    this.widget.observers.errorCaughtObserver.subscribe(() => {
+      this.downloadingCanceled();
+      this.downloadingFinished();
+    });
+    this.widget.observers.downloadingFinishedObserver.subscribe(() => {
+      this.downloadingFinished();
+    });
+    this.widget.observers.fileSelectedObserver.subscribe(() => {
+      this.downloadingFinished();
     });
   }
 

@@ -36,7 +36,13 @@ const styleCodes = {
   preview: {
     code: ['preview_container'],
     body: {
-      code: ['preview_container--body']
+      code: ['preview_container--body'],
+      image: {
+        code: ['preview_container--body-image'],
+        wrapper: {
+          code: ['preview_container--body-image_wrapper']
+        }
+      }
     }
   },
   progress: {

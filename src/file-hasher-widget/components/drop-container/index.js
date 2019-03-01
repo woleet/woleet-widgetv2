@@ -47,10 +47,13 @@ class DropContainer {
       this.downloadingCanceled(data)
     });
     this.widget.observers.downloadingFinishedObserver.subscribe((data) => {
-      this.downloadingCanceled();
+      this.downloadingFinished();
       this.hash(data).then((hash) => {
         self.widget.observers.hashingFinishedObserver.broadcast(hash);
       });
+    });
+    this.widget.observers.fileSelectedObserver.subscribe(() => {
+      this.downloadingFinished();
     });
     this.widget.observers.errorCaughtObserver.subscribe(() => {
       this.downloadingCanceled();
@@ -117,11 +120,17 @@ class DropContainer {
   
     // Reset input value
     this.value = null;
+  
+    self.widget.observers.fileSelectedObserver.broadcast(file);
     
     return self.hash(file);
   }
 
   downloadModeInitiated() {
+    this.element.hide();
+  }
+
+  downloadingFinished() {
     this.element.hide();
   }
 

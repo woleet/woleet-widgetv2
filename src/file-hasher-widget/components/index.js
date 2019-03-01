@@ -45,6 +45,7 @@ class FileHasherWidget {
       downloadingCanceledObserver: new EventObserver(),
 
       /*Events: file hashing*/
+      fileSelectedObserver: new EventObserver(),
       hashingProgressObserver: new EventObserver(),
       hashingStartedObserver: new EventObserver(),
       hashingFinishedObserver: new EventObserver(),
@@ -69,6 +70,7 @@ class FileHasherWidget {
             break;
           case 'fileDownloaded':
             this.observers.downloadingFinishedObserver.subscribe(file => observer(self.widgetId, file));
+            this.observers.fileSelectedObserver.subscribe(file => observer(self.widgetId, file));
             break;
           default:
             break;
