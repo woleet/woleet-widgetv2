@@ -1,6 +1,6 @@
 import virtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
-import styleCodes from 'FileHasherComponets/style-codes';
+import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 
 /**
@@ -24,10 +24,19 @@ class ErrorContainer {
     });
 
     this.hideErrorElement();
-    
-    // Initialize the observers
+    this.initializeObservers();
+  }
+  
+  // Initialize the observers
+  initializeObservers() {
     this.widget.observers.errorCaughtObserver.subscribe((data) => {
       this.errorCaughtObserver(data)
+    });
+    this.widget.observers.hashingStartedObserver.subscribe(() => {
+      this.hideErrorElement()
+    });
+    this.widget.observers.downloadingStartedObserver.subscribe(() => {
+      this.hideErrorElement()
     });
   }
 
@@ -40,16 +49,13 @@ class ErrorContainer {
     } else {
       self.element.title.text(utils.translate(`errors.${error.message}`, this.lang));
     }
-
-    self.widget.observers.titleHiddenObserver.broadcast();
-    self.widget.observers.hashingCanceledObserver.broadcast();
   }
 
   hideErrorElement() {
     this.element.title.text('');
     this.element.hide();
 
-    this.widget.observers.titleShownObserver.broadcast();
+    this.widget.observers.errorHiddenObserver.broadcast();
   }
   
   get() {

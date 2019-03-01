@@ -1,10 +1,10 @@
 import virtualDOMService from 'Common/services/virtual-dom';
-import styleCodes from 'FileHasherComponets/style-codes';
+import styleCodes from 'FileHasherComponents/style-codes';
 import utils from 'Common/services/utils';
 import styles from './index.scss';
 
-import ProgressBarBody from "./progress-bar-body";
-import ProgressBarTitle from "./progress-bar-title";
+import ProgressBarBody from './progress-bar-body';
+import ProgressBarTitle from './progress-bar-title';
 
 /**
  * ProgressBarContainer
@@ -48,6 +48,9 @@ class ProgressBarContainer {
         this.processFinished(data)
       });
     }
+    this.widget.observers.errorCaughtObserver.subscribe((data) => {
+      this.processFinished(data)
+    });
   }
 
   processStarted() {

@@ -1,10 +1,9 @@
 import virtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
-import styleCodes from 'FileHasherComponets/style-codes';
-import constants from "Common/constants";
+import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
-import {getFileHasherObserverMappers} from "Common/services/configurator";
-import ProgressBarContainer from "FileHasherWidget/components/progress-bar-container";
+import {getFileHasherObserverMappers} from 'Common/services/configurator';
+import ProgressBarContainer from 'FileHasherWidget/components/progress-bar-container';
 
 /**
  * DownloadContainer
@@ -77,6 +76,10 @@ class DownloadContainer {
       this.downloadingFinished(data)
     });
     this.widget.observers.downloadingCanceledObserver.subscribe((data) => {
+      this.downloadingCanceled(data);
+      this.downloadingFinished(data);
+    });
+    this.widget.observers.errorCaughtObserver.subscribe((data) => {
       this.downloadingCanceled(data);
       this.downloadingFinished(data);
     });

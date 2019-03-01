@@ -1,6 +1,6 @@
 import virtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
-import styleCodes from 'FileHasherComponets/style-codes';
+import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 
 /**
@@ -35,6 +35,9 @@ class TitleContainer {
     this.widget.observers.hashingStartedObserver.subscribe((data) => {
       this.hashingStarted(data)
     });
+    this.widget.observers.downloadingStartedObserver.subscribe((data) => {
+      this.hashingStarted(data)
+    });
     this.widget.observers.downloadingFinishedObserver.subscribe((data) => {
       this.downloadingFinished(data)
     });
@@ -47,16 +50,22 @@ class TitleContainer {
     this.widget.observers.hashingCanceledObserver.subscribe((data) => {
       this.hashingFinished(data)
     });
-    this.widget.observers.titleShownObserver.subscribe((data) => {
+    this.widget.observers.errorHiddenObserver.subscribe((data) => {
       this.titleShown(data)
     });
-    this.widget.observers.titleHiddenObserver.subscribe((data) => {
+    this.widget.observers.errorCaughtObserver.subscribe((data) => {
       this.titleHidden(data)
     });
   }
   
   hashingStarted() {
+    this.element.show();
     this.element.title.text(utils.translate('file_hashing_in_progress', this.lang));
+  }
+  
+  downloadingStarted() {
+    this.element.show();
+    this.element.title.text(utils.translate('file_downloading_in_progress', this.lang));
   }
   
   hashingFinished() {
@@ -69,7 +78,7 @@ class TitleContainer {
 
   downloadModeInitiated(fileConfiguration) {
     if (fileConfiguration.fast_download) {
-      this.element.title.text(utils.translate('file_downloading_in_progress', this.lang));
+      this.downloadingStarted();
     } else {
       this.element.title.text(utils.translate('click_to_download', this.lang));
     }

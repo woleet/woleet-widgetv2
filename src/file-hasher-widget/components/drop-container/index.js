@@ -1,7 +1,7 @@
 import virtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import widgetLogger from 'Common/services/logger';
-import styleCodes from 'FileHasherComponets/style-codes';
+import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 
 /**
@@ -51,6 +51,10 @@ class DropContainer {
       this.hash(data).then((hash) => {
         self.widget.observers.hashingFinishedObserver.broadcast(hash);
       });
+    });
+    this.widget.observers.errorCaughtObserver.subscribe(() => {
+      this.downloadingCanceled();
+      this.hashingCanceled();
     });
   }
 

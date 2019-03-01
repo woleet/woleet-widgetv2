@@ -1,16 +1,17 @@
 import {getFileHasherObserverMappers} from 'Common/services/configurator';
-import ConfigurationService from "Common/services/configurator";
+import ConfigurationService from 'Common/services/configurator';
 import virtualDOMService from 'Common/services/virtual-dom';
-import EventObserver from "Common/patterns/event-observer";
+import EventObserver from 'Common/patterns/event-observer';
 import utils from 'Common/services/utils';
 import styleCodes from './style-codes';
 import styles from './index.scss';
 
-import DropContainer from './drop-container';
-import TitleContainer from './title-container';
-import ProgressBarContainer from "./progress-bar-container";
-import ErrorContainer from "./error-container";
-import DownloadContainer from "./download-container";
+import DropContainer from 'FileHasherWidget/components/drop-container';
+import TitleContainer from 'FileHasherWidget/components/title-container';
+import ProgressBarContainer from 'FileHasherWidget/components/progress-bar-container';
+import ErrorContainer from 'FileHasherWidget/components/error-container';
+import DownloadContainer from 'FileHasherWidget/components/download-container';
+import PreviewContainer from 'FileHasherWidget/components/preview-container';
 
 /**
  * Define a class of the widget
@@ -49,12 +50,9 @@ class FileHasherWidget {
       hashingFinishedObserver: new EventObserver(),
       hashingCanceledObserver: new EventObserver(),
 
-      /*Events: title*/
-      titleShownObserver: new EventObserver(),
-      titleHiddenObserver: new EventObserver(),
-
       /*Events: errors*/
-      errorCaughtObserver: new EventObserver()
+      errorCaughtObserver: new EventObserver(),
+      errorHiddenObserver: new EventObserver()
     };
   }
   
@@ -89,6 +87,7 @@ class FileHasherWidget {
     element.style({width: `${this.configuration.styles.width}px`});
     
     element.dropContainer = (new DropContainer(this)).get();
+    element.previewContainer = (new PreviewContainer(this)).get();
 
     if (this.provenFileConfiguration && this.provenFileConfiguration !== null) {
       element.downloadContainer = (new DownloadContainer(this)).get();

@@ -33,6 +33,12 @@ const styleCodes = {
       }
     }
   },
+  preview: {
+    code: ['preview_container'],
+    body: {
+      code: ['preview_container--body']
+    }
+  },
   progress: {
     container: {
       code: ['progress_bar--container']
