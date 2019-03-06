@@ -40,16 +40,13 @@
       hashCalculated: function(widgetId, hash) {
         let logElement = document.getElementById('hash-logging');
         let logElementItem = document.createElement('p');
-        logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" was given by the widget with id "' + widgetId + '"';
-
+        logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id  "' + widgetId + '"';
         logElement.appendChild(logElementItem);
       },
       fileDownloadedObserver: function(widgetId, file) {
         let logElement = document.getElementById('download-logging');
         let logElementItem = document.createElement('p');
-
-        logElementItem.innerHTML = 'Deep observer: downloading "' + file.name + '" was downloaded by the widget with id "' + widgetId + '"';
-
+        logElementItem.innerHTML = 'Deep observer: "' + file.name + '" downloaded by widget id  "' + widgetId + '"';
         logElement.appendChild(logElementItem);
       }
     }
@@ -58,10 +55,9 @@
   function hashCalculated(widgetId, hash) {
     let logElement = document.getElementById('hash-logging');
     let logElementItem = document.createElement('p');
-    logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" was given by widget with id "' + widgetId + '"';
-
+    logElementItem.innerHTML = 'Window observer: Hash "' + hash + '" computed by widget id "' + widgetId + '"';
     logElement.appendChild(logElementItem);
-  }
+  };
 
   (function (d,s,i,f) {
     var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];

@@ -8,11 +8,11 @@ npm i
 
 # File Hasher widget
 
-This widget will focus on file downloading, hashing and previewing.
+This widget allows to drop or download a file, compute its hash and preview it.
 
 ## Initialization
 
-Insert next code to integrate the widget in a web page.
+To integrate one or several widgets in a web page, first insert the following code:
 
 ```bash
 <script>
@@ -23,27 +23,36 @@ Insert next code to integrate the widget in a web page.
 </script>
 ```
 
-The single parameter that should be changed is the last one. Replace *<url_to_script>* with the real path of the script.
+Note that you need to replace *<url_to_script>* with the actual path of the script.
+
+Then, instantiate each widget by creating a <div>:
+
+```html
+<div class="file-hasher-widget" config='{"lang": "fr"}'}}'></div>
+```
 
 ## Configuration
 
-The next options are available.
+The following options are available:
+
+TODO
 
 ## Basic usage
 
 See [examples/file-hasher-widget-example.html](examples/file-hasher-widget-example.html) for an example about how to insert this widget in a web page.
 
-
-
-# Proof Verifier widget
-
 # Download Proxy Server
 
-To download any file from the Internet, it's needful to launch the Node.js server that is like a proxy server to get the files are forbidden by CORS. The server script is quiet simple. It just broadcasts the resource flow to the widget.
+To allow the widget to download the file, the file URL must be proxied or the URL must support CORS.
 
-Execute next command to launch the script:
+For testing, a Node.js server is provided. This simple server simply redirect the resource flow to the widget.
+Execute next command to launch the server:
 
 ```bash
 cd ./server
 node app
 ```
+
+# Proof Verifier widget
+
+This widget focuses on proof verification and displaying.
