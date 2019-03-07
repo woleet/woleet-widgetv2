@@ -1,35 +1,31 @@
 import constants from "../constants";
 
-const fileHasherWidgetConfiguration = {
-  proven_file: null,
-  styles: {
-    width: 130
-  },
-  lang: constants.DEFAULT_WIDGET_LANGUAGE,
-  type: constants.FILE_HASHER_WIDGET_TYPE
-};
-
-const fileHasherObserverMappers = {
-  downloadProgressBar: {
-    processProgressObserver: 'downloadingProgressObserver',
-    processStartedObserver: 'downloadingStartedObserver',
-    processFinishedObserver: 'downloadingFinishedObserver',
-    processCanceledObserver: 'downloadingCanceledObserver',
-  },
-  hashProgressBar: {
-    processProgressObserver: 'hashingProgressObserver',
-    processStartedObserver: 'hashingStartedObserver',
-    processFinishedObserver: 'hashingFinishedObserver',
-    processCanceledObserver: 'hashingCanceledObserver',
-  }
-};
-
 function getFileHasherDefaults() {
-  return fileHasherWidgetConfiguration;
+  return {
+    provenfile: null,
+    styles: {
+      width: 130
+    },
+    lang: constants.DEFAULT_WIDGET_LANGUAGE,
+    type: constants.FILE_HASHER_WIDGET_TYPE
+  };
 }
 
 function getFileHasherObserverMappers() {
-  return fileHasherObserverMappers;
+  return {
+    downloadProgressBar: {
+      processProgressObserver: 'downloadingProgressObserver',
+      processStartedObserver: 'downloadingStartedObserver',
+      processFinishedObserver: 'downloadingFinishedObserver',
+      processCanceledObserver: 'downloadingCanceledObserver',
+    },
+    hashProgressBar: {
+      processProgressObserver: 'hashingProgressObserver',
+      processStartedObserver: 'hashingStartedObserver',
+      processFinishedObserver: 'hashingFinishedObserver',
+      processCanceledObserver: 'hashingCanceledObserver',
+    }
+  };
 }
 
 function getDefaultLanguage() {

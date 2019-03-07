@@ -1,13 +1,37 @@
 import { icon } from '@fortawesome/fontawesome-svg-core'
 import constants from "Common/constants";
 
-function extendObject(a, b) {
-  const clone = {...a};
-  
-  for (let key in b)
-    if (b.hasOwnProperty(key))
-      clone[key] = b[key];
-  return clone;
+/**
+ * Simple object check.
+ * @param item
+ * @returns {boolean}
+ */
+export function isObject(item) {
+  return (item && typeof item === 'object' && !Array.isArray(item));
+}
+
+/**
+ * Deep merge two objects.
+ * @param target
+ * @param sources
+ * @returns {*}
+ */
+export function mergeDeep(target, ...sources) {
+  if (!sources.length) return target;
+  const source = sources.shift();
+
+  if (isObject(target) && isObject(source)) {
+    for (const key in source) {
+      if (isObject(source[key])) {
+        if (!target[key]) Object.assign(target, { [key]: {} });
+        mergeDeep(target[key], source[key]);
+      } else {
+        Object.assign(target, { [key]: source[key] });
+      }
+    }
+  }
+
+  return mergeDeep(target, ...sources);
 }
 
 function defineProperty(target) {
@@ -25,7 +49,7 @@ function extractClasses(styles, classCodes) {
 
 function translate(code, lang = '', options = {}) {
   if (window.i18n && window.i18n.t) {
-    return window.i18n.t(code, extendObject({ lng: lang }, options));
+    return window.i18n.t(code, mergeDeep({ lng: lang }, options));
   }
   return code;
 }
@@ -201,13 +225,50 @@ function byString(o, s) {
   return o;
 }
 
+/**
+ *
+ * @param str
+ * @param value
+ * @param result
+ * @returns {{}}
+ */
+function getObjectByString(str, value, result = {}) {
+  const values = str.split('.');
+  const item = values.shift();
+
+  if (values.length === 0) {
+    result[item] = value;
+    return result;
+  }
+
+  result[item] = getObjectByString(values.join('.'), value);
+  return result;
+}
+
+/**
+ * Check is the property exists in the object
+ * @param object
+ * @param property
+ */
+function getObjectProperty(object, property) {
+  let result = false;
+
+  for (let key in object) {
+    if (object.hasOwnProperty(key) && key.toLowerCase() === property.toLowerCase()) {
+      result = object[key];
+    }
+  }
+
+  return result;
+}
+
 export default  {
   byString,
   setTimer,
   translate,
   blobToFile,
   getUniqueId,
-  extendObject,
+  extendObject: mergeDeep,
   defineProperty,
   getHttpRequest,
   extractClasses,
@@ -215,5 +276,7 @@ export default  {
   getSolidIconSVG,
   getFileExtension,
   getUrlToDownload,
-  getRegularIconSVG
+  getRegularIconSVG,
+  getObjectByString,
+  getObjectProperty
 }

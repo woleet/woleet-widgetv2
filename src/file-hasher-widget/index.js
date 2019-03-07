@@ -31,35 +31,75 @@ function widget(window, document) {
   const widgetElements = [...widgetElementCollection];
 
   widgetElements.forEach(widgetElement => {
-    let widgetConfiguration = widgetElement.getAttribute('config');
-    let parsedWidgetConfiguration = JSON.parse(widgetConfiguration);
+    let widgetConfiguration = parseWidgetAttributeConfiguration(widgetElement);
 
-    if (parsedWidgetConfiguration && parsedWidgetConfiguration.observers) {
-      const observerCodes = Object.keys(parsedWidgetConfiguration.observers);
+    if (widgetConfiguration && widgetConfiguration.observers) {
+      const observerCodes = Object.keys(widgetConfiguration.observers);
 
       /**
        * Try to find the observers
        */
       observerCodes.forEach(observerCode => {
-        const observerName = parsedWidgetConfiguration.observers[observerCode];
-        parsedWidgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function() {};
+        const observerName = widgetConfiguration.observers[observerCode];
+        widgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function() {};
       })
     }
 
     widgetConfigurations.push({
       el: widgetElement,
-      id: parsedWidgetConfiguration.id || utils.getUniqueId(widgetClassName + '-'),
-      config: parsedWidgetConfiguration
+      id: widgetConfiguration.id || utils.getUniqueId(widgetClassName + '-'),
+      config: widgetConfiguration
     });
   });
-
-  console.log('widgetConfigurations', widgetConfigurations);
   
   /**
    * Initialize the widget
    */
   loadDependencies()
     .then(response => initialize(widgetConfigurations));
+}
+
+/**
+ * Fetch all configuration attributes and define the widget configuration
+ * @param widgetElement
+ */
+function parseWidgetAttributeConfiguration(widgetElement) {
+  const forbiddenAttributes = ['config', 'class'];
+  let elementAttributes = {};
+  let widgetConfiguration = {};
+
+  for (let i = 0, attrs = widgetElement.attributes; i < attrs.length; i++) {
+    elementAttributes[attrs[i].nodeName] = attrs[i].nodeValue;
+  }
+
+  if (elementAttributes.config) {
+    widgetConfiguration = JSON.parse(elementAttributes.config);
+  }
+
+  const attributesKeys = Object.keys(elementAttributes);
+
+  attributesKeys.forEach((key) => {
+    if (forbiddenAttributes.indexOf(key) === -1) {
+      const attributeValue = elementAttributes[key];
+
+      try {
+        widgetConfiguration[key] = JSON.parse(attributeValue);
+      } catch (e) {
+        widgetConfiguration[key] = attributeValue;
+      }
+
+      const keyParts = key.split('-');
+
+      if (keyParts.length > 1) {
+        const configurationObject = utils.getObjectByString(keyParts.join('.'), widgetConfiguration[key]);
+
+        utils.extendObject(widgetConfiguration, configurationObject);
+        delete widgetConfiguration[key];
+      }
+    }
+  });
+
+  return widgetConfiguration;
 }
 
 /**
@@ -129,11 +169,13 @@ function initialize(widgetConfigurations) {
     /**
      * Extend the default widget configuration
      */
-    const defaultConfiguration = getFileHasherDefaults();
-    const configuration = utils.extendObject(defaultConfiguration, customConfiguration);
+    const configuration = getFileHasherDefaults();
+    utils.extendObject(configuration, customConfiguration);
 
     if (!widgetElement)
       widgetLogger.error(`Widget element wasn't found`);
+
+    console.log('configuration', configuration);
 
     /**
      * Render a widget instance and render it

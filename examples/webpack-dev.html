@@ -57,15 +57,34 @@
     logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id "' + widgetId + '"';
     logElement.appendChild(logElementItem);
   }
-/*https://archive.org/download/Mahabharata_201712/6_Mahabharata.pdf*/
+/**
+ *
+ * This is a big pdf file. It's used during the development process
+ * https://archive.org/download/Mahabharata_201712/6_Mahabharata.pdf
+ *
+ * */
   (function (d,s,i,f) {
     var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
     js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'file-hasher-widget', 'file-hasher-widget.js'));
 </script>
-<div class="file-hasher-widget" config='{"lang": "de", "id": "file-hasher-widget-de", "observers": {"hashCalculated": "window.hashCalculated"}}'></div>
-<div class="file-hasher-widget" config='{"lang": "fr", "proven_file": {"url": "http://pngimg.com/uploads/google/google_PNG19634.png", "fast_download": true}, "styles": {"width": 150}, "observers": {"hashCalculated": "test.hashCalculatedObserver"}}'></div>
-<div class="file-hasher-widget" config='{"proven_file": {"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}, "styles": {"width": 250}, "observers": {"hashCalculated": "test.hashCalculatedObserver", "fileDownloaded": "test.fileDownloadedObserver"}}'></div>
+<div class='file-hasher-widget'
+     lang='de'
+     styles-padding='"4px"'
+     id='file-hasher-widget-de'
+     observers='{"hashCalculated": "window.hashCalculated"}'></div>
+<div class='file-hasher-widget'
+     lang='fr'
+     styles-color='#FFFFFF'
+     styles-width='320'
+     observers-hashCalculated='test.hashCalculatedObserver'
+     provenfile='{"url": "http://pngimg.com/uploads/google/google_PNG19634.png", "fastDownload": true}'></div>
+<div class='file-hasher-widget'
+     styles='{"width": 250}'
+     provenfile='{"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}'
+     provenfile-url='http://pngimg.com/uploads/google/google_PNG19644.png'
+     observers='{"hashCalculated": "test.hashCalculatedObserver", "fileDownloaded": "test.fileDownloadedObserver"}'
+></div>
 <div class="log download-logging" id="download-logging"></div>
 <div class="log hash-logging" id="hash-logging"></div>
 </body>

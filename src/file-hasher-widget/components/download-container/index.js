@@ -10,25 +10,25 @@ import ProgressBarContainer from 'FileHasherWidget/components/progress-bar-conta
  */
 class DownloadContainer {
   constructor(widget) {
-    const {url: provenFileUrl} = widget.configuration.proven_file;
+    const {url: provenFileUrl} = utils.getObjectProperty(widget.configuration, 'provenFile');
 
     this.element = null;
     this.request = null;
     this.widget = widget;
     this.url = provenFileUrl || null;
     this.lang = this.widget.configurator.getLanguage();
-    
+
     this.observerMapper = {
       'downloadingProgress': 'downloadingProgressObserver',
       'downloadingStarted': 'downloadingStartedObserver',
       'downloadingFinished': 'downloadingFinishedObserver'
     };
-    
+
     if (this.url !== null) {
       const downloadFilename = utils.getUrlToDownload(this.url);
       this.request = utils.getHttpRequest(downloadFilename, this.widget, this.observerMapper, this.url);
     }
-  
+
     this.init();
   }
   
@@ -115,7 +115,7 @@ class DownloadContainer {
   }
 
   downloadModeInitiated(fileConfiguration) {
-    if (fileConfiguration.fast_download) {
+    if (utils.getObjectProperty(fileConfiguration, 'fastDownload')) {
      this.downloadFile();
     }
   }

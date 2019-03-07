@@ -21,7 +21,7 @@ class FileHasherWidget {
     this.widgetId = configuration.widgetId;
     this.configurator = new ConfigurationService();
     this.configuration = configuration;
-    this.provenFileConfiguration = configuration.proven_file;
+    this.provenFileConfiguration = utils.getObjectProperty(configuration, 'provenFile');
     this.observers = {};
   
     this.configurator.init(configuration);
@@ -64,11 +64,11 @@ class FileHasherWidget {
       
       observerNames.forEach(observerName => {
         const observer = configuration.observers[observerName];
-        switch (observerName) {
-          case 'hashCalculated':
+        switch (observerName.toLowerCase()) {
+          case 'hashcalculated':
             this.observers.hashingFinishedObserver.subscribe(hash => observer(self.widgetId, hash));
             break;
-          case 'fileDownloaded':
+          case 'filedownloaded':
             this.observers.downloadingFinishedObserver.subscribe(file => observer(self.widgetId, file));
             this.observers.fileSelectedObserver.subscribe(file => observer(self.widgetId, file));
             break;

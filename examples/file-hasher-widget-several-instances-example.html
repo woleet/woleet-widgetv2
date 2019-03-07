@@ -36,19 +36,17 @@
 <body>
 <script>
   var test = {
-    deep: {
-      hashCalculated: function(widgetId, hash) {
-        let logElement = document.getElementById('hash-logging');
-        let logElementItem = document.createElement('p');
-        logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id  "' + widgetId + '"';
-        logElement.appendChild(logElementItem);
-      },
-      fileDownloadedObserver: function(widgetId, file) {
-        let logElement = document.getElementById('download-logging');
-        let logElementItem = document.createElement('p');
-        logElementItem.innerHTML = 'Deep observer: "' + file.name + '" downloaded by widget id  "' + widgetId + '"';
-        logElement.appendChild(logElementItem);
-      }
+    hashCalculated: function(widgetId, hash) {
+      let logElement = document.getElementById('hash-logging');
+      let logElementItem = document.createElement('p');
+      logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id  "' + widgetId + '"';
+      logElement.appendChild(logElementItem);
+    },
+    fileDownloadedObserver: function(widgetId, file) {
+      let logElement = document.getElementById('download-logging');
+      let logElementItem = document.createElement('p');
+      logElementItem.innerHTML = 'Deep observer: "' + file.name + '" downloaded by widget id  "' + widgetId + '"';
+      logElement.appendChild(logElementItem);
     }
   };
 
@@ -57,16 +55,23 @@
     let logElementItem = document.createElement('p');
     logElementItem.innerHTML = 'Window observer: Hash "' + hash + '" computed by widget id "' + widgetId + '"';
     logElement.appendChild(logElementItem);
-  };
+  }
 
   (function (d,s,i,f) {
     var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
     js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'file-hasher-widget', '../dist/file-hasher-widget.js'));
 </script>
-<div class="file-hasher-widget" config='{"lang": "de", "id": "file-hasher-widget-de", "observers": {"hashCalculated": "window.hashCalculated"}}'></div>
-<div class="file-hasher-widget" config='{"lang": "fr", "proven_file": {"url": "http://pngimg.com/uploads/google/google_PNG19634.png", "fast_download": true}, "styles": {"width": 150}, "observers": {"hashCalculated": "test.deep.hashCalculated"}}'></div>
-<div class="file-hasher-widget" config='{"proven_file": {"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}, "styles": {"width": 250}, "observers": {"hashCalculated": "test.deep.hashCalculated", "fileDownloaded": "test.deep.fileDownloadedObserver"}}'></div>
+<div class='file-hasher-widget' id='file-hasher-widget-de'
+     observers-hashCalculated='window.hashCalculated'
+     styles-width='270'
+     lang='de'></div>
+<div class='file-hasher-widget'
+     lang='fr'
+     styles='{"width": 150}'
+     provenfile='{"url": "http://pngimg.com/uploads/google/google_PNG19634.png", "fastDownload": true}'
+     observers='{"hashCalculated": "test.hashCalculated"}'></div>
+<div class="file-hasher-widget" config='{"provenFile": {"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}, "styles": {"width": 250}, "observers": {"hashCalculated": "test.hashCalculated", "fileDownloaded": "test.fileDownloadedObserver"}}'></div>
 <div class="log download-logging" id="download-logging"></div>
 <div class="log hash-logging" id="hash-logging"></div>
 </body>
