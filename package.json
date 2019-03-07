@@ -38,6 +38,7 @@
     "lodash": "^4.17.11",
     "node-sass": "^4.11.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "pdfjs-dist": "^2.0.943",
     "request": "^2.88.0",
     "request-progress": "^3.0.0",
     "sass-loader": "^7.1.0",

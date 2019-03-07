@@ -22,9 +22,16 @@ function getSolidFontAwesomeIcons() {
   }).catch(error => 'An error occurred while loading the component');
 }
 
-export default  {
+function getPdfJs() {
+  return import(/* webpackChunkName: "pdf.js" */'pdfjs-dist').then((module) => {
+    return module;
+  }).catch(error => 'An error occurred while loading the component');
+}
+
+export default {
+  getPdfJs,
   getWoleetLibs,
   getI18nService,
-  getReguralFontAwesomeIcons,
-  getSolidFontAwesomeIcons
+  getSolidFontAwesomeIcons,
+  getReguralFontAwesomeIcons
 }

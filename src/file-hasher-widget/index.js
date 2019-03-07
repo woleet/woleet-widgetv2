@@ -112,7 +112,7 @@ function loadDependencies() {
   addCssLink();
   
   return getWidgetDependencies().then(dependencies => {
-    const {woleet, i18n, solidIconsModule} = dependencies;
+    const {woleet, i18n, PdfJs, solidIconsModule} = dependencies;
     
     if (!window.woleet) {
       window.woleet = woleet;
@@ -121,6 +121,12 @@ function loadDependencies() {
     if (!window.i18n) {
       window.i18n = i18n;
     }
+
+    /*if (!window.PdfJs) {
+      console.log('PdfJs', PdfJs);
+
+      window.PdfJs = PdfJs;
+    }*/
     
     if (!window.solidIconsModule) {
       window.solidIconsModule = solidIconsModule;
@@ -139,10 +145,11 @@ function getWidgetDependencies() {
   
   dependenciesPromises.push(loader.getWoleetLibs());
   dependenciesPromises.push(loader.getI18nService());
+  dependenciesPromises.push(loader.getPdfJs());
   dependenciesPromises.push(loader.getSolidFontAwesomeIcons());
   
   return Promise.all(dependenciesPromises)
-    .then(([woleet, i18n, solidIconsModule]) => {
+    .then(([woleet, i18n, PdfJs, solidIconsModule]) => {
       const initializationPromises = [];
       /**
        * Configure i18next
@@ -151,7 +158,7 @@ function getWidgetDependencies() {
         i18n.init({fallbackLng: getDefaultLanguage(), debug: window.dev, resources})
       );
       return Promise.all(initializationPromises)
-        .then(() => {return {woleet, i18n, solidIconsModule}})
+        .then(() => {return {woleet, i18n, PdfJs, solidIconsModule}})
     });
 }
 
