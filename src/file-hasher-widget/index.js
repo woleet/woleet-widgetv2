@@ -109,10 +109,10 @@ function loadDependencies() {
   /**
    * Load the widget styles
    */
-  addCssLink();
+  const sourceLink = addCssLink();
   
   return getWidgetDependencies().then(dependencies => {
-    const {woleet, i18n, PdfJs, solidIconsModule} = dependencies;
+    const {woleet, i18n, solidIconsModule} = dependencies;
     
     if (!window.woleet) {
       window.woleet = woleet;
@@ -121,15 +121,13 @@ function loadDependencies() {
     if (!window.i18n) {
       window.i18n = i18n;
     }
-
-    /*if (!window.PdfJs) {
-      console.log('PdfJs', PdfJs);
-
-      window.PdfJs = PdfJs;
-    }*/
     
     if (!window.solidIconsModule) {
       window.solidIconsModule = solidIconsModule;
+    }
+
+    if (!window['file-hasher-widget-source'] && sourceLink !== null) {
+      window['file-hasher-widget-source'] = sourceLink;
     }
 
     return new Promise((resolve, reject) => resolve(true));
@@ -145,11 +143,10 @@ function getWidgetDependencies() {
   
   dependenciesPromises.push(loader.getWoleetLibs());
   dependenciesPromises.push(loader.getI18nService());
-  dependenciesPromises.push(loader.getPdfJs());
   dependenciesPromises.push(loader.getSolidFontAwesomeIcons());
   
   return Promise.all(dependenciesPromises)
-    .then(([woleet, i18n, PdfJs, solidIconsModule]) => {
+    .then(([woleet, i18n, solidIconsModule]) => {
       const initializationPromises = [];
       /**
        * Configure i18next
@@ -158,7 +155,7 @@ function getWidgetDependencies() {
         i18n.init({fallbackLng: getDefaultLanguage(), debug: window.dev, resources})
       );
       return Promise.all(initializationPromises)
-        .then(() => {return {woleet, i18n, PdfJs, solidIconsModule}})
+        .then(() => {return {woleet, i18n, solidIconsModule}})
     });
 }
 
@@ -202,11 +199,15 @@ function addCssLink() {
   const styleId = `${constants.FILE_HASHER_WIDGET_ID}-style`;
   const script = document.getElementById(constants.FILE_HASHER_WIDGET_ID);
   const style = document.getElementById(styleId);
-  
+  let sourcePath = null;
+
   if (script && script.src && style === null) {
     const styleSrc = script.src.replace('.js', '.css');
     const head = document.getElementsByTagName('head')[0];
     const link = document.createElement('link');
+
+    sourcePath = utils.getFilenameSource(script.src);
+
     link.rel = 'stylesheet';
     link.id = styleId;
     link.type = 'text/css';
@@ -214,6 +215,8 @@ function addCssLink() {
     link.media = 'all';
     head.appendChild(link);
   }
+
+  return sourcePath;
 }
 
 window.fileHasherWidget = {

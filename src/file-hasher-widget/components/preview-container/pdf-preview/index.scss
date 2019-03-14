@@ -1,0 +1,15 @@
+@import '../../../scss/variables.scss';
+
+:local {
+  .preview_container {
+    position: relative;
+    
+    &--pdf {
+      position: relative;
+      
+      &-canvas {
+        font-size: 14px;
+      }
+    }
+  }
+}

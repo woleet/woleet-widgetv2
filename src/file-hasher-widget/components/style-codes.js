@@ -46,6 +46,12 @@ const styleCodes = {
           code: ['preview_container--body-image_wrapper']
         }
       }
+    },
+    pdf: {
+      code: ['preview_container--pdf'],
+      canvas: {
+        code: ['preview_container--pdf-canvas']
+      }
     }
   },
   progress: {

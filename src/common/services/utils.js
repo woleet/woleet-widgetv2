@@ -129,6 +129,15 @@ function getFilenameUrl(url) {
 }
 
 /**
+ *
+ * @param url
+ * @returns {string}
+ */
+function getFilenameSource(url) {
+  return url.substring(0, url.lastIndexOf('/'));
+}
+
+/**
  * Get filename of a URL
  * @param filename
  * @returns {string}
@@ -276,6 +285,7 @@ export default  {
   getSolidIconSVG,
   getFileExtension,
   getUrlToDownload,
+  getFilenameSource,
   getRegularIconSVG,
   getObjectByString,
   getObjectProperty

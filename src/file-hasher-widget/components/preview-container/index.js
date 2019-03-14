@@ -2,23 +2,20 @@ import virtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
+import ProgressBarControl from "FileHasherWidget/components/progress-bar-container/progress-bar-body/progress-bar-control";
+import PdfPreview from "FileHasherWidget/components/preview-container/pdf-preview";
 
 /**
  * PreviewContainer
  */
 class PreviewContainer {
   constructor(widget) {
-    const self = this;
-    
     this.element = null;
     this.url = null;
     this.widget = widget;
     this.fileReader = new FileReader();
+    this.pdfPreview = null;
     this.previewFileFormats = ['png', 'jpeg', 'jpg', 'svg'];
-    
-    this.fileReader.onload = function (file) {
-      self.showFilePreview(file);
-    };
     
     this.init();
   }
@@ -30,7 +27,7 @@ class PreviewContainer {
       classes: utils.extractClasses(styles, styleCodes.preview.code)
     });
     this.element.style({'min-height': `${widgetStyles.width}px`});
-    
+
     this.element.body = virtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.code)
     });
@@ -46,9 +43,11 @@ class PreviewContainer {
     this.element.body.wrapper.image = virtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.image.code)
     });
+
+    this.pdfPreview = new PdfPreview(this.widget);
+    this.element.pdf = (this.pdfPreview).get();
     
     this.element.hide();
-    this.element.body.icon.hide();
     
     this.initializeObservers();
     this.initializeEvents();
@@ -75,13 +74,17 @@ class PreviewContainer {
   initializeEvents() {
     const self = this;
   
-    self.element.body.on('click', function () {
+    self.element.on('click', function () {
       if (self.url !== null) {
         window.open(self.url, '_blank');
       } else {
         alert ('The local file can`t be opened');
       }
     });
+
+    self.fileReader.onload = function (file) {
+      self.showFilePreview(file);
+    };
   }
 
   downloadingFinished(file) {
@@ -97,8 +100,9 @@ class PreviewContainer {
     if (this.previewFileFormats.indexOf(fileExtension) !== -1) {
       this.fileReader.readAsDataURL(file);
     } else if (fileExtension === 'pdf') {
-      /*TODO: for PDF*/
-      this.showPlaceholderIcon('faFilePdf')
+      /*TODO: change to observer?*/
+      this.pdfPreview.setPdfFile(file);
+      this.element.body.hide();
     } else {
       this.showPlaceholderIcon('faFile')
     }

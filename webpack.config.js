@@ -53,6 +53,7 @@ module.exports = (resourcePath = '') => {
   const plugins = [
     new ExtractTextPlugin({ filename: (getPath) => { return getPath(resourcePath + '[name].css'); } }),
     new CopyWebpackPlugin([{ from: 'node_modules/@woleet/woleet-weblibs/dist/*.min.js', to: resourcePath, flatten: true }]),
+    new CopyWebpackPlugin([{ from: 'node_modules/pdfjs-dist/build/pdf.worker.min.js', to: resourcePath, flatten: true }]),
     new webpack.LoaderOptionsPlugin({
       options: {
         handlebarsLoader: {}

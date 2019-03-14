@@ -4,11 +4,11 @@
   .preview_container {
     position: relative;
     display: table;
+    cursor: pointer;
 
     &--body {
       display: table-cell;
       vertical-align: middle;
-      cursor: pointer;
 
       &-icon {
         color: $primary-color;
