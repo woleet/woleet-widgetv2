@@ -70,15 +70,17 @@
 </script>
 <div class='file-hasher-widget'
      lang='de'
-     styles-padding='"4px"'
      id='file-hasher-widget-de'
+     styles-width='320'
      observers='{"hashCalculated": "window.hashCalculated"}'></div>
+<!--http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf-->
 <div class='file-hasher-widget'
      lang='fr'
      styles-color='#FFFFFF'
      styles-width='320'
      observers-hashCalculated='test.hashCalculatedObserver'
-     provenfile='{"url": "https://www.1c-bitrix.ru/download/files/b24/howtoweb_Bitrix24.pdf", "fastDownload": true}'></div>
+     observers-fileDownloaded='test.fileDownloadedObserver'
+     provenfile='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf", "fastDownload": true}'></div>
 <div class='file-hasher-widget'
      styles='{"width": 250}'
      provenfile='{"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}'

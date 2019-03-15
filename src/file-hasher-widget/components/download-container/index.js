@@ -35,6 +35,7 @@ class DownloadContainer {
   init() {
     const widgetStyles = this.widget.configurator.getStyles();
     const widgetObserverMappers = getFileHasherObserverMappers();
+    const iconWidth = utils.getObjectProperty(widgetStyles, 'iconWidth');
 
     this.element = virtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.download.code)
@@ -44,6 +45,10 @@ class DownloadContainer {
     this.element.body = virtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.download.body.code)
     });
+    
+    if (iconWidth) {
+      this.element.body.style({'width': `${iconWidth}px`});
+    }
   
     this.element.body.icon = virtualDOMService.createElement('i', {
       classes: utils.extractClasses(styles, styleCodes.download.body.icon.code)

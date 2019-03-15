@@ -2,13 +2,56 @@
 
 :local {
   .preview_container {
-    position: relative;
-    
     &--pdf {
       position: relative;
-      
+
       &-canvas {
-        font-size: 14px;
+        &_wrapper {
+
+        }
+      }
+
+      &-control {
+        position: absolute;
+        bottom: 15%;
+        left: 0;
+        right: 0;
+
+        &_icon {
+          cursor: pointer;
+          color: $gray-color;
+          background-color: $black-color;
+          opacity: 0.3;
+          border-radius: 16px;
+          padding: 1px 6px;
+          border: 2px solid $gray-color;
+
+          &--next {
+            padding-left: 7px;
+            padding-right: 5px;
+          }
+
+          &--prev {
+            padding-left: 5px;
+            padding-right: 7px;
+          }
+        }
+
+        &_icon:active, &_icon:hover {
+          opacity: 0.6;
+        }
+
+        &_icon:not(:last-child) {
+          margin-right: 10px;
+        }
+      }
+
+      &-title {
+        &_wrapper {
+          font-size: 12px;
+          padding-bottom: 5px;
+          word-break: break-all;
+        }
       }
     }
   }

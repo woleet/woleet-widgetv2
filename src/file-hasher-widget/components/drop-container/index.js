@@ -17,16 +17,30 @@ class DropContainer {
   }
   
   init() {
+    const widgetStyles = this.widget.configurator.getStyles();
+    const iconWidth = utils.getObjectProperty(widgetStyles, 'iconWidth');
+    
     this.element = virtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.drop.code)
     });
-    this.element.icon = virtualDOMService.createElement('i', {
-      classes: utils.extractClasses(styles, styleCodes.drop.icon.code)
+    
+    this.element.style({'min-height': `${widgetStyles.width}px`});
+  
+    this.element.body = virtualDOMService.createElement('div', {
+      classes: utils.extractClasses(styles, styleCodes.drop.body.code)
     });
-    this.element.input = virtualDOMService.createFileInput({
-      classes: utils.extractClasses(styles, styleCodes.drop.input.code)
+  
+    if (iconWidth) {
+      this.element.body.style({'width': `${iconWidth}px`});
+    }
+    
+    this.element.body.icon = virtualDOMService.createElement('i', {
+      classes: utils.extractClasses(styles, styleCodes.drop.body.icon.code)
     });
-    this.element.icon.html(utils.getSolidIconSVG('faFileDownload'));
+    this.element.body.input = virtualDOMService.createFileInput({
+      classes: utils.extractClasses(styles, styleCodes.drop.body.input.code)
+    });
+    this.element.body.icon.html(utils.getSolidIconSVG('faFileDownload'));
 
     this.initializeObservers();
     this.initializeEvents();
@@ -66,7 +80,7 @@ class DropContainer {
    */
   initializeEvents() {
     const self = this;
-    this.element.input.on('change', function () {
+    this.element.body.input.on('change', function () {
       self.onInputFileChanged.call(this, self)
         .then((hash) => {
           self.widget.observers.hashingFinishedObserver.broadcast(hash);

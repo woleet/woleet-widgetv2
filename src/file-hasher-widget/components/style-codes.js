@@ -14,11 +14,14 @@ const styleCodes = {
   },
   drop: {
     code: ['drop_container'],
-    icon: {
-      code: ['drop_container-icon']
-    },
-    input: {
-      code: ['drop_container-file_input']
+    body: {
+      code: ['drop_container--body'],
+      icon: {
+        code: ['drop_container--body-icon']
+      },
+      input: {
+        code: ['drop_container--body-file_input']
+      }
     }
   },
   download: {
@@ -50,7 +53,28 @@ const styleCodes = {
     pdf: {
       code: ['preview_container--pdf'],
       canvas: {
-        code: ['preview_container--pdf-canvas']
+        code: ['preview_container--pdf-canvas'],
+        wrapper: {
+          code: ['preview_container--pdf-canvas_wrapper']
+        }
+      },
+      control: {
+        code: ['preview_container--pdf-control'],
+        icon: {
+          code: ['preview_container--pdf-control_icon'],
+          prev: {
+            code: ['preview_container--pdf-control_icon', 'preview_container--pdf-control_icon--prev']
+          },
+          next: {
+            code: ['preview_container--pdf-control_icon', 'preview_container--pdf-control_icon--next']
+          }
+        }
+      },
+      title: {
+        code: ['preview_container--pdf-title'],
+        wrapper: {
+          code: ['preview_container--pdf-title_wrapper']
+        }
       }
     }
   },

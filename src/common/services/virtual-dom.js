@@ -27,6 +27,10 @@ function DOM(element) {
   
   defineProp('html', (text, add) => getSelf(add ? target.innerHTML += text : target.innerHTML = text));
   
+  defineProp('height', (value) => getSelf(target.height = value));
+  
+  defineProp('width', (value) => getSelf(target.width = value));
+  
   defineProp('link', (url) => getSelf(self.text(url).attr('href', url)));
   
   defineProp('clear', () => getSelf(self.text(''), self.attr('href', null)));

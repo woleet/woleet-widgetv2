@@ -2,23 +2,28 @@
 
 :local {
   .drop_container {
-    position: relative;
-    &-icon {
-      color: $primary-color;
-      svg {
-        width: 85% !important;
-        height: 85%;
+    height: 1px;
+    &--body {
+      position: relative;
+      display: inline-block;
+      height: 100%;
+      &-icon {
+        color: $primary-color;
+        svg {
+          width: 85% !important;
+          height: 85%;
+        }
       }
-    }
-    &-file_input {
-      outline: none;
-      opacity: 0;
-      width: 100%;
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      top: 0;
-      cursor: pointer;
+      &-file_input {
+        outline: none;
+        opacity: 0;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        top: 0;
+        cursor: pointer;
+      }
     }
   }
 }
