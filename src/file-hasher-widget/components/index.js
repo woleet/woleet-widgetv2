@@ -50,7 +50,6 @@ class FileHasherWidget {
       hashingProgressObserver: new EventObserver(),
       hashingStartedObserver: new EventObserver(),
       hashingFinishedObserver: new EventObserver(),
-      hashingCanceledObserver: new EventObserver(),
 
       /*Events: errors*/
       errorCaughtObserver: new EventObserver(),

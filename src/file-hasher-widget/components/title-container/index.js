@@ -50,9 +50,6 @@ class TitleContainer {
     this.widget.observers.hashingFinishedObserver.subscribe((data) => {
       this.hashingFinished(data)
     });
-    this.widget.observers.hashingCanceledObserver.subscribe((data) => {
-      this.hashingFinished(data)
-    });
     this.widget.observers.errorHiddenObserver.subscribe((data) => {
       this.titleShown(data)
     });

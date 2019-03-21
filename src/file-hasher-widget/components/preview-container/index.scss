@@ -3,8 +3,9 @@
 :local {
   .preview_container {
     position: relative;
-    display: inline-block;
+    display: table;
     cursor: pointer;
+    width: 100%;
 
     &--body {
       display: table-cell;
@@ -12,9 +13,11 @@
 
       &-icon {
         color: $primary-color;
+        display: inline-block;
         cursor: pointer;
+        height: 100%;
         svg {
-          width: 85% !important;
+          width: 100% !important;
           height: 100%;
         }
       }

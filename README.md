@@ -45,6 +45,8 @@ The following options are available:
     
     * _width_ - the width of the widget;
     
+    * _iconWidth_ - the width of icons inside the widget;
+    
 * __provenfile__ - the option to predefine the downloadable file;
     
     * _url_ - the url of the file;

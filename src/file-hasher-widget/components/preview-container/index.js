@@ -20,9 +20,14 @@ class PreviewContainer {
   }
   
   init() {
+    const widgetStyles = this.widget.configurator.getStyles();
+    const iconWidth = utils.getObjectProperty(widgetStyles, 'iconWidth');
+
     this.element = virtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.code)
     });
+
+    this.element.style({'min-height': `${widgetStyles.width}px`});
 
     this.element.body = virtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.code)
@@ -31,6 +36,10 @@ class PreviewContainer {
     this.element.body.icon = virtualDOMService.createElement('i', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.icon.code)
     });
+
+    if (iconWidth) {
+      this.element.body.icon.style({'width': `${iconWidth}px`});
+    }
     
     this.element.body.wrapper = virtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.image.wrapper.code)
@@ -123,6 +132,8 @@ class PreviewContainer {
 
     if (this.previewFileFormats.indexOf(fileExtension) !== -1) {
       this.element.body.show();
+      this.element.body.wrapper.show();
+      this.element.body.icon.hide();
       this.fileReader.readAsDataURL(file);
     } else if (fileExtension === 'pdf') {
       this.element.body.hide();

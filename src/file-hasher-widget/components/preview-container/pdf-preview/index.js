@@ -86,7 +86,6 @@ class PdfPreview {
     const self = this;
     this.fileReader.onload = function() {
       const typedArray = new Uint8Array(this.result);
-      console.log('test');
       self.pdfjsLib.getDocument(typedArray)
         .then((pdf) => {
           self.pdfDoc = pdf;
@@ -143,7 +142,6 @@ class PdfPreview {
         renderTask.promise.then(function() {
           self.pageRendering = false;
           if (self.pageNumPending !== null) {
-            console.log('render queue');
             // New page rendering is pending
             self.renderPage(self.pageNumPending);
             self.pageNumPending = null;
@@ -154,7 +152,6 @@ class PdfPreview {
   
   setPdfFile(file) {
     this.reset();
-    console.log('laoded');
     let canvasElement = this.element.canvasWrapper.canvas.target();
     this.ctx = canvasElement.getContext('2d');
     this.fileName = file.name;
@@ -163,7 +160,6 @@ class PdfPreview {
     this.element.show();
 
     if (this.ctx) {
-      console.log('this.ctx.width', this.ctx);
       this.ctx.fillStyle = 'white';
       this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
