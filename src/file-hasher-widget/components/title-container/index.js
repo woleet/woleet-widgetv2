@@ -22,15 +22,18 @@ class TitleContainer {
     this.element.title = virtualDOMService.createElement('span', {
       classes: utils.extractClasses(styles, styleCodes.title.code)
     });
-    this.element.title.text(utils.translate('select_file_to_hash', this.lang));
 
     this.initializeObservers();
+    this.uploadModeInitiated();
   }
 
   // Initialize the observers
   initializeObservers() {
     this.widget.observers.downloadModeInitiatedObserver.subscribe((data) => {
       this.downloadModeInitiated(data)
+    });
+    this.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
+      this.uploadModeInitiated(data)
     });
     this.widget.observers.hashingStartedObserver.subscribe((data) => {
       this.hashingStarted(data)
@@ -82,6 +85,11 @@ class TitleContainer {
     } else {
       this.element.title.text(utils.translate('click_to_download', this.lang));
     }
+  }
+
+  uploadModeInitiated() {
+    this.element.show();
+    this.element.title.text(utils.translate('select_file_to_hash', this.lang));
   }
 
   titleShown() {

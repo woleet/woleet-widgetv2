@@ -30,7 +30,7 @@ class ErrorContainer {
   // Initialize the observers
   initializeObservers() {
     this.widget.observers.errorCaughtObserver.subscribe((data) => {
-      this.errorCaughtObserver(data)
+      this.errorCaught(data)
     });
     this.widget.observers.hashingStartedObserver.subscribe(() => {
       this.hideErrorElement()
@@ -38,9 +38,12 @@ class ErrorContainer {
     this.widget.observers.downloadingStartedObserver.subscribe(() => {
       this.hideErrorElement()
     });
+    this.widget.observers.uploadModeInitiatedObserver.subscribe(() => {
+      this.hideErrorElement()
+    });
   }
 
-  errorCaughtObserver(error) {
+  errorCaught(error) {
     const self = this;
     self.element.show();
   

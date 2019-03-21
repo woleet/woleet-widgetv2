@@ -76,7 +76,16 @@ const styleCodes = {
           code: ['preview_container--pdf-title_wrapper']
         }
       }
-    }
+    },
+    control: {
+      code: ['preview_container--control'],
+      icon: {
+        code: ['preview_container--control_icon'],
+        redo: {
+          code: ['preview_container--control_icon', 'preview_container--control_icon--redo']
+        }
+      }
+    },
   },
   progress: {
     container: {

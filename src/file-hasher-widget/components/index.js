@@ -38,6 +38,7 @@ class FileHasherWidget {
     this.observers = {
       /*States*/
       downloadModeInitiatedObserver: new EventObserver(),
+      uploadModeInitiatedObserver: new EventObserver(),
       /*Events: file downloading*/
       downloadingProgressObserver: new EventObserver(),
       downloadingStartedObserver: new EventObserver(),

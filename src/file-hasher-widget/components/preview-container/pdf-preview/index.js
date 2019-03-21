@@ -15,18 +15,13 @@ class PdfPreview {
     this.fileReader = new FileReader();
     
     this.styles = this.widget.configurator.getStyles();
-    this.pdfDoc = null;
-    this.pageNum = 1;
-    this.pageRendering = false;
-    this.pageCount = null;
-    this.pageNumPending = null;
-    this.fileName = null;
     
     if (window['file-hasher-widget-source']) {
       this.pdfjsLib.GlobalWorkerOptions.workerSrc = window['file-hasher-widget-source'] + '/pdf.worker.min.js';
     }
     
     this.init();
+    this.reset();
   }
   
   init() {
@@ -89,10 +84,9 @@ class PdfPreview {
    */
   initializeEvents() {
     const self = this;
-    
     this.fileReader.onload = function() {
       const typedArray = new Uint8Array(this.result);
-      
+      console.log('test');
       self.pdfjsLib.getDocument(typedArray)
         .then((pdf) => {
           self.pdfDoc = pdf;
@@ -102,11 +96,15 @@ class PdfPreview {
     };
   
     this.element.control.prev.on('click', function (event) {
+      event.stopPropagation();
       self.onPrevPage(event);
+      return false;
     });
   
-    this.element.control.next.on('click', function () {
+    this.element.control.next.on('click', function (event) {
+      event.stopPropagation();
       self.onNextPage(event);
+      return false;
     });
   
     this.element.on('mouseenter', function () {
@@ -155,12 +153,26 @@ class PdfPreview {
   }
   
   setPdfFile(file) {
+    this.reset();
+    console.log('laoded');
     let canvasElement = this.element.canvasWrapper.canvas.target();
     this.ctx = canvasElement.getContext('2d');
     this.fileName = file.name;
     this.fileReader.readAsArrayBuffer(file);
     this.element.titleWrapper.title.text(this.fileName);
     this.element.show();
+
+    if (this.ctx) {
+      console.log('this.ctx.width', this.ctx);
+      this.ctx.fillStyle = 'white';
+      this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+    }
+  }
+
+  hide() {
+    this.reset();
+    this.element.titleWrapper.title.text('');
+    this.element.hide();
   }
   
   /**
@@ -180,16 +192,12 @@ class PdfPreview {
    * Displays previous page.
    */
   onPrevPage(event) {
-    event.stopPropagation();
-    
     const self = this;
     if (self.pageNum <= 1) {
       return;
     }
     self.pageNum--;
     self.queueRenderPage(self.pageNum);
-    
-    return false;
   }
   
   /**
@@ -204,8 +212,15 @@ class PdfPreview {
     }
     self.pageNum++;
     self.queueRenderPage(self.pageNum);
-  
-    return false;
+  }
+
+  reset() {
+    this.pdfDoc = null;
+    this.pageNum = 1;
+    this.pageRendering = false;
+    this.pageCount = null;
+    this.pageNumPending = null;
+    this.fileName = null;
   }
   
   get() {

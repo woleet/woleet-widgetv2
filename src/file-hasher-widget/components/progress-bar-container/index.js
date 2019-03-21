@@ -51,10 +51,17 @@ class ProgressBarContainer {
     this.widget.observers.errorCaughtObserver.subscribe((data) => {
       this.processFinished(data)
     });
+    this.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
+      this.uploadModeInitiated(data)
+    });
   }
 
   processStarted() {
     this.element.show();
+  }
+
+  uploadModeInitiated() {
+    this.element.hide();
   }
 
   processFinished() {

@@ -94,6 +94,9 @@ class DownloadContainer {
     this.widget.observers.fileSelectedObserver.subscribe(() => {
       this.downloadingFinished();
     });
+    this.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
+      this.uploadModeInitiated(data)
+    });
   }
 
   /**
@@ -123,6 +126,10 @@ class DownloadContainer {
     if (utils.getObjectProperty(fileConfiguration, 'fastDownload')) {
      this.downloadFile();
     }
+  }
+
+  uploadModeInitiated() {
+    this.element.hide();
   }
 
   downloadingCanceled() {

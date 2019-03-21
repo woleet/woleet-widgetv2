@@ -31,5 +31,33 @@
         }
       }
     }
+  
+    &--control {
+      position: absolute;
+      top: 5%;
+      right: 5%;
+    
+      &_icon {
+        cursor: pointer;
+        color: $gray-color;
+        background-color: $black-color;
+        opacity: 0.3;
+        border-radius: 16px;
+        padding: 1px 6px;
+        border: 2px solid $gray-color;
+      
+        &--redo {
+          padding: 4px 5px;
+        }
+      }
+    
+      &_icon:active, &_icon:hover {
+        opacity: 0.6;
+      }
+    
+      &_icon:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
   }
 }

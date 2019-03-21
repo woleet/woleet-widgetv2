@@ -2,7 +2,6 @@ import virtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
-import ProgressBarControl from "FileHasherWidget/components/progress-bar-container/progress-bar-body/progress-bar-control";
 import PdfPreview from "FileHasherWidget/components/preview-container/pdf-preview";
 
 /**
@@ -21,8 +20,6 @@ class PreviewContainer {
   }
   
   init() {
-    const widgetStyles = this.widget.configurator.getStyles();
-    
     this.element = virtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.code)
     });
@@ -45,7 +42,17 @@ class PreviewContainer {
 
     this.pdfPreview = new PdfPreview(this.widget);
     this.element.pdf = (this.pdfPreview).get();
-    
+
+    this.element.control = virtualDOMService.createElement('div', {
+      classes: utils.extractClasses(styles, styleCodes.preview.control.code)
+    });
+
+    this.element.control.redo = virtualDOMService.createElement('i', {
+      classes: utils.extractClasses(styles, styleCodes.preview.control.icon.redo.code)
+    });
+
+    this.element.control.redo.html(utils.getSolidIconSVG('faRedo'));
+
     this.element.hide();
     
     this.initializeObservers();
@@ -65,6 +72,10 @@ class PreviewContainer {
     self.widget.observers.fileSelectedObserver.subscribe((file) => {
       self.downloadingFinished(file)
     });
+
+    self.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
+      self.uploadModeInitiated(data)
+    });
   }
   
   /**
@@ -81,9 +92,21 @@ class PreviewContainer {
       }
     });
 
+    this.element.control.redo.on('click', function (event) {
+      event.stopPropagation();
+      console.log('downloadModeInitiatedObserver');
+      self.widget.observers.uploadModeInitiatedObserver.broadcast();
+      return false;
+    });
+
     self.fileReader.onload = function (file) {
       self.showFilePreview(file);
     };
+  }
+
+  uploadModeInitiated() {
+    this.pdfPreview.hide();
+    this.element.hide();
   }
 
   downloadingFinished(file) {
@@ -94,15 +117,18 @@ class PreviewContainer {
     
     if (file && file.url) {
       this.url = file.url;
+    } else {
+      this.url = null;
     }
-    
+
     if (this.previewFileFormats.indexOf(fileExtension) !== -1) {
+      this.element.body.show();
       this.fileReader.readAsDataURL(file);
     } else if (fileExtension === 'pdf') {
-      /*TODO: change to observer?*/
-      this.pdfPreview.setPdfFile(file);
       this.element.body.hide();
+      this.pdfPreview.setPdfFile(file);
     } else {
+      this.element.body.show();
       this.showPlaceholderIcon('faFile')
     }
   }
