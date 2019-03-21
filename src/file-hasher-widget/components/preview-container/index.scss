@@ -3,7 +3,7 @@
 :local {
   .preview_container {
     position: relative;
-    display: table;
+    display: inline-block;
     cursor: pointer;
 
     &--body {

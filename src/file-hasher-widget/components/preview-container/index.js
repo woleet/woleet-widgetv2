@@ -26,7 +26,6 @@ class PreviewContainer {
     this.element = virtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.code)
     });
-    this.element.style({'min-height': `${widgetStyles.width}px`});
 
     this.element.body = virtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.code)
