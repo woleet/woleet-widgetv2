@@ -1,6 +1,6 @@
 import {getFileHasherObserverMappers} from 'Common/services/configurator';
 import ConfigurationService from 'Common/services/configurator';
-import virtualDOMService from 'Common/services/virtual-dom';
+import VirtualDOMService from 'Common/services/virtual-dom';
 import EventObserver from 'Common/patterns/event-observer';
 import utils from 'Common/services/utils';
 import styleCodes from './style-codes';
@@ -81,12 +81,12 @@ class FileHasherWidget {
   
   render() {
     const widgetObserverMappers = getFileHasherObserverMappers();
-    const element = virtualDOMService.createElement('div', {
+    const element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.code),
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
     });
     element.attr('id', this.widgetId);
-    element.style({width: `${this.configuration.styles.width}px`});
+    element.style({width: `${this.configuration.styles.width}`});
     
     element.dropContainer = (new DropContainer(this)).get();
     element.previewContainer = (new PreviewContainer(this)).get();

@@ -1,4 +1,4 @@
-import virtualDOMService from 'Common/services/virtual-dom';
+import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
@@ -23,40 +23,40 @@ class PreviewContainer {
     const widgetStyles = this.widget.configurator.getStyles();
     const iconWidth = utils.getObjectProperty(widgetStyles, 'iconWidth');
 
-    this.element = virtualDOMService.createElement('div', {
+    this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.code)
     });
 
-    this.element.style({'min-height': `${widgetStyles.width}px`});
+    this.element.style({'min-height': `${widgetStyles.width}`});
 
-    this.element.body = virtualDOMService.createElement('div', {
+    this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.code)
     });
     
-    this.element.body.icon = virtualDOMService.createElement('i', {
+    this.element.body.icon = VirtualDOMService.createElement('i', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.icon.code)
     });
 
     if (iconWidth) {
-      this.element.body.icon.style({'width': `${iconWidth}px`});
+      this.element.body.icon.style({'width': `${iconWidth}`});
     }
     
-    this.element.body.wrapper = virtualDOMService.createElement('div', {
+    this.element.body.wrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.image.wrapper.code)
     });
     
-    this.element.body.wrapper.image = virtualDOMService.createElement('img', {
+    this.element.body.wrapper.image = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.image.code)
     });
 
     this.pdfPreview = new PdfPreview(this.widget);
     this.element.pdf = (this.pdfPreview).get();
 
-    this.element.control = virtualDOMService.createElement('div', {
+    this.element.control = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.control.code)
     });
 
-    this.element.control.redo = virtualDOMService.createElement('i', {
+    this.element.control.redo = VirtualDOMService.createElement('i', {
       classes: utils.extractClasses(styles, styleCodes.preview.control.icon.redo.code)
     });
 

@@ -1,4 +1,4 @@
-import virtualDOMService from 'Common/services/virtual-dom';
+import VirtualDOMService from 'Common/services/virtual-dom';
 import styleCodes from 'FileHasherComponents/style-codes';
 import utils from 'Common/services/utils';
 import styles from './index.scss';
@@ -18,7 +18,7 @@ class ProgressBarContainer {
   }
   
   init() {
-    this.element = virtualDOMService.createElement('div', {
+    this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.progress.container.code)
     });
     this.element.progressBarBody = (new ProgressBarBody(this.widget, this.observerMapper)).get();

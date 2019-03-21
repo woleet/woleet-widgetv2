@@ -1,0 +1,11 @@
+@import './variables.scss';
+
+:local {
+  .woleet {
+    &_widget {
+      &_hidden {
+        display: none !important;
+      }
+    }
+  }
+}

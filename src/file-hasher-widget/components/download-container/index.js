@@ -1,4 +1,4 @@
-import virtualDOMService from 'Common/services/virtual-dom';
+import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
@@ -37,27 +37,27 @@ class DownloadContainer {
     const widgetObserverMappers = getFileHasherObserverMappers();
     const iconWidth = utils.getObjectProperty(widgetStyles, 'iconWidth');
 
-    this.element = virtualDOMService.createElement('div', {
+    this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.download.code)
     });
-    this.element.style({'min-height': `${widgetStyles.width}px`});
+    this.element.style({'min-height': `${widgetStyles.width}`});
     
-    this.element.body = virtualDOMService.createElement('div', {
+    this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.download.body.code)
     });
     
     if (iconWidth) {
-      this.element.body.style({'width': `${iconWidth}px`});
+      this.element.body.style({'width': `${iconWidth}`});
     }
   
-    this.element.body.icon = virtualDOMService.createElement('i', {
+    this.element.body.icon = VirtualDOMService.createElement('i', {
       classes: utils.extractClasses(styles, styleCodes.download.body.icon.code)
     });
   
     this.element.body.icon.html(utils.getSolidIconSVG('faDownload'));
     this.element.body.icon.attr('title', utils.translate('click_to_download', this.lang));
 
-    this.element.body.downloadProgressBarConteinerWrapper = virtualDOMService.createElement('div', {
+    this.element.body.downloadProgressBarConteinerWrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.download.body.progressBarWrapper.code)
     });
 

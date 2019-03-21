@@ -1,4 +1,4 @@
-import virtualDOMService from 'Common/services/virtual-dom';
+import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
@@ -27,41 +27,41 @@ class PdfPreview {
   init() {
     const widgetStyles = this.widget.configurator.getStyles();
     
-    this.element = virtualDOMService.createElement('div', {
+    this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.code)
     });
     
-    this.element.canvasWrapper = virtualDOMService.createElement('div', {
+    this.element.canvasWrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.canvas.wrapper.code)
     });
     
-    this.element.canvasWrapper.canvas = virtualDOMService.createElement('canvas', {
+    this.element.canvasWrapper.canvas = VirtualDOMService.createElement('canvas', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.canvas.code)
     });
     
-    this.element.canvasWrapper.canvas.style({width: `${this.styles.width}px`});
+    this.element.canvasWrapper.canvas.style({width: `${this.styles.width}`});
     
-    this.element.control = virtualDOMService.createElement('div', {
+    this.element.control = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.code)
     });
     
-    this.element.control.prev = virtualDOMService.createElement('i', {
+    this.element.control.prev = VirtualDOMService.createElement('i', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.icon.prev.code)
     });
   
     this.element.control.prev.html(utils.getSolidIconSVG('faCaretLeft'));
     
-    this.element.control.next = virtualDOMService.createElement('i', {
+    this.element.control.next = VirtualDOMService.createElement('i', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.icon.next.code)
     });
   
     this.element.control.next.html(utils.getSolidIconSVG('faCaretRight'));
     
-    this.element.titleWrapper = virtualDOMService.createElement('div', {
+    this.element.titleWrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.title.wrapper.code)
     });
     
-    this.element.titleWrapper.title = virtualDOMService.createElement('span', {
+    this.element.titleWrapper.title = VirtualDOMService.createElement('span', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.title.code)
     });
     
@@ -121,13 +121,19 @@ class PdfPreview {
     // Using promise to fetch the page
     self.pdfDoc.getPage(num)
       .then((page) => {
+        let styleWidth = parseInt(self.styles.width);
         const [x, y, pageWidth, pageHeight] = page.view;
+
+        if (self.styles.width.indexOf('%') !== -1) {
+          styleWidth = (styleWidth * pageWidth) / 100;
+        }
+
         const ratio = pageHeight / pageWidth;
-        const scale = self.styles.width / pageWidth;
+        const scale = styleWidth / pageWidth;
         const viewport = page.getViewport(scale, 0);
         
-        self.element.canvasWrapper.canvas.height(self.styles.width * ratio);
-        self.element.canvasWrapper.canvas.width(self.styles.width);
+        self.element.canvasWrapper.canvas.height(styleWidth * ratio);
+        self.element.canvasWrapper.canvas.width(styleWidth);
         
         // Render PDF page into canvas context
         const renderContext = {

@@ -1,71 +1,184 @@
-import constants from '../common/constants'
-import loader from '../common/services/loader'
-import utils from '../common/services/utils'
+import constants from 'Common/constants'
+import loader from 'Common/services/loader'
+import {getDefaultLanguage, getProofVerifierWidgetDefaults} from 'Common/services/configurator'
+import utils from 'Common/services/utils'
+import widgetLogger from 'Common/services/logger'
+import resources from 'Resources/locales'
 
-import { displayIcon } from './components/main'
+import ProofVerifierWidget from './components'
 
 /**
- * The main entry of the application
+ * The main entry of the widget
  * @param window
+ * @param document
  */
-function app(window) {
-  let configuration = {
-    mode: constants.DEFAULT_WIDGET_MODE,
-    lang: document.documentElement.lang,
-    type: constants.PROOF_VERIFIER_WIDGET_TYPE,
-    colors: {
-      'primary-color': '#FC1158',
-      'secondary-color': '#FC1158',
-      'third-color': '#FC1158'
+function widget(window, document) {
+  /**
+   * TODO: customize it somehow
+   * @type {string}
+   */
+  const widgetConfigurations = [];
+  const widgetClassName = 'proof-verifier-widget';
+
+  /**
+   * Grab the object created during the widget creation
+   */
+  const widgetElementCollection = document.getElementsByClassName(widgetClassName);
+
+  if (!widgetElementCollection.length === 0)
+    widgetLogger.error(`The widget elements were not found`);
+
+  const widgetElements = [...widgetElementCollection];
+
+  widgetElements.forEach(widgetElement => {
+    let widgetConfiguration = utils.parseWidgetAttributeConfiguration(widgetElement);
+
+    if (widgetConfiguration && widgetConfiguration.observers) {
+      const observerCodes = Object.keys(widgetConfiguration.observers);
+
+      /**
+       * Try to find the observers
+       */
+      observerCodes.forEach(observerCode => {
+        const observerName = widgetConfiguration.observers[observerCode];
+        widgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function() {};
+      })
     }
-  };
-  
-  let globalObject = window[window['proof-verifier-widget']];
-  /**
-   * TODO: handle all errors
-   * */
-  let widgetClass = globalObject[0];
-  let customConfiguration = globalObject[1];
-  let widgetElement = document.getElementsByClassName(widgetClass)[0];
-  
-  if (!widgetElement)
-    throw Error(`Widget Element with class ${widgetClass} wasn't found`);
 
-  console.log('configuration', configuration);
-
-  configuration = utils.extendObject(configuration, customConfiguration);
-  globalObject.configuration = configuration;
-  globalObject.widgetElement = widgetElement;
-  
-  /**
-   * TODO: refactor this
-   * */
-  if(configuration.mode !== constants.WIDGET_MODE_ICON) {
-    loader.getWoleetLibs().then(woleet => {
-      globalObject.woleet = woleet;
-      onAppLoaded(globalObject);
+    widgetConfigurations.push({
+      el: widgetElement,
+      id: widgetConfiguration.id || utils.getUniqueId(widgetClassName + '-'),
+      config: widgetConfiguration
     });
-  } else {
-    onAppLoaded(globalObject);
-  }
+  });
+
+  /**
+   * Initialize the widget
+   */
+  loadDependencies()
+    .then(response => initialize(widgetConfigurations));
 }
 
-function onAppLoaded(globalObject) {
-  addCssLink(globalObject.configuration.dev);
-  displayIcon(globalObject);
+/**
+ * Load widget styles, libraries and dependencies
+ */
+function loadDependencies() {
+  /**
+   * Load the widget styles
+   */
+  const sourceLink = addCssLink();
+
+  return getWidgetDependencies()
+    .then(dependencies => {
+      const {woleet, i18n, solidIconsModule} = dependencies;
+
+      if (!window.woleet) {
+        window.woleet = woleet;
+      }
+
+      if (!window.i18n) {
+        window.i18n = i18n;
+      }
+
+      if (!window.solidIconsModule) {
+        window.solidIconsModule = solidIconsModule;
+      }
+
+      if (!window['proof-verifier-widget-source'] && sourceLink !== null) {
+        window['proof-verifier-widget-source'] = sourceLink;
+      }
+
+      return new Promise((resolve, reject) => resolve(true));
+    });
+}
+
+/**
+ * Get all widget library dependencies
+ * @returns {Promise<[]>}
+ */
+function getWidgetDependencies() {
+  const dependenciesPromises = [];
+
+  dependenciesPromises.push(loader.getWoleetLibs());
+  dependenciesPromises.push(loader.getI18nService());
+  dependenciesPromises.push(loader.getSolidFontAwesomeIcons());
+
+  return Promise.all(dependenciesPromises)
+    .then(([woleet, i18n, solidIconsModule]) => {
+      const initializationPromises = [];
+      /**
+       * Configure i18next
+       */
+      initializationPromises.push(
+        i18n.init({fallbackLng: getDefaultLanguage(), debug: window.dev, resources})
+      );
+      return Promise.all(initializationPromises)
+        .then(() => {return {woleet, i18n, solidIconsModule}})
+    });
+}
+
+/**
+ * Initialize the widget
+ * @param widgetConfigurations
+ */
+function initialize(widgetConfigurations) {
+  /**
+   * Initialize all instances of the widget
+   */
+  widgetConfigurations.forEach(widgetConfiguration => {
+    const {config: customConfiguration, el: widgetElement, id: widgetId} = widgetConfiguration;
+    customConfiguration.widgetId = widgetId;
+    /**
+     * Extend the default widget configuration
+     */
+    const configuration = getFileHasherDefaults();
+    utils.extendObject(configuration, customConfiguration);
+
+    if (!widgetElement)
+      widgetLogger.error(`Widget element wasn't found`);
+
+    console.log('configuration', configuration);
+
+    /**
+     * Render a widget instance and render it
+     */
+    while (widgetElement.firstChild) {
+      widgetElement.removeChild(widgetElement.firstChild);
+    }
+    widgetElement.appendChild(new ProofVerifierWidget(configuration).render());
+  });
 }
 
 /**
  * Load CSS styles
+ * Check if the styles weren't loaded before
  */
-function addCssLink(isDevMode) {
-  const head = document.getElementsByTagName('head')[0];
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.type = 'text/css';
-  link.href = constants[isDevMode ? 'DEV_URLS' : 'URLS'].css.proof_verifier_widget;
-  link.media = 'all';
-  head.appendChild(link);
+function addCssLink() {
+  const styleId = `${constants.FILE_HASHER_WIDGET_ID}-style`;
+  const script = document.getElementById(constants.FILE_HASHER_WIDGET_ID);
+  const style = document.getElementById(styleId);
+  let sourcePath = null;
+
+  if (script && script.src && style === null) {
+    const styleSrc = script.src.replace('.js', '.css');
+    const head = document.getElementsByTagName('head')[0];
+    const link = document.createElement('link');
+
+    sourcePath = utils.getFilenameSource(script.src);
+
+    link.rel = 'stylesheet';
+    link.id = styleId;
+    link.type = 'text/css';
+    link.href = styleSrc;
+    link.media = 'all';
+    head.appendChild(link);
+  }
+
+  return sourcePath;
 }
 
-app(window);
+window.fileHasherWidget = {
+  init: initialize
+};
+
+widget(window, document);

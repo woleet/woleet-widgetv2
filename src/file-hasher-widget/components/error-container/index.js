@@ -1,4 +1,4 @@
-import virtualDOMService from 'Common/services/virtual-dom';
+import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
@@ -16,10 +16,10 @@ class ErrorContainer {
   }
   
   init() {
-    this.element = virtualDOMService.createElement('div', {
+    this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.error.container.code)
     });
-    this.element.title = virtualDOMService.createElement('span', {
+    this.element.title = VirtualDOMService.createElement('span', {
       classes: utils.extractClasses(styles, styleCodes.error.code)
     });
 

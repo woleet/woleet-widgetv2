@@ -1,4 +1,4 @@
-import virtualDOMService from 'Common/services/virtual-dom';
+import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import widgetLogger from 'Common/services/logger';
 import styleCodes from 'FileHasherComponents/style-codes';
@@ -20,24 +20,24 @@ class DropContainer {
     const widgetStyles = this.widget.configurator.getStyles();
     const iconWidth = utils.getObjectProperty(widgetStyles, 'iconWidth');
     
-    this.element = virtualDOMService.createElement('div', {
+    this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.drop.code)
     });
     
-    this.element.style({'min-height': `${widgetStyles.width}px`});
+    this.element.style({'min-height': `${widgetStyles.width}`});
   
-    this.element.body = virtualDOMService.createElement('div', {
+    this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.drop.body.code)
     });
   
     if (iconWidth) {
-      this.element.body.style({'width': `${iconWidth}px`});
+      this.element.body.style({'width': `${iconWidth}`});
     }
     
-    this.element.body.icon = virtualDOMService.createElement('i', {
+    this.element.body.icon = VirtualDOMService.createElement('i', {
       classes: utils.extractClasses(styles, styleCodes.drop.body.icon.code)
     });
-    this.element.body.input = virtualDOMService.createFileInput({
+    this.element.body.input = VirtualDOMService.createFileInput({
       classes: utils.extractClasses(styles, styleCodes.drop.body.input.code)
     });
     this.element.body.icon.html(utils.getSolidIconSVG('faFileDownload'));

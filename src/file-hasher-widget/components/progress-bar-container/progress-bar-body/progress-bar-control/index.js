@@ -1,4 +1,4 @@
-import virtualDOMService from 'Common/services/virtual-dom';
+import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
@@ -16,11 +16,11 @@ class ProgressBarControl {
   
   init() {
     const self = this;
-    this.element = virtualDOMService.createElement('div', {
+    this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.progress.control.code)
     });
 
-    this.element.icon = virtualDOMService.createElement('i', {
+    this.element.icon = VirtualDOMService.createElement('i', {
       classes: utils.extractClasses(styles, styleCodes.progress.control.icon.code)
     });
 

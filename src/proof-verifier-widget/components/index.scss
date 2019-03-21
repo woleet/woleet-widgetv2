@@ -1,0 +1,12 @@
+@import '../scss/variables';
+@import '../scss/common';
+
+:local {
+  .proof_verifier_widget {
+    &--wrapper {
+      display: block;
+      text-align: center;
+      font-family: 'Arial';
+    }
+  }
+}

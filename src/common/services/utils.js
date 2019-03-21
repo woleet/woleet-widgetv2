@@ -55,6 +55,49 @@ function translate(code, lang = '', options = {}) {
 }
 
 /**
+ * Fetch all configuration attributes and define the widget configuration
+ * @param widgetElement
+ */
+function parseWidgetAttributeConfiguration(widgetElement) {
+  const forbiddenAttributes = ['config', 'class'];
+  let elementAttributes = {};
+  let widgetConfiguration = {};
+
+  for (let i = 0, attrs = widgetElement.attributes; i < attrs.length; i++) {
+    elementAttributes[attrs[i].nodeName] = attrs[i].nodeValue;
+  }
+
+  if (elementAttributes.config) {
+    widgetConfiguration = JSON.parse(elementAttributes.config);
+  }
+
+  const attributesKeys = Object.keys(elementAttributes);
+
+  attributesKeys.forEach((key) => {
+    if (forbiddenAttributes.indexOf(key) === -1) {
+      const attributeValue = elementAttributes[key];
+
+      try {
+        widgetConfiguration[key] = JSON.parse(attributeValue);
+      } catch (e) {
+        widgetConfiguration[key] = attributeValue;
+      }
+
+      const keyParts = key.split('-');
+
+      if (keyParts.length > 1) {
+        const configurationObject = getObjectByString(keyParts.join('.'), widgetConfiguration[key]);
+
+        mergeDeep(widgetConfiguration, configurationObject);
+        delete widgetConfiguration[key];
+      }
+    }
+  });
+
+  return widgetConfiguration;
+}
+
+/**
  * Get regular SVG icon of the library Font-Awesome
  * @param iconCode
  * @param options
@@ -288,5 +331,6 @@ export default  {
   getFilenameSource,
   getRegularIconSVG,
   getObjectByString,
-  getObjectProperty
+  getObjectProperty,
+  parseWidgetAttributeConfiguration
 }

@@ -11,6 +11,17 @@ function getFileHasherDefaults() {
   };
 }
 
+function getProofVerifierWidgetDefaults() {
+  return {
+    provenfile: null,
+    styles: {
+      width: 130
+    },
+    lang: constants.DEFAULT_WIDGET_LANGUAGE,
+    type: constants.FILE_HASHER_WIDGET_TYPE
+  };
+}
+
 function getFileHasherObserverMappers() {
   return {
     downloadProgressBar: {
@@ -90,9 +101,10 @@ class ConfigurationService {
 }
 
 export {
-  getFileHasherDefaults,
   getDefaultLanguage,
-  getFileHasherObserverMappers
+  getFileHasherDefaults,
+  getFileHasherObserverMappers,
+  getProofVerifierWidgetDefaults,
 }
 
 export default ConfigurationService;
