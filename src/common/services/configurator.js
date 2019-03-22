@@ -1,48 +1,3 @@
-import constants from "../constants";
-
-function getFileHasherDefaults() {
-  return {
-    provenfile: null,
-    styles: {
-      width: 130
-    },
-    lang: constants.DEFAULT_WIDGET_LANGUAGE,
-    type: constants.FILE_HASHER_WIDGET_TYPE
-  };
-}
-
-function getProofVerifierWidgetDefaults() {
-  return {
-    provenfile: null,
-    styles: {
-      width: 130
-    },
-    lang: constants.DEFAULT_WIDGET_LANGUAGE,
-    type: constants.FILE_HASHER_WIDGET_TYPE
-  };
-}
-
-function getFileHasherObserverMappers() {
-  return {
-    downloadProgressBar: {
-      processProgressObserver: 'downloadingProgressObserver',
-      processStartedObserver: 'downloadingStartedObserver',
-      processFinishedObserver: 'downloadingFinishedObserver',
-      processCanceledObserver: 'downloadingCanceledObserver',
-    },
-    hashProgressBar: {
-      processProgressObserver: 'hashingProgressObserver',
-      processStartedObserver: 'hashingStartedObserver',
-      processFinishedObserver: 'hashingFinishedObserver',
-      processCanceledObserver: 'uploadModeInitiatedObserver',
-    }
-  };
-}
-
-function getDefaultLanguage() {
-  return constants.DEFAULT_WIDGET_LANGUAGE;
-}
-
 class ConfigurationService {
   constructor() {
     this.configuration = [];
@@ -98,13 +53,6 @@ class ConfigurationService {
     }
     return {};
   }
-}
-
-export {
-  getDefaultLanguage,
-  getFileHasherDefaults,
-  getFileHasherObserverMappers,
-  getProofVerifierWidgetDefaults,
 }
 
 export default ConfigurationService;

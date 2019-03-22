@@ -37,22 +37,22 @@
 <script>
   var test = {
     hashCalculated: function(widgetId, hash) {
-      let logElement = document.getElementById('hash-logging');
-      let logElementItem = document.createElement('p');
+      var logElement = document.getElementById('hash-logging');
+      var logElementItem = document.createElement('p');
       logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id  "' + widgetId + '"';
       logElement.appendChild(logElementItem);
     },
     fileDownloadedObserver: function(widgetId, file) {
-      let logElement = document.getElementById('download-logging');
-      let logElementItem = document.createElement('p');
+      var logElement = document.getElementById('download-logging');
+      var logElementItem = document.createElement('p');
       logElementItem.innerHTML = 'Deep observer: "' + file.name + '" downloaded by widget id  "' + widgetId + '"';
       logElement.appendChild(logElementItem);
     }
   };
 
   function hashCalculated(widgetId, hash) {
-    let logElement = document.getElementById('hash-logging');
-    let logElementItem = document.createElement('p');
+    var logElement = document.getElementById('hash-logging');
+    var logElementItem = document.createElement('p');
     logElementItem.innerHTML = 'Window observer: Hash "' + hash + '" computed by widget id "' + widgetId + '"';
     logElement.appendChild(logElementItem);
   }

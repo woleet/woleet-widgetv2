@@ -1,6 +1,7 @@
+import from from 'core-js/features/array/from'
 import constants from 'Common/constants'
 import loader from 'Common/services/loader'
-import {getDefaultLanguage, getFileHasherDefaults} from 'Common/services/configurator'
+import {getDefaultLanguage, getFileHasherDefaults} from 'FileHasherWidget/defaults'
 import utils from 'Common/services/utils'
 import widgetLogger from 'Common/services/logger'
 import resources from 'Resources/locales'
@@ -28,7 +29,7 @@ function widget(window, document) {
   if (!widgetElementCollection.length === 0)
     widgetLogger.error(`The widget elements were not found`);
 
-  const widgetElements = [...widgetElementCollection];
+  const widgetElements = from(widgetElementCollection);
 
   widgetElements.forEach(widgetElement => {
     let widgetConfiguration = utils.parseWidgetAttributeConfiguration(widgetElement);
@@ -51,6 +52,7 @@ function widget(window, document) {
       config: widgetConfiguration
     });
   });
+  console.log('start loading');
   
   /**
    * Initialize the widget
@@ -67,6 +69,8 @@ function loadDependencies() {
    * Load the widget styles
    */
   const sourceLink = addCssLink();
+
+  console.log('source', Promise, Promise.all);
   
   return getWidgetDependencies().then(dependencies => {
     const {woleet, i18n, solidIconsModule} = dependencies;
@@ -84,6 +88,8 @@ function loadDependencies() {
     }
 
     if (!window['file-hasher-widget-source'] && sourceLink !== null) {
+      console.log('sourceLink', sourceLink);
+
       window['file-hasher-widget-source'] = sourceLink;
     }
 

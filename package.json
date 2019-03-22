@@ -4,7 +4,9 @@
   "description": "",
   "scripts": {
     "build": "./node_modules/.bin/webpack --config webpack.build.config.js --bail --progress",
-    "dev": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js --hot --inline"
+    "dev": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js --hot --inline",
+    "verifier": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js --hot --inline",
+    "hasher": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js --hot --inline"
   },
   "keywords": [
     "Woleet",
@@ -50,6 +52,7 @@
   "dependencies": {
     "@alienfast/i18next-loader": "^1.0.18",
     "@woleet/woleet-weblibs": "^0.7.0",
+    "core-js": "^3.0.0",
     "eslint": "^5.15.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "i18next": "^14.1.1",

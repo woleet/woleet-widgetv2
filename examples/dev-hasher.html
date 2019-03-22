@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Woleet widget V2: development page</title>
+    <title>File Hasher widget: development page</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <style>
         .file-hasher-widget {
@@ -38,22 +38,22 @@
 
   var test = {
     hashCalculatedObserver: function(widgetId, hash) {
-      let logElement = document.getElementById('hash-logging');
-      let logElementItem = document.createElement('p');
+      var logElement = document.getElementById('hash-logging');
+      var logElementItem = document.createElement('p');
       logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id  "' + widgetId + '"';
       logElement.appendChild(logElementItem);
     },
     fileDownloadedObserver: function(widgetId, file) {
-      let logElement = document.getElementById('download-logging');
-      let logElementItem = document.createElement('p');
+      var logElement = document.getElementById('download-logging');
+      var logElementItem = document.createElement('p');
       logElementItem.innerHTML = 'Deep observer: File "' + file.name + '" downloaded by widget id  "' + widgetId + '"';
       logElement.appendChild(logElementItem);
     }
   };
 
   function hashCalculated(widgetId, hash) {
-    let logElement = document.getElementById('hash-logging');
-    let logElementItem = document.createElement('p');
+    var logElement = document.getElementById('hash-logging');
+    var logElementItem = document.createElement('p');
     logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id "' + widgetId + '"';
     logElement.appendChild(logElementItem);
   }

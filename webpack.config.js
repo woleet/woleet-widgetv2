@@ -24,7 +24,8 @@ module.exports = (resourcePath = '') => {
       FileHasherWidget: path.resolve(__dirname, 'src/file-hasher-widget/'),
       FileHasherComponents: path.resolve(__dirname, 'src/file-hasher-widget/components'),
       Resources: path.resolve(__dirname, 'src/resources/'),
-      ProofVerifierWidget: path.resolve(__dirname, 'src/proof-verifier-widget/')
+      ProofVerifierWidget: path.resolve(__dirname, 'src/proof-verifier-widget/'),
+      ProofVerifierComponents: path.resolve(__dirname, 'src/proof-verifier-widget/components')
     }
   };
 

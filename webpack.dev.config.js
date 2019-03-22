@@ -5,6 +5,7 @@ const path = require('path');
 
 const resourcePath = '';
 const config = require('./webpack.config')(resourcePath);
+const widgetLabel = process.env.npm_lifecycle_event || 'hasher';
 const port = 9000;
 
 config.devtool = 'inline-source-map';
@@ -36,7 +37,7 @@ config.devServer = {
  */
 config.plugins.push(new HtmlWebpackPlugin({
   filename: resourcePath + 'index.html',
-  template: 'examples/webpack-dev.html',
+  template: 'examples/dev-' + widgetLabel + '.html',
   inject: false
 }));
 

@@ -2,7 +2,7 @@ import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
-import {getFileHasherObserverMappers} from 'Common/services/configurator';
+import {getFileHasherObserverMappers} from 'FileHasherWidget/defaults';
 import ProgressBarContainer from 'FileHasherWidget/components/progress-bar-container';
 
 /**
@@ -40,7 +40,7 @@ class DownloadContainer {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.download.code)
     });
-    this.element.style({'min-height': `${widgetStyles.width}`});
+    this.element.style({'height': `${widgetStyles.width}`});
     
     this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.download.body.code)

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proof Verifier widget: development page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <style>
+        .proof-verifier-widget {
+            padding: 20px 0;
+        }
+
+        .proof-verifier-widget > div {
+            margin: 0 auto;
+        }
+
+        .log {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 10px 20px;
+            text-align: justify;
+            word-break: break-all;
+            color: white;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<script>
+  var dev = true;
+  (function (d,s,i,f) {
+    var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
+    js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'proof-verifier-widget', 'proof-verifier-widget.js'));
+</script>
+<div class='proof-verifier-widget'
+     lang='en'
+     verification-server="false"
+     styles-width='320px'></div>
+<div class="log"></div>
+</body>
+</html>

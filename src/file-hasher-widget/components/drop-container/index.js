@@ -24,7 +24,7 @@ class DropContainer {
       classes: utils.extractClasses(styles, styleCodes.drop.code)
     });
     
-    this.element.style({'min-height': `${widgetStyles.width}`});
+    this.element.style({'height': `${widgetStyles.width}`});
   
     this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.drop.body.code)

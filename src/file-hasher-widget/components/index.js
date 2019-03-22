@@ -1,4 +1,4 @@
-import {getFileHasherObserverMappers} from 'Common/services/configurator';
+import {getFileHasherObserverMappers} from 'FileHasherWidget/defaults';
 import ConfigurationService from 'Common/services/configurator';
 import VirtualDOMService from 'Common/services/virtual-dom';
 import EventObserver from 'Common/patterns/event-observer';

@@ -1,6 +1,6 @@
 import constants from 'Common/constants'
 import loader from 'Common/services/loader'
-import {getDefaultLanguage, getProofVerifierWidgetDefaults} from 'Common/services/configurator'
+import {getDefaultLanguage, getProofVerifierWidgetDefaults} from 'ProofVerifierWidget/defaults'
 import utils from 'Common/services/utils'
 import widgetLogger from 'Common/services/logger'
 import resources from 'Resources/locales'
@@ -131,7 +131,7 @@ function initialize(widgetConfigurations) {
     /**
      * Extend the default widget configuration
      */
-    const configuration = getFileHasherDefaults();
+    const configuration = getProofVerifierWidgetDefaults();
     utils.extendObject(configuration, customConfiguration);
 
     if (!widgetElement)
@@ -154,8 +154,8 @@ function initialize(widgetConfigurations) {
  * Check if the styles weren't loaded before
  */
 function addCssLink() {
-  const styleId = `${constants.FILE_HASHER_WIDGET_ID}-style`;
-  const script = document.getElementById(constants.FILE_HASHER_WIDGET_ID);
+  const styleId = `${constants.PROOF_VERIFIER_WIDGET_ID}-style`;
+  const script = document.getElementById(constants.PROOF_VERIFIER_WIDGET_ID);
   const style = document.getElementById(styleId);
   let sourcePath = null;
 

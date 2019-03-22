@@ -51,7 +51,7 @@ class ProofVerifierWidget {
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
     });
     element.attr('id', this.widgetId);
-    element.style({width: `${this.configuration.styles.width}px`});
+    element.style({width: `${this.configuration.styles.width}`});
     
     return element.render();
   }
