@@ -139,6 +139,10 @@ function initialize(widgetConfigurations) {
     const configuration = getFileHasherDefaults();
     utils.extendObject(configuration, customConfiguration);
 
+    if (!utils.getObjectProperty(configuration.styles, 'iconWidth')) {
+      configuration.styles.iconWidth = configuration.styles.width;
+    }
+
     if (!widgetElement)
       widgetLogger.error(`Widget element wasn't found`);
 

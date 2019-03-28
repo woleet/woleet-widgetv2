@@ -1,0 +1,25 @@
+.proof-verifier-widget, .file-hasher-widget {
+    padding: 20px 0;
+}
+
+.proof-verifier-widget > div, .file-hasher-widget > div {
+    margin: 0 auto;
+}
+
+.log {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 10px 20px;
+    text-align: justify;
+    word-break: break-all;
+    color: white;
+    font-size: 18px;
+}
+
+.download-logging {
+    background: #0074D9;
+}
+
+.hash-logging {
+    background: #2ECC40;
+}

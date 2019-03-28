@@ -1,0 +1,17 @@
+@import '../../scss/variables.scss';
+
+:local {
+  .icon_container {
+    position: relative;
+    height: 1px;
+    
+    &--wrapper {
+      cursor: pointer;
+      svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}

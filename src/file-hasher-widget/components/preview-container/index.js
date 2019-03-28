@@ -103,7 +103,6 @@ class PreviewContainer {
 
     this.element.control.redo.on('click', function (event) {
       event.stopPropagation();
-      console.log('downloadModeInitiatedObserver');
       self.widget.observers.uploadModeInitiatedObserver.broadcast();
       return false;
     });

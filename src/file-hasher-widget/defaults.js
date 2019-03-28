@@ -8,7 +8,7 @@ function getFileHasherDefaults() {
   return {
     provenfile: null,
     styles: {
-      width: 130
+      width: '130px'
     },
     lang: constants.DEFAULT_WIDGET_LANGUAGE,
     type: constants.FILE_HASHER_WIDGET_TYPE

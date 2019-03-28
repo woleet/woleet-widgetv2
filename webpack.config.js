@@ -44,6 +44,10 @@ module.exports = (resourcePath = '') => {
         })
       },
       {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
+      },
+      {
         test: /\.js$/i,
         exclude: [/node_modules/, /dist/],
         use: { loader: 'babel-loader', options: { presets: [['@babel/env', { targets: { browsers: ['ie 6', 'safari 7'] } }]] } }

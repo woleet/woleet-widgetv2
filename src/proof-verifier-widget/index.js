@@ -4,6 +4,7 @@ import {getDefaultLanguage, getProofVerifierWidgetDefaults} from 'ProofVerifierW
 import utils from 'Common/services/utils'
 import widgetLogger from 'Common/services/logger'
 import resources from 'Resources/locales'
+import from from 'core-js/features/array/from'
 
 import ProofVerifierWidget from './components'
 
@@ -28,7 +29,7 @@ function widget(window, document) {
   if (!widgetElementCollection.length === 0)
     widgetLogger.error(`The widget elements were not found`);
 
-  const widgetElements = [...widgetElementCollection];
+  const widgetElements = from(widgetElementCollection);
 
   widgetElements.forEach(widgetElement => {
     let widgetConfiguration = utils.parseWidgetAttributeConfiguration(widgetElement);
