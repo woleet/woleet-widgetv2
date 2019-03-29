@@ -2,6 +2,7 @@ import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
+import BannerContainer from "ProofVerifierWidget/components/banner-container";
 
 const Icon = require('svg-inline-loader?classPrefix!Resources/images/icon_logo.svg');
 
@@ -28,8 +29,10 @@ class IconContainer {
     });
 
     this.element.iconWrapper.style({width: `${widgetStyles.icon.width}`, height: `${widgetStyles.icon.height}`});
-
     this.element.iconWrapper.html(Icon);
+
+    this.element.pannelContainer = (new BannerContainer(this.widget)).get();
+    this.element.pannelContainer.hide();
 
     this.initializeObservers();
     this.initializeEvents();

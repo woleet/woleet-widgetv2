@@ -4,9 +4,9 @@ import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
 
 /**
- * IconContainer
+ * PannelContainer
  */
-class IconContainer {
+class PannelContainer {
   constructor(widget) {
     this.widget = widget;
     this.lang = this.widget.configurator.getLanguage();
@@ -43,4 +43,4 @@ class IconContainer {
   }
 }
 
-export default IconContainer;
+export default PannelContainer;

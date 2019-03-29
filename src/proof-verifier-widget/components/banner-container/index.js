@@ -3,6 +3,8 @@ import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
 
+const Icon = require('svg-inline-loader?classPrefix!Resources/images/icon_logo.svg');
+
 /**
  * BannerContainer
  */
@@ -18,8 +20,16 @@ class BannerContainer {
     const widgetStyles = this.widget.configurator.getStyles();
 
     this.element = VirtualDOMService.createElement('div', {
-      classes: utils.extractClasses(styles, styleCodes.bannerContainer.code)
+      classes: utils.extractClasses(styles, styleCodes.iconContainer.code)
     });
+
+    this.element.iconWrapper = VirtualDOMService.createElement('div', {
+      classes: utils.extractClasses(styles, styleCodes.iconContainer.wrapper.code)
+    });
+
+    this.element.iconWrapper.style({width: `${widgetStyles.icon.width}`, height: `${widgetStyles.icon.height}`});
+
+    this.element.iconWrapper.html(Icon);
 
     this.initializeObservers();
     this.initializeEvents();
