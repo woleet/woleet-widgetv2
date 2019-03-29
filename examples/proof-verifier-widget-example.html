@@ -5,26 +5,43 @@
     <title>Woleet widget V2 examples</title>
     <!-- IE ZONE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <style>
+        .proof-verifier-widget {
+            padding: 20px 0;
+        }
+
+        .proof-verifier-widget > div {
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
-<div id="proof-verifier-widget"></div>
 <script>
-  var configuration = {
-    mode: 'ICON',
-    hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-    colors: {
-      'primary-color': '#3A11D8',
-      'secondary-color': '#AA11AA',
-      'third-color': '#F01166'
-    }
-  };
-
-  (function (w,d,s,o,f,js,fjs) {
-    w['proof-verifier-widget']=o;w[o] = w[o] || function () { (w[o] = arguments) };
-    js = d.createElement(s); fjs = d.getElementsByTagName(s)[0];
-    js.id = o; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
-  }(window, document, 'script', 'pvw', '../dist/proof-verifier-widget.js'));
-  pvw('proof-verifier-widget', configuration);
+  var dev = true;
+  (function (d,s,i,f) {
+    var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
+    js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'proof-verifier-widget', '../dist/proof-verifier-widget.js'));
 </script>
+<div class='proof-verifier-widget'
+     lang='en'
+     verification-server="false"
+     styles-banner-width="250px"
+     receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967&name=Terms%20of%20Servicev3_20180727.pdf'
+></div>
+<div class='proof-verifier-widget'
+     lang='en'
+     mode="banner"
+     verification-server="false"
+     styles-banner-width="250px"
+     receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967&name=Terms%20of%20Servicev3_20180727.pdf'
+></div>
+<div class='proof-verifier-widget'
+     lang='en'
+     mode="panel"
+     verification-server="false"
+     styles-banner-width="250px"
+     receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967&name=Terms%20of%20Servicev3_20180727.pdf'
+></div>
 </body>
 </html>

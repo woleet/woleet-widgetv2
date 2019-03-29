@@ -27,6 +27,8 @@ function DOM(element) {
   
   defineProp('html', (text, add) => getSelf(add ? target.innerHTML += text : target.innerHTML = text));
   
+  defineProp('append', (html) => getSelf(target.appendChild(html)));
+  
   defineProp('height', (value) => getSelf(target.height = value));
   
   defineProp('width', (value) => getSelf(target.width = value));

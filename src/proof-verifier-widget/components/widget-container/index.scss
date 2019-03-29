@@ -1,0 +1,51 @@
+@import '../../scss/variables';
+
+:root {
+  --footer-color: #2cba92;
+  --proof-verifier-banner-width: 50px;
+  --proof-verifier-panel-height: 500px;
+}
+
+:local {
+  .cursor {
+    &-pointer {
+      cursor: pointer;
+    }
+  }
+  .container {
+    position: relative;
+    display: inline-block
+  }
+  .icon_container {
+    display: inline-block;
+    svg {
+      display: block;
+    }
+  }
+  .banner_container {
+    width: 0;
+    display: inline-block;
+    background-color: pink;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    transition: all .5s ease;
+    &.banner-expended {
+      width: var(--proof-verifier-banner-width);
+    }
+  }
+  .panel_container {
+    height: 0;
+    display: block;
+    background-color: palegreen;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    transition: all .5s ease;
+    &.panel-expended {
+      height: var(--proof-verifier-panel-height);
+    }
+  }
+}

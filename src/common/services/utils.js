@@ -278,6 +278,27 @@ function byString(o, s) {
 }
 
 /**
+ * Get Html element from SVG string
+ * @param svg
+ * @returns {*}
+ */
+function svgToHTML(svg) {
+  const div = document.createElement('div');
+  div.innerHTML = svg.trim();
+  
+  const element = div.firstChild;
+  const attributes = element.attributes;
+  
+  return {
+    el: element,
+    attributes: {
+      width: attributes.width.value + 'px',
+      height: attributes.height.value + 'px'
+    }
+  };
+}
+
+/**
  *
  * @param str
  * @param value
@@ -317,6 +338,7 @@ function getObjectProperty(object, property) {
 export default  {
   byString,
   setTimer,
+  svgToHTML,
   translate,
   blobToFile,
   getUniqueId,

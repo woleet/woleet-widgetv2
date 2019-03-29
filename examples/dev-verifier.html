@@ -12,16 +12,6 @@
         .proof-verifier-widget > div {
             margin: 0 auto;
         }
-
-        .log {
-            max-width: 500px;
-            margin: 20px auto;
-            padding: 10px 20px;
-            text-align: justify;
-            word-break: break-all;
-            color: white;
-            font-size: 18px;
-        }
     </style>
 </head>
 <body>
@@ -35,8 +25,22 @@
 <div class='proof-verifier-widget'
      lang='en'
      verification-server="false"
+     styles-banner-width="250px"
      receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967&name=Terms%20of%20Servicev3_20180727.pdf'
-     styles-width='320px'></div>
-<div class="log"></div>
+></div>
+<div class='proof-verifier-widget'
+     lang='en'
+     mode="banner"
+     verification-server="false"
+     styles-banner-width="250px"
+     receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967&name=Terms%20of%20Servicev3_20180727.pdf'
+></div>
+<div class='proof-verifier-widget'
+     lang='en'
+     mode="panel"
+     verification-server="false"
+     styles-banner-width="250px"
+     receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967&name=Terms%20of%20Servicev3_20180727.pdf'
+></div>
 </body>
 </html>

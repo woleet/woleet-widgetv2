@@ -7,10 +7,12 @@ function getDefaultLanguage() {
 function getProofVerifierWidgetDefaults() {
   return {
     styles: {
-      width: '130px',
-      icon: {
-        width: '40px',
-        height: '45px'
+      banner: {
+        width: '50px'
+      },
+      panel: {
+        width: null,
+        height: '400px'
       }
     },
     verification: {

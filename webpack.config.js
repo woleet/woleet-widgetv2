@@ -31,7 +31,6 @@ module.exports = (resourcePath = '') => {
 
   const modules = {
     rules: [
-      { test: /\.hbs/, loader: 'handlebars-loader' },
       { test: /locales/, loader: '@alienfast/i18next-loader' },
       {
         test: /\.(css|scss)$/i,
@@ -45,7 +44,8 @@ module.exports = (resourcePath = '') => {
       },
       {
         test: /\.svg$/,
-        loader: 'svg-inline-loader'
+        loader: 'raw-loader'
+        // loader: 'svg-inline-loader?classPrefix'
       },
       {
         test: /\.js$/i,
