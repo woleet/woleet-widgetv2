@@ -21,6 +21,9 @@ function getProofVerifierWidgetDefaults() {
     receipt: {
       url: null
     },
+    proven_file: {
+      url: null
+    },
     lang: constants.DEFAULT_WIDGET_LANGUAGE,
     type: constants.PROOF_VERIFIER_WIDGET_TYPE,
     mode: constants.PROOF_VERIFIER_MODE_ICON

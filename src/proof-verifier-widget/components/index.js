@@ -5,6 +5,7 @@ import utils from 'Common/services/utils';
 import styleCodes from './style-codes';
 import styles from './index.scss';
 import WidgetContainer from "ProofVerifierComponents/widget-container";
+import ErrorContainer from "ProofVerifierWidget/components/error-container";
 
 /**
  * Define a class of the widget
@@ -17,16 +18,21 @@ class ProofVerifierWidget {
     this.observers = {};
     this.element = null;
   
-    const declaration = document.styleSheets[0].rules[0];
-  
-    console.log('constructor configuration', this.configuration, declaration);
+    console.log('constructor configuration', this.configuration);
   
     this.configurator.init(configuration);
     
     this.init();
+
+    if (!this.configuration.receipt || !this.configuration.receipt.url) {
+      this.observers.errorCaughtObserver.broadcast({message: 'need_receipt'});
+    }
   }
   
   init() {
+    this.initializeObservers();
+    this.initializeExternalObservers(this.configuration);
+
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.code),
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
@@ -34,9 +40,9 @@ class ProofVerifierWidget {
     this.element.attr('id', this.widgetId);
   
     this.element.container = (new WidgetContainer(this)).get();
-  
-    this.initializeObservers();
-    this.initializeExternalObservers(this.configuration);
+    this.element.errorContainer = (new ErrorContainer(this)).get();
+
+    this.observers.widgetInitializedObserver.broadcast();
   }
   
   initializeObservers() {
@@ -45,6 +51,16 @@ class ProofVerifierWidget {
      * @type {EventObserver}
      */
     this.observers = {
+      /*Events: errors*/
+      errorCaughtObserver: new EventObserver(),
+      errorHiddenObserver: new EventObserver(),
+      /*Events: widget*/
+      widgetInitializedObserver: new EventObserver(),
+      /*Events: receipt*/
+      receiptDownloadingFinishedObserver: new EventObserver(),
+      receiptDownloadingFailedObserver: new EventObserver(),
+      receiptParsedObserver: new EventObserver(),
+      receiptVerifiedObserver: new EventObserver(),
     };
   }
   

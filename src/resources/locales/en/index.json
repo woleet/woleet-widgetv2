@@ -6,8 +6,9 @@
     "file_hashing_in_progress": "File hashing...",
     "file_hashing_done": "File hashing is done",
     "errors": {
+      "url_not_found": "Url wasn't found",
       "need_receipt": {
-        "main": "No public proof found at Woleet",
+        "main": "No public proof found",
         "sub": "No public proof receipt found at Woleet: you must provide one to verify this file"
       },
       "file_matched_but_anchor_not_yet_processed": {

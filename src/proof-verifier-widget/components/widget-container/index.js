@@ -11,12 +11,22 @@ import Logo from 'Resources/images/icon_logo.svg';
 class WidgetContainer {
   constructor(widget) {
     this.widget = widget;
-    this.lang = this.widget.configurator.getLanguage();
-    this.animationClass = null;
     this.expanded = false;
+    this.animationClass = null;
+    this.fileReader = new FileReader();
     this.iconAttributes = utils.svgToHTML(Logo);
+    this.receipt = this.widget.configuration.receipt;
     this.styles = this.widget.configurator.getStyles();
+    this.lang = this.widget.configurator.getLanguage();
+    this.verifier = window.woleet ? window.woleet.verify : null;
     this.cursorPointerClass = utils.extractClasses(styles, ['cursor-pointer'])[0];
+
+    this.observerMappers = {
+      receipt: {
+        'downloadingFinished': 'receiptDownloadingFinishedObserver',
+        'downloadingFailed': 'receiptDownloadingFailedObserver'
+      }
+    };
 
     this.init();
   }
@@ -58,6 +68,49 @@ class WidgetContainer {
    * Initialize the observers
    */
   initializeObservers() {
+    const self = this;
+
+    this.widget.observers.widgetInitializedObserver.subscribe((data) => {
+      if (self.receipt && self.receipt.url) {
+        self.downloadFile(self.receipt.url, self.observerMappers.receipt)
+      }
+    });
+    this.widget.observers.receiptDownloadingFinishedObserver.subscribe((data) => {
+      self.receiptFileDownloaded(data)
+    });
+    this.widget.observers.receiptDownloadingFailedObserver.subscribe((data) => {
+      self.receiptFileFailed(data)
+    });
+    this.fileReader.onload = function() {
+      try {
+        let parsedResult = JSON.parse(this.result);
+        self.widget.observers.receiptParsedObserver.broadcast(parsedResult);
+        self.verifyReceiptFile(parsedResult);
+      } catch(err) {}
+    };
+  }
+
+  downloadFile(url, observerMapper) {
+    const downloadFilename = utils.getUrlToDownload(url);
+    const request = utils.getHttpRequest(downloadFilename, this.widget, observerMapper, url, true);
+    request.start();
+  }
+
+  verifyReceiptFile(receiptJson) {
+    const self = this;
+    /*TODO: add hash*/
+    self.verifier.receipt(receiptJson)
+      .then((result) => {
+        self.widget.observers.receiptVerifiedObserver.broadcast(result);
+      });
+  }
+
+  receiptFileDownloaded(blob) {
+    this.fileReader.readAsText(blob);
+  }
+
+  receiptFileFailed(error) {
+    this.widget.observers.errorCaughtObserver.broadcast(error);
   }
 
   /**
@@ -112,7 +165,7 @@ class WidgetContainer {
         this.expanded = true;
         self.element.bannerContainer.style({width: `${self.styles.banner.width}`});
         self.element.panelContainer.style({width: `${self.styles.panel.width}`, height: `${self.styles.panel.height}`});
-  
+
         self.initializePanelModeEvents();
         break;
       case constants.PROOF_VERIFIER_MODE_BANNER:

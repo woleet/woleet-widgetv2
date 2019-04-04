@@ -196,7 +196,7 @@ function getFileExtension(filename) {
  * @param url
  * @returns {XMLHttpRequest}
  */
-function getHttpRequest(downloadFilename, widget, observerMapper, url = false) {
+function getHttpRequest(downloadFilename, widget, observerMapper, url = false, toBlob = false) {
   let request = new XMLHttpRequest();
   
   request.addEventListener('readystatechange', () => {
@@ -210,17 +210,24 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false) {
       // Download is under progress
     } else if(request.readyState === 4) {
       // Downloading has finished
-      if (request.response) {
-        
-        
+      if (request.response && request.status === 200) {
         const filename = getFilenameUrl(downloadFilename);
-        const file = blobToFile(request.response, filename);
-  
-        file.url = url;
+
+        let file = request.response;
+
+        if (!toBlob) {
+          file = blobToFile(file, filename);
+          file.url = url;
+        }
         
         if (observerMapper['downloadingFinished']) {
           const downloadingFinishedObserver = observerMapper['downloadingFinished'];
           widget.observers[downloadingFinishedObserver].broadcast(file);
+        }
+      } else if (request.status === 404) {
+        if (observerMapper['downloadingFailed']) {
+          const downloadingFailedObserver = observerMapper['downloadingFailed'];
+          widget.observers[downloadingFailedObserver].broadcast('url_not_found');
         }
       }
     }
@@ -237,9 +244,7 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false) {
   }, false);
   
   request.responseType = 'blob';
-  
-  
-  
+
   request.onerror = function (error) {
     if (observerMapper['downloadingFailed']) {
       const downloadingFailedObserver = observerMapper['downloadingFailed'];
@@ -248,8 +253,12 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false) {
   };
   
   request.start = () => {
-    request.open("GET", downloadFilename, true);
-    request.send();
+    try {
+      request.open("GET", downloadFilename, true);
+      request.send();
+    } catch(err) {
+      console.log('downloading failed', err);
+    }
   };
   
   return request;

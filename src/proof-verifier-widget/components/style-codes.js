@@ -31,6 +31,13 @@ const styleCodes = {
       }
     }
   },
+
+  error: {
+    code: ['error'],
+    container: {
+      code: ['error_container'],
+    }
+  },
   
   /*common styles*/
   widget: {

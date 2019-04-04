@@ -6,8 +6,9 @@
     "file_hashing_in_progress": "Hachage de fichier...",
     "file_hashing_done": "Le hachage de fichier est terminé",
     "errors": {
+      "url_not_found": "L'URL n'a pas été trouvé",
       "need_receipt": {
-        "main": "No public proof found at Woleet",
+        "main": "Aucune preuve publique trouvée",
         "sub": "No public proof receipt found at Woleet: you must provide one to verify this file"
       },
       "file_matched_but_anchor_not_yet_processed": {

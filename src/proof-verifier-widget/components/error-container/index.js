@@ -1,6 +1,6 @@
 import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
-import styleCodes from 'FileHasherComponents/style-codes';
+import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
 
 /**
@@ -31,15 +31,6 @@ class ErrorContainer {
   initializeObservers() {
     this.widget.observers.errorCaughtObserver.subscribe((data) => {
       this.errorCaught(data)
-    });
-    this.widget.observers.hashingStartedObserver.subscribe(() => {
-      this.hideErrorElement()
-    });
-    this.widget.observers.downloadingStartedObserver.subscribe(() => {
-      this.hideErrorElement()
-    });
-    this.widget.observers.uploadModeInitiatedObserver.subscribe(() => {
-      this.hideErrorElement()
     });
   }
 
