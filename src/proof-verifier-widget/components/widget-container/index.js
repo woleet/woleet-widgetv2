@@ -4,6 +4,7 @@ import constants from 'Common/constants'
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
 import Logo from 'Resources/images/icon_logo.svg';
+import BannerContainer from "./banner-container";
 
 /**
  * WidgetContainer
@@ -45,10 +46,9 @@ class WidgetContainer {
     this.element.iconContainer.style({width: `${iconWidth}`, height: `${iconHeight}`});
     this.element.iconContainer.append(logoElement);
   
-    this.element.bannerContainer = VirtualDOMService.createElement('div', {
-      classes: utils.extractClasses(styles, styleCodes.bannerContainer.code)
-    });
-    this.element.bannerContainer.style({height: `${iconHeight}`});
+    this.element.bannerContainer = (new BannerContainer(this.widget, {
+      icon: {height: iconHeight}
+    })).get();
   
     this.element.panelContainer = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.code)
@@ -120,13 +120,7 @@ class WidgetContainer {
     const self = this;
 
     self.element.iconContainer.on('click', () => {
-      if (self.expanded) {
-        self.element.bannerContainer.removeClass(self.animationClass);
-      } else {
-        self.element.bannerContainer.addClass(self.animationClass);
-        self.element.bannerContainer.target().style.setProperty('--proof-verifier-banner-width', self.styles.banner.width);
-      }
-      self.expanded = !self.expanded;
+      self.widget.observers.iconClickedObserver.broadcast();
     });
   }
 
@@ -166,18 +160,17 @@ class WidgetContainer {
         self.element.bannerContainer.style({width: `${self.styles.banner.width}`});
         self.element.panelContainer.style({width: `${self.styles.panel.width}`, height: `${self.styles.panel.height}`});
 
-        self.initializePanelModeEvents();
+        // self.initializePanelModeEvents();
         break;
       case constants.PROOF_VERIFIER_MODE_BANNER:
         self.animationClass = utils.extractClasses(styles, ['panel-expended'])[0];
         self.element.bannerContainer.addClass(self.cursorPointerClass);
         self.element.bannerContainer.style({width: `${self.styles.banner.width}`});
   
-        self.initializeBannerModeEvents();
+        // self.initializeBannerModeEvents();
         break;
       case constants.PROOF_VERIFIER_MODE_ICON:
       default:
-        self.animationClass = utils.extractClasses(styles, ['banner-expended'])[0];
         self.element.iconContainer.addClass(self.cursorPointerClass);
         this.element.panelContainer.hide();
         
