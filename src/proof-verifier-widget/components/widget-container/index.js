@@ -5,6 +5,7 @@ import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
 import Logo from 'Resources/images/icon_logo.svg';
 import BannerContainer from "./banner-container";
+import PanelContainer from "./panel-container";
 
 /**
  * WidgetContainer
@@ -12,8 +13,6 @@ import BannerContainer from "./banner-container";
 class WidgetContainer {
   constructor(widget) {
     this.widget = widget;
-    this.expanded = false;
-    this.animationClass = null;
     this.fileReader = new FileReader();
     this.iconAttributes = utils.svgToHTML(Logo);
     this.receipt = this.widget.configuration.receipt;
@@ -46,17 +45,8 @@ class WidgetContainer {
     this.element.iconContainer.style({width: `${iconWidth}`, height: `${iconHeight}`});
     this.element.iconContainer.append(logoElement);
   
-    this.element.bannerContainer = (new BannerContainer(this.widget, {
-      icon: {height: iconHeight}
-    })).get();
-  
-    this.element.panelContainer = VirtualDOMService.createElement('div', {
-      classes: utils.extractClasses(styles, styleCodes.panelContainer.code)
-    });
-    
-    if (this.styles.panel.width === null) {
-      this.styles.panel.width = parseInt(iconWidth, 10) + parseInt(this.styles.banner.width, 10) + 'px';
-    }
+    this.element.bannerContainer = (new BannerContainer(this.widget, {height: iconHeight, width: iconWidth})).get();
+    this.element.panelContainer = (new PanelContainer(this.widget, {height: iconHeight, width: iconWidth})).get();
     
     console.log('this.styles', this.styles);
 
@@ -116,36 +106,12 @@ class WidgetContainer {
   /**
    * Initialize events for the ICON mode
    */
-  initializeIconModeEvents() {
+  initializeEvents() {
     const self = this;
 
     self.element.iconContainer.on('click', () => {
       self.widget.observers.iconClickedObserver.broadcast();
     });
-  }
-
-  /**
-   * Initialize events for the BANNER mode
-   */
-  initializeBannerModeEvents() {
-    const self = this;
-    
-    self.element.bannerContainer.on('click', () => {
-      if (self.expanded) {
-        self.element.panelContainer.removeClass(self.animationClass);
-      } else {
-        self.element.panelContainer.addClass(self.animationClass);
-        self.element.panelContainer.target().style.setProperty('--proof-verifier-panel-height', self.styles.panel.height);
-      }
-      self.expanded = !self.expanded;
-    });
-  }
-
-  /**
-   * Initialize events for the PANEL mode
-   */
-  initializePanelModeEvents() {
-    const self = this;
   }
 
   /**
@@ -155,27 +121,12 @@ class WidgetContainer {
     const self = this;
     
     switch(mode) {
-      case constants.PROOF_VERIFIER_MODE_PANEL:
-        this.expanded = true;
-        self.element.bannerContainer.style({width: `${self.styles.banner.width}`});
-        self.element.panelContainer.style({width: `${self.styles.panel.width}`, height: `${self.styles.panel.height}`});
-
-        // self.initializePanelModeEvents();
-        break;
-      case constants.PROOF_VERIFIER_MODE_BANNER:
-        self.animationClass = utils.extractClasses(styles, ['panel-expended'])[0];
-        self.element.bannerContainer.addClass(self.cursorPointerClass);
-        self.element.bannerContainer.style({width: `${self.styles.banner.width}`});
-  
-        // self.initializeBannerModeEvents();
-        break;
       case constants.PROOF_VERIFIER_MODE_ICON:
-      default:
         self.element.iconContainer.addClass(self.cursorPointerClass);
-        this.element.panelContainer.hide();
-        
-        self.initializeIconModeEvents();
+        self.initializeEvents();
         break;
+      default:
+        break
     }
   }
 

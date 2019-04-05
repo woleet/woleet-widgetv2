@@ -1,16 +1,11 @@
 @import '../../scss/variables';
+@import '../../scss/common';
 
 :root {
   --footer-color: #2cba92;
-  --proof-verifier-panel-height: 500px;
 }
 
 :local {
-  .cursor {
-    &-pointer {
-      cursor: pointer;
-    }
-  }
   .container {
     position: relative;
     display: inline-block
@@ -19,19 +14,6 @@
     display: inline-block;
     svg {
       display: block;
-    }
-  }
-  .panel_container {
-    height: 0;
-    display: block;
-    background-color: palegreen;
-    -webkit-transition: all .5s ease;
-    -moz-transition: all .5s ease;
-    -o-transition: all .5s ease;
-    -ms-transition: all .5s ease;
-    transition: all .5s ease;
-    &.panel-expended {
-      height: var(--proof-verifier-panel-height);
     }
   }
 }

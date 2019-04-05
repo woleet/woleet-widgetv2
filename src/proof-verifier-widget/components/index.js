@@ -58,6 +58,7 @@ class ProofVerifierWidget {
       widgetInitializedObserver: new EventObserver(),
       /*Events: user actions*/
       iconClickedObserver: new EventObserver(),
+      bannerClickedObserver: new EventObserver(),
       /*Events: receipt*/
       receiptDownloadingFinishedObserver: new EventObserver(),
       receiptDownloadingFailedObserver: new EventObserver(),

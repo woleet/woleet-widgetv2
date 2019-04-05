@@ -1,5 +1,6 @@
 import { icon } from '@fortawesome/fontawesome-svg-core'
 import constants from "Common/constants";
+import VirtualDOMService from "Common/services/virtual-dom";
 
 /**
  * Simple object check.
@@ -344,12 +345,18 @@ function getObjectProperty(object, property) {
   return result;
 }
 
+function formatDate(date, lang) {
+  let options = {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+  return date.toLocaleDateString(lang, options)
+}
+
 export default  {
   byString,
   setTimer,
   svgToHTML,
   translate,
   blobToFile,
+  formatDate,
   getUniqueId,
   extendObject: mergeDeep,
   defineProperty,

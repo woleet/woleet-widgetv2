@@ -1,0 +1,22 @@
+@import '../../../scss/variables.scss';
+@import '../../../scss/common';
+
+:root {
+  --proof-verifier-panel-height: 500px;
+}
+
+:local {
+  .panel_container {
+    height: 0;
+    display: block;
+    background-color: palegreen;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    transition: all .5s ease;
+    &.panel-expended {
+      height: var(--proof-verifier-panel-height);
+    }
+  }
+}

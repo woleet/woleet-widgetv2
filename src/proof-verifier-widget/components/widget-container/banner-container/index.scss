@@ -1,21 +1,37 @@
-@import '../../../scss/variables.scss';
+@import '../../../scss/variables';
+@import '../../../scss/common';
 
 :root {
   --proof-verifier-banner-width: 50px;
+  --proof-verifier-banner-title-fontsize: 16px;
+  --proof-verifier-banner-title-color: #31708f;
 }
 
 :local {
   .banner_container {
     width: 0;
     display: inline-block;
-    background-color: pink;
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
     -ms-transition: all .5s ease;
     transition: all .5s ease;
+    position: relative;
     &.banner-expended {
       width: var(--proof-verifier-banner-width);
+    }
+    &--wrapper {
+      height: 24px;
+      position: absolute;
+      top: 50%;
+      background-color: #d9edf7;
+      transform: translateY(-50%);
+      width: 100%;
+      &-title {
+        vertical-align: sub;
+        font-size: var(--proof-verifier-banner-title-fontsize);
+        color: var(--proof-verifier-banner-title-color);
+      }
     }
   }
 }
