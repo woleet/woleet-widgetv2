@@ -138,8 +138,10 @@ function initialize(widgetConfigurations) {
      */
     const configuration = getFileHasherDefaults();
     utils.extendObject(configuration, customConfiguration);
-
-    if (!utils.getObjectProperty(configuration.styles, 'iconWidth')) {
+  
+    const iconWidth = utils.getObjectProperty(configuration.styles, 'iconWidth');
+    
+    if (!iconWidth || (parseInt(iconWidth, 10) > parseInt(configuration.styles.width, 10))) {
       configuration.styles.iconWidth = configuration.styles.width;
     }
 
