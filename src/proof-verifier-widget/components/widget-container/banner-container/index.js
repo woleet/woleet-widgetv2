@@ -75,17 +75,23 @@ class BannerContainer {
     const widgetStyles = this.widget.configurator.getStyles();
     const sig = message.receipt.signature;
     const idStatus = message.identityVerificationStatus;
-    const identity = idStatus ? idStatus.identity : null;
+    const identity = idStatus ? idStatus.identity : false;
     const pubKey = sig ? sig.pubKey : null;
-    // Confirmations may be undefined if tx is sent but not yet included in a block
     if (!message.confirmations) {
-      item.mainTextZone.text('Proof not yet verifiable');
+      /*item.mainTextZone.text('Proof not yet verifiable');
       item.subTextZone.text('The proof receipt\'s transaction is not yet confirmed (try again later)');
-      item.addClass('info');
+      item.addClass('info');*/
     } else {
-      const date = utils.formatDate(message.timestamp, this.lang);
-      const title = `${pubKey ? 'Signed' : 'Timestamped'} on ${date} by ${identity.organization}`;
-      self.element.wrapper.title.html(title);
+      let date = utils.formatDate(message.timestamp, this.lang);
+      let transParams = {date: date};
+      let transCode = pubKey ? 'signed' : 'timestamped';
+
+      if (identity) {
+        transParams.organization = identity.organization;
+        transParams.context = 'by';
+      }
+
+      self.element.wrapper.title.html(utils.translate(transCode, this.lang, transParams));
     }
     
     console.log('panel got receipt', message, sig, idStatus, identity, pubKey);

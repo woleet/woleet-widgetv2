@@ -1,6 +1,7 @@
 import constants from 'Common/constants'
+import { getDefaultLanguage } from 'Common/services/configurator'
 import loader from 'Common/services/loader'
-import {getDefaultLanguage, getProofVerifierWidgetDefaults} from 'ProofVerifierWidget/defaults'
+import {getProofVerifierWidgetDefaults} from 'ProofVerifierWidget/defaults'
 import utils from 'Common/services/utils'
 import widgetLogger from 'Common/services/logger'
 import resources from 'Resources/locales'

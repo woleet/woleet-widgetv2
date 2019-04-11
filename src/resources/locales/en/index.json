@@ -5,6 +5,10 @@
     "file_downloading_in_progress": "File downloading...",
     "file_hashing_in_progress": "File hashing...",
     "file_hashing_done": "File hashing is done",
+    "signed": "Signed on {{date}}",
+    "signed_by": "Signed on {{date}} by {{organization}}",
+    "timestamped": "Timestamped on {{date}}",
+    "timestamped_by": "Timestamped on {{date}} by {{organization}}",
     "errors": {
       "url_not_found": "Url wasn't found",
       "need_receipt": {

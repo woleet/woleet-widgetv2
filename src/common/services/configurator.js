@@ -1,3 +1,9 @@
+import constants from "Common/constants";
+
+function getDefaultLanguage() {
+  return constants.DEFAULT_WIDGET_LANGUAGE;
+}
+
 class ConfigurationService {
   constructor() {
     this.configuration = [];
@@ -19,7 +25,7 @@ class ConfigurationService {
     if (this.configuration && this.configuration.lang) {
       return this.configuration.lang;
     }
-    return this.getDefaultLanguage();
+    return getDefaultLanguage();
   }
   
   /**
@@ -55,4 +61,5 @@ class ConfigurationService {
   }
 }
 
+export { getDefaultLanguage };
 export default ConfigurationService;

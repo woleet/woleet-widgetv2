@@ -1,9 +1,5 @@
 import constants from "Common/constants";
 
-function getDefaultLanguage() {
-  return constants.DEFAULT_WIDGET_LANGUAGE;
-}
-
 function getFileHasherDefaults() {
   return {
     provenfile: null,
@@ -33,7 +29,6 @@ function getFileHasherObserverMappers() {
 }
 
 export {
-  getDefaultLanguage,
   getFileHasherDefaults,
   getFileHasherObserverMappers
 }

@@ -1,9 +1,5 @@
 import constants from "Common/constants";
 
-function getDefaultLanguage() {
-  return constants.DEFAULT_WIDGET_LANGUAGE;
-}
-
 function getProofVerifierWidgetDefaults() {
   return {
     styles: {
@@ -31,6 +27,5 @@ function getProofVerifierWidgetDefaults() {
 }
 
 export {
-  getDefaultLanguage,
   getProofVerifierWidgetDefaults,
 }

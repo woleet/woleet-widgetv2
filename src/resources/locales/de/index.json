@@ -5,6 +5,10 @@
     "file_downloading_in_progress": "Herunterladen von Dateien...",
     "file_hashing_in_progress": "Datei-Hashing...",
     "file_hashing_done": "Datei-Hashing ist abgeschlossen",
+    "signed": "Unterzeichnet am {{date}}",
+    "signed_by": "Unterzeichnet am {{date}} von {{organization}}",
+    "timestamped": "Zeitstempel am {{date}}",
+    "timestamped_by": "Zeitstempel am {{date}} von {{organization}}",
     "errors": {
       "url_not_found": "URL wurde nicht gefunden",
       "need_receipt": {
