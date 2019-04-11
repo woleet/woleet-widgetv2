@@ -3,6 +3,10 @@ import constants from "Common/constants";
 function getProofVerifierWidgetDefaults() {
   return {
     styles: {
+      icon: {
+        width: null,
+        height: null
+      },
       banner: {
         width: '50px'
       },

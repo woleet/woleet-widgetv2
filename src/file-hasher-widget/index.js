@@ -20,7 +20,7 @@ function widget(window, document) {
    * @type {string}
    */
   const widgetConfigurations = [];
-  const widgetClassName = 'file-hasher-widget';
+  const widgetClassName = constants.FILE_HASHER_WIDGET_ID;
 
   /**
    * Grab the object created during the widget creation
@@ -49,11 +49,10 @@ function widget(window, document) {
 
     widgetConfigurations.push({
       el: widgetElement,
-      id: widgetConfiguration.id || utils.getUniqueId(widgetClassName + '-'),
+      id: widgetConfiguration.id,
       config: widgetConfiguration
     });
   });
-  console.log('start loading');
   
   /**
    * Initialize the widget
@@ -70,8 +69,6 @@ function loadDependencies() {
    * Load the widget styles
    */
   const sourceLink = addCssLink();
-
-  console.log('source', Promise, Promise.all);
   
   return getWidgetDependencies().then(dependencies => {
     const {woleet, i18n, solidIconsModule} = dependencies;
@@ -132,7 +129,8 @@ function initialize(widgetConfigurations) {
    * Initialize all instances of the widget
    */
   widgetConfigurations.forEach(widgetConfiguration => {
-    const {config: customConfiguration, el: widgetElement, id: widgetId} = widgetConfiguration;
+    const uniqueWidgetId = utils.getUniqueId(`${constants.FILE_HASHER_WIDGET_ID}-`);
+    const {config: customConfiguration, el: widgetElement, id: widgetId = uniqueWidgetId} = widgetConfiguration;
     customConfiguration.widgetId = widgetId;
     /**
      * Extend the default widget configuration

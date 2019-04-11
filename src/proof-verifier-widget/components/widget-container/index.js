@@ -32,23 +32,29 @@ class WidgetContainer {
   }
   
   init() {
-    const {mode} = this.widget.configuration;
-    const {el: logoElement, attributes: {width: iconWidth, height: iconHeight}} = this.iconAttributes;
+    let {mode} = this.widget.configuration;
+    let {el: logoElement, attributes: {width: iconWidth, height: iconHeight}} = this.iconAttributes;
+
+    if (this.styles.icon.width !== null) {
+      iconWidth = this.styles.icon.width;
+    }
+
+    if (this.styles.icon.height !== null) {
+      iconHeight = this.styles.icon.height;
+    }
     
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.containers.code)
     });
   
-    this.element.iconContainer = VirtualDOMService.createElement('div', {
+    this.element.iconContainer = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.iconContainer.code)
     });
-    this.element.iconContainer.style({width: `${iconWidth}`, height: `${iconHeight}`});
-    this.element.iconContainer.append(logoElement);
+    this.element.iconContainer.style({width: iconWidth, height: iconHeight});
+    this.element.iconContainer.attr('src', `data:image/svg+xml;utf8,${Logo}`);
   
     this.element.bannerContainer = (new BannerContainer(this.widget, {height: iconHeight, width: iconWidth})).get();
     this.element.panelContainer = (new PanelContainer(this.widget, {height: iconHeight, width: iconWidth})).get();
-    
-    console.log('this.styles', this.styles);
 
     this.initializeObservers();
     this.initializeContainerView(mode);

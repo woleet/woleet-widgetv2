@@ -1,0 +1,15 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Example of usage "{{ widget }}" in Angular2+ (7.2)!
+  </h1>
+  <file-hasher-widget [lang]="widgetConfig.lang" [config]="widgetConfig"></file-hasher-widget>
+
+  <div class="log download-logging" id="download-logging" *ngIf="files.length > 0">
+    <p *ngFor="let fileObject of files">File "{{fileObject.file.name}}" downloaded by widget id="{{fileObject.widgetId}}"</p>
+  </div>
+  <div class="log hash-logging" id="hash-logging" *ngIf="hashes.length > 0">
+    <p *ngFor="let hashObject of hashes">Hash "{{hashObject.hash}}" computed by widget id="{{hashObject.widgetId}}"</p>
+  </div>
+</div>
+

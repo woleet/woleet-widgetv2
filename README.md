@@ -99,6 +99,14 @@ The dynamic initialization is also available. It is realized using the method __
 
 See [examples/file-hasher-widget-example.html](examples/file-hasher-widget-example.html) for an example about how to insert this widget in a web page.
 
+## Angular2+ usage
+
+Go examples/angular2/file-hasher-widget and read [README.md](examples/angular2/file-hasher-widget/README.md) to install and run the demo Angular2+ application.
+Also see the HTML file [index.html](examples/angular2/file-hasher-widget/src/index.html) and [app.component.html](examples/angular2/file-hasher-widget/src/app/app.component.html)
+for an example about how to insert this widget in an Angular2+ application.
+
+An example of a working Angular2 + component using a widget can be found in the [components](examples/angular2/file-hasher-widget/src/app/components) directory.
+
 # Download Proxy Server
 
 To allow the widget to download the file, the file URL must be proxied or the URL must support CORS.

@@ -30,6 +30,8 @@ class ProofVerifierWidget {
   }
   
   init() {
+    const widgetStyles = this.configurator.getStyles();
+
     this.initializeObservers();
     this.initializeExternalObservers(this.configuration);
 
@@ -38,7 +40,8 @@ class ProofVerifierWidget {
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
     });
     this.element.attr('id', this.widgetId);
-  
+    this.element.style({width: `${widgetStyles.icon.width}`});
+
     this.element.container = (new WidgetContainer(this)).get();
     this.element.errorContainer = (new ErrorContainer(this)).get();
 
