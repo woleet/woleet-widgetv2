@@ -1,0 +1,13 @@
+@import '../../../../scss/variables.scss';
+@import '../../../../scss/common';
+
+:root {
+  --proof-verifier-panel-background-color: #d9edf7;
+}
+
+:local {
+  .panel_container {
+  
+    background-color: var(--proof-verifier-panel-background-color);
+  }
+}

@@ -1,0 +1,19 @@
+@import '../../../../scss/variables.scss';
+@import '../../../../scss/common';
+
+:root {
+  --proof-verifier-control-background-color: #eee;
+}
+
+:local {
+  .panel_container {
+    &--control {
+      background-color: var(--proof-verifier-control-background-color);
+      height: 10%;
+      font-size: 14px;
+      &_wrapper {
+        padding: 5px;
+      }
+    }
+  }
+}

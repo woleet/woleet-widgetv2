@@ -2,6 +2,7 @@
   "translation": {
     "select_file_to_hash": "Veuillez sélectionner un fichier",
     "click_to_download": "Cliquez sur l'icône pour télécharger le fichier",
+    "click_to_download_proof_receipt": "Téléchargez le reçu de preuve Chainpoint",
     "file_downloading_in_progress": "Téléchargement de fichier...",
     "file_hashing_in_progress": "Hachage de fichier...",
     "file_hashing_done": "Le hachage de fichier est terminé",

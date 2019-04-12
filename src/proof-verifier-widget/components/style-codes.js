@@ -29,6 +29,15 @@ const styleCodes = {
       icon: {
         code: ['panel_container--wrapper-icon']
       }
+    },
+    control: {
+      code: ['panel_container--control'],
+      wrapper: {
+        code: ['panel_container--control_wrapper']
+      },
+      item: {
+        code: ['panel_container--control-item']
+      }
     }
   },
 

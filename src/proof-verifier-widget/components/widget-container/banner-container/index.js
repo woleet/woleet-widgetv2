@@ -71,16 +71,11 @@ class BannerContainer {
   
   receiptParsed(message) {
     const self = this;
-    const widgetStyles = this.widget.configurator.getStyles();
     const sig = message.receipt.signature;
     const idStatus = message.identityVerificationStatus;
     const identity = idStatus ? idStatus.identity : false;
     const pubKey = sig ? sig.pubKey : null;
-    if (!message.confirmations) {
-      /*item.mainTextZone.text('Proof not yet verifiable');
-      item.subTextZone.text('The proof receipt\'s transaction is not yet confirmed (try again later)');
-      item.addClass('info');*/
-    } else {
+    if (message.confirmations) {
       let date = utils.formatDate(message.timestamp, this.lang);
       let transParams = {date: date};
       let transCode = pubKey ? 'signed' : 'timestamped';
@@ -91,13 +86,8 @@ class BannerContainer {
       }
 
       const translatedText = utils.translate(transCode, this.lang, transParams);
-      const svgText = utils.textToSvg(translatedText);
-
       self.element.wrapper.title.html(translatedText);
-      // self.element.wrapper.append(svgText);
     }
-    
-    console.log('panel got receipt', message, sig, idStatus, identity, pubKey);
   }
 
   onIconClicked() {

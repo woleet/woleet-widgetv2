@@ -3,6 +3,8 @@ import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
 import constants from "Common/constants";
+import BannerContainer from "ProofVerifierWidget/components/widget-container/banner-container";
+import ControlPanelContainer from "ProofVerifierWidget/components/widget-container/panel-container/control-panel-container";
 
 /**
  * PanelContainer
@@ -12,7 +14,6 @@ class PanelContainer {
     this.element = null;
     this.expanded = false;
     this.widget = widget;
-    this.animationClass = '';
     this.iconStyles = iconStyles;
     this.mode = this.widget.configuration.mode;
     this.lang = this.widget.configurator.getLanguage();
@@ -26,18 +27,13 @@ class PanelContainer {
   }
   
   init() {
-    const {banner: bannerStyles} = this.widget.configurator.getStyles();
-
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.code)
     });
+
+    this.element.control = (new ControlPanelContainer(this.widget)).get();
     this.initializeObservers();
     this.initializeView(this.mode);
-
-    if (bannerStyles.title && bannerStyles.title.color) {
-      this.styles.panel.target().style
-        .setProperty('--proof-verifier-banner-title-color', bannerStyles.title.color);
-    }
   }
   
   // Initialize the observers
