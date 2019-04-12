@@ -2,21 +2,23 @@
 @import '../../../scss/common';
 
 :root {
-  --proof-verifier-panel-height: 500px;
+  --proof-verifier-panel-width: 0;
+  --proof-verifier-panel-height: 0;
+  --proof-verifier-banel-background-color: #d9edf7;
 }
 
 :local {
   .panel_container {
-    height: 0;
+    width: var(--proof-verifier-panel-width);
+    height: var(--proof-verifier-panel-height);
     display: block;
-    background-color: palegreen;
+    background-color: var(--proof-verifier-banel-background-color);
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
     -ms-transition: all .5s ease;
     transition: all .5s ease;
-    &.panel-expended {
-      height: var(--proof-verifier-panel-height);
-    }
+    position: fixed;
+    z-index: 2;
   }
 }

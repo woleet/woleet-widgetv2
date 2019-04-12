@@ -51,7 +51,9 @@ class WidgetContainer {
       classes: utils.extractClasses(styles, styleCodes.iconContainer.code)
     });
     this.element.iconContainer.style({width: iconWidth, height: iconHeight});
-    this.element.iconContainer.attr('src', `data:image/svg+xml;utf8,${Logo}`);
+    const xml = new XMLSerializer().serializeToString(logoElement);
+    const image = `data:image/svg+xml;base64,${btoa(xml)}`;
+    this.element.iconContainer.attr('src', image);
   
     this.element.bannerContainer = (new BannerContainer(this.widget, {height: iconHeight, width: iconWidth})).get();
     this.element.panelContainer = (new PanelContainer(this.widget, {height: iconHeight, width: iconWidth})).get();

@@ -2,7 +2,7 @@
     padding: 20px 0;
 }
 
-.proof-verifier-widget > div, .file-hasher-widget > div {
+.file-hasher-widget > div {
     margin: 0 auto;
 }
 

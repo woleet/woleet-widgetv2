@@ -350,10 +350,27 @@ function formatDate(date, lang) {
   return date.toLocaleDateString(lang, options)
 }
 
+function textToSvg(text) {
+  const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svgElement.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+  svgElement.setAttribute('version', '1.1');
+  const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  textElement.setAttributeNS(null, 'width', '100%');
+  textElement.setAttributeNS(null, 'height', 'auto');
+  textElement.setAttributeNS(null, 'x', '0');
+  textElement.setAttributeNS(null, 'y', '0');
+  textElement.setAttributeNS(null,"font-size","18px");
+  textElement.appendChild(document.createTextNode(text));
+  svgElement.appendChild(textElement);
+
+  return svgElement;
+}
+
 export default  {
   byString,
   setTimer,
   svgToHTML,
+  textToSvg,
   translate,
   blobToFile,
   formatDate,

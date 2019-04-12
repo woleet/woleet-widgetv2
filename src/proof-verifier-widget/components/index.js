@@ -17,9 +17,6 @@ class ProofVerifierWidget {
     this.configuration = configuration;
     this.observers = {};
     this.element = null;
-  
-    console.log('constructor configuration', this.configuration);
-  
     this.configurator.init(configuration);
     
     this.init();

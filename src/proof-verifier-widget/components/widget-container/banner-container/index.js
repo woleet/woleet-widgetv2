@@ -12,7 +12,6 @@ class BannerContainer {
     this.element = null;
     this.widget = widget;
     this.iconStyles = iconStyles;
-    this.animationClass = '';
     this.mode = this.widget.configuration.mode;
     this.lang = this.widget.configurator.getLanguage();
     this.cursorPointerClass = utils.extractClasses(styles, ['cursor-pointer'])[0];
@@ -91,7 +90,11 @@ class BannerContainer {
         transParams.context = 'by';
       }
 
-      self.element.wrapper.title.html(utils.translate(transCode, this.lang, transParams));
+      const translatedText = utils.translate(transCode, this.lang, transParams);
+      const svgText = utils.textToSvg(translatedText);
+
+      self.element.wrapper.title.html(translatedText);
+      // self.element.wrapper.append(svgText);
     }
     
     console.log('panel got receipt', message, sig, idStatus, identity, pubKey);
@@ -101,13 +104,9 @@ class BannerContainer {
     const self = this;
     const widgetStyles = this.widget.configurator.getStyles();
     if (self.expanded) {
-      self.element.removeClass(self.animationClass);
-      utils.setTimer(self.element.wrapper.hide, 400);
-      self.element.wrapper.hide();
+      self.element.target().style.setProperty('--proof-verifier-banner-width', 0);
     } else {
-      self.element.addClass(self.animationClass);
       self.element.target().style.setProperty('--proof-verifier-banner-width', widgetStyles.banner.width);
-      utils.setTimer(self.element.wrapper.show, 400);
     }
     self.expanded = !self.expanded;
   }
@@ -121,18 +120,15 @@ class BannerContainer {
     
     switch(mode) {
       case constants.PROOF_VERIFIER_MODE_PANEL:
-        self.element.style({width: `${widgetStyles.banner.width}`});
+        self.element.style({width: `${widgetStyles.banner.width}`, position: 'relative'});
         break;
       case constants.PROOF_VERIFIER_MODE_BANNER:
         self.element.addClass(self.cursorPointerClass);
-        self.element.style({width: `${widgetStyles.banner.width}`});
+        self.element.style({width: `${widgetStyles.banner.width}`, position: 'relative'});
         
         this.initializeEvents();
         break;
       case constants.PROOF_VERIFIER_MODE_ICON:
-        self.animationClass = utils.extractClasses(styles, ['banner-expended'])[0];
-        self.element.wrapper.hide();
-        break;
       default:
         break;
     }

@@ -19,18 +19,25 @@ class PanelContainer {
     this.styles = this.widget.configurator.getStyles();
   
     if (this.styles.panel.width === null) {
-      this.styles.panel.width = parseInt(this.iconStyles.widget, 10) + parseInt(this.styles.banner.width, 10) + 'px';
+      this.styles.panel.width = parseInt(this.iconStyles.width, 10) + parseInt(this.styles.banner.width, 10) + 'px';
     }
   
     this.init();
   }
   
   init() {
+    const {banner: bannerStyles} = this.widget.configurator.getStyles();
+
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.code)
     });
     this.initializeObservers();
     this.initializeView(this.mode);
+
+    if (bannerStyles.title && bannerStyles.title.color) {
+      this.styles.panel.target().style
+        .setProperty('--proof-verifier-banner-title-color', bannerStyles.title.color);
+    }
   }
   
   // Initialize the observers
@@ -46,9 +53,8 @@ class PanelContainer {
     const self = this;
   
     if (self.expanded) {
-      self.element.removeClass(self.animationClass);
+      self.element.target().style.setProperty('--proof-verifier-panel-height', 0);
     } else {
-      self.element.addClass(self.animationClass);
       self.element.target().style.setProperty('--proof-verifier-panel-height', self.styles.panel.height);
     }
     self.expanded = !self.expanded;
@@ -62,15 +68,13 @@ class PanelContainer {
 
     switch(mode) {
       case constants.PROOF_VERIFIER_MODE_PANEL:
-        self.element.style({width: `${self.styles.panel.width}`, height: `${self.styles.panel.height}`});
-        break;
-      case constants.PROOF_VERIFIER_MODE_BANNER:
-        self.animationClass = utils.extractClasses(styles, ['panel-expended'])[0];
+        self.element.target().style.setProperty('--proof-verifier-panel-height', self.styles.panel.height);
+        self.element.target().style.setProperty('--proof-verifier-panel-width', self.styles.panel.width);
         break;
       case constants.PROOF_VERIFIER_MODE_ICON:
-        this.element.hide();
-        break;
+      case constants.PROOF_VERIFIER_MODE_BANNER:
       default:
+        self.element.target().style.setProperty('--proof-verifier-panel-width', self.styles.panel.width);
         break;
     }
   }
