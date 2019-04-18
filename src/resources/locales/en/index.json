@@ -6,6 +6,7 @@
     "file_downloading_in_progress": "File downloading...",
     "file_hashing_in_progress": "File hashing...",
     "file_hashing_done": "File hashing is done",
+    "view_transaction": "View transaction",
     "signed": "Signed on {{date}}",
     "signed_by": "Signed on {{date}} by {{organization}}",
     "timestamped": "Timestamped on {{date}}",

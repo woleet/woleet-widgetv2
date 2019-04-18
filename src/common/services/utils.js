@@ -1,6 +1,5 @@
 import { icon } from '@fortawesome/fontawesome-svg-core'
 import constants from "Common/constants";
-import VirtualDOMService from "Common/services/virtual-dom";
 
 /**
  * Simple object check.
@@ -350,6 +349,27 @@ function formatDate(date, lang) {
   return date.toLocaleDateString(lang, options)
 }
 
+function saveObjectAs(object, filename, type = 'application/json;charset=utf-8') {
+  const strObject = JSON.stringify(object, null, 4);
+  console.log('object', object, strObject);
+  const file = new Blob([strObject],{type});
+  if (window.navigator.msSaveOrOpenBlob) {
+    window.navigator.msSaveOrOpenBlob(file, filename);
+  } else {
+    console.log('file', file);
+    const a = document.createElement("a");
+    const url = URL.createObjectURL(file);
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function() {
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, 0);
+  }
+}
+
 function textToSvg(text) {
   const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svgElement.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
@@ -375,6 +395,7 @@ export default  {
   blobToFile,
   formatDate,
   getUniqueId,
+  saveObjectAs,
   extendObject: mergeDeep,
   defineProperty,
   getHttpRequest,

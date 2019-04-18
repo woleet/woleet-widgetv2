@@ -9,10 +9,24 @@
   .panel_container {
     &--control {
       background-color: var(--proof-verifier-control-background-color);
-      height: 10%;
+      min-height: 10%;
       font-size: 14px;
       &_wrapper {
-        padding: 5px;
+        padding: 10px;
+
+        & > div {
+          &:not(:last-child) {
+            padding-bottom: 5px;
+          }
+
+          a {
+            color: var(--proof-verifier-banner-title-color);
+            text-decoration: none;
+            i {
+              padding-right: 5px;
+            }
+          }
+        }
       }
     }
   }

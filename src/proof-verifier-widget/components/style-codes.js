@@ -50,7 +50,8 @@ const styleCodes = {
   
   /*common styles*/
   widget: {
-    hidden:['woleet_widget_hidden']
+    hidden:['woleet_widget_hidden'],
+    cursorPointer: ['cursor-pointer']
   }
 };
 

@@ -2,6 +2,7 @@
  * Widget constants and default values
  * */
 const PROXY_URL = 'http://localhost:3000/download?url=';
+const TRANSACTION_URL = `https://blockstream.info/tx/$sourseId`;
 const DEFAULT_WIDGET_LANGUAGE = document.documentElement.lang;
 
 /**
@@ -30,6 +31,7 @@ const FILE_HASHER_WIDGET_TYPE = 'FILE_HASHER_WIDGET';
 
 export default {
   PROXY_URL,                    /*export common constants*/
+  TRANSACTION_URL,              /*export common constants*/
   DEFAULT_WIDGET_LANGUAGE,
 
   PROOF_VERIFIER_WIDGET_ID,     /*export proof-verifier-widget constants*/
