@@ -30,6 +30,27 @@ const styleCodes = {
         code: ['panel_container--wrapper-icon']
       }
     },
+    title: {
+      code: ['panel_container--title'],
+      label: {
+        code: ['panel_container--title-item', 'panel_container--title-label']
+      },
+      value: {
+        code: ['panel_container--title-item', 'panel_container--title-value']
+      },
+      valueFilled: {
+        code: ['panel_container--title-item', 'panel_container--title-value_filled']
+      }
+    },
+    anchor: {
+      code: ['panel_container--anchor'],
+      wrapper: {
+        code: ['panel_container--anchor_wrapper']
+      },
+      item: {
+        code: ['panel_container--anchor-item']
+      }
+    },
     control: {
       code: ['panel_container--control'],
       wrapper: {

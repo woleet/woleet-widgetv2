@@ -19,16 +19,6 @@ class ControlPanelContainer {
   }
   
   init() {
-    //27af9af30b8792be8746f1a44db6a827b5b68760319214138fdc2f544942737b
-    /**
-     * var n = new Blob([r],{
-            type: "application/json;charset=utf-8"
-        });
-     e.saveAs(n, t)
-     */
-
-    const {banner: bannerStyles} = this.widget.configurator.getStyles();
-
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.control.code)
     });
@@ -65,11 +55,6 @@ class ControlPanelContainer {
     );
     this.element.wrapper.downloadReceiptEl.hide();
     this.element.hide();
-  
-    if (bannerStyles.title && bannerStyles.title.color) {
-      this.element.style
-        .setProperty('--proof-verifier-banner-title-color', bannerStyles.title.color);
-    }
     
     this.initializeEvents();
     this.initializeObservers();
@@ -115,8 +100,7 @@ class ControlPanelContainer {
         const transaction = anchors[0];
         self.element.wrapper.viewTransactionEl.linkEl
           .attr('target', '_blank')
-          .attr('href',constants.TRANSACTION_URL.replace('$sourseId', transaction.sourceId));
-        console.log('transaction', transaction.sourceId);
+          .attr('href',constants.TRANSACTION_URL.replace('$sourceId', transaction.sourceId));
       }
     }
   }

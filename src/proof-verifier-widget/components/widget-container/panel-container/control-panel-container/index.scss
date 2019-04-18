@@ -1,10 +1,6 @@
 @import '../../../../scss/variables.scss';
 @import '../../../../scss/common';
 
-:root {
-  --proof-verifier-control-background-color: #eee;
-}
-
 :local {
   .panel_container {
     &--control {
@@ -20,7 +16,7 @@
           }
 
           a {
-            color: var(--proof-verifier-banner-title-color);
+            color: var(--proof-verifier-title-color);
             text-decoration: none;
             i {
               padding-right: 5px;

@@ -1,11 +1,6 @@
 @import '../../../scss/variables.scss';
 @import '../../../scss/common';
 
-:root {
-  --proof-verifier-panel-width: 0;
-  --proof-verifier-panel-height: 0;
-}
-
 :local {
   .panel_container {
     width: var(--proof-verifier-panel-width);
@@ -17,7 +12,11 @@
     -ms-transition: all .5s ease;
     transition: all .5s ease;
     position: fixed;
-    z-index: 2;
+    z-index: var(--z-index);
     overflow: hidden;
+
+    & * {
+      z-index: var(--z-index);
+    }
   }
 }

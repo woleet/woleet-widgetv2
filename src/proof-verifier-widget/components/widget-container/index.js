@@ -59,6 +59,7 @@ class WidgetContainer {
     this.element.panelContainer = (new PanelContainer(this.widget, {height: iconHeight, width: iconWidth})).get();
 
     this.initializeObservers();
+    this.initializeStyles();
     this.initializeContainerView(mode);
   }
 
@@ -86,6 +87,23 @@ class WidgetContainer {
         self.verifyReceiptFile(parsedResult);
       } catch(err) {}
     };
+  }
+
+  /**
+   * Initialize the widget styles
+   */
+  initializeStyles() {
+    const {banner: bannerStyles, zindex: zIndex} = this.widget.configurator.getStyles();
+  
+    if (bannerStyles.title && bannerStyles.title.color) {
+      this.element.target().style
+        .setProperty('--proof-verifier-title-color', bannerStyles.title.color);
+    }
+  
+    if (zIndex) {
+      this.element.target().style
+        .setProperty('--z-index', zIndex);
+    }
   }
 
   downloadFile(url, observerMapper) {

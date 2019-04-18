@@ -21,8 +21,6 @@ class BannerContainer {
   }
   
   init() {
-    const {banner: bannerStyles} = this.widget.configurator.getStyles();
-    
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.bannerContainer.code)
     });
@@ -38,11 +36,6 @@ class BannerContainer {
     
     this.initializeObservers();
     this.initializeView(this.mode);
-    
-    if (bannerStyles.title && bannerStyles.title.color) {
-      this.element.wrapper.title.target().style
-        .setProperty('--proof-verifier-banner-title-color', bannerStyles.title.color);
-    }
   }
   
   // Initialize the observers

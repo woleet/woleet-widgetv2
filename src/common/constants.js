@@ -2,7 +2,7 @@
  * Widget constants and default values
  * */
 const PROXY_URL = 'http://localhost:3000/download?url=';
-const TRANSACTION_URL = `https://blockstream.info/tx/$sourseId`;
+const TRANSACTION_URL = `https://blockstream.info/tx/$sourceId`;
 const DEFAULT_WIDGET_LANGUAGE = document.documentElement.lang;
 
 /**

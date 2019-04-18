@@ -1,5 +1,17 @@
 @import './variables.scss';
 
+:root {
+  --proof-verifier-control-background-color: #eee;
+  --proof-verifier-banner-title-fontsize: 16px;
+  --proof-verifier-title-color: #31708f;
+  --proof-verifier-panel-background-color: #dff0d8;
+  --proof-verifier-panel-height: 0;
+  --proof-verifier-panel-width: 0;
+  --proof-verifier-banner-width: 0;
+  --footer-color: #2cba92;
+  --z-index: 3;
+}
+
 :local {
   .woleet {
     &_widget {

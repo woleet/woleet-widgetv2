@@ -3,7 +3,7 @@ import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
 import constants from "Common/constants";
-import BannerContainer from "ProofVerifierWidget/components/widget-container/banner-container";
+import AnchorPanelContainer from "ProofVerifierWidget/components/widget-container/panel-container/anchor-panel-container";
 import ControlPanelContainer from "ProofVerifierWidget/components/widget-container/panel-container/control-panel-container";
 
 /**
@@ -31,7 +31,9 @@ class PanelContainer {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.code)
     });
 
+    this.element.anchor = (new AnchorPanelContainer(this.widget)).get();
     this.element.control = (new ControlPanelContainer(this.widget)).get();
+    
     this.initializeObservers();
     this.initializeView(this.mode);
   }

@@ -7,7 +7,7 @@ import styles from './index.scss';
  * SignPanelContainer
  */
 class SignPanelContainer {
-  constructor(widget, iconStyles) {
+  constructor(widget) {
     this.element = null;
     this.widget = widget;
     this.lang = this.widget.configurator.getLanguage();
@@ -17,8 +17,6 @@ class SignPanelContainer {
   }
   
   init() {
-    const {banner: bannerStyles} = this.widget.configurator.getStyles();
-
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.code)
     });

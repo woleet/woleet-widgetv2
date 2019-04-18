@@ -2,12 +2,13 @@ import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
+import TitlePanelContainer from "ProofVerifierComponents/widget-container/panel-container/label-panel-container";
 
 /**
  * AnchorPanelContainer
  */
 class AnchorPanelContainer {
-  constructor(widget, iconStyles) {
+  constructor(widget) {
     this.element = null;
     this.widget = widget;
     this.lang = this.widget.configurator.getLanguage();
@@ -17,17 +18,15 @@ class AnchorPanelContainer {
   }
   
   init() {
-    const {banner: bannerStyles} = this.widget.configurator.getStyles();
-
     this.element = VirtualDOMService.createElement('div', {
-      classes: utils.extractClasses(styles, styleCodes.panelContainer.code)
+      classes: utils.extractClasses(styles, styleCodes.panelContainer.anchor.code)
     });
+    this.element.wrapper = VirtualDOMService.createElement('div', {
+      classes: utils.extractClasses(styles, styleCodes.panelContainer.anchor.wrapper.code)
+    });
+    this.element.hide();
+    
     this.initializeObservers();
-
-    if (bannerStyles.title && bannerStyles.title.color) {
-      this.styles.panel.target().style
-        .setProperty('--proof-verifier-banner-title-color', bannerStyles.title.color);
-    }
   }
   
   // Initialize the observers
@@ -39,24 +38,36 @@ class AnchorPanelContainer {
     });
   }
 
-  receiptParsed(message) {
+  receiptParsed(receiptObj) {
+    console.log('receiptObj', receiptObj);
+    
     const self = this;
-    const sig = message.receipt.signature;
-    const idStatus = message.identityVerificationStatus;
-    const identity = idStatus ? idStatus.identity : false;
-    const pubKey = sig ? sig.pubKey : null;
-    if (message.confirmations) {
-      let date = utils.formatDate(message.timestamp, this.lang);
-      let transParams = {date: date};
-      let transCode = pubKey ? 'signed' : 'timestamped';
-
-      if (identity) {
-        transParams.organization = identity.organization;
-        transParams.context = 'by';
+    const {confirmations, timestamp, receipt: { targetHash }} = receiptObj;
+    
+    if (confirmations || timestamp || targetHash) {
+      this.element.show();
+      
+      if (targetHash) {
+        const targetHashLabel = utils.translate('signed_hash', self.lang);
+        const targetHashTitle = new TitlePanelContainer(self.widget, { split: true });
+        targetHashTitle.set(targetHashLabel, targetHash);
+        this.element.wrapper.append(targetHashTitle.get().render());
       }
-
-      const translatedText = utils.translate(transCode, this.lang, transParams);
-      self.element.wrapper.title.html(translatedText);
+      
+      if (confirmations) {
+        const timestampLabel = utils.translate('timestamp', self.lang);
+        const formattedTimestamp = utils.formatDate(timestamp, self.lang);
+        const targetHashTitle = new TitlePanelContainer(self.widget, { filled: true });
+        targetHashTitle.set(timestampLabel, formattedTimestamp);
+        this.element.wrapper.append(targetHashTitle.get().render());
+      }
+      
+      if (confirmations) {
+        const confirmationLabel = utils.translate('confirmations', self.lang);
+        const confirmationTitle = new TitlePanelContainer(self.widget);
+        confirmationTitle.set(confirmationLabel, confirmations);
+        this.element.wrapper.append(confirmationTitle.get().render());
+      }
     }
   }
   
