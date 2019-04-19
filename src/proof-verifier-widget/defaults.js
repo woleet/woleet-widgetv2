@@ -13,7 +13,19 @@ function getProofVerifierWidgetDefaults() {
       },
       panel: {
         width: null,
-        height: '400px'
+        height: '400px',
+        title: {
+          background_color: 'none',
+          color: '#31708f',
+          light: {
+            background_color: '#D7E9F6',
+            color: '#31708f',
+          },
+          dark: {
+            background_color: '#31708f',
+            color: '#fff',
+          }
+        }
       }
     },
     verification: {

@@ -5,6 +5,8 @@ import styles from './index.scss';
 import constants from "Common/constants";
 import AnchorPanelContainer from "ProofVerifierWidget/components/widget-container/panel-container/anchor-panel-container";
 import ControlPanelContainer from "ProofVerifierWidget/components/widget-container/panel-container/control-panel-container";
+import SignPanelContainer from "ProofVerifierComponents/widget-container/panel-container/sign-panel-container";
+import CommonPanelContainer from "ProofVerifierComponents/widget-container/panel-container/common-panel-container";
 
 /**
  * PanelContainer
@@ -31,6 +33,8 @@ class PanelContainer {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.code)
     });
 
+    this.element.common = (new CommonPanelContainer(this.widget)).get();
+    this.element.sign = (new SignPanelContainer(this.widget)).get();
     this.element.anchor = (new AnchorPanelContainer(this.widget)).get();
     this.element.control = (new ControlPanelContainer(this.widget)).get();
     
@@ -53,7 +57,7 @@ class PanelContainer {
     if (self.expanded) {
       self.element.target().style.setProperty('--proof-verifier-panel-height', 0);
     } else {
-      self.element.target().style.setProperty('--proof-verifier-panel-height', self.styles.panel.height);
+      self.element.target().style.setProperty('--proof-verifier-panel-height', '700px'); //self.styles.panel.height
     }
     self.expanded = !self.expanded;
   }
@@ -66,7 +70,7 @@ class PanelContainer {
 
     switch(mode) {
       case constants.PROOF_VERIFIER_MODE_PANEL:
-        self.element.target().style.setProperty('--proof-verifier-panel-height', self.styles.panel.height);
+        self.element.target().style.setProperty('--proof-verifier-panel-height', '700px');
         self.element.target().style.setProperty('--proof-verifier-panel-width', self.styles.panel.width);
         break;
       case constants.PROOF_VERIFIER_MODE_ICON:

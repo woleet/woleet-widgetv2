@@ -4,7 +4,7 @@
 :local {
   .panel_container {
     width: var(--proof-verifier-panel-width);
-    height: var(--proof-verifier-panel-height);
+    max-height: var(--proof-verifier-panel-height);
     display: block;
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;

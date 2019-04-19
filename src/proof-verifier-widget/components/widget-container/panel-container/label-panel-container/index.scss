@@ -3,34 +3,11 @@
 
 :local {
   .panel_container {
-    &--title {
-      &:not(:last-child) {
-        padding-bottom: 20px;
-      }
-      &-item {
-        display: inline-block;
-        color: var(--proof-verifier-title-color);
-        margin: 0 10px;
-      }
-      &-label {
-        min-width: 25%;
-        vertical-align: top;
-        text-align: right;
-      }
-      &-value, &-value_filled {
-        font-size: 85%;
-        span {
-          display: block;
-        }
-      }
-      &-value_filled {
-        span {
-          background-color: var(--proof-verifier-title-color);
-          color: #fff;
-          border-radius: 4px;
-          padding: 3px 9px;
-        }
-      }
+    &--label {
+      color: var(--proof-verifier-value-color);
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 12px;
     }
   }
 }

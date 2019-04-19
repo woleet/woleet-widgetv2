@@ -3,5 +3,19 @@
 
 :local {
   .panel_container {
+    &--common {
+      background-color: var(--proof-verifier-panel-background-color);
+      font-size: 14px;
+      border-radius: 4px;
+      margin-bottom: 3px;
+      &_wrapper {
+        padding: 10px;
+      }
+      &-item {
+        display: inline-block;
+        width: 50%;
+        vertical-align: top;
+      }
+    }
   }
 }

@@ -3,6 +3,8 @@
  * */
 const PROXY_URL = 'http://localhost:3000/download?url=';
 const TRANSACTION_URL = `https://blockstream.info/tx/$sourceId`;
+const RECEIPT_VERIFICATION_URL = `https://share.woleet.io/api/receipt/verify`;
+const RECEIPT_IDENTITY_URL = `https://identity.woleet.io/identity`;
 const DEFAULT_WIDGET_LANGUAGE = document.documentElement.lang;
 
 /**
@@ -30,8 +32,10 @@ const FILE_HASHER_WIDGET_ID = 'file-hasher-widget';
 const FILE_HASHER_WIDGET_TYPE = 'FILE_HASHER_WIDGET';
 
 export default {
-  PROXY_URL,                    /*export common constants*/
-  TRANSACTION_URL,              /*export common constants*/
+  PROXY_URL,
+  TRANSACTION_URL,
+  RECEIPT_VERIFICATION_URL,
+  RECEIPT_IDENTITY_URL,
   DEFAULT_WIDGET_LANGUAGE,
 
   PROOF_VERIFIER_WIDGET_ID,     /*export proof-verifier-widget constants*/

@@ -2,7 +2,7 @@ import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
-import TitlePanelContainer from "ProofVerifierComponents/widget-container/panel-container/label-panel-container";
+import TitlePanelContainer from "ProofVerifierComponents/widget-container/panel-container/title-panel-container";
 
 /**
  * AnchorPanelContainer
@@ -39,8 +39,6 @@ class AnchorPanelContainer {
   }
 
   receiptParsed(receiptObj) {
-    console.log('receiptObj', receiptObj);
-    
     const self = this;
     const {confirmations, timestamp, receipt: { targetHash }} = receiptObj;
     
@@ -48,8 +46,8 @@ class AnchorPanelContainer {
       this.element.show();
       
       if (targetHash) {
-        const targetHashLabel = utils.translate('signed_hash', self.lang);
-        const targetHashTitle = new TitlePanelContainer(self.widget, { split: true });
+        const targetHashLabel = utils.translate('anchored_hash', self.lang);
+        const targetHashTitle = new TitlePanelContainer(self.widget, { filled: 'light', split: true, small: true });
         targetHashTitle.set(targetHashLabel, targetHash);
         this.element.wrapper.append(targetHashTitle.get().render());
       }
@@ -57,14 +55,14 @@ class AnchorPanelContainer {
       if (confirmations) {
         const timestampLabel = utils.translate('timestamp', self.lang);
         const formattedTimestamp = utils.formatDate(timestamp, self.lang);
-        const targetHashTitle = new TitlePanelContainer(self.widget, { filled: true });
+        const targetHashTitle = new TitlePanelContainer(self.widget, { filled: 'dark', small: true });
         targetHashTitle.set(timestampLabel, formattedTimestamp);
         this.element.wrapper.append(targetHashTitle.get().render());
       }
       
       if (confirmations) {
         const confirmationLabel = utils.translate('confirmations', self.lang);
-        const confirmationTitle = new TitlePanelContainer(self.widget);
+        const confirmationTitle = new TitlePanelContainer(self.widget, { small: true });
         confirmationTitle.set(confirmationLabel, confirmations);
         this.element.wrapper.append(confirmationTitle.get().render());
       }

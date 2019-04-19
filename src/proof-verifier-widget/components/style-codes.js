@@ -30,6 +30,9 @@ const styleCodes = {
         code: ['panel_container--wrapper-icon']
       }
     },
+    label: {
+      code: ['panel_container--label'],
+    },
     title: {
       code: ['panel_container--title'],
       label: {
@@ -40,6 +43,24 @@ const styleCodes = {
       },
       valueFilled: {
         code: ['panel_container--title-item', 'panel_container--title-value_filled']
+      }
+    },
+    common: {
+      code: ['panel_container--common'],
+      wrapper: {
+        code: ['panel_container--common_wrapper']
+      },
+      item: {
+        code: ['panel_container--common-item']
+      }
+    },
+    sign: {
+      code: ['panel_container--sign'],
+      wrapper: {
+        code: ['panel_container--sign_wrapper']
+      },
+      item: {
+        code: ['panel_container--sign-item']
       }
     },
     anchor: {

@@ -1,4 +1,3 @@
-import from from 'core-js/features/array/from'
 import constants from 'Common/constants'
 import loader from 'Common/services/loader'
 import { getDefaultLanguage } from 'Common/services/configurator'
@@ -30,7 +29,7 @@ function widget(window, document) {
   if (!widgetElementCollection.length === 0)
     widgetLogger.error(`The widget elements were not found`);
 
-  const widgetElements = from(widgetElementCollection);
+  const widgetElements = Array.from(widgetElementCollection);
 
   widgetElements.forEach(widgetElement => {
     let widgetConfiguration = utils.parseWidgetAttributeConfiguration(widgetElement);

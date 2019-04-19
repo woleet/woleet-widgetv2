@@ -1,11 +1,15 @@
 import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
+import woleetApi from 'Common/services/api';
 import constants from 'Common/constants'
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
 import Logo from 'Resources/images/icon_logo.svg';
 import BannerContainer from "./banner-container";
 import PanelContainer from "./panel-container";
+import loader from "Common/services/loader";
+import {getDefaultLanguage} from "Common/services/configurator";
+import resources from "Resources/locales";
 
 /**
  * WidgetContainer
@@ -19,6 +23,7 @@ class WidgetContainer {
     this.styles = this.widget.configurator.getStyles();
     this.lang = this.widget.configurator.getLanguage();
     this.verifier = window.woleet ? window.woleet.verify : null;
+    this.receiptService = window.woleet ? window.woleet.receipt : null;
     this.cursorPointerClass = utils.extractClasses(styles, ['cursor-pointer'])[0];
 
     this.observerMappers = {
@@ -114,11 +119,23 @@ class WidgetContainer {
 
   verifyReceiptFile(receiptJson) {
     const self = this;
-    /*TODO: add hash*/
-    self.verifier.receipt(receiptJson)
-      .then((result) => {
-        self.widget.observers.receiptVerifiedObserver.broadcast(result);
+    const promises = [];
+  
+    promises.push(self.verifier.receipt(receiptJson));
+    promises.push(woleetApi.receipt.verify(receiptJson));
+  
+    return Promise.all(promises)
+      .then(([verification, identityVerification]) => {
+        verification.identityVerificationStatus = utils.extendObject(
+          verification.identityVerificationStatus,
+          identityVerification.identityVerificationStatus);
+        console.log('verification', verification);
+        self.widget.observers.receiptVerifiedObserver.broadcast(verification);
       });
+    /**
+     * TODO: client side verification. This methods returns boolean value
+     * const verified = self.receiptService.validate(receiptJson);
+     */
   }
 
   receiptFileDownloaded(blob) {
