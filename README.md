@@ -43,13 +43,15 @@ The following options are available:
 
 * __title__ - allows change title options.
     
-    * _visible_ - if *false* the title is hidden; *DEFAULT*: __*true*__
+    * _visible_ - if *false* the title is hidden; _DEFAULT_: ___true___
 
 * __styles__ - possible style options.
     
     * _width_ - the width of the widget;
     
-    * _iconWidth_ - the width of icons inside the widget;
+    * _icon_ - widget icons styles;
+    
+        * ___width___ - the width of icons;
     
 * __provenfile__ - the option to predefine the downloadable file;
     
