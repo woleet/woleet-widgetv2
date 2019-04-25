@@ -36,9 +36,13 @@ class FileHasherWidget {
      * @type {EventObserver}
      */
     this.observers = {
-      /*States*/
+      /*Events: widget*/
+      widgetResetObserver: new EventObserver(),
+
+      /*Events: modes*/
       downloadModeInitiatedObserver: new EventObserver(),
       uploadModeInitiatedObserver: new EventObserver(),
+
       /*Events: file downloading*/
       downloadingProgressObserver: new EventObserver(),
       downloadingStartedObserver: new EventObserver(),
@@ -50,11 +54,20 @@ class FileHasherWidget {
       hashingProgressObserver: new EventObserver(),
       hashingStartedObserver: new EventObserver(),
       hashingFinishedObserver: new EventObserver(),
+      hashingCanceledObserver: new EventObserver(),
 
       /*Events: errors*/
       errorCaughtObserver: new EventObserver(),
       errorHiddenObserver: new EventObserver()
     };
+
+    this.observers.hashingCanceledObserver.subscribe(() => {
+      this.observers.uploadModeInitiatedObserver.broadcast();
+    });
+
+    this.observers.widgetResetObserver.subscribe(() => {
+      this.observers.uploadModeInitiatedObserver.broadcast();
+    });
   }
   
   initializeExternalObservers(configuration) {
@@ -66,7 +79,19 @@ class FileHasherWidget {
         const observer = configuration.observers[observerName];
         switch (observerName.toLowerCase()) {
           case 'hashcalculated':
-            this.observers.hashingFinishedObserver.subscribe(hash => observer(self.widgetId, hash));
+            this.observers.hashingFinishedObserver.subscribe(({hash, file}) => observer(self.widgetId, hash, file));
+            break;
+          case 'hashingstarted':
+            this.observers.hashingStartedObserver.subscribe(file => observer(self.widgetId, file));
+            break;
+          case 'hashingprogress':
+            this.observers.hashingProgressObserver.subscribe((progress) => observer(self.widgetId, progress));
+            break;
+          case 'hashingcanceled':
+            this.observers.hashingCanceledObserver.subscribe(() => observer(self.widgetId));
+            break;
+          case 'widgetreset':
+            this.observers.widgetResetObserver.subscribe(() => observer(self.widgetId));
             break;
           case 'filedownloaded':
             this.observers.downloadingFinishedObserver.subscribe(file => observer(self.widgetId, file));

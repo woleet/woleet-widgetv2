@@ -62,8 +62,8 @@ class DropContainer {
     });
     this.widget.observers.downloadingFinishedObserver.subscribe((data) => {
       this.downloadingFinished();
-      this.hash(data).then((hash) => {
-        self.widget.observers.hashingFinishedObserver.broadcast(hash);
+      this.hash(data).then(result => {
+        self.widget.observers.hashingFinishedObserver.broadcast(result);
       });
     });
     this.widget.observers.fileSelectedObserver.subscribe(() => {
@@ -82,8 +82,8 @@ class DropContainer {
     const self = this;
     this.element.body.input.on('change', function () {
       self.onInputFileChanged.call(this, self)
-        .then((hash) => {
-          self.widget.observers.hashingFinishedObserver.broadcast(hash);
+        .then(result => {
+          self.widget.observers.hashingFinishedObserver.broadcast(result);
         });
     });
   }
@@ -110,7 +110,7 @@ class DropContainer {
       widgetLogger.error(`${self.widget.widgetId}: Woleet Hasher isn't found`);
   
     self.updateProgress({progress: 0});
-    self.widget.observers.hashingStartedObserver.broadcast();
+    self.widget.observers.hashingStartedObserver.broadcast(file);
   
     return new Promise((resolve) => {
       self.hasher.start(file);
@@ -121,7 +121,10 @@ class DropContainer {
         self.handleError(r);
       });
       self.hasher.on('result', (r) => {
-        resolve(r.result);
+        resolve({
+          hash: r.result,
+          file
+        });
       })
     })
   }

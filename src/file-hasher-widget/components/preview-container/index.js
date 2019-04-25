@@ -111,7 +111,8 @@ class PreviewContainer {
 
     this.element.control.redo.on('click', function (event) {
       event.stopPropagation();
-      self.widget.observers.uploadModeInitiatedObserver.broadcast();
+      self.widget.observers.widgetResetObserver.broadcast();
+      self.resetFile();
       return false;
     });
 
@@ -123,6 +124,7 @@ class PreviewContainer {
   uploadModeInitiated() {
     this.pdfPreview.hide();
     this.element.hide();
+    this.resetFile();
   }
 
   downloadingFinished(file) {
@@ -162,6 +164,10 @@ class PreviewContainer {
     this.element.body.wrapper.hide();
     this.element.body.icon.show();
     this.element.body.icon.html(utils.getSolidIconSVG(icon));
+  }
+
+  resetFile() {
+    this.file = null;
   }
 
   get() {

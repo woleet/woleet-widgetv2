@@ -29,7 +29,7 @@ function getFileHasherObserverMappers() {
       processProgressObserver: 'hashingProgressObserver',
       processStartedObserver: 'hashingStartedObserver',
       processFinishedObserver: 'hashingFinishedObserver',
-      processCanceledObserver: 'uploadModeInitiatedObserver'
+      processCanceledObserver: 'hashingCanceledObserver'
     }
   };
 }

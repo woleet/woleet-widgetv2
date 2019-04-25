@@ -4,6 +4,7 @@
 :local {
   .progress_bar {
     &--body {
+      box-sizing: unset;
       & > div {
         display: inline-block;
         vertical-align: top;
@@ -15,6 +16,7 @@
       margin: 6px auto 0;
       padding: 2px;
       height: 4px;
+      box-sizing: unset;
       border-radius: 16px;
       border: 1px solid $progress-bar-color;
     }

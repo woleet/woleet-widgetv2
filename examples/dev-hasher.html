@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>File Hasher widget: development page</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         .file-hasher-widget {
             padding: 20px 0;
@@ -51,11 +52,28 @@
     }
   };
 
-  function hashCalculated(widgetId, hash) {
+  function hashCalculated(widgetId, hash, file) {
     var logElement = document.getElementById('hash-logging');
     var logElementItem = document.createElement('p');
+
     logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id "' + widgetId + '"';
     logElement.appendChild(logElementItem);
+  }
+
+  function hashingStarted(widgetId, file) {
+    console.log('Hashing started', widgetId, file);
+  }
+
+  function hashingCanceled(widgetId) {
+    console.log('Hashing canceled', widgetId);
+  }
+
+  function hashingProgress(widgetId, progress) {
+    console.log('Hashing progress', widgetId, progress);
+  }
+
+  function widgetReset(widgetId) {
+    console.log('Widget was reset', widgetId);
   }
 /**
  *
@@ -73,7 +91,7 @@
      styles-icon-width='90px'
      title-visible="false"
      id='file-hasher-widget-de'
-     observers='{"hashCalculated": "window.hashCalculated"}'></div>
+     observers='{"hashCalculated": "window.hashCalculated", "hashingStarted": "hashingStarted", "hashingCanceled": "hashingCanceled", "hashingProgress": "hashingProgress", "widgetReset": "widgetReset"}'></div>
 <!--http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf-->
 <div class='file-hasher-widget'
      lang='fr'

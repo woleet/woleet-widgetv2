@@ -61,9 +61,17 @@ The following options are available:
 
 * __observers__
     
-    * _fileDownloaded_ - the callback is called once  the file is downloaded. Parameters: widgetId, downloaded file;
+    * _fileDownloaded_ - is called once the file is downloaded. Parameters: ___widgetId___, ___downloaded file___;
     
-    * _hashCalculated_ - the callback is called once  the file is hashed. Parameters: widgetId, hash;
+    * _hashingStarted_ - is called once the hashing process is started. Parameters: ___widgetId___, ___hashed file___;
+    
+    * _hashingCanceled_ - is called once the hashing process is canceled. Parameters: ___widgetId___;
+    
+    * _hashingProgress_ - is called once the hashing progress has changed. Parameters: ___widgetId___, ___progress___ (_in percents_);
+    
+    * _widgetReset_ - is called once the hashing process is reset. Parameters: ___widgetId___;
+    
+    * _hashCalculated_ - is called once the file is hashed. Parameters: ___widgetId___, ___hash___, ___hashed file___;
 
 ### Configuration ways
 
