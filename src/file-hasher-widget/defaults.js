@@ -6,6 +6,9 @@ function getFileHasherDefaults() {
     styles: {
       width: '130px'
     },
+    title: {
+      visible: true
+    },
     lang: constants.DEFAULT_WIDGET_LANGUAGE,
     type: constants.FILE_HASHER_WIDGET_TYPE
   };

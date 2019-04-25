@@ -96,7 +96,11 @@ class FileHasherWidget {
     }
     
     element.hashProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.hashProgressBar)).get();
-    element.titleContainer = (new TitleContainer(this)).get();
+
+    if (this.configuration.title.visible) {
+      element.titleContainer = (new TitleContainer(this)).get();
+    }
+
     element.errorContainer = (new ErrorContainer(this)).get();
 
     if (this.provenFileConfiguration && this.provenFileConfiguration !== null) {
