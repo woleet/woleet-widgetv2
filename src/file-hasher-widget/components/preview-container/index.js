@@ -13,6 +13,7 @@ class PreviewContainer {
     this.url = null;
     this.widget = widget;
     this.fileReader = new FileReader();
+    this.file = null;
     this.pdfPreview = null;
     this.previewFileFormats = ['png', 'jpeg', 'jpg', 'svg'];
     
@@ -92,11 +93,19 @@ class PreviewContainer {
   initializeEvents() {
     const self = this;
   
-    self.element.on('click', function () {
+    self.element.on('click', () => {
       if (self.url !== null) {
         window.open(self.url, '_blank');
       } else {
-        alert ('The local file can`t be opened');
+        !utils.adsBlocked((blocked) => {
+          if (!blocked) {
+            const objUrl = window.URL.createObjectURL(self.file, { oneTimeOnly: true });
+            const tab = window.open();
+            tab.location.href = objUrl;
+          } else {
+            console.log('Disable ads blockers, please!');
+          }
+        })
       }
     });
 
@@ -127,6 +136,8 @@ class PreviewContainer {
     } else {
       this.url = null;
     }
+
+    this.file = file;
 
     if (this.previewFileFormats.indexOf(fileExtension) !== -1) {
       this.element.body.show();

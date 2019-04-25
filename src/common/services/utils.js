@@ -194,6 +194,7 @@ function getFileExtension(filename) {
  * @param widget
  * @param observerMapper
  * @param url
+ * @param toBlob
  * @returns {XMLHttpRequest}
  */
 function getHttpRequest(downloadFilename, widget, observerMapper, url = false, toBlob = false) {
@@ -308,6 +309,29 @@ function svgToHTML(svg) {
 }
 
 /**
+ * Check if ads are blocked
+ * @param callback
+ */
+function adsBlocked(callback){
+  const testURL = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+
+  const myInit = {
+    method: 'HEAD',
+    mode: 'no-cors'
+  };
+
+  const myRequest = new Request(testURL, myInit);
+
+  fetch(myRequest).then(function(response) {
+    return response;
+  }).then(function(response) {
+    callback(false)
+  }).catch(function(e){
+    callback(true)
+  });
+}
+
+/**
  *
  * @param str
  * @param value
@@ -351,12 +375,10 @@ function formatDate(date, lang) {
 
 function saveObjectAs(object, filename, type = 'application/json;charset=utf-8') {
   const strObject = JSON.stringify(object, null, 4);
-  console.log('object', object, strObject);
   const file = new Blob([strObject],{type});
   if (window.navigator.msSaveOrOpenBlob) {
     window.navigator.msSaveOrOpenBlob(file, filename);
   } else {
-    console.log('file', file);
     const a = document.createElement("a");
     const url = URL.createObjectURL(file);
     a.href = url;
@@ -394,6 +416,7 @@ export default  {
   translate,
   blobToFile,
   formatDate,
+  adsBlocked,
   getUniqueId,
   saveObjectAs,
   extendObject: mergeDeep,
