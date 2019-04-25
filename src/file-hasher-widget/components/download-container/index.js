@@ -33,20 +33,19 @@ class DownloadContainer {
   }
   
   init() {
-    const widgetStyles = this.widget.configurator.getStyles();
+    const {width: widgetWidth, icon: { width: iconWidth }} = this.widget.configurator.getStyles();
     const widgetObserverMappers = getFileHasherObserverMappers();
-    const iconWidth = utils.getObjectProperty(widgetStyles, 'iconWidth');
 
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.download.code)
     });
-    this.element.style({'height': `${widgetStyles.width}`});
+    this.element.style({'height': `${widgetWidth}`});
     
     this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.download.body.code)
     });
     
-    if (iconWidth) {
+    if (!!(iconWidth)) {
       this.element.body.style({'width': `${iconWidth}`});
     }
   

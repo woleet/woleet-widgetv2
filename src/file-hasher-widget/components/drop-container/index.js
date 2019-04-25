@@ -17,20 +17,19 @@ class DropContainer {
   }
   
   init() {
-    const widgetStyles = this.widget.configurator.getStyles();
-    const iconWidth = utils.getObjectProperty(widgetStyles, 'iconWidth');
+    const {width: widgetWidth, icon: { width: iconWidth }} = this.widget.configurator.getStyles();
     
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.drop.code)
     });
     
-    this.element.style({'height': `${widgetStyles.width}`});
+    this.element.style({'height': `${widgetWidth}`});
   
     this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.drop.body.code)
     });
   
-    if (iconWidth) {
+    if (!!(iconWidth)) {
       this.element.body.style({'width': `${iconWidth}`});
     }
     

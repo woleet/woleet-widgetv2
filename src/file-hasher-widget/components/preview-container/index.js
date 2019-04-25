@@ -20,14 +20,13 @@ class PreviewContainer {
   }
   
   init() {
-    const widgetStyles = this.widget.configurator.getStyles();
-    const iconWidth = utils.getObjectProperty(widgetStyles, 'iconWidth');
+    const {width: widgetWidth, icon: { width: iconWidth }} = this.widget.configurator.getStyles();
 
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.code)
     });
 
-    this.element.style({'height': `${widgetStyles.width}`});
+    this.element.style({'height': `${widgetWidth}`});
 
     this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.code)
@@ -37,7 +36,7 @@ class PreviewContainer {
       classes: utils.extractClasses(styles, styleCodes.preview.body.icon.code)
     });
 
-    if (iconWidth) {
+    if (!!(iconWidth)) {
       this.element.body.icon.style({'width': `${iconWidth}`});
     }
     

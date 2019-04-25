@@ -4,7 +4,10 @@ function getFileHasherDefaults() {
   return {
     provenfile: null,
     styles: {
-      width: '130px'
+      width: '130px',
+      icon: {
+        width: null
+      }
     },
     title: {
       visible: true
