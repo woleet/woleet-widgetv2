@@ -9,7 +9,7 @@ function getProofVerifierWidgetDefaults() {
         height: null
       },
       banner: {
-        width: '50px'
+        width: '600px'
       },
       panel: {
         width: null,

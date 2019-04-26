@@ -178,7 +178,7 @@ function addCssLink() {
   return sourcePath;
 }
 
-window.fileHasherWidget = {
+window.fileVerifierWidget = {
   init: initialize
 };
 

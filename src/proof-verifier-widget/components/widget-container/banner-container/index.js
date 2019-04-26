@@ -103,11 +103,11 @@ class BannerContainer {
     
     switch(mode) {
       case constants.PROOF_VERIFIER_MODE_PANEL:
-        self.element.style({width: `${widgetStyles.banner.width}`, position: 'relative'});
+        self.element.style({width: `${widgetStyles.banner.width}`});
         break;
       case constants.PROOF_VERIFIER_MODE_BANNER:
         self.element.addClass(self.cursorPointerClass);
-        self.element.style({width: `${widgetStyles.banner.width}`, position: 'relative'});
+        self.element.style({width: `${widgetStyles.banner.width}`});
         
         this.initializeEvents();
         break;

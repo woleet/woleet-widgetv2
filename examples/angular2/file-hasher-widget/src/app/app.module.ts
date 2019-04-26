@@ -13,6 +13,9 @@ import { FileHasherWidgetComponent } from './components/file-hasher-widget.compo
     BrowserModule
   ],
   providers: [],
+  exports: [
+    FileHasherWidgetComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
