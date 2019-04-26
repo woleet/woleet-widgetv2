@@ -17,6 +17,9 @@ function DOM(element) {
   
   defineProp('target', () => target);
   
+  defineProp('setSvg', (svg, color = null) => getSelf(svg=!!(color) ? svg.replace('currentColor', color) : svg,
+    svg ? target.setAttribute('src', `data:image/svg+xml;base64,${btoa(svg)}`) : target.removeAttribute('src')));
+  
   defineProp('attr', (attr, val) => getSelf(val ? target.setAttribute(attr, val) : target.removeAttribute(attr)));
   
   defineProp('removeClass', (e) => getSelf(Array.isArray(e) ? e.forEach(e => target.classList.remove(e)) : target.classList.remove(e)));

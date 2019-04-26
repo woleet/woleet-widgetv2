@@ -2,7 +2,8 @@ import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
-import {getFileHasherObserverMappers} from 'FileHasherWidget/defaults';
+import faDownload from 'Resources/images/file-download.svg';
+import { getFileHasherObserverMappers } from 'FileHasherWidget/defaults';
 import ProgressBarContainer from 'FileHasherWidget/components/progress-bar-container';
 
 /**
@@ -39,7 +40,6 @@ class DownloadContainer {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.download.code)
     });
-    this.element.style({'height': `${widgetWidth}`});
     
     this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.download.body.code)
@@ -49,11 +49,11 @@ class DownloadContainer {
       this.element.body.style({'width': `${iconWidth}`});
     }
   
-    this.element.body.icon = VirtualDOMService.createElement('i', {
+    this.element.body.icon = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.download.body.icon.code)
     });
   
-    this.element.body.icon.html(utils.getSolidIconSVG('faDownload'));
+    this.element.body.icon.setSvg(faDownload);
     this.element.body.icon.attr('title', utils.translate('click_to_download', this.lang));
 
     this.element.body.downloadProgressBarConteinerWrapper = VirtualDOMService.createElement('div', {

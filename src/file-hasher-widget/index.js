@@ -57,7 +57,7 @@ function widget(window, document) {
    * Initialize the widget
    */
   loadDependencies()
-    .then(response => initialize(widgetConfigurations));
+    .then(() => initialize(widgetConfigurations));
 }
 
 /**
@@ -70,7 +70,7 @@ function loadDependencies() {
   const sourceLink = addCssLink();
   
   return getWidgetDependencies().then(dependencies => {
-    const {woleet, i18n, solidIconsModule} = dependencies;
+    const {woleet, i18n} = dependencies;
     
     if (!window.woleet) {
       window.woleet = woleet;
@@ -79,18 +79,12 @@ function loadDependencies() {
     if (!window.i18n) {
       window.i18n = i18n;
     }
-    
-    if (!window.solidIconsModule) {
-      window.solidIconsModule = solidIconsModule;
-    }
 
     if (!window['file-hasher-widget-source'] && sourceLink !== null) {
-      console.log('sourceLink', sourceLink);
-
       window['file-hasher-widget-source'] = sourceLink;
     }
 
-    return new Promise((resolve, reject) => resolve(true));
+    return new Promise((resolve) => resolve(true));
   });
 }
 
@@ -103,10 +97,9 @@ function getWidgetDependencies() {
   
   dependenciesPromises.push(loader.getWoleetLibs());
   dependenciesPromises.push(loader.getI18nService());
-  dependenciesPromises.push(loader.getSolidFontAwesomeIcons());
   
   return Promise.all(dependenciesPromises)
-    .then(([woleet, i18n, solidIconsModule]) => {
+    .then(([woleet, i18n]) => {
       const initializationPromises = [];
       /**
        * Configure i18next
@@ -115,7 +108,7 @@ function getWidgetDependencies() {
         i18n.init({fallbackLng: getDefaultLanguage(), debug: window.dev, resources})
       );
       return Promise.all(initializationPromises)
-        .then(() => {return {woleet, i18n, solidIconsModule}})
+        .then(() => {return { woleet, i18n }})
     });
 }
 

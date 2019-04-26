@@ -1,6 +1,7 @@
 import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import widgetLogger from 'Common/services/logger';
+import faFileImport from 'Resources/images/file-import.svg';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 
@@ -8,9 +9,10 @@ import styles from './index.scss';
  * DropContainer area
  */
 class DropContainer {
-  constructor(widget) {
+  constructor(widget, parent) {
     this.element = null;
     this.widget = widget;
+    this.parent = parent;
     this.hasher = window.woleet ? new window.woleet.file.Hasher : null;
     
     this.init();
@@ -33,13 +35,14 @@ class DropContainer {
       this.element.body.style({'width': `${iconWidth}`});
     }
     
-    this.element.body.icon = VirtualDOMService.createElement('i', {
+    this.element.body.icon = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.drop.body.icon.code)
     });
     this.element.body.input = VirtualDOMService.createFileInput({
       classes: utils.extractClasses(styles, styleCodes.drop.body.input.code)
     });
-    this.element.body.icon.html(utils.getSolidIconSVG('faFileDownload'));
+    
+    this.element.body.icon.setSvg(faFileImport);
 
     this.initializeObservers();
     this.initializeEvents();

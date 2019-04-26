@@ -1,6 +1,3 @@
-@import '../../../../scss/animation';
-@import '../../../../scss/variables';
-
 :local {
   .progress_bar {
     &--control {
@@ -8,7 +5,7 @@
       padding-top: 1px;
 
       &-icon {
-        color: $error-color;
+        color: var(--file-hasher-error-color);
         font-size: 11px;
         cursor: pointer;
       }

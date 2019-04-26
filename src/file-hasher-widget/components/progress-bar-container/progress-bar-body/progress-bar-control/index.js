@@ -1,6 +1,7 @@
 import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
+import faTimes from 'Resources/images/times.svg';
 import styles from './index.scss';
 
 /**
@@ -20,12 +21,11 @@ class ProgressBarControl {
       classes: utils.extractClasses(styles, styleCodes.progress.control.code)
     });
 
-    this.element.icon = VirtualDOMService.createElement('i', {
+    this.element.icon = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.progress.control.icon.code)
     });
 
-    this.element.icon.html(utils.getSolidIconSVG('faTimes'));
-
+    this.element.icon.setSvg(faTimes);
     this.initializeEvents();
   }
 

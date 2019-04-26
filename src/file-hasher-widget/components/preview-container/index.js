@@ -3,6 +3,8 @@ import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 import PdfPreview from "FileHasherWidget/components/preview-container/pdf-preview";
+import faFile from 'Resources/images/file.svg';
+import faRedo from 'Resources/images/redo.svg';
 
 /**
  * PreviewContainer
@@ -33,7 +35,7 @@ class PreviewContainer {
       classes: utils.extractClasses(styles, styleCodes.preview.body.code)
     });
     
-    this.element.body.icon = VirtualDOMService.createElement('i', {
+    this.element.body.icon = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.icon.code)
     });
 
@@ -56,11 +58,11 @@ class PreviewContainer {
       classes: utils.extractClasses(styles, styleCodes.preview.control.code)
     });
 
-    this.element.control.redo = VirtualDOMService.createElement('i', {
+    this.element.control.redo = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.preview.control.icon.redo.code)
     });
 
-    this.element.control.redo.html(utils.getSolidIconSVG('faRedo'));
+    this.element.control.redo.setSvg(faRedo);
 
     this.element.hide();
     
@@ -151,7 +153,7 @@ class PreviewContainer {
       this.pdfPreview.setPdfFile(file);
     } else {
       this.element.body.show();
-      this.showPlaceholderIcon('faFile')
+      this.showPlaceholderIcon(faFile)
     }
   }
 
@@ -160,10 +162,10 @@ class PreviewContainer {
     this.element.body.wrapper.image.attr('src', filePreview);
   }
 
-  showPlaceholderIcon(icon) {
+  showPlaceholderIcon(file) {
     this.element.body.wrapper.hide();
     this.element.body.icon.show();
-    this.element.body.icon.html(utils.getSolidIconSVG(icon));
+    this.element.body.icon.setSvg(file);
   }
 
   resetFile() {

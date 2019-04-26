@@ -7,9 +7,6 @@ import styles from './index.scss';
 import Logo from 'Resources/images/icon_logo.svg';
 import BannerContainer from "./banner-container";
 import PanelContainer from "./panel-container";
-import loader from "Common/services/loader";
-import {getDefaultLanguage} from "Common/services/configurator";
-import resources from "Resources/locales";
 
 /**
  * WidgetContainer
@@ -129,7 +126,6 @@ class WidgetContainer {
         verification.identityVerificationStatus = utils.extendObject(
           verification.identityVerificationStatus,
           identityVerification.identityVerificationStatus);
-        console.log('verification', verification);
         self.widget.observers.receiptVerifiedObserver.broadcast(verification);
       });
     /**

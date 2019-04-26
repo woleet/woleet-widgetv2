@@ -10,18 +10,6 @@ function getI18nService() {
   }).catch(error => 'An error occurred while loading the component');
 }
 
-function getReguralFontAwesomeIcons() {
-  return import(/* webpackChunkName: "regular-icons" */'@fortawesome/free-regular-svg-icons').then((module) => {
-    return module;
-  }).catch(error => 'An error occurred while loading the component');
-}
-
-function getSolidFontAwesomeIcons() {
-  return import(/* webpackChunkName: "solid-icons" */'@fortawesome/free-solid-svg-icons').then((module) => {
-    return module;
-  }).catch(error => 'An error occurred while loading the component');
-}
-
 function getPdfJs() {
   return import(/* webpackChunkName: "pdf.js" */'pdfjs-dist').then((module) => {
     return module;
@@ -31,7 +19,5 @@ function getPdfJs() {
 export default {
   getPdfJs,
   getWoleetLibs,
-  getI18nService,
-  getSolidFontAwesomeIcons,
-  getReguralFontAwesomeIcons
+  getI18nService
 }

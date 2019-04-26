@@ -1,9 +1,6 @@
-@import '../../scss/variables.scss';
-
 :local {
   .download_container {
     position: relative;
-    height: 1px;
 
     &--body {
       width: 100%;
@@ -12,7 +9,7 @@
       display: inline-block;
 
       &-icon {
-        color: $primary-color;
+        color: var(--file-hasher-widget-icon-color);
         cursor: pointer;
         svg {
           width: 100% !important;

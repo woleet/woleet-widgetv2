@@ -20,3 +20,6 @@
     opacity: 0;
   }
 }
+
+$progress_transition: width .1s ease;
+$progress_animation: progress-bar-stripes 2s linear infinite;

@@ -2,6 +2,8 @@ import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
+import faCaretLeft from 'Resources/images/caret-left.svg';
+import faCaretRight from 'Resources/images/caret-right.svg';
 import pdf from 'pdfjs-dist'
 
 /**
@@ -25,8 +27,6 @@ class PdfPreview {
   }
   
   init() {
-    const widgetStyles = this.widget.configurator.getStyles();
-    
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.code)
     });
@@ -45,17 +45,17 @@ class PdfPreview {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.code)
     });
     
-    this.element.control.prev = VirtualDOMService.createElement('i', {
+    this.element.control.prev = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.icon.prev.code)
     });
   
-    this.element.control.prev.html(utils.getSolidIconSVG('faCaretLeft'));
+    this.element.control.prev.setSvg(faCaretLeft);
     
-    this.element.control.next = VirtualDOMService.createElement('i', {
+    this.element.control.next = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.icon.next.code)
     });
   
-    this.element.control.next.html(utils.getSolidIconSVG('faCaretRight'));
+    this.element.control.next.setSvg(faCaretRight);
     
     this.element.titleWrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.title.wrapper.code)

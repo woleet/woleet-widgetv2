@@ -1,5 +1,13 @@
-@import '../scss/variables';
 @import '../scss/common';
+
+:root {
+  --file-hasher-error-color: #FF9494;
+  --file-hasher-widget-icon-color: green;
+  --file-hasher-widget-control-icon-color: black;
+  --file-hasher-widget-control-border-color: lightgray;
+  --file-hasher-widget-progress-color: #3A98D8;
+  --file-hasher-widget-progress-bar-color: #3A98D8;
+}
 
 :local {
   .file_hasher_widget {

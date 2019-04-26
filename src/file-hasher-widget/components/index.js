@@ -23,11 +23,13 @@ class FileHasherWidget {
     this.configuration = configuration;
     this.provenFileConfiguration = utils.getObjectProperty(configuration, 'provenFile');
     this.observers = {};
+    this.element = null;
   
     this.configurator.init(configuration);
     
     this.initializeObservers();
     this.initializeExternalObservers(configuration);
+    this.init();
   }
   
   initializeObservers() {
@@ -104,35 +106,37 @@ class FileHasherWidget {
     }
   }
   
-  render() {
+  init() {
     const widgetObserverMappers = getFileHasherObserverMappers();
-    const element = VirtualDOMService.createElement('div', {
+    this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.code),
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
     });
-    element.attr('id', this.widgetId);
-    element.style({width: `${this.configuration.styles.width}`});
-    
-    element.dropContainer = (new DropContainer(this)).get();
-    element.previewContainer = (new PreviewContainer(this)).get();
-
-    if (this.provenFileConfiguration && this.provenFileConfiguration !== null) {
-      element.downloadContainer = (new DownloadContainer(this)).get();
+    this.element.attr('id', this.widgetId);
+    this.element.style({width: `${this.configuration.styles.width}`});
+  
+    this.element.dropContainer = (new DropContainer(this, this.element)).get();
+    this.element.previewContainer = (new PreviewContainer(this)).get();
+  
+    if (!!(this.provenFileConfiguration)) {
+      this.element.downloadContainer = (new DownloadContainer(this)).get();
     }
-    
-    element.hashProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.hashProgressBar)).get();
-
+  
+    this.element.hashProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.hashProgressBar)).get();
+  
     if (this.configuration.title.visible) {
-      element.titleContainer = (new TitleContainer(this)).get();
+      this.element.titleContainer = (new TitleContainer(this)).get();
     }
-
-    element.errorContainer = (new ErrorContainer(this)).get();
-
-    if (this.provenFileConfiguration && this.provenFileConfiguration !== null) {
+  
+    this.element.errorContainer = (new ErrorContainer(this)).get();
+  
+    if (!!(this.provenFileConfiguration)) {
       this.observers.downloadModeInitiatedObserver.broadcast(this.provenFileConfiguration);
     }
-    
-    return element.render();
+  }
+  
+  render() {
+    return this.element.render();
   }
 }
 
