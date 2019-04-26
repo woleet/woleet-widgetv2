@@ -40,20 +40,20 @@
 
       &_icon {
         cursor: pointer;
-        color: var(--file-hasher-widget-control-border-color);
-        background-color: var(--file-hasher-widget-control-icon-color);
+        /*color: var(--file-hasher-widget-control-border-color);
+        background-color: var(--file-hasher-widget-control-icon-color);*/
         opacity: 0.3;
-        border-radius: 16px;
+        border-radius: 26px;
         padding: 1px 6px;
         border: 2px solid var(--file-hasher-widget-control-border-color);
 
         &--redo {
-          padding: 4px 5px;
+          padding: 7px 7px;
         }
       }
 
       &_icon:active, &_icon:hover {
-        opacity: 0.6;
+        opacity: 0.7;
       }
 
       &_icon:not(:last-child) {

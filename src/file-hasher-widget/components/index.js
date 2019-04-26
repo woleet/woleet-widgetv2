@@ -115,18 +115,19 @@ class FileHasherWidget {
     this.element.attr('id', this.widgetId);
     this.element.style({width: `${this.configuration.styles.width}`});
   
-    this.element.dropContainer = (new DropContainer(this, this.element)).get();
+    this.element.dropContainer = (new DropContainer(this)).get();
     this.element.previewContainer = (new PreviewContainer(this)).get();
   
     if (!!(this.provenFileConfiguration)) {
       this.element.downloadContainer = (new DownloadContainer(this)).get();
     }
   
-    this.element.hashProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.hashProgressBar)).get();
-  
     if (this.configuration.title.visible) {
       this.element.titleContainer = (new TitleContainer(this)).get();
     }
+  
+    this.element.hashProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.hashProgressBar)).get();
+    this.element.downloadProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.downloadProgressBar)).get();
   
     this.element.errorContainer = (new ErrorContainer(this)).get();
   

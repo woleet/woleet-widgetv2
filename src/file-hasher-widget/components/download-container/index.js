@@ -3,8 +3,6 @@ import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 import faDownload from 'Resources/images/file-download.svg';
-import { getFileHasherObserverMappers } from 'FileHasherWidget/defaults';
-import ProgressBarContainer from 'FileHasherWidget/components/progress-bar-container';
 
 /**
  * DownloadContainer
@@ -34,8 +32,7 @@ class DownloadContainer {
   }
   
   init() {
-    const {width: widgetWidth, icon: { width: iconWidth }} = this.widget.configurator.getStyles();
-    const widgetObserverMappers = getFileHasherObserverMappers();
+    const {icon: { width: iconWidth }} = this.widget.configurator.getStyles();
 
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.download.code)
@@ -56,15 +53,6 @@ class DownloadContainer {
     this.element.body.icon.setSvg(faDownload);
     this.element.body.icon.attr('title', utils.translate('click_to_download', this.lang));
 
-    this.element.body.downloadProgressBarConteinerWrapper = VirtualDOMService.createElement('div', {
-      classes: utils.extractClasses(styles, styleCodes.download.body.progressBarWrapper.code)
-    });
-
-    this.element.body.downloadProgressBarConteinerWrapper.downloadProgressBarContainer = (new ProgressBarContainer(
-      this.widget,
-      widgetObserverMappers.downloadProgressBar
-    )).get();
-
     this.initializeObservers();
     this.initializeEvents();
   }
@@ -76,22 +64,11 @@ class DownloadContainer {
     this.widget.observers.downloadModeInitiatedObserver.subscribe((data) => {
       this.downloadModeInitiated(data)
     });
-    this.widget.observers.downloadingFinishedObserver.subscribe((data) => {
-      this.downloadingFinished(data)
-    });
     this.widget.observers.downloadingCanceledObserver.subscribe((data) => {
       this.downloadingCanceled(data);
-      this.downloadingFinished(data);
     });
     this.widget.observers.errorCaughtObserver.subscribe(() => {
       this.downloadingCanceled();
-      this.downloadingFinished();
-    });
-    this.widget.observers.downloadingFinishedObserver.subscribe(() => {
-      this.downloadingFinished();
-    });
-    this.widget.observers.fileSelectedObserver.subscribe(() => {
-      this.downloadingFinished();
     });
     this.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
       this.uploadModeInitiated(data)
@@ -115,8 +92,7 @@ class DownloadContainer {
   }
 
   downloadFile() {
-    this.element.body.icon.hide();
-    this.element.body.downloadProgressBarConteinerWrapper.downloadProgressBarContainer.show();
+    this.element.hide();
 
     this.download(this.url);
   }
@@ -135,10 +111,6 @@ class DownloadContainer {
     if (this.request !== null) {
       this.request.abort();
     }
-  }
-
-  downloadingFinished() {
-    this.element.hide();
   }
 
   get() {

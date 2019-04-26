@@ -17,20 +17,21 @@
 
         &_icon {
           cursor: pointer;
-          color: var(--file-hasher-widget-control-border-color);
-          background-color: var(--file-hasher-widget-control-icon-color);
+          /*color: var(--file-hasher-widget-control-border-color);
+          background-color: var(--file-hasher-widget-control-icon-color);*/
           opacity: 0.3;
+          max-width: 24px;
           border-radius: 16px;
           padding: 1px 6px;
           border: 2px solid var(--file-hasher-widget-control-border-color);
 
           &--next {
-            padding-left: 7px;
+            padding-left: 8px;
             padding-right: 5px;
           }
 
           &--prev {
-            padding-left: 5px;
+            padding-left: 6px;
             padding-right: 7px;
           }
         }

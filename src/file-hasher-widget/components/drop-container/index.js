@@ -19,13 +19,11 @@ class DropContainer {
   }
   
   init() {
-    const {width: widgetWidth, icon: { width: iconWidth }} = this.widget.configurator.getStyles();
+    const {icon: { width: iconWidth }} = this.widget.configurator.getStyles();
     
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.drop.code)
     });
-    
-    this.element.style({'height': `${widgetWidth}`});
   
     this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.drop.body.code)
@@ -60,20 +58,13 @@ class DropContainer {
       this.uploadModeInitiated(data);
       this.hashingCanceled(data)
     });
-    this.widget.observers.downloadingCanceledObserver.subscribe((data) => {
-      this.downloadingCanceled(data)
-    });
     this.widget.observers.downloadingFinishedObserver.subscribe((data) => {
-      this.downloadingFinished();
       this.hash(data).then(result => {
         self.widget.observers.hashingFinishedObserver.broadcast(result);
       });
     });
-    this.widget.observers.fileSelectedObserver.subscribe(() => {
-      this.downloadingFinished();
-    });
     this.widget.observers.errorCaughtObserver.subscribe(() => {
-      this.downloadingCanceled();
+      this.downloadingStarted();
       this.hashingCanceled();
     });
   }
@@ -109,11 +100,12 @@ class DropContainer {
   hash(file) {
     const self = this;
     
-    if (!self.hasher || self.hasher === null)
+    if (!self.hasher)
       widgetLogger.error(`${self.widget.widgetId}: Woleet Hasher isn't found`);
   
     self.updateProgress({progress: 0});
     self.widget.observers.hashingStartedObserver.broadcast(file);
+    self.element.hide();
   
     return new Promise((resolve) => {
       self.hasher.start(file);
@@ -146,19 +138,17 @@ class DropContainer {
     return self.hash(file);
   }
 
-  downloadModeInitiated() {
-    this.element.hide();
+  downloadModeInitiated(fileConfiguration) {
+    if (!utils.getObjectProperty(fileConfiguration, 'fastDownload')) {
+      this.element.hide();
+    }
   }
 
   uploadModeInitiated() {
     this.element.show();
   }
-
-  downloadingFinished() {
-    this.element.hide();
-  }
-
-  downloadingCanceled() {
+  
+  downloadingStarted() {
     this.element.show();
   }
 

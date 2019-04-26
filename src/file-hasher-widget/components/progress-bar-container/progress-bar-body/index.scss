@@ -4,13 +4,12 @@
       box-sizing: unset;
       & > div {
         display: inline-block;
-        vertical-align: top;
       }
     }
 
     &--wrapper {
       width: 70%;
-      margin: 6px auto 0;
+      margin: 0 auto 0;
       padding: 2px;
       height: 4px;
       box-sizing: unset;

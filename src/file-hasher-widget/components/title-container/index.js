@@ -39,7 +39,7 @@ class TitleContainer {
       this.hashingStarted(data)
     });
     this.widget.observers.downloadingStartedObserver.subscribe((data) => {
-      this.hashingStarted(data)
+      this.downloadingStarted(data)
     });
     this.widget.observers.downloadingFinishedObserver.subscribe((data) => {
       this.downloadingFinished(data)
@@ -63,13 +63,13 @@ class TitleContainer {
     this.element.title.text(utils.translate('file_hashing_in_progress', this.lang));
   }
   
+  hashingFinished() {
+    this.element.title.text(utils.translate('file_hashing_done', this.lang));
+  }
+  
   downloadingStarted() {
     this.element.show();
     this.element.title.text(utils.translate('file_downloading_in_progress', this.lang));
-  }
-  
-  hashingFinished() {
-    this.element.title.text(utils.translate('file_hashing_done', this.lang));
   }
 
   downloadingFinished() {
