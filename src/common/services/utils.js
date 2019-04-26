@@ -1,5 +1,5 @@
-import { icon } from '@fortawesome/fontawesome-svg-core'
 import constants from "Common/constants";
+import i18next from 'i18next';
 
 /**
  * Simple object check.
@@ -48,8 +48,8 @@ function extractClasses(styles, classCodes) {
 }
 
 function translate(code, lang = '', options = {}) {
-  if (window.i18n && window.i18n.t) {
-    return window.i18n.t(code, mergeDeep({ lng: lang }, options));
+  if (i18next.t) {
+    return i18next.t(code, mergeDeep({ lng: lang }, options));
   }
   return code;
 }
@@ -95,32 +95,6 @@ function parseWidgetAttributeConfiguration(widgetElement) {
   });
 
   return widgetConfiguration;
-}
-
-/**
- * Get regular SVG icon of the library Font-Awesome
- * @param iconCode
- * @param options
- * @returns {*}
- */
-function getRegularIconSVG(iconCode, options = {}) {
-  if (window.regularIconsModule) {
-    return icon(window.regularIconsModule[iconCode], options).html[0];
-  }
-  return false;
-}
-
-/**
- * Get solid SVG icon of the library Font-Awesome
- * @param iconCode
- * @param options
- * @returns {*}
- */
-function getSolidIconSVG(iconCode, options = {}) {
-  if (window.solidIconsModule) {
-    return icon(window.solidIconsModule[iconCode], options).html[0];
-  }
-  return false;
 }
 
 /**
@@ -424,11 +398,9 @@ export default  {
   getHttpRequest,
   extractClasses,
   getFilenameUrl,
-  getSolidIconSVG,
   getFileExtension,
   getUrlToDownload,
   getFilenameSource,
-  getRegularIconSVG,
   getObjectByString,
   getObjectProperty,
   parseWidgetAttributeConfiguration

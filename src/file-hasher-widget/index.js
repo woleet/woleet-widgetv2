@@ -5,6 +5,7 @@ import { getFileHasherDefaults } from 'FileHasherWidget/defaults'
 import utils from 'Common/services/utils'
 import widgetLogger from 'Common/services/logger'
 import resources from 'Resources/locales'
+import i18next from 'i18next';
 
 import FileHasherWidget from './components'
 
@@ -69,47 +70,13 @@ function loadDependencies() {
    */
   const sourceLink = addCssLink();
   
-  return getWidgetDependencies().then(dependencies => {
-    const {woleet, i18n} = dependencies;
-    
-    if (!window.woleet) {
-      window.woleet = woleet;
-    }
-    
-    if (!window.i18n) {
-      window.i18n = i18n;
-    }
-
-    if (!window['file-hasher-widget-source'] && sourceLink !== null) {
-      window['file-hasher-widget-source'] = sourceLink;
-    }
-
-    return new Promise((resolve) => resolve(true));
-  });
-}
-
-/**
- * Get all widget library dependencies
- * @returns {Promise<[]>}
- */
-function getWidgetDependencies() {
-  const dependenciesPromises = [];
+  i18next.init({fallbackLng: getDefaultLanguage(), debug: window.dev, resources});
   
-  dependenciesPromises.push(loader.getWoleetLibs());
-  dependenciesPromises.push(loader.getI18nService());
+  if (!window['file-hasher-widget-source'] && sourceLink !== null) {
+    window['file-hasher-widget-source'] = sourceLink;
+  }
   
-  return Promise.all(dependenciesPromises)
-    .then(([woleet, i18n]) => {
-      const initializationPromises = [];
-      /**
-       * Configure i18next
-       */
-      initializationPromises.push(
-        i18n.init({fallbackLng: getDefaultLanguage(), debug: window.dev, resources})
-      );
-      return Promise.all(initializationPromises)
-        .then(() => {return { woleet, i18n }})
-    });
+  return new Promise((resolve) => resolve(true));
 }
 
 /**

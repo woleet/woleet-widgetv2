@@ -5,6 +5,7 @@ import {getProofVerifierWidgetDefaults} from 'ProofVerifierWidget/defaults'
 import utils from 'Common/services/utils'
 import widgetLogger from 'Common/services/logger'
 import resources from 'Resources/locales'
+import i18next from 'i18next'
 
 import ProofVerifierWidget from './components'
 
@@ -68,49 +69,17 @@ function loadDependencies() {
    * Load the widget styles
    */
   const sourceLink = addCssLink();
-
-  return getWidgetDependencies()
-    .then(dependencies => {
-      const {woleet, i18n} = dependencies;
-
-      if (!window.woleet) {
-        window.woleet = woleet;
-      }
-
-      if (!window.i18n) {
-        window.i18n = i18n;
-      }
-
-      if (!window['proof-verifier-widget-source'] && sourceLink !== null) {
-        window['proof-verifier-widget-source'] = sourceLink;
-      }
-
-      return new Promise((resolve) => resolve(true));
-    });
-}
-
-/**
- * Get all widget library dependencies
- * @returns {Promise<[]>}
- */
-function getWidgetDependencies() {
-  const dependenciesPromises = [];
-
-  dependenciesPromises.push(loader.getWoleetLibs());
-  dependenciesPromises.push(loader.getI18nService());
-
-  return Promise.all(dependenciesPromises)
-    .then(([woleet, i18n]) => {
-      const initializationPromises = [];
-      /**
-       * Configure i18next
-       */
-      initializationPromises.push(
-        i18n.init({fallbackLng: getDefaultLanguage(), debug: window.dev, resources})
-      );
-      return Promise.all(initializationPromises)
-        .then(() => {return {woleet, i18n}})
-    });
+  
+  if (!window['proof-verifier-widget-source'] && sourceLink !== null) {
+    window['proof-verifier-widget-source'] = sourceLink;
+  }
+  
+  /**
+   * Configure i18next
+   */
+  i18next.init({fallbackLng: getDefaultLanguage(), debug: window.dev, resources});
+  
+  return new Promise((resolve) => resolve(true));
 }
 
 /**

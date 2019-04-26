@@ -7,6 +7,7 @@ import styles from './index.scss';
 import Logo from 'Resources/images/icon_logo.svg';
 import BannerContainer from "./banner-container";
 import PanelContainer from "./panel-container";
+import loader from "Common/services/loader";
 
 /**
  * WidgetContainer
@@ -19,10 +20,20 @@ class WidgetContainer {
     this.receipt = this.widget.configuration.receipt;
     this.styles = this.widget.configurator.getStyles();
     this.lang = this.widget.configurator.getLanguage();
-    this.verifier = window.woleet ? window.woleet.verify : null;
-    this.receiptService = window.woleet ? window.woleet.receipt : null;
     this.cursorPointerClass = utils.extractClasses(styles, ['cursor-pointer'])[0];
-
+  
+    if (!window.woleet) {
+      loader.getWoleetLibs()
+        .then((woleet) => {
+          window.woleet = woleet;
+          this.verifier = window.woleet ? window.woleet.verify : null;
+          this.receiptService = window.woleet ? window.woleet.receipt : null;
+        });
+    } else {
+      this.verifier = window.woleet ? window.woleet.verify : null;
+      this.receiptService = window.woleet ? window.woleet.receipt : null;
+    }
+    
     this.observerMappers = {
       receipt: {
         'downloadingFinished': 'receiptDownloadingFinishedObserver',

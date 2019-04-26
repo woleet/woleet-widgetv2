@@ -3,6 +3,8 @@ import constants from 'Common/constants';
 import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
+import faDownload from 'Resources/images/file-download.svg';
+import faExternalLink from 'Resources/images/external-link-alt.svg';
 
 /**
  * ControlPanelContainer
@@ -37,7 +39,7 @@ class ControlPanelContainer {
       classes: utils.extractClasses(styles, styleCodes.widget.cursorPointer)
     });
     this.element.wrapper.viewTransactionEl.linkEl.html(
-      `<i>${utils.getSolidIconSVG('faExternalLinkAlt')}</i>` + `<span>${utils.translate('view_transaction', this.lang)}</span>`
+      `<i>${faExternalLink}</i>` + `<span>${utils.translate('view_transaction', this.lang)}</span>`
     );
     this.element.wrapper.viewTransactionEl.hide();
 
@@ -51,7 +53,7 @@ class ControlPanelContainer {
       classes: utils.extractClasses(styles, styleCodes.widget.cursorPointer)
     });
     this.element.wrapper.downloadReceiptEl.linkEl.html(
-      `<i>${utils.getSolidIconSVG('faDownload')}</i>` + `<span>${utils.translate('click_to_download_proof_receipt', this.lang)}</span>`
+      `<i>${faDownload}</i>` + `<span>${utils.translate('click_to_download_proof_receipt', this.lang)}</span>`
     );
     this.element.wrapper.downloadReceiptEl.hide();
     this.element.hide();

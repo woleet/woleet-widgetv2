@@ -1,28 +1,44 @@
 import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
+import loader from 'Common/services/loader'
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 import faCaretLeft from 'Resources/images/caret-left.svg';
 import faCaretRight from 'Resources/images/caret-right.svg';
-import pdf from 'pdfjs-dist'
 
 /**
  * PdfPreview
  */
 class PdfPreview {
   constructor(widget) {
+    const self = this;
     this.element = null;
-    this.pdfjsLib = pdf;
+    this.pdfjsLib = null;
     this.widget = widget;
     this.fileReader = new FileReader();
     
     this.styles = this.widget.configurator.getStyles();
-    
+  
+    if (!window.pdfJs) {
+      loader.getPdfJs()
+        .then((pdfJs) => {
+          window.pdfJs = pdfJs;
+          self.pdfjsLib = pdfJs;
+          self.loaded();
+        });
+    } else {
+      self.pdfjsLib = window.pdfJs;
+      self.loaded();
+    }
+  
+    this.init();
+  }
+  
+  loaded() {
     if (window['file-hasher-widget-source']) {
       this.pdfjsLib.GlobalWorkerOptions.workerSrc = window['file-hasher-widget-source'] + '/pdf.worker.min.js';
     }
-    
-    this.init();
+    this.initializeEvents();
     this.reset();
   }
   
@@ -68,15 +84,6 @@ class PdfPreview {
     this.element.hide();
     this.element.control.hide();
     this.element.titleWrapper.hide();
-    
-    this.initializeObservers();
-    this.initializeEvents();
-  }
-  
-  /**
-   * Initialize the observers
-   */
-  initializeObservers() {
   }
   
   /**
@@ -86,12 +93,15 @@ class PdfPreview {
     const self = this;
     this.fileReader.onload = function() {
       const typedArray = new Uint8Array(this.result);
-      self.pdfjsLib.getDocument(typedArray)
-        .then((pdf) => {
-          self.pdfDoc = pdf;
-          self.pageCount = self.pdfDoc.numPages;
-          self.renderPage(self.pageNum);
-        });
+      
+      if (!!(self.pdfjsLib)) {
+        self.pdfjsLib.getDocument(typedArray)
+          .then((pdf) => {
+            self.pdfDoc = pdf;
+            self.pageCount = self.pdfDoc.numPages;
+            self.renderPage(self.pageNum);
+          });
+      }
     };
   
     this.element.control.prev.on('click', function (event) {

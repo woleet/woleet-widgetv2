@@ -24,16 +24,12 @@ export class FileVerifierWidgetComponent implements AfterContentInit {
   }
 
   ngAfterContentInit() {
-    console.log('this.config', this.config);
-
-    setTimeout(() => {
-      window['fileVerifierWidget'].init([
-        {
-          el: this.elementRef.nativeElement,
-          config: this.config
-        }
-      ]);
-    }, 50);
+    window['fileVerifierWidget'].init([
+      {
+        el: this.elementRef.nativeElement,
+        config: this.config
+      }
+    ]);
   }
 
 }

@@ -18,13 +18,11 @@ export class FileHasherWidgetComponent implements AfterContentInit {
   ngAfterContentInit() {
     console.log('this.config', this.config);
 
-    setTimeout(() => {
-      window['fileHasherWidget'].init([
-        {
-          el: this.elementRef.nativeElement,
-          config: this.config
-        }
-      ]);
-    }, 1000);
+    window['fileHasherWidget'].init([
+      {
+        el: this.elementRef.nativeElement,
+        config: this.config
+      }
+    ]);
   }
 }

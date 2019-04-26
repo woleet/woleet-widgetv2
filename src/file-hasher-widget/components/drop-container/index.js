@@ -4,16 +4,31 @@ import widgetLogger from 'Common/services/logger';
 import faFileImport from 'Resources/images/file-import.svg';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
+import loader from 'Common/services/loader';
 
 /**
  * DropContainer area
  */
 class DropContainer {
   constructor(widget, parent) {
+    const self = this;
+    
     this.element = null;
     this.widget = widget;
     this.parent = parent;
+  
+    loader.getWoleetLibs()
     this.hasher = window.woleet ? new window.woleet.file.Hasher : null;
+  
+    if (!window.woleet) {
+      loader.getWoleetLibs()
+        .then((woleet) => {
+          window.woleet = woleet;
+          self.hasher = new woleet.file.Hasher;
+        });
+    } else {
+      self.hasher = new window.woleet.file.Hasher;
+    }
     
     this.init();
   }

@@ -12,7 +12,7 @@ function getI18nService() {
 
 function getPdfJs() {
   return import(/* webpackChunkName: "pdf.js" */'pdfjs-dist').then((module) => {
-    return module;
+    return module.default;
   }).catch(error => 'An error occurred while loading the component');
 }
 
