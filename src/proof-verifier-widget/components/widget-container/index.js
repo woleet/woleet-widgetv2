@@ -4,7 +4,7 @@ import woleetApi from 'Common/services/api';
 import constants from 'Common/constants'
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
-import Logo from 'Resources/images/icon_logo.svg';
+import Icon from 'Resources/images/icon.svg';
 import BannerContainer from "./banner-container";
 import PanelContainer from "./panel-container";
 import loader from "Common/services/loader";
@@ -16,12 +16,12 @@ class WidgetContainer {
   constructor(widget) {
     this.widget = widget;
     this.fileReader = new FileReader();
-    this.iconAttributes = utils.svgToHTML(Logo);
+    this.iconAttributes = utils.svgToHTML(Icon);
     this.receipt = this.widget.configuration.receipt;
     this.styles = this.widget.configurator.getStyles();
     this.lang = this.widget.configurator.getLanguage();
     this.cursorPointerClass = utils.extractClasses(styles, ['cursor-pointer'])[0];
-  
+
     if (!window.woleet) {
       loader.getWoleetLibs()
         .then((woleet) => {
@@ -33,7 +33,7 @@ class WidgetContainer {
       this.verifier = window.woleet ? window.woleet.verify : null;
       this.receiptService = window.woleet ? window.woleet.receipt : null;
     }
-    
+
     this.observerMappers = {
       receipt: {
         'downloadingFinished': 'receiptDownloadingFinishedObserver',
@@ -43,7 +43,7 @@ class WidgetContainer {
 
     this.init();
   }
-  
+
   init() {
     let {mode} = this.widget.configuration;
     let {el: logoElement, attributes: {width: iconWidth, height: iconHeight}} = this.iconAttributes;
@@ -55,11 +55,11 @@ class WidgetContainer {
     if (this.styles.icon.height !== null) {
       iconHeight = this.styles.icon.height;
     }
-    
+
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.containers.code)
     });
-  
+
     this.element.iconContainer = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.iconContainer.code)
     });
@@ -67,7 +67,7 @@ class WidgetContainer {
     const xml = new XMLSerializer().serializeToString(logoElement);
     const image = `data:image/svg+xml;base64,${btoa(xml)}`;
     this.element.iconContainer.attr('src', image);
-  
+
     this.element.bannerContainer = (new BannerContainer(this.widget, {height: iconHeight, width: iconWidth})).get();
     this.element.panelContainer = (new PanelContainer(this.widget, {height: iconHeight, width: iconWidth})).get();
 
@@ -107,12 +107,12 @@ class WidgetContainer {
    */
   initializeStyles() {
     const {banner: bannerStyles, zindex: zIndex} = this.widget.configurator.getStyles();
-  
+
     if (bannerStyles.title && bannerStyles.title.color) {
       this.element.target().style
         .setProperty('--proof-verifier-title-color', bannerStyles.title.color);
     }
-  
+
     if (zIndex) {
       this.element.target().style
         .setProperty('--z-index', zIndex);
@@ -128,10 +128,10 @@ class WidgetContainer {
   verifyReceiptFile(receiptJson) {
     const self = this;
     const promises = [];
-  
+
     promises.push(self.verifier.receipt(receiptJson));
     promises.push(woleetApi.receipt.verify(receiptJson));
-  
+
     return Promise.all(promises)
       .then(([verification, identityVerification]) => {
         verification.identityVerificationStatus = utils.extendObject(
@@ -169,7 +169,7 @@ class WidgetContainer {
    */
   initializeContainerView(mode) {
     const self = this;
-    
+
     switch(mode) {
       case constants.PROOF_VERIFIER_MODE_ICON:
         self.element.iconContainer.addClass(self.cursorPointerClass);
