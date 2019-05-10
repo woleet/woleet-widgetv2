@@ -1,0 +1,25 @@
+# Examples & server files
+examples
+server
+
+# macOS
+.DS_Store
+
+# IntelliJ IDEA
+**/.idea/
+**/*.iml
+
+# Node module
+**/node_modules
+
+# Bower components
+
+
+.gitignore
+.eslintrc.js
+.babelrc
+
+# Webpack configs
+webpack.config.js
+webpack.build.config.js
+webpack.dev.config.js
