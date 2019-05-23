@@ -76,17 +76,8 @@ class PdfPreview {
   
     this.element.control.next.setSvg(faCaretRight, previewIconColor);
     
-    this.element.titleWrapper = VirtualDOMService.createElement('div', {
-      classes: utils.extractClasses(styles, styleCodes.preview.pdf.title.wrapper.code)
-    });
-    
-    this.element.titleWrapper.title = VirtualDOMService.createElement('span', {
-      classes: utils.extractClasses(styles, styleCodes.preview.pdf.title.code)
-    });
-    
     this.element.hide();
     this.element.control.hide();
-    this.element.titleWrapper.hide();
 
     this.initializeEvents();
   }
@@ -157,7 +148,6 @@ class PdfPreview {
         };
         
         const renderTask = page.render(renderContext);
-        self.element.titleWrapper.show();
         
         // Wait for rendering to finish
         renderTask.promise.then(function() {
@@ -175,9 +165,7 @@ class PdfPreview {
     this.reset();
     let canvasElement = this.element.canvasWrapper.canvas.target();
     this.ctx = canvasElement.getContext('2d');
-    this.fileName = file.name;
     this.fileReader.readAsArrayBuffer(file);
-    this.element.titleWrapper.title.text(this.fileName);
     this.element.show();
 
     if (this.ctx) {
@@ -188,7 +176,6 @@ class PdfPreview {
 
   hide() {
     this.reset();
-    this.element.titleWrapper.title.text('');
     this.element.hide();
   }
   

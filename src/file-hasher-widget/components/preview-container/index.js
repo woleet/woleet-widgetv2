@@ -35,8 +35,6 @@ class PreviewContainer {
       classes: utils.extractClasses(styles, styleCodes.preview.code)
     });
 
-    this.element.style({'height': `${widgetWidth}`});
-
     this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.code)
     });
@@ -60,6 +58,14 @@ class PreviewContainer {
     this.pdfPreview = new PdfPreview(this.widget);
     this.element.pdf = (this.pdfPreview).get();
 
+    this.element.titleWrapper = VirtualDOMService.createElement('div', {
+      classes: utils.extractClasses(styles, styleCodes.preview.title.wrapper.code)
+    });
+
+    this.element.titleWrapper.title = VirtualDOMService.createElement('span', {
+      classes: utils.extractClasses(styles, styleCodes.preview.title.code)
+    });
+
     this.element.control = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.control.code)
     });
@@ -72,6 +78,7 @@ class PreviewContainer {
     this.element.target().style.setProperty('--file-hasher-widget-control-border-color', previewIconColor);
 
     this.element.hide();
+    this.element.titleWrapper.hide();
     
     this.initializeObservers();
     this.initializeEvents();
@@ -162,6 +169,11 @@ class PreviewContainer {
       this.element.body.show();
       this.showPlaceholderIcon(faFile)
     }
+
+    console.log('file', file);
+
+    this.element.titleWrapper.show();
+    this.element.titleWrapper.title.text(file.name);
   }
 
   showFilePreview(event) {
@@ -177,6 +189,7 @@ class PreviewContainer {
 
   resetFile() {
     this.file = null;
+    this.element.titleWrapper.title.text('');
   }
 
   get() {
