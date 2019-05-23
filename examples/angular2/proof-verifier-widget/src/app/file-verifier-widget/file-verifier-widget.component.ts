@@ -26,6 +26,7 @@ export class FileVerifierWidgetComponent implements AfterContentInit {
   ngAfterContentInit() {
     window['fileVerifierWidget'].init([
       {
+        id: this.config.id,
         el: this.elementRef.nativeElement,
         config: this.config
       }

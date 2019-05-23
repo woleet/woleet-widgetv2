@@ -38,7 +38,6 @@ class PdfPreview {
     if (window['file-hasher-widget-source']) {
       this.pdfjsLib.GlobalWorkerOptions.workerSrc = window['file-hasher-widget-source'] + '/pdf.worker.min.js';
     }
-    this.initializeEvents();
     this.reset();
   }
   
@@ -84,6 +83,8 @@ class PdfPreview {
     this.element.hide();
     this.element.control.hide();
     this.element.titleWrapper.hide();
+
+    this.initializeEvents();
   }
   
   /**
