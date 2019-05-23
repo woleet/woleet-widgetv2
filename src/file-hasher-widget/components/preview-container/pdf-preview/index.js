@@ -42,6 +42,10 @@ class PdfPreview {
   }
   
   init() {
+    const {
+      preview: { icon: { color: previewIconColor} }
+    } = this.widget.configurator.getStyles();
+
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.code)
     });
@@ -64,13 +68,13 @@ class PdfPreview {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.icon.prev.code)
     });
   
-    this.element.control.prev.setSvg(faCaretLeft);
+    this.element.control.prev.setSvg(faCaretLeft, previewIconColor);
     
     this.element.control.next = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.icon.next.code)
     });
   
-    this.element.control.next.setSvg(faCaretRight);
+    this.element.control.next.setSvg(faCaretRight, previewIconColor);
     
     this.element.titleWrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.title.wrapper.code)

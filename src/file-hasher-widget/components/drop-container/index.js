@@ -34,7 +34,7 @@ class DropContainer {
   }
   
   init() {
-    const {icon: { width: iconWidth }} = this.widget.configurator.getStyles();
+    const {icon: { width: iconWidth, color: iconColor }} = this.widget.configurator.getStyles();
     
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.drop.code)
@@ -55,7 +55,7 @@ class DropContainer {
       classes: utils.extractClasses(styles, styleCodes.drop.body.input.code)
     });
     
-    this.element.body.icon.setSvg(faFileImport);
+    this.element.body.icon.setSvg(faFileImport, iconColor);
 
     this.initializeObservers();
     this.initializeEvents();

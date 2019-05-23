@@ -17,13 +17,19 @@ class PreviewContainer {
     this.fileReader = new FileReader();
     this.file = null;
     this.pdfPreview = null;
+    this.iconColor = null;
     this.previewFileFormats = ['png', 'jpeg', 'jpg', 'svg'];
     
     this.init();
   }
   
   init() {
-    const {width: widgetWidth, icon: { width: iconWidth }} = this.widget.configurator.getStyles();
+    const {width: widgetWidth,
+      icon: { width: iconWidth, color: iconColor },
+      preview: { icon: { color: previewIconColor} }
+    } = this.widget.configurator.getStyles();
+
+    this.iconColor = iconColor;
 
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.code)
@@ -62,7 +68,8 @@ class PreviewContainer {
       classes: utils.extractClasses(styles, styleCodes.preview.control.icon.redo.code)
     });
 
-    this.element.control.redo.setSvg(faRedo);
+    this.element.control.redo.setSvg(faRedo, previewIconColor);
+    this.element.target().style.setProperty('--file-hasher-widget-control-border-color', previewIconColor);
 
     this.element.hide();
     
@@ -165,7 +172,7 @@ class PreviewContainer {
   showPlaceholderIcon(file) {
     this.element.body.wrapper.hide();
     this.element.body.icon.show();
-    this.element.body.icon.setSvg(file);
+    this.element.body.icon.setSvg(file, this.iconColor);
   }
 
   resetFile() {
