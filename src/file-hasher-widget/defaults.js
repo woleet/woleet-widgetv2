@@ -18,6 +18,10 @@ function getFileHasherDefaults() {
         icon: {
           color: '#FF9494'
         }
+      },
+      hash: {
+        color: 'red',
+        background_color: '#00A2FF'
       }
     },
     title: {

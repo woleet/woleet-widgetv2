@@ -6,6 +6,12 @@ const styleCodes = {
       code: ['title_container'],
     }
   },
+  hash: {
+    code: ['hash'],
+    container: {
+      code: ['hash_container'],
+    }
+  },
   error: {
     code: ['error'],
     container: {

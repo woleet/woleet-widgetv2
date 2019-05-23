@@ -64,7 +64,8 @@ class TitleContainer {
   }
   
   hashingFinished() {
-    this.element.title.text(utils.translate('file_hashing_done', this.lang));
+    this.element.hide();
+    // this.element.title.text(utils.translate('file_hashing_done', this.lang));
   }
   
   downloadingStarted() {

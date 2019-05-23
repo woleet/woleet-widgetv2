@@ -170,8 +170,6 @@ class PreviewContainer {
       this.showPlaceholderIcon(faFile)
     }
 
-    console.log('file', file);
-
     this.element.titleWrapper.show();
     this.element.titleWrapper.title.text(file.name);
   }

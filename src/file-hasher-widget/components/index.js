@@ -12,6 +12,7 @@ import ProgressBarContainer from 'FileHasherWidget/components/progress-bar-conta
 import ErrorContainer from 'FileHasherWidget/components/error-container';
 import DownloadContainer from 'FileHasherWidget/components/download-container';
 import PreviewContainer from 'FileHasherWidget/components/preview-container';
+import HashContainer from 'FileHasherComponents/hash-container';
 
 /**
  * Define a class of the widget
@@ -125,9 +126,15 @@ class FileHasherWidget {
     if (this.configuration.title.visible) {
       this.element.titleContainer = (new TitleContainer(this)).get();
     }
-  
-    this.element.hashProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.hashProgressBar)).get();
-    this.element.downloadProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.downloadProgressBar)).get();
+
+    if (this.configuration.hash.visible) {
+      this.element.hashContainer = (new HashContainer(this)).get();
+    }
+
+    if (this.configuration.progress.visible) {
+      this.element.hashProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.hashProgressBar)).get();
+      this.element.downloadProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.downloadProgressBar)).get();
+    }
   
     this.element.errorContainer = (new ErrorContainer(this)).get();
   
