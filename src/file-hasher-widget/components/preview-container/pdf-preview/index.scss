@@ -17,8 +17,6 @@
 
         &_icon {
           cursor: pointer;
-          /*color: var(--file-hasher-widget-control-border-color);
-          background-color: var(--file-hasher-widget-control-icon-color);*/
           opacity: 0.3;
           max-width: 24px;
           border-radius: 16px;
@@ -42,14 +40,6 @@
 
         &_icon:not(:last-child) {
           margin-right: 10px;
-        }
-      }
-
-      &-title {
-        &_wrapper {
-          font-size: 12px;
-          padding-bottom: 5px;
-          word-break: break-all;
         }
       }
     }

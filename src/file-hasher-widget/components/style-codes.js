@@ -66,12 +66,6 @@ const styleCodes = {
             code: ['preview_container--pdf-control_icon', 'preview_container--pdf-control_icon--next']
           }
         }
-      },
-      title: {
-        code: ['preview_container--pdf-title'],
-        wrapper: {
-          code: ['preview_container--pdf-title_wrapper']
-        }
       }
     },
     control: {
@@ -83,6 +77,12 @@ const styleCodes = {
         }
       }
     },
+    title: {
+      code: ['preview_container--title'],
+      wrapper: {
+        code: ['preview_container--title_wrapper']
+      }
+    }
   },
   progress: {
     container: {

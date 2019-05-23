@@ -17,19 +17,23 @@ class PreviewContainer {
     this.fileReader = new FileReader();
     this.file = null;
     this.pdfPreview = null;
+    this.iconColor = null;
     this.previewFileFormats = ['png', 'jpeg', 'jpg', 'svg'];
     
     this.init();
   }
   
   init() {
-    const {width: widgetWidth, icon: { width: iconWidth }} = this.widget.configurator.getStyles();
+    const {width: widgetWidth,
+      icon: { width: iconWidth, color: iconColor },
+      preview: { icon: { color: previewIconColor} }
+    } = this.widget.configurator.getStyles();
+
+    this.iconColor = iconColor;
 
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.code)
     });
-
-    this.element.style({'height': `${widgetWidth}`});
 
     this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.code)
@@ -54,6 +58,14 @@ class PreviewContainer {
     this.pdfPreview = new PdfPreview(this.widget);
     this.element.pdf = (this.pdfPreview).get();
 
+    this.element.titleWrapper = VirtualDOMService.createElement('div', {
+      classes: utils.extractClasses(styles, styleCodes.preview.title.wrapper.code)
+    });
+
+    this.element.titleWrapper.title = VirtualDOMService.createElement('span', {
+      classes: utils.extractClasses(styles, styleCodes.preview.title.code)
+    });
+
     this.element.control = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.control.code)
     });
@@ -62,9 +74,11 @@ class PreviewContainer {
       classes: utils.extractClasses(styles, styleCodes.preview.control.icon.redo.code)
     });
 
-    this.element.control.redo.setSvg(faRedo);
+    this.element.control.redo.setSvg(faRedo, previewIconColor);
+    this.element.target().style.setProperty('--file-hasher-widget-control-border-color', previewIconColor);
 
     this.element.hide();
+    this.element.titleWrapper.hide();
     
     this.initializeObservers();
     this.initializeEvents();
@@ -155,6 +169,11 @@ class PreviewContainer {
       this.element.body.show();
       this.showPlaceholderIcon(faFile)
     }
+
+    console.log('file', file);
+
+    this.element.titleWrapper.show();
+    this.element.titleWrapper.title.text(file.name);
   }
 
   showFilePreview(event) {
@@ -165,11 +184,12 @@ class PreviewContainer {
   showPlaceholderIcon(file) {
     this.element.body.wrapper.hide();
     this.element.body.icon.show();
-    this.element.body.icon.setSvg(file);
+    this.element.body.icon.setSvg(file, this.iconColor);
   }
 
   resetFile() {
     this.file = null;
+    this.element.titleWrapper.title.text('');
   }
 
   get() {

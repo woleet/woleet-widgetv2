@@ -6,10 +6,27 @@ function getFileHasherDefaults() {
     styles: {
       width: '130px',
       icon: {
-        width: null
+        width: null,
+        color: 'lightblack'
+      },
+      preview: {
+        icon: {
+          color: 'red'
+        }
+      },
+      progress: {
+        icon: {
+          color: '#FF9494'
+        }
       }
     },
     title: {
+      visible: true
+    },
+    progress: {
+      visible: true
+    },
+    hash: {
       visible: true
     },
     lang: constants.DEFAULT_WIDGET_LANGUAGE,

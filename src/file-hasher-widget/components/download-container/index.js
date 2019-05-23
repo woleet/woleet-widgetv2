@@ -32,7 +32,7 @@ class DownloadContainer {
   }
   
   init() {
-    const {icon: { width: iconWidth }} = this.widget.configurator.getStyles();
+    const {icon: { width: iconWidth, color: iconColor }} = this.widget.configurator.getStyles();
 
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.download.code)
@@ -50,7 +50,7 @@ class DownloadContainer {
       classes: utils.extractClasses(styles, styleCodes.download.body.icon.code)
     });
   
-    this.element.body.icon.setSvg(faDownload);
+    this.element.body.icon.setSvg(faDownload, iconColor);
     this.element.body.icon.attr('title', utils.translate('click_to_download', this.lang));
 
     this.initializeObservers();

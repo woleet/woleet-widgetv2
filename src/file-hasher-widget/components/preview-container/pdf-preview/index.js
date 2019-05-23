@@ -38,11 +38,14 @@ class PdfPreview {
     if (window['file-hasher-widget-source']) {
       this.pdfjsLib.GlobalWorkerOptions.workerSrc = window['file-hasher-widget-source'] + '/pdf.worker.min.js';
     }
-    this.initializeEvents();
     this.reset();
   }
   
   init() {
+    const {
+      preview: { icon: { color: previewIconColor} }
+    } = this.widget.configurator.getStyles();
+
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.code)
     });
@@ -65,25 +68,18 @@ class PdfPreview {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.icon.prev.code)
     });
   
-    this.element.control.prev.setSvg(faCaretLeft);
+    this.element.control.prev.setSvg(faCaretLeft, previewIconColor);
     
     this.element.control.next = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.icon.next.code)
     });
   
-    this.element.control.next.setSvg(faCaretRight);
-    
-    this.element.titleWrapper = VirtualDOMService.createElement('div', {
-      classes: utils.extractClasses(styles, styleCodes.preview.pdf.title.wrapper.code)
-    });
-    
-    this.element.titleWrapper.title = VirtualDOMService.createElement('span', {
-      classes: utils.extractClasses(styles, styleCodes.preview.pdf.title.code)
-    });
+    this.element.control.next.setSvg(faCaretRight, previewIconColor);
     
     this.element.hide();
     this.element.control.hide();
-    this.element.titleWrapper.hide();
+
+    this.initializeEvents();
   }
   
   /**
@@ -152,7 +148,6 @@ class PdfPreview {
         };
         
         const renderTask = page.render(renderContext);
-        self.element.titleWrapper.show();
         
         // Wait for rendering to finish
         renderTask.promise.then(function() {
@@ -170,9 +165,7 @@ class PdfPreview {
     this.reset();
     let canvasElement = this.element.canvasWrapper.canvas.target();
     this.ctx = canvasElement.getContext('2d');
-    this.fileName = file.name;
     this.fileReader.readAsArrayBuffer(file);
-    this.element.titleWrapper.title.text(this.fileName);
     this.element.show();
 
     if (this.ctx) {
@@ -183,7 +176,6 @@ class PdfPreview {
 
   hide() {
     this.reset();
-    this.element.titleWrapper.title.text('');
     this.element.hide();
   }
   

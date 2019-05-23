@@ -16,7 +16,10 @@ class ProgressBarControl {
   }
   
   init() {
-    const self = this;
+    const {
+      progress: { icon: { color: progressIconColor } }
+    } = this.widget.configurator.getStyles();
+
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.progress.control.code)
     });
@@ -25,7 +28,7 @@ class ProgressBarControl {
       classes: utils.extractClasses(styles, styleCodes.progress.control.icon.code)
     });
 
-    this.element.icon.setSvg(faTimes);
+    this.element.icon.setSvg(faTimes, progressIconColor);
     this.initializeEvents();
   }
 

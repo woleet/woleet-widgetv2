@@ -10,6 +10,7 @@ export class AppComponent {
   widget = 'File Verifier Widget';
 
   widgetConfig = {
+    id: 'my-id-todo',
     lang: 'fr',
     verification: {
       server: false

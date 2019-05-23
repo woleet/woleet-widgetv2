@@ -12,6 +12,7 @@ export class AppComponent {
   widget = 'File Hasher Widget';
 
   widgetConfig = {
+    id: 'my-id-todo',
     lang: 'fr',
     provenFile:{
       url: "http://pngimg.com/uploads/google/google_PNG19644.png"
