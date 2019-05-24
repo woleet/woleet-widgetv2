@@ -109,12 +109,12 @@ class FileHasherWidget {
   
   init() {
     const widgetObserverMappers = getFileHasherObserverMappers();
+    const {width: widgetWidget, align} = this.configuration.styles;
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.code),
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
     });
-    this.element.attr('id', this.widgetId);
-    this.element.style({width: `${this.configuration.styles.width}`});
+
   
     this.element.dropContainer = (new DropContainer(this)).get();
     this.element.previewContainer = (new PreviewContainer(this)).get();
@@ -141,6 +141,12 @@ class FileHasherWidget {
     if (!!(this.provenFileConfiguration.url)) {
       this.observers.downloadModeInitiatedObserver.broadcast(this.provenFileConfiguration);
     }
+
+
+    this.element.attr('id', this.widgetId);
+    this.element.style({width: `${widgetWidget}`});
+    this.element.target().style
+      .setProperty('--file-hasher-widget-alignment', align);
   }
   
   render() {

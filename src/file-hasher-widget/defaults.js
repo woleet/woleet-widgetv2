@@ -8,6 +8,7 @@ function getFileHasherDefaults() {
     },
     styles: {
       width: '130px',
+      align: 'center',
       icon: {
         width: null,
         color: '#696969'
