@@ -15,6 +15,7 @@ class PdfPreview {
     this.element = null;
     this.pdfjsLib = null;
     this.widget = widget;
+    this.delayedFile = null;
     this.fileReader = new FileReader();
     
     this.styles = this.widget.configurator.getStyles();
@@ -24,7 +25,12 @@ class PdfPreview {
         .then((pdfJs) => {
           window.pdfJs = pdfJs;
           self.pdfjsLib = pdfJs;
-          self.loaded();
+
+          if (this.delayedFile) {
+            self.displayPdfFile(this.delayedFile);
+          } else {
+            self.loaded();
+          }
         });
     } else {
       self.pdfjsLib = window.pdfJs;
@@ -89,15 +95,17 @@ class PdfPreview {
     const self = this;
     this.fileReader.onload = function() {
       const typedArray = new Uint8Array(this.result);
-      
-      if (!!(self.pdfjsLib)) {
-        self.pdfjsLib.getDocument(typedArray)
-          .then((pdf) => {
-            self.pdfDoc = pdf;
-            self.pageCount = self.pdfDoc.numPages;
-            self.renderPage(self.pageNum);
-          });
-      }
+
+      delete this.result;
+
+      self.pdfjsLib.getDocument(typedArray)
+        .then((pdf) => {
+          console.log('this.pdfjsLib.GlobalWorkerOptions', this.pdfjsLib.GlobalWorkerOptions, pdf)
+
+          self.pdfDoc = pdf;
+          self.pageCount = self.pdfDoc.numPages;
+          self.renderPage(self.pageNum);
+        });
     };
   
     this.element.control.prev.on('click', function (event) {
@@ -148,7 +156,7 @@ class PdfPreview {
         };
         
         const renderTask = page.render(renderContext);
-        
+
         // Wait for rendering to finish
         renderTask.promise.then(function() {
           self.pageRendering = false;
@@ -162,11 +170,23 @@ class PdfPreview {
   }
   
   setPdfFile(file) {
+    const self = this;
+
+    if (!self.pdfjsLib) {
+      this.delayedFile = file;
+    } else {
+      this.displayPdfFile(file);
+    }
+  }
+
+  displayPdfFile(file) {
     this.reset();
     let canvasElement = this.element.canvasWrapper.canvas.target();
     this.ctx = canvasElement.getContext('2d');
     this.fileReader.readAsArrayBuffer(file);
     this.element.show();
+
+    console.log('display delayed pdf file', file);
 
     if (this.ctx) {
       this.ctx.fillStyle = 'white';
@@ -220,11 +240,11 @@ class PdfPreview {
 
   reset() {
     this.pdfDoc = null;
+    this.delayedFile = null;
     this.pageNum = 1;
     this.pageRendering = false;
     this.pageCount = null;
     this.pageNumPending = null;
-    this.fileName = null;
   }
   
   get() {

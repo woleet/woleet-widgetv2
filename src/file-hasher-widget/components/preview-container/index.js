@@ -24,7 +24,7 @@ class PreviewContainer {
   }
   
   init() {
-    const {width: widgetWidth,
+    const {
       icon: { width: iconWidth, color: iconColor },
       preview: { icon: { color: previewIconColor} }
     } = this.widget.configurator.getStyles();
