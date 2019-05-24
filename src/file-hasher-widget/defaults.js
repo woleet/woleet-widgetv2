@@ -2,16 +2,16 @@ import constants from "Common/constants";
 
 function getFileHasherDefaults() {
   return {
-    provenfile: null,
+    proven_file: null,
     styles: {
       width: '130px',
       icon: {
         width: null,
-        color: 'lightblack'
+        color: '#696969'
       },
       preview: {
         icon: {
-          color: 'red'
+          color: '#FF9494'
         }
       },
       progress: {
@@ -20,7 +20,7 @@ function getFileHasherDefaults() {
         }
       },
       hash: {
-        color: 'red',
+        color: '#FFF',
         background_color: '#00A2FF'
       }
     },

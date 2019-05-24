@@ -23,7 +23,7 @@ class HashContainer {
     });
 
     this.element.target().style
-      .setProperty('--file-hasher-widget-hash-background-color', hashColor);
+      .setProperty('--file-hasher-widget-hash-color', hashColor);
 
     this.element.target().style
       .setProperty('--file-hasher-widget-hash-background-color', hashBackgroundColor);
@@ -65,7 +65,6 @@ class HashContainer {
       hashPartElement.text(hashPart);
       this.element.target().append(hashPartElement.render());
     });
-    console.log('hashed', splitHash);
 
     this.element.show();
   }
