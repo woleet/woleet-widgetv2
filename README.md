@@ -57,6 +57,16 @@ The following options are available:
     
     * _width_ - the width of the widget; _DEFAULT_: ___130px___
     
+    * _align_ - the alignment property of the widget; _DEFAULT_: ___center___;
+       
+       Accepts:
+       
+       1) left
+       
+       2) center
+       
+       3) right
+    
     * _icon_ - widget icons styles;
     
         * ___width___ - the width of icons; _DEFAULT_: ___null___
