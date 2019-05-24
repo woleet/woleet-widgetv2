@@ -115,9 +115,14 @@ class PreviewContainer {
       } else {
         !utils.adsBlocked((blocked) => {
           if (!blocked) {
-            const objUrl = window.URL.createObjectURL(self.file, { oneTimeOnly: true });
-            const tab = window.open();
-            tab.location.href = objUrl;
+            /*The solution for both IE and Edge*/
+            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+              window.navigator.msSaveOrOpenBlob(self.file, self.file.name);
+            } else {
+              const objUrl = window.URL.createObjectURL(self.file, { oneTimeOnly: true });
+              const tab = window.open();
+              tab.location.href = objUrl;
+            }
           } else {
             console.log('Disable ads blockers, please!');
           }

@@ -350,7 +350,7 @@ function formatDate(date, lang) {
 function saveObjectAs(object, filename, type = 'application/json;charset=utf-8') {
   const strObject = JSON.stringify(object, null, 4);
   const file = new Blob([strObject],{type});
-  if (window.navigator.msSaveOrOpenBlob) {
+  if (window.navigator && window.navigator.msSaveOrOpenBlob) {
     window.navigator.msSaveOrOpenBlob(file, filename);
   } else {
     const a = document.createElement("a");

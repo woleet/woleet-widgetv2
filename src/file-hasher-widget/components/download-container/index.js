@@ -9,7 +9,7 @@ import faDownload from 'Resources/images/file-download.svg';
  */
 class DownloadContainer {
   constructor(widget) {
-    const {url: provenFileUrl} = utils.getObjectProperty(widget.configuration, 'provenFile');
+    const {url: provenFileUrl} = widget.configuration.proven_file;
 
     this.element = null;
     this.request = null;
@@ -98,7 +98,7 @@ class DownloadContainer {
   }
 
   downloadModeInitiated(fileConfiguration) {
-    if (utils.getObjectProperty(fileConfiguration, 'fastDownload')) {
+    if (fileConfiguration.fast_download) {
      this.downloadFile();
     }
   }

@@ -154,7 +154,7 @@ class DropContainer {
   }
 
   downloadModeInitiated(fileConfiguration) {
-    if (!utils.getObjectProperty(fileConfiguration, 'fastDownload')) {
+    if (!fileConfiguration.fast_download) {
       this.element.hide();
     }
   }

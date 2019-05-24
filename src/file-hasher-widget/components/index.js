@@ -119,7 +119,7 @@ class FileHasherWidget {
     this.element.dropContainer = (new DropContainer(this)).get();
     this.element.previewContainer = (new PreviewContainer(this)).get();
   
-    if (!!(this.provenFileConfiguration)) {
+    if (!!(this.provenFileConfiguration.url)) {
       this.element.downloadContainer = (new DownloadContainer(this)).get();
     }
   
@@ -138,7 +138,7 @@ class FileHasherWidget {
   
     this.element.errorContainer = (new ErrorContainer(this)).get();
   
-    if (!!(this.provenFileConfiguration)) {
+    if (!!(this.provenFileConfiguration.url)) {
       this.observers.downloadModeInitiatedObserver.broadcast(this.provenFileConfiguration);
     }
   }

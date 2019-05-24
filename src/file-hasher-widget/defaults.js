@@ -2,7 +2,10 @@ import constants from "Common/constants";
 
 function getFileHasherDefaults() {
   return {
-    proven_file: null,
+    proven_file: {
+      url: null,
+      fast_download: false
+    },
     styles: {
       width: '130px',
       icon: {
