@@ -1,5 +1,4 @@
 import constants from 'Common/constants'
-import loader from 'Common/services/loader'
 import { getDefaultLanguage } from 'Common/services/configurator'
 import { getFileHasherDefaults } from 'FileHasherWidget/defaults'
 import utils from 'Common/services/utils'
