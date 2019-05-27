@@ -4,6 +4,7 @@
       position: relative;
 
       &-canvas {
+        max-width: 100%;
         &_wrapper {
 
         }
@@ -14,8 +15,7 @@
         bottom: 15%;
         left: 0;
         right: 0;
-        text-align: center;
-  
+
         &_icon {
           cursor: pointer;
           opacity: 0.3;
