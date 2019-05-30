@@ -81,6 +81,19 @@ class FileHasherWidget {
       observerNames.forEach(observerName => {
         const observer = configuration.observers[observerName];
         switch (observerName.toLowerCase()) {
+          case 'downloadingstarted':
+            this.observers.downloadingStartedObserver.subscribe((filename) => observer(self.widgetId, filename));
+            break;
+          case 'downloadingcanceled':
+            this.observers.downloadingCanceledObserver.subscribe(() => observer(self.widgetId));
+            break;
+          case 'downloadingprogress':
+            this.observers.downloadingProgressObserver.subscribe((progress) => observer(self.widgetId, progress));
+            break;
+          case 'downloadingfinished':
+            this.observers.downloadingFinishedObserver.subscribe(file => observer(self.widgetId, file));
+            this.observers.fileSelectedObserver.subscribe(file => observer(self.widgetId, file));
+            break;
           case 'hashcalculated':
             this.observers.hashingFinishedObserver.subscribe(({hash, file}) => observer(self.widgetId, hash, file));
             break;
@@ -95,10 +108,6 @@ class FileHasherWidget {
             break;
           case 'widgetreset':
             this.observers.widgetResetObserver.subscribe(() => observer(self.widgetId));
-            break;
-          case 'filedownloaded':
-            this.observers.downloadingFinishedObserver.subscribe(file => observer(self.widgetId, file));
-            this.observers.fileSelectedObserver.subscribe(file => observer(self.widgetId, file));
             break;
           default:
             break;

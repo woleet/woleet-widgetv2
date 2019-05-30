@@ -22,7 +22,7 @@ export class AppComponent {
     },
     observers: {
       hashCalculated: (widgetId, hash) => {this.hashCalculated(widgetId, hash)},
-      fileDownloaded: (widgetId, file) => {this.fileDownloaded(widgetId, file)}
+      downloadingFinished: (widgetId, file) => {this.downloadingFinished(widgetId, file)}
     }
   };
 
@@ -32,7 +32,7 @@ export class AppComponent {
     })
   }
 
-  fileDownloaded(widgetId, file) {
+  downloadingFinished(widgetId, file) {
     this.files.push({
       widgetId, file
     })

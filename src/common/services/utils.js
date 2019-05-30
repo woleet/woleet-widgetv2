@@ -179,7 +179,7 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
       // Download is being started
       if (observerMapper['downloadingStarted']) {
         const downloadingStartedObserver = observerMapper['downloadingStarted'];
-        widget.observers[downloadingStartedObserver].broadcast();
+        widget.observers[downloadingStartedObserver].broadcast(url);
       }
     } else if(request.readyState === 3) {
       // Download is under progress

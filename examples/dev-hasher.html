@@ -44,11 +44,35 @@
       logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id  "' + widgetId + '"';
       logElement.appendChild(logElementItem);
     },
-    fileDownloadedObserver: function(widgetId, file) {
+    downloadingFinishedObserver: function(widgetId, file) {
       var logElement = document.getElementById('download-logging');
       var logElementItem = document.createElement('p');
       logElementItem.innerHTML = 'Deep observer: File "' + file.name + '" downloaded by widget id  "' + widgetId + '"';
       logElement.appendChild(logElementItem);
+    },
+    downloadingStartedObserver: function(widgetId, filename) {
+      /*var logElement = document.getElementById('download-logging');
+      var logElementItem = document.createElement('p');
+      logElementItem.innerHTML = 'Deep observer: File "' + file.name + '" downloaded by widget id  "' + widgetId + '"';
+      logElement.appendChild(logElementItem);*/
+
+      console.log('started', widgetId, filename);
+    },
+    downloadingCanceledObserver: function(widgetId) {
+      /*var logElement = document.getElementById('download-logging');
+      var logElementItem = document.createElement('p');
+      logElementItem.innerHTML = 'Deep observer: File "' + file.name + '" downloaded by widget id  "' + widgetId + '"';
+      logElement.appendChild(logElementItem);*/
+
+      console.log('Canceled', widgetId);
+    },
+    downloadingProgressObserver: function(widgetId, progress) {
+      /*var logElement = document.getElementById('download-logging');
+      var logElementItem = document.createElement('p');
+      logElementItem.innerHTML = 'Deep observer: File "' + file.name + '" downloaded by widget id  "' + widgetId + '"';
+      logElement.appendChild(logElementItem);*/
+
+      console.log('progress', widgetId, progress);
     }
   };
 
@@ -103,12 +127,15 @@
      styles-align='left'
      styles-icon-width='150px'
      observers-hashCalculated='test.hashCalculatedObserver'
-     observers-fileDownloaded='test.fileDownloadedObserver'
+     observers-downloadingFinished='test.downloadingFinishedObserver'
+     observers-downloadingStarted='test.downloadingStartedObserver'
+     observers-downloadingCanceled='test.downloadingCanceledObserver'
+     observers-downloadingProgress='test.downloadingProgressObserver'
      proven_file='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf", "fast_download": true}'></div>
 <div class='file-hasher-widget'
      styles='{"width": "150px", "progress": {"icon": {"color": "red"}}}'
      proven_file-url='http://pngimg.com/uploads/google/google_PNG19644.png'
-     observers='{"hashCalculated": "test.hashCalculatedObserver", "fileDownloaded": "test.fileDownloadedObserver"}'
+     observers='{"hashCalculated": "test.hashCalculatedObserver", "fileDownloaded": "test.downloadingFinishedObserver"}'
 ></div>
 <div class="log download-logging" id="download-logging"></div>
 <div class="log hash-logging" id="hash-logging"></div>
