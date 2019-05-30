@@ -240,7 +240,9 @@ class PdfPreview {
   reset() {
     if (this.pdfDoc) {
       this.pdfDoc.destroy();
-      this.typedArray = null;
+      delete this.typedArray;
+      delete this.pdfDoc._transport.pdfDocument;
+      delete this.pdfDoc._transport._params;
     }
     this.delayedFile = null;
     this.pageNum = 1;
