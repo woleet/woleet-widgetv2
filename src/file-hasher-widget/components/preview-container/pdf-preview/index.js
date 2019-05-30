@@ -16,6 +16,7 @@ class PdfPreview {
     this.pdfjsLib = null;
     this.widget = widget;
     this.delayedFile = null;
+    this.typedArray = null;
     this.fileReader = new FileReader();
     
     this.styles = this.widget.configurator.getStyles();
@@ -94,13 +95,13 @@ class PdfPreview {
   initializeEvents() {
     const self = this;
     this.fileReader.onload = function() {
-      const typedArray = new Uint8Array(this.result);
+      self.typedArray = new Uint8Array(this.result);
 
       delete this.result;
 
-      self.pdfjsLib.getDocument(typedArray)
+      self.pdfjsLib.getDocument(self.typedArray)
         .then((pdf) => {
-          console.log('this.pdfjsLib.GlobalWorkerOptions', this.pdfjsLib.GlobalWorkerOptions, pdf)
+          console.log('this.pdfjsLib.GlobalWorkerOptions', this.pdfjsLib, pdf);
 
           self.pdfDoc = pdf;
           self.pageCount = self.pdfDoc.numPages;
@@ -186,8 +187,6 @@ class PdfPreview {
     this.fileReader.readAsArrayBuffer(file);
     this.element.show();
 
-    console.log('display delayed pdf file', file);
-
     if (this.ctx) {
       this.ctx.fillStyle = 'white';
       this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
@@ -239,7 +238,10 @@ class PdfPreview {
   }
 
   reset() {
-    this.pdfDoc = null;
+    if (this.pdfDoc) {
+      this.pdfDoc.destroy();
+      this.typedArray = null;
+    }
     this.delayedFile = null;
     this.pageNum = 1;
     this.pageRendering = false;
