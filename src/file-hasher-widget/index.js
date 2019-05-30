@@ -89,6 +89,11 @@ function initialize(widgetConfigurations) {
   widgetConfigurations.forEach(widgetConfiguration => {
     const uniqueWidgetId = utils.getUniqueId(`${constants.FILE_HASHER_WIDGET_ID}-`);
     const {config: customConfiguration, el: widgetElement, id: widgetId = uniqueWidgetId} = widgetConfiguration;
+
+    if (!widgetElement) {
+      widgetLogger.error(`Widget element wasn't found`);
+    }
+
     customConfiguration.widgetId = widgetId;
     /**
      * Extend the default widget configuration
@@ -97,16 +102,13 @@ function initialize(widgetConfigurations) {
     utils.extendObject(configuration, customConfiguration);
   
     const {icon: { width: iconWidth }, width: widgetWidth } = configuration.styles;
-    const widthIsPercent = iconWidth && iconWidth.indexOf('%') !== -1 && widgetWidth.indexOf('%') !== -1;
+    const widgetWidths = calculateWidgetWidths(widgetWidth, iconWidth, widgetElement, widgetId);
 
-    if (!(iconWidth) || (!(widthIsPercent) && parseInt(iconWidth, 10) > parseInt(widgetWidth, 10))) {
-      configuration.styles.icon.width = configuration.styles.width;
+    if (widgetWidths && widgetWidths.iconWidth) {
+      configuration.styles.icon.width = widgetWidths.iconWidth;
     }
 
-    if (!widgetElement)
-      widgetLogger.error(`Widget element wasn't found`);
-
-    console.log('configuration', configuration);
+    // console.log('configuration', configuration);
 
     /**
      * Render a widget instance and render it
@@ -116,6 +118,30 @@ function initialize(widgetConfigurations) {
     }
     widgetElement.appendChild(new FileHasherWidget(configuration).render());
   });
+}
+
+function calculateWidgetWidths(widgetWidth, iconWidth, parent, id) {
+  const results = {
+    widgetWidth,
+    iconWidth
+  };
+
+  const widgetWidthIsPercent = widgetWidth && widgetWidth.indexOf('%') !== -1;
+  const iconWidthIsPercent = iconWidth && iconWidth.indexOf('%') !== -1;
+  const widthIsPercent = widgetWidthIsPercent && iconWidthIsPercent;
+
+  if (!(iconWidth) || (!widgetWidthIsPercent && !iconWidthIsPercent &&
+    parseInt(iconWidth, 10) > parseInt(widgetWidth, 10))) {
+    results.iconWidth = widgetWidth;
+  } else if (widgetWidthIsPercent && !iconWidthIsPercent) {
+    const widgetWidthInPixels = (parseInt(widgetWidth, 10) * parent.offsetWidth) / 100;
+
+    if (parseInt(iconWidth, 10) > widgetWidthInPixels) {
+      results.iconWidth = `${widgetWidthInPixels - 2}px`;
+    }
+  }
+
+  return results;
 }
 
 /**

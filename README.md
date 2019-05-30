@@ -57,7 +57,7 @@ The following options are available:
     
     * _width_ - the width of the widget; _DEFAULT_: ___130px___
     
-    * _align_ - the alignment property of the widget; _DEFAULT_: ___center___;
+    * _align_ - the alignment property of the widget; _DEFAULT_: ___center___
        
        Accepts:
        
@@ -90,8 +90,20 @@ The following options are available:
         * ___color___ - the color of badge text; _DEFAULT_: ___#FFF___
     
         * ___background_color___ - the background badge color; _DEFAULT_: ___#00A2FF___
+        
+* __visibility__ - options of elements visibility.
     
-* __provenfile__ - the option to predefine the downloadable file;
+    * _title_ - the visibility of the title; _DEFAULT_: ___true___
+    
+    * _progress_ - the visibility of the progress bar; _DEFAULT_: ___true___
+    
+    * _hash_ - the visibility of the hash label; _DEFAULT_: ___true___
+    
+    * _controls_ - the visibility of the preview controls;
+       
+       * ___reset___ - the visibility of reset button; _DEFAULT_: ___true___
+    
+* __proven_file__ - the option to predefine the downloadable file;
     
     * _url_ - the url of the file;
     

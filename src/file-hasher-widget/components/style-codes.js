@@ -92,7 +92,10 @@ const styleCodes = {
   },
   progress: {
     container: {
-      code: ['progress_bar--container']
+      code: ['progress_bar--container'],
+      wrapper: {
+        code: ['progress_bar--container_wrapper']
+      },
     },
     bar: {
       code: ['progress_bar']

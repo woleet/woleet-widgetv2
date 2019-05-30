@@ -28,14 +28,13 @@ function getFileHasherDefaults() {
         background_color: '#00A2FF'
       }
     },
-    title: {
-      visible: true
-    },
-    progress: {
-      visible: true
-    },
-    hash: {
-      visible: true
+    visibility: {
+      title: true,
+      progress: true,
+      hash: true,
+      controls: {
+        reset: true
+      },
     },
     lang: constants.DEFAULT_WIDGET_LANGUAGE,
     type: constants.FILE_HASHER_WIDGET_TYPE

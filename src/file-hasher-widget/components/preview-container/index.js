@@ -29,6 +29,10 @@ class PreviewContainer {
       preview: { icon: { color: previewIconColor} }
     } = this.widget.configurator.getStyles();
 
+    const {
+      visibility: { controls: controlVisibility }
+    } = this.widget.configurator.get();
+
     this.iconColor = iconColor;
 
     this.element = VirtualDOMService.createElement('div', {
@@ -70,11 +74,14 @@ class PreviewContainer {
       classes: utils.extractClasses(styles, styleCodes.preview.control.code)
     });
 
-    this.element.control.redo = VirtualDOMService.createElement('img', {
-      classes: utils.extractClasses(styles, styleCodes.preview.control.icon.redo.code)
-    });
+    if (controlVisibility && controlVisibility.reset) {
+      this.element.control.redo = VirtualDOMService.createElement('img', {
+        classes: utils.extractClasses(styles, styleCodes.preview.control.icon.redo.code)
+      });
 
-    this.element.control.redo.setSvg(faRedo, previewIconColor);
+      this.element.control.redo.setSvg(faRedo, previewIconColor);
+    }
+
     this.element.target().style.setProperty('--file-hasher-widget-control-border-color', previewIconColor);
 
     this.element.hide();
@@ -130,12 +137,14 @@ class PreviewContainer {
       }
     });
 
-    this.element.control.redo.on('click', function (event) {
-      event.stopPropagation();
-      self.widget.observers.widgetResetObserver.broadcast();
-      self.resetFile();
-      return false;
-    });
+    if (this.element.control.redo) {
+      this.element.control.redo.on('click', function (event) {
+        event.stopPropagation();
+        self.widget.observers.widgetResetObserver.broadcast();
+        self.resetFile();
+        return false;
+      });
+    }
 
     self.fileReader.onload = function (file) {
       self.showFilePreview(file);

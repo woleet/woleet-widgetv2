@@ -109,12 +109,11 @@ class FileHasherWidget {
   
   init() {
     const widgetObserverMappers = getFileHasherObserverMappers();
-    const {width: widgetWidget, align} = this.configuration.styles;
+    const {styles: {width: widgetWidget, align}, visibility} = this.configuration;
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.code),
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
     });
-
   
     this.element.dropContainer = (new DropContainer(this)).get();
     this.element.previewContainer = (new PreviewContainer(this)).get();
@@ -123,15 +122,15 @@ class FileHasherWidget {
       this.element.downloadContainer = (new DownloadContainer(this)).get();
     }
   
-    if (this.configuration.title.visible) {
+    if (visibility.title) {
       this.element.titleContainer = (new TitleContainer(this)).get();
     }
 
-    if (this.configuration.hash.visible) {
+    if (visibility.hash) {
       this.element.hashContainer = (new HashContainer(this)).get();
     }
 
-    if (this.configuration.progress.visible) {
+    if (visibility.progress) {
       this.element.hashProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.hashProgressBar)).get();
       this.element.downloadProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.downloadProgressBar)).get();
     }
