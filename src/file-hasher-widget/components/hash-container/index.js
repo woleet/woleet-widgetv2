@@ -52,6 +52,7 @@ class HashContainer {
   }
 
   hashingFinished(data) {
+    const {properties: { px: { widgetWidth }}} = this.widget.configurator.get();
     const {hash, file} = data;
     const halfHashLength = Math.ceil(hash.length / 2);
     const splitHash = [hash.substr(0, halfHashLength), hash.substr(halfHashLength)];
@@ -63,6 +64,9 @@ class HashContainer {
         classes: utils.extractClasses(styles, styleCodes.hash.code)
       });
       hashPartElement.text(hashPart);
+      const relFontsize = widgetWidth * 0.04;
+      hashPartElement.attr('style', `font-size: ${relFontsize}px;`);
+
       this.element.target().append(hashPartElement.render());
     });
 

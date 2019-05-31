@@ -101,8 +101,6 @@ class PdfPreview {
 
       self.pdfjsLib.getDocument(self.typedArray)
         .then((pdf) => {
-          console.log('this.pdfjsLib.GlobalWorkerOptions', this.pdfjsLib, pdf);
-
           self.pdfDoc = pdf;
           self.pageCount = self.pdfDoc.numPages;
           self.renderPage(self.pageNum);

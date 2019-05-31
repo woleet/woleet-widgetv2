@@ -366,27 +366,62 @@ function saveObjectAs(object, filename, type = 'application/json;charset=utf-8')
   }
 }
 
-function textToSvg(text) {
-  const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svgElement.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-  svgElement.setAttribute('version', '1.1');
-  const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-  textElement.setAttributeNS(null, 'width', '100%');
-  textElement.setAttributeNS(null, 'height', 'auto');
-  textElement.setAttributeNS(null, 'x', '0');
-  textElement.setAttributeNS(null, 'y', '0');
-  textElement.setAttributeNS(null,"font-size","18px");
-  textElement.appendChild(document.createTextNode(text));
-  svgElement.appendChild(textElement);
+function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
+  const results = {
+    widgetWidth,
+    iconWidth,
+    px: {
+      widgetWidth,
+      iconWidth
+    },
+    percent: {
+      widgetWidth,
+      iconWidth
+    }
+  };
 
-  return svgElement;
+  const {offsetWidth: parentOffsetWidth} = parent;
+  let integerWidgetWidth = parseInt(widgetWidth, 10);
+  let integerIconWidth = parseInt(iconWidth, 10);
+
+  const widgetWidthIsPercent = widgetWidth && widgetWidth.indexOf('%') !== -1;
+  const iconWidthIsPercent = iconWidth && iconWidth.indexOf('%') !== -1;
+
+  if (!(iconWidth) || (!widgetWidthIsPercent && !iconWidthIsPercent && integerIconWidth > integerWidgetWidth)) {
+    results.iconWidth = widgetWidth;
+  } else if (widgetWidthIsPercent && !iconWidthIsPercent) {
+    const widgetWidthInPixels = (integerWidgetWidth * parentOffsetWidth) / 100;
+
+    if (integerIconWidth > widgetWidthInPixels) {
+      results.iconWidth = `${widgetWidthInPixels - 6}px`;
+    }
+  }
+
+  integerIconWidth = parseInt(results.iconWidth, 10);
+
+  if (widgetWidthIsPercent) {
+    results.percent.widgetWidth = integerWidgetWidth;
+    results.px.widgetWidth = parseFloat(((integerWidgetWidth * parentOffsetWidth) / 100).toFixed(2));
+  } else {
+    results.px.widgetWidth = integerWidgetWidth;
+    results.percent.widgetWidth = parseFloat(((integerWidgetWidth * 100) / parentOffsetWidth).toFixed(2));
+  }
+
+  if (iconWidthIsPercent) {
+    results.percent.iconWidth = integerIconWidth;
+    results.px.iconWidth = parseFloat(((integerIconWidth * results.px.widgetWidth) / 100).toFixed(2));
+  } else {
+    results.px.iconWidth = integerIconWidth;
+    results.percent.iconWidth = parseFloat(((integerIconWidth * 100) / results.px.widgetWidth).toFixed(2));
+  }
+
+  return results;
 }
 
 export default  {
   byString,
   setTimer,
   svgToHTML,
-  textToSvg,
   translate,
   blobToFile,
   formatDate,
@@ -403,5 +438,6 @@ export default  {
   getFilenameSource,
   getObjectByString,
   getObjectProperty,
+  calculateWidgetWidths,
   parseWidgetAttributeConfiguration
 }

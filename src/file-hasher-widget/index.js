@@ -102,11 +102,13 @@ function initialize(widgetConfigurations) {
     utils.extendObject(configuration, customConfiguration);
   
     const {icon: { width: iconWidth }, width: widgetWidth } = configuration.styles;
-    const widgetWidths = calculateWidgetWidths(widgetWidth, iconWidth, widgetElement, widgetId);
+    const widgetWidths = utils.calculateWidgetWidths(widgetWidth, iconWidth, widgetElement, widgetId);
 
     if (widgetWidths && widgetWidths.iconWidth) {
       configuration.styles.icon.width = widgetWidths.iconWidth;
     }
+
+    configuration.properties = widgetWidths;
 
     console.log(`Configuration of the widget "${widgetId}"`, configuration);
 
@@ -118,29 +120,6 @@ function initialize(widgetConfigurations) {
     }
     widgetElement.appendChild(new FileHasherWidget(configuration).render());
   });
-}
-
-function calculateWidgetWidths(widgetWidth, iconWidth, parent, id) {
-  const results = {
-    widgetWidth,
-    iconWidth
-  };
-
-  const widgetWidthIsPercent = widgetWidth && widgetWidth.indexOf('%') !== -1;
-  const iconWidthIsPercent = iconWidth && iconWidth.indexOf('%') !== -1;
-
-  if (!(iconWidth) || (!widgetWidthIsPercent && !iconWidthIsPercent &&
-    parseInt(iconWidth, 10) > parseInt(widgetWidth, 10))) {
-    results.iconWidth = widgetWidth;
-  } else if (widgetWidthIsPercent && !iconWidthIsPercent) {
-    const widgetWidthInPixels = (parseInt(widgetWidth, 10) * parent.offsetWidth) / 100;
-
-    if (parseInt(iconWidth, 10) > widgetWidthInPixels) {
-      results.iconWidth = `${widgetWidthInPixels - 6}px`;
-    }
-  }
-
-  return results;
 }
 
 /**
