@@ -13,6 +13,7 @@ import ErrorContainer from 'FileHasherWidget/components/error-container';
 import DownloadContainer from 'FileHasherWidget/components/download-container';
 import PreviewContainer from 'FileHasherWidget/components/preview-container';
 import HashContainer from 'FileHasherComponents/hash-container';
+import FilenameContainer from 'FileHasherComponents/filename-container';
 
 /**
  * Define a class of the widget
@@ -133,6 +134,10 @@ class FileHasherWidget {
   
     if (visibility.title) {
       this.element.titleContainer = (new TitleContainer(this)).get();
+    }
+
+    if (visibility.filename) {
+      this.element.filenameContainer = (new FilenameContainer(this)).get();
     }
 
     if (visibility.hash) {

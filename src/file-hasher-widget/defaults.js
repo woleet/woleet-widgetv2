@@ -30,6 +30,7 @@ function getFileHasherDefaults() {
     },
     visibility: {
       title: true,
+      filename: true,
       progress: true,
       hash: true,
       controls: {

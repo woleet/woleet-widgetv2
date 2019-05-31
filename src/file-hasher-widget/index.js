@@ -108,7 +108,7 @@ function initialize(widgetConfigurations) {
       configuration.styles.icon.width = widgetWidths.iconWidth;
     }
 
-    // console.log('configuration', configuration);
+    console.log(`Configuration of the widget "${widgetId}"`, configuration);
 
     /**
      * Render a widget instance and render it
@@ -128,7 +128,6 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent, id) {
 
   const widgetWidthIsPercent = widgetWidth && widgetWidth.indexOf('%') !== -1;
   const iconWidthIsPercent = iconWidth && iconWidth.indexOf('%') !== -1;
-  const widthIsPercent = widgetWidthIsPercent && iconWidthIsPercent;
 
   if (!(iconWidth) || (!widgetWidthIsPercent && !iconWidthIsPercent &&
     parseInt(iconWidth, 10) > parseInt(widgetWidth, 10))) {
@@ -137,7 +136,7 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent, id) {
     const widgetWidthInPixels = (parseInt(widgetWidth, 10) * parent.offsetWidth) / 100;
 
     if (parseInt(iconWidth, 10) > widgetWidthInPixels) {
-      results.iconWidth = `${widgetWidthInPixels - 2}px`;
+      results.iconWidth = `${widgetWidthInPixels - 6}px`;
     }
   }
 

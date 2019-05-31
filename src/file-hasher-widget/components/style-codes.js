@@ -82,12 +82,6 @@ const styleCodes = {
           code: ['preview_container--control_icon', 'preview_container--control_icon--redo']
         }
       }
-    },
-    title: {
-      code: ['preview_container--title'],
-      wrapper: {
-        code: ['preview_container--title_wrapper']
-      }
     }
   },
   progress: {
@@ -117,6 +111,12 @@ const styleCodes = {
       span: {
         code: ['progress_bar--title__span']
       }
+    }
+  },
+  filename: {
+    code: ['filename_container--title'],
+    wrapper: {
+      code: ['filename_container--title_wrapper']
     }
   },
   

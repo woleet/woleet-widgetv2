@@ -95,6 +95,8 @@ The following options are available:
     
     * _title_ - the visibility of the title; _DEFAULT_: ___true___
     
+    * _filename_ - the visibility of the filename; _DEFAULT_: ___true___
+    
     * _progress_ - the visibility of the progress bar; _DEFAULT_: ___true___
     
     * _hash_ - the visibility of the hash label; _DEFAULT_: ___true___
@@ -110,8 +112,14 @@ The following options are available:
     * _fastDownload_ - download the file as soon as the widget is initialized;
 
 * __observers__
+
+    * _downloadingStarted_ - is called once the file is started to download. Parameters: ___widgetId___, ___url___;
+
+    * _downloadingProgress_ - is called once the file downloading progress is changed. Parameters: ___widgetId___, ___progress (in percent)___;
     
-    * _fileDownloaded_ - is called once the file is downloaded. Parameters: ___widgetId___, ___downloaded file___;
+    * _downloadingCanceled_ - is called once the file downloading is canceled. Parameters: ___widgetId___;
+    
+    * _downloadingFinished_ - is called once the file is downloaded. Parameters: ___widgetId___, ___downloaded file___;
     
     * _hashingStarted_ - is called once the hashing process is started. Parameters: ___widgetId___, ___hashed file___;
     
