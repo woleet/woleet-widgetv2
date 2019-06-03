@@ -12,6 +12,8 @@ import ProgressBarContainer from 'FileHasherWidget/components/progress-bar-conta
 import ErrorContainer from 'FileHasherWidget/components/error-container';
 import DownloadContainer from 'FileHasherWidget/components/download-container';
 import PreviewContainer from 'FileHasherWidget/components/preview-container';
+import HashContainer from 'FileHasherComponents/hash-container';
+import FilenameContainer from 'FileHasherComponents/filename-container';
 
 /**
  * Define a class of the widget
@@ -21,7 +23,7 @@ class FileHasherWidget {
     this.widgetId = configuration.widgetId;
     this.configurator = new ConfigurationService();
     this.configuration = configuration;
-    this.provenFileConfiguration = utils.getObjectProperty(configuration, 'provenFile');
+    this.provenFileConfiguration = configuration.proven_file;
     this.observers = {};
     this.element = null;
   
@@ -80,6 +82,19 @@ class FileHasherWidget {
       observerNames.forEach(observerName => {
         const observer = configuration.observers[observerName];
         switch (observerName.toLowerCase()) {
+          case 'downloadingstarted':
+            this.observers.downloadingStartedObserver.subscribe((filename) => observer(self.widgetId, filename));
+            break;
+          case 'downloadingcanceled':
+            this.observers.downloadingCanceledObserver.subscribe(() => observer(self.widgetId));
+            break;
+          case 'downloadingprogress':
+            this.observers.downloadingProgressObserver.subscribe((progress) => observer(self.widgetId, progress));
+            break;
+          case 'downloadingfinished':
+            this.observers.downloadingFinishedObserver.subscribe(file => observer(self.widgetId, file));
+            this.observers.fileSelectedObserver.subscribe(file => observer(self.widgetId, file));
+            break;
           case 'hashcalculated':
             this.observers.hashingFinishedObserver.subscribe(({hash, file}) => observer(self.widgetId, hash, file));
             break;
@@ -95,10 +110,6 @@ class FileHasherWidget {
           case 'widgetreset':
             this.observers.widgetResetObserver.subscribe(() => observer(self.widgetId));
             break;
-          case 'filedownloaded':
-            this.observers.downloadingFinishedObserver.subscribe(file => observer(self.widgetId, file));
-            this.observers.fileSelectedObserver.subscribe(file => observer(self.widgetId, file));
-            break;
           default:
             break;
         }
@@ -108,32 +119,47 @@ class FileHasherWidget {
   
   init() {
     const widgetObserverMappers = getFileHasherObserverMappers();
+    const {styles: {width: widgetWidget, align}, visibility} = this.configuration;
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.code),
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
     });
-    this.element.attr('id', this.widgetId);
-    this.element.style({width: `${this.configuration.styles.width}`});
   
     this.element.dropContainer = (new DropContainer(this)).get();
     this.element.previewContainer = (new PreviewContainer(this)).get();
   
-    if (!!(this.provenFileConfiguration)) {
+    if (!!(this.provenFileConfiguration.url)) {
       this.element.downloadContainer = (new DownloadContainer(this)).get();
     }
   
-    if (this.configuration.title.visible) {
+    if (visibility.title) {
       this.element.titleContainer = (new TitleContainer(this)).get();
     }
-  
-    this.element.hashProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.hashProgressBar)).get();
-    this.element.downloadProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.downloadProgressBar)).get();
+
+    if (visibility.filename) {
+      this.element.filenameContainer = (new FilenameContainer(this)).get();
+    }
+
+    if (visibility.hash) {
+      this.element.hashContainer = (new HashContainer(this)).get();
+    }
+
+    if (visibility.progress) {
+      this.element.hashProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.hashProgressBar)).get();
+      this.element.downloadProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.downloadProgressBar)).get();
+    }
   
     this.element.errorContainer = (new ErrorContainer(this)).get();
   
-    if (!!(this.provenFileConfiguration)) {
+    if (!!(this.provenFileConfiguration.url)) {
       this.observers.downloadModeInitiatedObserver.broadcast(this.provenFileConfiguration);
     }
+
+
+    this.element.attr('id', this.widgetId);
+    this.element.style({width: `${widgetWidget}`});
+    this.element.target().style
+      .setProperty('--file-hasher-widget-alignment', align);
   }
   
   render() {

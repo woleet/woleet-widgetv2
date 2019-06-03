@@ -16,15 +16,15 @@ class DropContainer {
     this.element = null;
     this.widget = widget;
     this.parent = parent;
-  
-    loader.getWoleetLibs()
-    this.hasher = window.woleet ? new window.woleet.file.Hasher : null;
+    this.delayedFile = null;
   
     if (!window.woleet) {
       loader.getWoleetLibs()
         .then((woleet) => {
           window.woleet = woleet;
           self.hasher = new woleet.file.Hasher;
+
+          self.hashDelayedFile();
         });
     } else {
       self.hasher = new window.woleet.file.Hasher;
@@ -74,8 +74,10 @@ class DropContainer {
       this.hashingCanceled(data)
     });
     this.widget.observers.downloadingFinishedObserver.subscribe((data) => {
-      this.hash(data).then(result => {
-        self.widget.observers.hashingFinishedObserver.broadcast(result);
+      this.startHashing(data).then(result => {
+        if (result) {
+          self.widget.observers.hashingFinishedObserver.broadcast(result);
+        }
       });
     });
     this.widget.observers.errorCaughtObserver.subscribe(() => {
@@ -92,7 +94,9 @@ class DropContainer {
     this.element.body.input.on('change', function () {
       self.onInputFileChanged.call(this, self)
         .then(result => {
-          self.widget.observers.hashingFinishedObserver.broadcast(result);
+          if (result) {
+            self.widget.observers.hashingFinishedObserver.broadcast(result);
+          }
         });
     });
   }
@@ -112,16 +116,37 @@ class DropContainer {
     this.widget.observers.errorCaughtObserver.broadcast(event.error);
   }
   
+  startHashing(file) {
+    if (!this.hasher) {
+      this.delayedFile = file;
+
+      return new Promise((resolve, reject) => {
+        resolve(false)
+      });
+    } else {
+      return this.hash(file);
+    }
+  }
+
+  hashDelayedFile() {
+    const self = this;
+    if (this.delayedFile) {
+      return this.hash(this.delayedFile).then(result => {
+        if (result) {
+          self.widget.observers.hashingFinishedObserver.broadcast(result);
+        }
+      });
+    }
+  }
+
   hash(file) {
     const self = this;
-    
-    if (!self.hasher)
-      widgetLogger.error(`${self.widget.widgetId}: Woleet Hasher isn't found`);
-  
+
     self.updateProgress({progress: 0});
     self.widget.observers.hashingStartedObserver.broadcast(file);
     self.element.hide();
-  
+    self.delayedFile = null;
+
     return new Promise((resolve) => {
       self.hasher.start(file);
       self.hasher.on('progress', (r) => {
@@ -150,11 +175,11 @@ class DropContainer {
   
     self.widget.observers.fileSelectedObserver.broadcast(file);
     
-    return self.hash(file);
+    return self.startHashing(file);
   }
 
   downloadModeInitiated(fileConfiguration) {
-    if (!utils.getObjectProperty(fileConfiguration, 'fastDownload')) {
+    if (!fileConfiguration.fast_download) {
       this.element.hide();
     }
   }

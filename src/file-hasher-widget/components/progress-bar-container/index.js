@@ -21,8 +21,13 @@ class ProgressBarContainer {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.progress.container.code)
     });
-    this.element.progressBarBody = (new ProgressBarBody(this.widget, this.observerMapper)).get();
-    this.element.progressBarTitle = (new ProgressBarTitle(this.widget, this.observerMapper)).get();
+    this.element.wrapper = VirtualDOMService.createElement('div', {
+      classes: utils.extractClasses(styles, styleCodes.progress.container.wrapper.code)
+    });
+
+    this.element.wrapper.progressBarBody = (new ProgressBarBody(this.widget, this.observerMapper)).get();
+    this.element.wrapper.progressBarTitle = (new ProgressBarTitle(this.widget, this.observerMapper)).get();
+
     this.element.hide();
 
     this.initializeObservers();

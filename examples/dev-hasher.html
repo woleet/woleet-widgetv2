@@ -44,11 +44,20 @@
       logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id  "' + widgetId + '"';
       logElement.appendChild(logElementItem);
     },
-    fileDownloadedObserver: function(widgetId, file) {
+    downloadingFinishedObserver: function(widgetId, file) {
       var logElement = document.getElementById('download-logging');
       var logElementItem = document.createElement('p');
       logElementItem.innerHTML = 'Deep observer: File "' + file.name + '" downloaded by widget id  "' + widgetId + '"';
       logElement.appendChild(logElementItem);
+    },
+    downloadingStartedObserver: function(widgetId, filename) {
+      console.log('started', widgetId, filename);
+    },
+    downloadingCanceledObserver: function(widgetId) {
+      console.log('Canceled', widgetId);
+    },
+    downloadingProgressObserver: function(widgetId, progress) {
+      console.log('progress', widgetId, progress);
     }
   };
 
@@ -75,36 +84,40 @@
   function widgetReset(widgetId) {
     console.log('Widget was reset', widgetId);
   }
-/**
- *
- * This is a big pdf file. It's used during the development process
- * https://archive.org/download/Mahabharata_201712/6_Mahabharata.pdf
- *
- * */
   (function (d,s,i,f) {
     var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
     js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'file-hasher-widget', 'file-hasher-widget.js'));
 </script>
+<div>
+    <p>Big PDF file: https://archive.org/download/Mahabharata_201712/6_Mahabharata.pdf</p>
+    <p>Light PDF file: http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf</p>
+</div>
 <div class='file-hasher-widget'
      lang='de'
      styles-icon-width='90px'
-     title-visible="false"
+     visibility-title="false"
+     visibility-progress="false"
+     visibility-controls-reset="false"
      id='file-hasher-widget-de'
      observers='{"hashCalculated": "window.hashCalculated", "hashingStarted": "hashingStarted", "hashingCanceled": "hashingCanceled", "hashingProgress": "hashingProgress", "widgetReset": "widgetReset"}'></div>
-<!--http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf-->
 <div class='file-hasher-widget'
      lang='fr'
      styles-color='#FFFFFF'
      styles-width='250px'
+     styles-align='left'
      styles-icon-width='150px'
+     visibility-filename="false"
      observers-hashCalculated='test.hashCalculatedObserver'
-     observers-fileDownloaded='test.fileDownloadedObserver'
-     provenfile='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf", "fastDownload": true}'></div>
+     observers-downloadingFinished='test.downloadingFinishedObserver'
+     observers-downloadingStarted='test.downloadingStartedObserver'
+     observers-downloadingCanceled='test.downloadingCanceledObserver'
+     observers-downloadingProgress='test.downloadingProgressObserver'
+     proven_file='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf", "fast_download": true}'></div>
 <div class='file-hasher-widget'
      styles='{"width": "150px", "progress": {"icon": {"color": "red"}}}'
-     provenFile-url='http://pngimg.com/uploads/google/google_PNG19644.png'
-     observers='{"hashCalculated": "test.hashCalculatedObserver", "fileDownloaded": "test.fileDownloadedObserver"}'
+     proven_file-url='http://pngimg.com/uploads/google/google_PNG19644.png'
+     observers='{"hashCalculated": "test.hashCalculatedObserver", "fileDownloaded": "test.downloadingFinishedObserver"}'
 ></div>
 <div class="log download-logging" id="download-logging"></div>
 <div class="log hash-logging" id="hash-logging"></div>

@@ -2,32 +2,40 @@ import constants from "Common/constants";
 
 function getFileHasherDefaults() {
   return {
-    provenfile: null,
+    proven_file: {
+      url: null,
+      fast_download: false
+    },
     styles: {
       width: '130px',
+      align: 'center',
       icon: {
         width: null,
-        color: 'lightblack'
+        color: '#696969'
       },
       preview: {
         icon: {
-          color: 'red'
+          color: '#FF9494'
         }
       },
       progress: {
         icon: {
           color: '#FF9494'
         }
+      },
+      hash: {
+        color: '#FFF',
+        background_color: '#00A2FF'
       }
     },
-    title: {
-      visible: true
-    },
-    progress: {
-      visible: true
-    },
-    hash: {
-      visible: true
+    visibility: {
+      title: true,
+      filename: true,
+      progress: true,
+      hash: true,
+      controls: {
+        reset: true
+      },
     },
     lang: constants.DEFAULT_WIDGET_LANGUAGE,
     type: constants.FILE_HASHER_WIDGET_TYPE

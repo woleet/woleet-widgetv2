@@ -1,8 +1,14 @@
 :local {
   .progress_bar {
     &--container {
-      width: 60%;
-      margin: 5px auto 0;
+      width: 100%;
+      text-align: var(--file-hasher-widget-alignment);
+  
+      &_wrapper {
+        width: 60%;
+        margin-top: 5px;
+        display: inline-block;
+      }
     }
   }
 }

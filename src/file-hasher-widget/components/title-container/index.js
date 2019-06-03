@@ -64,7 +64,8 @@ class TitleContainer {
   }
   
   hashingFinished() {
-    this.element.title.text(utils.translate('file_hashing_done', this.lang));
+    this.element.hide();
+    // this.element.title.text(utils.translate('file_hashing_done', this.lang));
   }
   
   downloadingStarted() {
@@ -77,7 +78,7 @@ class TitleContainer {
   }
 
   downloadModeInitiated(fileConfiguration) {
-    if (utils.getObjectProperty(fileConfiguration, 'fastDownload')) {
+    if (fileConfiguration.fast_download) {
       this.downloadingStarted();
     } else {
       this.element.title.text(utils.translate('click_to_download', this.lang));

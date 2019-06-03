@@ -1,5 +1,4 @@
 import constants from 'Common/constants'
-import loader from 'Common/services/loader'
 import { getDefaultLanguage } from 'Common/services/configurator'
 import { getFileHasherDefaults } from 'FileHasherWidget/defaults'
 import utils from 'Common/services/utils'
@@ -90,6 +89,11 @@ function initialize(widgetConfigurations) {
   widgetConfigurations.forEach(widgetConfiguration => {
     const uniqueWidgetId = utils.getUniqueId(`${constants.FILE_HASHER_WIDGET_ID}-`);
     const {config: customConfiguration, el: widgetElement, id: widgetId = uniqueWidgetId} = widgetConfiguration;
+
+    if (!widgetElement) {
+      widgetLogger.error(`Widget element wasn't found`);
+    }
+
     customConfiguration.widgetId = widgetId;
     /**
      * Extend the default widget configuration
@@ -98,16 +102,15 @@ function initialize(widgetConfigurations) {
     utils.extendObject(configuration, customConfiguration);
   
     const {icon: { width: iconWidth }, width: widgetWidth } = configuration.styles;
-    const widthIsPercent = iconWidth && iconWidth.indexOf('%') !== -1 && widgetWidth.indexOf('%') !== -1;
+    const widgetWidths = utils.calculateWidgetWidths(widgetWidth, iconWidth, widgetElement, widgetId);
 
-    if (!(iconWidth) || (!(widthIsPercent) && parseInt(iconWidth, 10) > parseInt(widgetWidth, 10))) {
-      configuration.styles.icon.width = configuration.styles.width;
+    if (widgetWidths && widgetWidths.iconWidth) {
+      configuration.styles.icon.width = widgetWidths.iconWidth;
     }
 
-    if (!widgetElement)
-      widgetLogger.error(`Widget element wasn't found`);
+    configuration.properties = widgetWidths;
 
-    console.log('configuration', configuration);
+    console.log(`Configuration of the widget "${widgetId}"`, configuration);
 
     /**
      * Render a widget instance and render it

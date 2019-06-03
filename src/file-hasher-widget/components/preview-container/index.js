@@ -24,10 +24,14 @@ class PreviewContainer {
   }
   
   init() {
-    const {width: widgetWidth,
+    const {
       icon: { width: iconWidth, color: iconColor },
       preview: { icon: { color: previewIconColor} }
     } = this.widget.configurator.getStyles();
+
+    const {
+      visibility: { controls: controlVisibility }
+    } = this.widget.configurator.get();
 
     this.iconColor = iconColor;
 
@@ -58,27 +62,21 @@ class PreviewContainer {
     this.pdfPreview = new PdfPreview(this.widget);
     this.element.pdf = (this.pdfPreview).get();
 
-    this.element.titleWrapper = VirtualDOMService.createElement('div', {
-      classes: utils.extractClasses(styles, styleCodes.preview.title.wrapper.code)
-    });
-
-    this.element.titleWrapper.title = VirtualDOMService.createElement('span', {
-      classes: utils.extractClasses(styles, styleCodes.preview.title.code)
-    });
-
     this.element.control = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.control.code)
     });
 
-    this.element.control.redo = VirtualDOMService.createElement('img', {
-      classes: utils.extractClasses(styles, styleCodes.preview.control.icon.redo.code)
-    });
+    if (controlVisibility && controlVisibility.reset) {
+      this.element.control.redo = VirtualDOMService.createElement('img', {
+        classes: utils.extractClasses(styles, styleCodes.preview.control.icon.redo.code)
+      });
 
-    this.element.control.redo.setSvg(faRedo, previewIconColor);
+      this.element.control.redo.setSvg(faRedo, previewIconColor);
+    }
+
     this.element.target().style.setProperty('--file-hasher-widget-control-border-color', previewIconColor);
 
     this.element.hide();
-    this.element.titleWrapper.hide();
     
     this.initializeObservers();
     this.initializeEvents();
@@ -115,9 +113,14 @@ class PreviewContainer {
       } else {
         !utils.adsBlocked((blocked) => {
           if (!blocked) {
-            const objUrl = window.URL.createObjectURL(self.file, { oneTimeOnly: true });
-            const tab = window.open();
-            tab.location.href = objUrl;
+            /*The solution for both IE and Edge*/
+            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+              window.navigator.msSaveOrOpenBlob(self.file, self.file.name);
+            } else {
+              const objUrl = window.URL.createObjectURL(self.file, { oneTimeOnly: true });
+              const tab = window.open();
+              tab.location.href = objUrl;
+            }
           } else {
             console.log('Disable ads blockers, please!');
           }
@@ -125,12 +128,14 @@ class PreviewContainer {
       }
     });
 
-    this.element.control.redo.on('click', function (event) {
-      event.stopPropagation();
-      self.widget.observers.widgetResetObserver.broadcast();
-      self.resetFile();
-      return false;
-    });
+    if (this.element.control.redo) {
+      this.element.control.redo.on('click', function (event) {
+        event.stopPropagation();
+        self.widget.observers.widgetResetObserver.broadcast();
+        self.resetFile();
+        return false;
+      });
+    }
 
     self.fileReader.onload = function (file) {
       self.showFilePreview(file);
@@ -169,11 +174,6 @@ class PreviewContainer {
       this.element.body.show();
       this.showPlaceholderIcon(faFile)
     }
-
-    console.log('file', file);
-
-    this.element.titleWrapper.show();
-    this.element.titleWrapper.title.text(file.name);
   }
 
   showFilePreview(event) {
@@ -189,7 +189,6 @@ class PreviewContainer {
 
   resetFile() {
     this.file = null;
-    this.element.titleWrapper.title.text('');
   }
 
   get() {

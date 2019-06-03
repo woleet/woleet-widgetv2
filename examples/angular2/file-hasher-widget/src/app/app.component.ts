@@ -14,7 +14,7 @@ export class AppComponent {
   widgetConfig = {
     id: 'my-id-todo',
     lang: 'fr',
-    provenFile:{
+    proven_file:{
       url: "http://pngimg.com/uploads/google/google_PNG19644.png"
     },
     styles: {
@@ -22,7 +22,7 @@ export class AppComponent {
     },
     observers: {
       hashCalculated: (widgetId, hash) => {this.hashCalculated(widgetId, hash)},
-      fileDownloaded: (widgetId, file) => {this.fileDownloaded(widgetId, file)}
+      downloadingFinished: (widgetId, file) => {this.downloadingFinished(widgetId, file)}
     }
   };
 
@@ -32,7 +32,7 @@ export class AppComponent {
     })
   }
 
-  fileDownloaded(widgetId, file) {
+  downloadingFinished(widgetId, file) {
     this.files.push({
       widgetId, file
     })

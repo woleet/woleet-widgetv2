@@ -6,6 +6,12 @@ const styleCodes = {
       code: ['title_container'],
     }
   },
+  hash: {
+    code: ['hash'],
+    container: {
+      code: ['hash_container'],
+    }
+  },
   error: {
     code: ['error'],
     container: {
@@ -76,17 +82,14 @@ const styleCodes = {
           code: ['preview_container--control_icon', 'preview_container--control_icon--redo']
         }
       }
-    },
-    title: {
-      code: ['preview_container--title'],
-      wrapper: {
-        code: ['preview_container--title_wrapper']
-      }
     }
   },
   progress: {
     container: {
-      code: ['progress_bar--container']
+      code: ['progress_bar--container'],
+      wrapper: {
+        code: ['progress_bar--container_wrapper']
+      },
     },
     bar: {
       code: ['progress_bar']
@@ -108,6 +111,12 @@ const styleCodes = {
       span: {
         code: ['progress_bar--title__span']
       }
+    }
+  },
+  filename: {
+    code: ['filename_container--title'],
+    wrapper: {
+      code: ['filename_container--title_wrapper']
     }
   },
   

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Woleet File Hasher widget - Display tests</title>
+  <!-- IE ZONE -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <style>
+    .block-display {
+      display: inline-block;
+      height: 100%;
+    }
+
+    .block-parent {
+      border-style: dotted;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    (function (d, s, i, f) {
+      var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
+      js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'file-hasher-widget', '../dist/file-hasher-widget.js'));
+  </script>
+
+  <div>
+    <p class="block-display">Test 01: <br> styles-width='250px' <br> styles-iconWidth='100px' <br> parent-width="100%"
+    </p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='250px' <br> styles-iconWidth='100px' <br>
+      parent-width="100%"</p>
+    <div class='file-hasher-widget block-parent' title-visible ="false" id='id-01' styles-width='250px' styles-icon-width='100px' lang='fr'>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <p class="block-display">Test 02: <br> styles-width='50px' <br> styles-iconWidth='100px' <br> parent-width="100%"
+    </p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='50px' <br> styles-iconWidth='50px' <br>
+      parent-width="100%"</p>
+    <div class='file-hasher-widget block-parent' id='id-02' styles-width='50px' styles-icon-width='100px' lang='fr'>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <p class="block-display">Test 03: <br> styles-width='300px' <br> styles-iconWidth='90px' <br> parent-width="100px"
+    </p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='100px' <br> styles-iconWidth='90px' <br>
+      parent-width="100px"</p>
+    <div style="width: 100px;">
+      <div class='file-hasher-widget block-parent' id='id-03' styles-width='300px' styles-icon-width='90px' lang='fr'>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <p class="block-display">Test 04: <br> styles-width='90px' <br> styles-iconWidth='200px' <br> parent-width="100px"
+    </p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='90px' <br> styles-iconWidth='90px' <br>
+      parent-width="100px"</p>
+    <div style="width: 100px;">
+      <div class='file-hasher-widget block-parent' id='id-04' styles-width='90px' styles-icon-width='200px' lang='fr'>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <p class="block-display">Test 05: <br> styles-width='300px' <br> styles-iconWidth='90px' <br> parent-width="50%"</p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='300px' <br> styles-iconWidth='90px' <br>
+      parent-width="50%"</p>
+    <div style="width: 50%;">
+      <div class='file-hasher-widget block-parent' id='id-05' styles-width='300px' styles-icon-width='90px' styles-align="right" lang='fr'>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <p class="block-display">Test 06: <br> styles-width='90px' <br> styles-iconWidth='200px' <br> parent-width="50%"</p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='90px' <br> styles-iconWidth='90px' <br>
+      parent-width="50%"</p>
+    <div style="width: 50%;">
+      <div class='file-hasher-widget block-parent' id='id-06' styles-width='90px' styles-icon-width='200px' lang='fr'>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <p class="block-display">Test 07: <br> styles-width='50%' <br> styles-iconWidth='100px' <br> parent-width="100%"
+    </p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='50%' <br> styles-iconWidth='100px' <br>
+      parent-width="100%"</p>
+    <div class='file-hasher-widget block-parent' id='id-07' styles-width='50%' styles-icon-width='100px' lang='fr'>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <p class="block-display">Test 08: <br> styles-width='110px' <br> styles-iconWidth='50%' <br> parent-width="100%"
+    </p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='110px' <br> styles-iconWidth='50%' <br>
+      parent-width="100%"</p>
+    <div class='file-hasher-widget block-parent' id='id-08' styles-width='110px' styles-icon-width='50%' lang='fr'>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <p class="block-display">Test 09: <br> styles-width='70%' <br> styles-iconWidth='50%' <br> parent-width="100%"
+    </p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='70%' <br> styles-iconWidth='50%' <br>
+      parent-width="100%"</p>
+    <div class='file-hasher-widget block-parent' id='id-09' styles-width='70%' styles-icon-width='50%' lang='fr'>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <p class="block-display">Test 10: <br> styles-width='50%' <br> styles-iconWidth='70%' <br> parent-width="100%"
+    </p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='50%' <br> styles-iconWidth='70%' <br>
+      parent-width="100%"</p>
+    <div class='file-hasher-widget block-parent' id='id-10' styles-width='50%' styles-icon-width='70%' lang='fr'>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <p class="block-display">Test 11: <br> styles-width='110px' <br> styles-iconWidth='50%' <br> parent-width="60%"
+    </p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='110px' <br> styles-iconWidth='50%' <br>
+      parent-width="60%"</p>
+    <div style="width: 60%;">
+      <div class='file-hasher-widget block-parent' id='id-11' styles-width='110px' styles-icon-width='50%' lang='fr'>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <p class="block-display">Test 12: <br> styles-width='40%' <br> styles-iconWidth='300px' <br> parent-width="60%"
+    </p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='40%' <br> styles-iconWidth='300px' <br>
+      parent-width="60%"</p>
+    <div style="width: 60%;">
+      <div class='file-hasher-widget block-parent' id='id-12' styles-width='40%' styles-icon-width='300px' lang='fr'>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <p class="block-display">Test 13: <br> styles-width='110px' <br> styles-iconWidth='50%' <br> parent-width="90px"
+    </p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='90px' <br> styles-iconWidth='50%' <br>
+      parent-width="90px"</p>
+    <div style="width: 90px;">
+      <div class='file-hasher-widget block-parent' id='id-13' styles-width='110px' styles-icon-width='50%' lang='fr'>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <p class="block-display">Test 14: <br> styles-width='40%' <br> styles-iconWidth='300px' <br> parent-width="90px"
+    </p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='40%' <br> styles-iconWidth='100%' <br>
+      parent-width="90px"</p>
+    <div style="width: 90px;">
+      <div class='file-hasher-widget block-parent' id='id-14' styles-width='40%' styles-icon-width='300px' lang='fr'>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <p class="block-display">Test 15: <br> styles-width='80%' <br> styles-iconWidth='80px' <br> parent-width="100%"
+    </p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='80%' <br> styles-iconWidth='80px' <br>
+      parent-width="100%"</p>
+    <div class='file-hasher-widget block-parent' id='id-15' styles-width='80%' styles-icon-width='80px' lang='fr'>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <p class="block-display">Test 16: <br> styles-width='80%' <br> styles-iconWidth='81px' <br> parent-width="100%"
+    </p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='80%' <br> styles-iconWidth='81px' <br>
+      parent-width="100%"</p>
+    <div class='file-hasher-widget block-parent' id='id-16' styles-width='80%' styles-icon-width='81px' lang='fr'>
+    </div>
+  </div>
+
+  <div>
+    <p class="block-display" style="color: green;">Test 17: <br> styles-width='100%' <br> styles-iconWidth='300px' <br> parent-width="200px"
+    </p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='100%' <br> styles-iconWidth='194px' <br>
+      parent-width="200px"</p>
+    <div style="width: 200px; max-width: 100%">
+      <div class='file-hasher-widget block-parent' id='id-17' styles-width='100%' styles-icon-width='300px' lang='fr'>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <p class="block-display">Test 18: <br> styles-width='200px' <br> styles-iconWidth='90px' <br> parent-width="300px"
+    </p>
+    <p style="color: red;" class="block-display">Result: <br> styles-width='200px' <br> styles-iconWidth='90px' <br>
+      parent-width="300px"</p>
+    <div style="width: 300px; max-width: 100%">
+      <div class='file-hasher-widget block-parent' id='id-18' styles-width='200px' styles-icon-width='90px' lang='fr'>
+      </div>
+    </div>
+  </div>
+
+
+
+</body>
+
+</html>
