@@ -4,7 +4,7 @@ function getFileHasherDefaults() {
   return {
     file: {
       url: null,
-      fast_download: false
+      fastDownload: false
     },
     styles: {
       width: '130px',

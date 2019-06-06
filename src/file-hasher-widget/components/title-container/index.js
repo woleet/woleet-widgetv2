@@ -78,7 +78,7 @@ class TitleContainer {
   }
 
   downloadModeInitiated(fileConfiguration) {
-    if (fileConfiguration.fast_download) {
+    if (fileConfiguration.fastDownload) {
       this.downloadingStarted();
     } else {
       this.element.title.text(utils.translate('click_to_download', this.lang));
