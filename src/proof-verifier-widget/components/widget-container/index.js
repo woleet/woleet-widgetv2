@@ -120,7 +120,7 @@ class WidgetContainer {
   }
 
   downloadFile(url, observerMapper) {
-    const downloadFilename = utils.getUrlToDownload(url);
+    const downloadFilename = utils.getUrlToDownload(url, window.dev);
     const request = utils.getHttpRequest(downloadFilename, this.widget, observerMapper, url, true);
     request.start();
   }

@@ -15,14 +15,14 @@ function getProofVerifierWidgetDefaults() {
         width: null,
         height: '400px',
         title: {
-          background_color: 'none',
+          background: 'none',
           color: '#31708f',
           light: {
-            background_color: '#D7E9F6',
+            background: '#D7E9F6',
             color: '#31708f',
           },
           dark: {
-            background_color: '#31708f',
+            background: '#31708f',
             color: '#fff',
           }
         }
@@ -34,7 +34,7 @@ function getProofVerifierWidgetDefaults() {
     receipt: {
       url: null
     },
-    proven_file: {
+    file: {
       url: null
     },
     lang: constants.DEFAULT_WIDGET_LANGUAGE,

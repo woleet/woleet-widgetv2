@@ -14,7 +14,7 @@ export class AppComponent {
   widgetConfig = {
     id: 'my-id-todo',
     lang: 'fr',
-    proven_file:{
+    file:{
       url: "http://pngimg.com/uploads/google/google_PNG19644.png"
     },
     styles: {

@@ -76,7 +76,7 @@ The following attributes can be set on `<div>` tag to configure the look and beh
     
         * __color__ - color of hash text; _DEFAULT_: ___#FFF___
     
-        * __background_color__ - background color of the hash text; _DEFAULT_: ___#00A2FF___
+        * __background__ - background color of the hash text; _DEFAULT_: ___#00A2FF___
         
 * __visibility__ - Visibility options:
     
@@ -92,7 +92,7 @@ The following attributes can be set on `<div>` tag to configure the look and beh
        
        * __reset__ - visibility of reset icon; _DEFAULT_: ___true___
     
-* __proven_file__ - Downloaded file options:
+* __file__ - Downloaded file options:
     
     * __url__ - URL of the file to download
     
@@ -125,7 +125,7 @@ There are several ways to configure the widget:
 * All parameters are in the attribute <b>config</b> as JSON object:
 
 ```html
-<div class="file-hasher-widget" config='{"provenFile": {"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}, "styles": {"width": 250}, "observers": {"hashCalculated": "hashCalculated", "fileDownloaded": "fileDownloadedObserver"}}'></div>
+<div class="file-hasher-widget" config='{"file": {"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}, "styles": {"width": 250}, "observers": {"hashCalculated": "hashCalculated", "fileDownloaded": "fileDownloadedObserver"}}'></div>
 ```
 * The parameters are attributes of the HTML element:
 
@@ -133,7 +133,7 @@ There are several ways to configure the widget:
 <div class='file-hasher-widget'
      lang='fr'
      styles='{"width": 150}'
-     provenfile='{"url": "http://pngimg.com/uploads/google/google_PNG19634.png", "fastDownload": true}'
+     file='{"url": "http://pngimg.com/uploads/google/google_PNG19634.png", "fastDownload": true}'
      observers='{"hashCalculated": "test.hashCalculated"}'></div>
  ```
 * If a option has nested options they can be set also as HTML attributes by joining via '-' in lower case:

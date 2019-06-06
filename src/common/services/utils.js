@@ -164,10 +164,11 @@ function blobToFile(blob, filename) {
 /**
  * Get url to download file using Proxy Server
  * @param filename
- * @returns {*}
+ * @param useProxy
+ * @return {string}
  */
-function getUrlToDownload(filename) {
-  return constants.PROXY_URL + filename;
+function getUrlToDownload(filename, useProxy) {
+  return (useProxy ? constants.PROXY_URL : '') + filename;
 }
 
 /**

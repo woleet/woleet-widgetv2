@@ -34,7 +34,7 @@
 </head>
 <body>
 <script>
-  var dev = true;
+  var dev = false;
 
   var test = {
     hashCalculatedObserver: function(widgetId, hash) {
@@ -112,10 +112,10 @@
      observers-downloadingStarted='test.downloadingStartedObserver'
      observers-downloadingCanceled='test.downloadingCanceledObserver'
      observers-downloadingProgress='test.downloadingProgressObserver'
-     proven_file='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf", "fast_download": true}'></div>
+     file='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf", "fast_download": true}'></div>
 <div class='file-hasher-widget'
      styles='{"width": "150px", "progress": {"icon": {"color": "red"}}}'
-     proven_file-url='http://pngimg.com/uploads/google/google_PNG19644.png'
+     file-url='http://pngimg.com/uploads/google/google_PNG19644.png'
      observers='{"hashCalculated": "test.hashCalculatedObserver", "fileDownloaded": "test.downloadingFinishedObserver"}'
 ></div>
 <div class="log download-logging" id="download-logging"></div>

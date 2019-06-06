@@ -9,7 +9,7 @@ import faDownload from 'Resources/images/file-download.svg';
  */
 class DownloadContainer {
   constructor(widget) {
-    const {url: provenFileUrl} = widget.configuration.proven_file;
+    const {url: provenFileUrl} = widget.configuration.file;
 
     this.element = null;
     this.request = null;
@@ -24,7 +24,7 @@ class DownloadContainer {
     };
 
     if (this.url !== null) {
-      const downloadFilename = utils.getUrlToDownload(this.url);
+      const downloadFilename = utils.getUrlToDownload(this.url, window.dev);
       this.request = utils.getHttpRequest(downloadFilename, this.widget, this.observerMapper, this.url);
     }
 
