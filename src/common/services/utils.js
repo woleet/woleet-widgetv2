@@ -393,7 +393,7 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
     const widgetWidthInPixels = (integerWidgetWidth * parentOffsetWidth) / 100;
 
     if (integerIconWidth > widgetWidthInPixels) {
-      results.iconWidth = `${widgetWidthInPixels - 6}px`;
+      results.iconWidth = `${widgetWidthInPixels}px`;
     }
   }
 
