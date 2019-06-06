@@ -42,7 +42,7 @@ config.devServer = {
  */
 config.plugins.push(new HtmlWebpackPlugin({
   filename: resourcePath + 'index.html',
-  template: 'examples/dev-' + widgetLabel + '.html',
+  template: 'examples/file-hasher-widget-display-tests.html',
   inject: false
 }));
 
