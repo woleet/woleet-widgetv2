@@ -1,4 +1,3 @@
-import constants from "Common/constants";
 import i18next from 'i18next';
 
 /**
@@ -164,11 +163,12 @@ function blobToFile(blob, filename) {
 /**
  * Get url to download file using Proxy Server
  * @param filename
+ * @param proxyUrl
  * @param useProxy
  * @return {string}
  */
-function getUrlToDownload(filename, useProxy) {
-  return (useProxy ? constants.PROXY_URL : '') + filename;
+function getUrlToDownload(filename, proxyUrl, useProxy) {
+  return (useProxy && proxyUrl ? proxyUrl : '') + filename;
 }
 
 /**
@@ -458,6 +458,10 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
   // If all widgetWidth and iconWidth are in percents
   const widgetWidthIsPercent = widgetWidth && widgetWidth.indexOf('%') !== -1;
   const iconWidthIsPercent = iconWidth && iconWidth.indexOf('%') !== -1;
+
+  if (!iconWidth) {
+    results.iconWidth = widgetWidth;
+  }
 
   // If the widths are in pixels and icon is wider than the widget
   /*if (!(iconWidth) || (!widgetWidthIsPercent && !iconWidthIsPercent && integerIconWidth > integerWidgetWidth)) {

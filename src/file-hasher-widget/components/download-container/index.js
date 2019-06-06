@@ -3,6 +3,7 @@ import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 import faDownload from 'Resources/images/file-download.svg';
+import constants from 'Common/constants';
 
 /**
  * DownloadContainer
@@ -24,7 +25,14 @@ class DownloadContainer {
     };
 
     if (this.url !== null) {
-      const downloadFilename = utils.getUrlToDownload(this.url, window.dev);
+      let {proxy: {url: proxyUrl, enabled: proxyEnabled} } = widget.configuration;
+
+      if (window.dev) {
+        proxyEnabled = true;
+        proxyUrl = constants.PROXY_URL;
+      }
+
+      const downloadFilename = utils.getUrlToDownload(this.url, proxyUrl, proxyEnabled);
       this.request = utils.getHttpRequest(downloadFilename, this.widget, this.observerMapper, this.url);
     }
 
