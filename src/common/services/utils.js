@@ -460,7 +460,7 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
   const iconWidthIsPercent = iconWidth && iconWidth.indexOf('%') !== -1;
 
   // If the widths are in pixels and icon is wider than the widget
-  if (!(iconWidth) || (!widgetWidthIsPercent && !iconWidthIsPercent && integerIconWidth > integerWidgetWidth)) {
+  /*if (!(iconWidth) || (!widgetWidthIsPercent && !iconWidthIsPercent && integerIconWidth > integerWidgetWidth)) {
     results.iconWidth = widgetWidth;
   } else if (widgetWidthIsPercent && !iconWidthIsPercent) {
     // Calculates the icon width if it was in pixel (f.e. 200px) and the widget is in percent (f.e. 45%)
@@ -471,7 +471,7 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
     if (integerIconWidth > widgetWidthInPixels) {
       results.iconWidth = `${widgetWidthInPixels}px`;
     }
-  }
+  }*/
 
   integerIconWidth = parseInt(results.iconWidth, 10);
 
