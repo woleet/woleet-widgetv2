@@ -8,14 +8,13 @@ file-hasher-widget {
   margin: 20px auto;
   padding: 10px 20px;
   text-align: justify;
-  word-break: break-all;
   color: white;
   font-size: 18px;
-  
+
   &.download-logging {
     background: #0074D9;
   }
-  
+
   &.hash-logging {
     background: #2ECC40;
   }
