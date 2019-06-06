@@ -10,6 +10,7 @@
         display: inline-block;
         cursor: pointer;
         height: 100%;
+
         svg {
           width: 100% !important;
           height: 100%;
@@ -18,14 +19,6 @@
 
       &-image {
         width: 100%;
-        &_wrapper {
-          margin: 10px;
-          padding: 10px;
-          background-color: white;
-          box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
-          -moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
-          -webkit-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
-        }
       }
     }
 

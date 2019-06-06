@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Woleet File Hasher widget</title>
-    <!-- IE ZONE -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <style>
         .file-hasher-widget {
             padding: 20px 0;
@@ -19,7 +17,6 @@
             margin: 20px auto;
             padding: 10px 20px;
             text-align: justify;
-            word-break: break-all;
             color: white;
             font-size: 18px;
         }
@@ -70,9 +67,9 @@
 <div class='file-hasher-widget'
      lang='fr'
      styles='{"width": "150px"}'
-     proven_file='{"url": "http://pngimg.com/uploads/google/google_PNG19634.png", "fastDownload": true}'
+     file='{"url": "http://pngimg.com/uploads/google/google_PNG19634.png", "fastDownload": true}'
      observers='{"hashCalculated": "test.hashCalculated"}'></div>
-<div class="file-hasher-widget" config='{"proven_file": {"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}, "styles": {"width": "250px"}, "observers": {"hashCalculated": "test.hashCalculated", "downloadingFinished": "test.fileDownloadedObserver"}}'></div>
+<div class="file-hasher-widget" config='{"file": {"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}, "styles": {"width": "250px"}, "observers": {"hashCalculated": "test.hashCalculated", "downloadingFinished": "test.fileDownloadedObserver"}}'></div>
 <div class="log download-logging" id="download-logging"></div>
 <div class="log hash-logging" id="hash-logging"></div>
 </body>

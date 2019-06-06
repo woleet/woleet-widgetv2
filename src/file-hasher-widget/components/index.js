@@ -23,7 +23,7 @@ class FileHasherWidget {
     this.widgetId = configuration.widgetId;
     this.configurator = new ConfigurationService();
     this.configuration = configuration;
-    this.provenFileConfiguration = configuration.proven_file;
+    this.provenFileConfiguration = configuration.file;
     this.observers = {};
     this.element = null;
   

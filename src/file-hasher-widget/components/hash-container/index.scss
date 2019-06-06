@@ -1,20 +1,19 @@
 :local {
   .hash {
     &_container {
-      text-align: center;
-      margin-top: 5px;
+      display: inline-block;
       background-color: var(--file-hasher-widget-hash-background-color);
-      padding: 5px 0;
+      padding: 5px 5px;
       color: var(--file-hasher-widget-hash-color);
-      text-transform: uppercase;
     }
-  
+
     font-size: 12px;
-    font-weight: 900;
+    font-family: monospace;
+    font-weight: 400;
     display: block;
-    
+
     &:not(:last-child) {
-      padding-bottom: 5px;
+      padding-bottom: 2px;
     }
   }
 }

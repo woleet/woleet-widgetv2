@@ -52,7 +52,7 @@ class TitlePanelContainer {
     this.element.target().style
       .setProperty('--proof-verifier-value-color', colorOptions.color);
     this.element.target().style
-      .setProperty('--proof-verifier-value-background-color', colorOptions.background_color);
+      .setProperty('--proof-verifier-value-background-color', colorOptions.background);
     
     this.element.value.html(`<span>${oValue}</span>`);
   }

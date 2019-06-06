@@ -16,7 +16,7 @@ class HashContainer {
   }
   
   init() {
-    const {hash: { color: hashColor, background_color: hashBackgroundColor }} = this.widget.configurator.getStyles();
+    const {hash: { color: hashColor, background: hashBackgroundColor }} = this.widget.configurator.getStyles();
 
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.hash.container.code)

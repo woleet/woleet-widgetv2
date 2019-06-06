@@ -2,7 +2,7 @@ import constants from "Common/constants";
 
 function getFileHasherDefaults() {
   return {
-    proven_file: {
+    file: {
       url: null,
       fast_download: false
     },
@@ -25,7 +25,7 @@ function getFileHasherDefaults() {
       },
       hash: {
         color: '#FFF',
-        background_color: '#00A2FF'
+        background: '#00A2FF'
       }
     },
     visibility: {
@@ -36,6 +36,10 @@ function getFileHasherDefaults() {
       controls: {
         reset: true
       },
+    },
+    proxy: {
+      url: null,
+      enabled: false
     },
     lang: constants.DEFAULT_WIDGET_LANGUAGE,
     type: constants.FILE_HASHER_WIDGET_TYPE

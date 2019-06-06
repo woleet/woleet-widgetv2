@@ -29,6 +29,10 @@ function widget(window, document) {
   if (!widgetElementCollection.length === 0)
     widgetLogger.error(`The widget elements were not found`);
 
+  /**
+   * Convert the element collection to an array
+   * @type {Element[]}
+   */
   const widgetElements = Array.from(widgetElementCollection);
 
   widgetElements.forEach(widgetElement => {
@@ -38,7 +42,7 @@ function widget(window, document) {
       const observerCodes = Object.keys(widgetConfiguration.observers);
 
       /**
-       * Try to find the observers
+       * Try to find the widget observers
        */
       observerCodes.forEach(observerCode => {
         const observerName = widgetConfiguration.observers[observerCode];
@@ -109,8 +113,6 @@ function initialize(widgetConfigurations) {
     }
 
     configuration.properties = widgetWidths;
-
-    console.log(`Configuration of the widget "${widgetId}"`, configuration);
 
     /**
      * Render a widget instance and render it
