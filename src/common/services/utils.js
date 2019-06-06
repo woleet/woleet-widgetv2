@@ -2,7 +2,7 @@ import constants from "Common/constants";
 import i18next from 'i18next';
 
 /**
- * Simple object check.
+ * Checks if the item is object
  * @param item
  * @returns {boolean}
  */
@@ -31,9 +31,17 @@ export function mergeDeep(target, ...sources) {
     }
   }
 
+  /**
+   * merge the sources recursively
+   */
   return mergeDeep(target, ...sources);
 }
 
+/**
+ * Defines not enumerable object property
+ * @param target
+ * @returns {function(*=, *): any}
+ */
 function defineProperty(target) {
   return (name, value) => Object.defineProperty(target, name, {
     enumerable: false,
@@ -41,12 +49,25 @@ function defineProperty(target) {
   })
 }
 
+/**
+ * Finds the real class name by its hash code
+ * @param styles
+ * @param classCodes
+ * @returns {T[]}
+ */
 function extractClasses(styles, classCodes) {
   return Object.keys(styles)
     .map(classCode => classCodes.indexOf(classCode) !== -1 ? styles[classCode] : '')
     .filter(className => className && className.length > 0);
 }
 
+/**
+ * Translates the phrase to lang
+ * @param code
+ * @param lang
+ * @param options
+ * @returns {string | * | *|*}
+ */
 function translate(code, lang = '', options = {}) {
   if (i18next.t) {
     return i18next.t(code, mergeDeep({ lng: lang }, options));
@@ -63,10 +84,12 @@ function parseWidgetAttributeConfiguration(widgetElement) {
   let elementAttributes = {};
   let widgetConfiguration = {};
 
+  // Get all attributes
   for (let i = 0, attrs = widgetElement.attributes; i < attrs.length; i++) {
     elementAttributes[attrs[i].nodeName] = attrs[i].nodeValue;
   }
 
+  // all the attributes can be placed in the config attribute
   if (elementAttributes.config) {
     widgetConfiguration = JSON.parse(elementAttributes.config);
   }
@@ -77,6 +100,7 @@ function parseWidgetAttributeConfiguration(widgetElement) {
     if (forbiddenAttributes.indexOf(key) === -1) {
       const attributeValue = elementAttributes[key];
 
+      // get a property by code and replace the config values if they exists
       try {
         widgetConfiguration[key] = JSON.parse(attributeValue);
       } catch (e) {
@@ -85,6 +109,7 @@ function parseWidgetAttributeConfiguration(widgetElement) {
 
       const keyParts = key.split('-');
 
+      // if an attribute name contains several parts, make them nested and merge recursively
       if (keyParts.length > 1) {
         const configurationObject = getObjectByString(keyParts.join('.'), widgetConfiguration[key]);
 
@@ -98,7 +123,7 @@ function parseWidgetAttributeConfiguration(widgetElement) {
 }
 
 /**
- * Get unique id
+ * Get unique widget id
  * @returns {*}
  */
 function getUniqueId(prefix = '', suffix = '') {
@@ -107,10 +132,19 @@ function getUniqueId(prefix = '', suffix = '') {
   return prefix + uniqueId + suffix;
 }
 
+/**
+ * Generates random string
+ * @returns {string}
+ */
 function s4() {
   return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
 }
 
+/**
+ * Sets a timer for a callback with delay
+ * @param callback
+ * @param delay
+ */
 function setTimer(callback, delay) {
   if (delay && delay > 0) {
     setTimeout(callback, delay)
@@ -173,7 +207,8 @@ function getFileExtension(filename) {
  */
 function getHttpRequest(downloadFilename, widget, observerMapper, url = false, toBlob = false) {
   let request = new XMLHttpRequest();
-  
+
+  // If the request status was changed
   request.addEventListener('readystatechange', () => {
     if(request.readyState === 2 && request.status === 200) {
       // Download is being started
@@ -191,15 +226,22 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
         let file = request.response;
 
         if (!toBlob) {
+          // Convert the block object to a file object
           file = blobToFile(file, filename);
           file.url = url;
         }
-        
+
+        /**
+         * If a downloadingFinished observer was defined, it will be noticed
+         */
         if (observerMapper['downloadingFinished']) {
           const downloadingFinishedObserver = observerMapper['downloadingFinished'];
           widget.observers[downloadingFinishedObserver].broadcast(file);
         }
       } else if (request.status === 404) {
+        /**
+         * If a downloadingFailed observer was defined, it will be noticed that a downloading process is failed
+         */
         if (observerMapper['downloadingFailed']) {
           const downloadingFailedObserver = observerMapper['downloadingFailed'];
           widget.observers[downloadingFailedObserver].broadcast('url_not_found');
@@ -207,7 +249,10 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
       }
     }
   });
-  
+
+  /**
+   * Gets and calculates percent of a downloading process
+   */
   request.addEventListener("progress", function (evt) {
     if (evt.lengthComputable) {
       const percentComplete = parseInt((evt.loaded / evt.total) * 100, 10);
@@ -226,7 +271,10 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
       widget.observers[downloadingFailedObserver].broadcast(error);
     }
   };
-  
+
+  /**
+   * Start the AJAX request
+   */
   request.start = () => {
     try {
       request.open("GET", downloadFilename, true);
@@ -262,7 +310,7 @@ function byString(o, s) {
 }
 
 /**
- * Get Html element from SVG string
+ * Get HTML element from SVG string
  * @param svg
  * @returns {*}
  */
@@ -272,7 +320,8 @@ function svgToHTML(svg) {
   
   const element = div.firstChild;
   const attributes = element.attributes;
-  
+
+  // Returns the HTML element and its size params
   return {
     el: element,
     attributes: {
@@ -285,6 +334,7 @@ function svgToHTML(svg) {
 /**
  * Check if ads are blocked
  * @param callback
+ * @return Promise
  */
 function adsBlocked(callback){
   const testURL = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
@@ -306,7 +356,7 @@ function adsBlocked(callback){
 }
 
 /**
- *
+ * Converts a string to an object
  * @param str
  * @param value
  * @param result
@@ -342,14 +392,27 @@ function getObjectProperty(object, property) {
   return result;
 }
 
+/**
+ * Formats a date according with given lang
+ * @param date
+ * @param lang
+ * @return {string}
+ */
 function formatDate(date, lang) {
   let options = {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'};
   return date.toLocaleDateString(lang, options)
 }
 
+/**
+ * Saves the object in browser memory as a file
+ * @param object
+ * @param filename
+ * @param type
+ */
 function saveObjectAs(object, filename, type = 'application/json;charset=utf-8') {
   const strObject = JSON.stringify(object, null, 4);
   const file = new Blob([strObject],{type});
+  // If it's EDGE of IE
   if (window.navigator && window.navigator.msSaveOrOpenBlob) {
     window.navigator.msSaveOrOpenBlob(file, filename);
   } else {
@@ -366,6 +429,13 @@ function saveObjectAs(object, filename, type = 'application/json;charset=utf-8')
   }
 }
 
+/**
+ * Calculates the widget widths
+ * @param widgetWidth
+ * @param iconWidth
+ * @param parent
+ * @return {{iconWidth: *, widgetWidth: *, px: {iconWidth: *, widgetWidth: *}, percent: {iconWidth: *, widgetWidth: *}}}
+ */
 function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
   const results = {
     widgetWidth,
@@ -384,14 +454,19 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
   let integerWidgetWidth = parseInt(widgetWidth, 10);
   let integerIconWidth = parseInt(iconWidth, 10);
 
+  // If all widgetWidth and iconWidth are in percents
   const widgetWidthIsPercent = widgetWidth && widgetWidth.indexOf('%') !== -1;
   const iconWidthIsPercent = iconWidth && iconWidth.indexOf('%') !== -1;
 
+  // If the widths are in pixels and icon is wider than the widget
   if (!(iconWidth) || (!widgetWidthIsPercent && !iconWidthIsPercent && integerIconWidth > integerWidgetWidth)) {
     results.iconWidth = widgetWidth;
   } else if (widgetWidthIsPercent && !iconWidthIsPercent) {
+    // Calculates the icon width if it was in pixel (f.e. 200px) and the widget is in percent (f.e. 45%)
+    // It checks if 200px <= 45% (of the parent element)
     const widgetWidthInPixels = (integerWidgetWidth * parentOffsetWidth) / 100;
 
+    // if it isn't change the icon size
     if (integerIconWidth > widgetWidthInPixels) {
       results.iconWidth = `${widgetWidthInPixels}px`;
     }
@@ -399,6 +474,7 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
 
   integerIconWidth = parseInt(results.iconWidth, 10);
 
+  // Calculates the widget and icon widths in pixels and percents
   if (widgetWidthIsPercent) {
     results.percent.widgetWidth = integerWidgetWidth;
     results.px.widgetWidth = parseFloat(((integerWidgetWidth * parentOffsetWidth) / 100).toFixed(2));
