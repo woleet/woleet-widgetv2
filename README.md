@@ -91,6 +91,12 @@ The following attributes can be set on `<div>` tag to configure the look and beh
     * __controls__ - visibility of the widget controls;
        
        * __reset__ - visibility of reset icon; _DEFAULT_: ___true___
+       
+* __proxy__ - A proxy to download external files via XMLHttpRequest:
+           
+    * __url__ - the proxy URL; _DEFAULT_: ___null___
+           
+    * __enabled__ - the proxy state;  _DEFAULT_: ___false___
     
 * __file__ - Downloaded file options:
     
