@@ -1,6 +1,11 @@
 import constants from "Common/constants";
 
-function verifyReceipt(receipt) {
+/**
+ * Verifies user receipt
+ * @param receipt
+ * @return {Promise}
+ */
+export function verifyReceipt(receipt) {
   return new Promise(function(resolve, reject) {
     const req = new XMLHttpRequest();
     req.open('post', constants.RECEIPT_VERIFICATION_URL);

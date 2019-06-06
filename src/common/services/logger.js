@@ -1,3 +1,6 @@
+/**
+ * A service to customize logging
+ */
 class WidgetLogger {
   constructor() {
     this.errors = [];
