@@ -1,8 +1,7 @@
 :local {
   .hash {
     &_container {
-      text-align: center;
-      margin-top: 5px;
+      display: inline-block;
       background-color: var(--file-hasher-widget-hash-background-color);
       padding: 5px 5px;
       color: var(--file-hasher-widget-hash-color);
