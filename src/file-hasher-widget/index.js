@@ -110,8 +110,6 @@ function initialize(widgetConfigurations) {
 
     configuration.properties = widgetWidths;
 
-    console.log(`Configuration of the widget "${widgetId}"`, configuration);
-
     /**
      * Render a widget instance and render it
      */

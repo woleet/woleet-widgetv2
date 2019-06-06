@@ -2,8 +2,9 @@
   .hash {
     &_container {
       text-align: center;
+      margin-top: 5px;
       background-color: var(--file-hasher-widget-hash-background-color);
-      padding: 5px 0;
+      padding: 5px 5px;
       color: var(--file-hasher-widget-hash-color);
     }
 
