@@ -33,47 +33,48 @@ class FileHasherWidget {
     this.initializeExternalObservers(configuration);
     this.init();
   }
-  
-  initializeObservers() {
-    /**
-     * Initialize the widget observers
-     * @type {EventObserver}
-     */
-    this.observers = {
-      /*Events: widget*/
-      widgetResetObserver: new EventObserver(),
 
-      /*Events: modes*/
+  /**
+   * Initialize the widget observers
+   */
+  initializeObservers() {
+    this.observers = {
+      // Events: widget
+      widgetResetObserver: new EventObserver(),
+      // Events: modes
       downloadModeInitiatedObserver: new EventObserver(),
       uploadModeInitiatedObserver: new EventObserver(),
-
-      /*Events: file downloading*/
+      // Events: file downloading
       downloadingProgressObserver: new EventObserver(),
       downloadingStartedObserver: new EventObserver(),
       downloadingFinishedObserver: new EventObserver(),
       downloadingCanceledObserver: new EventObserver(),
-
-      /*Events: file hashing*/
+      // Events: file hashing
       fileSelectedObserver: new EventObserver(),
       hashingProgressObserver: new EventObserver(),
       hashingStartedObserver: new EventObserver(),
       hashingFinishedObserver: new EventObserver(),
       hashingCanceledObserver: new EventObserver(),
-
-      /*Events: errors*/
+      // Events: errors
       errorCaughtObserver: new EventObserver(),
       errorHiddenObserver: new EventObserver()
     };
 
+    // reinitialize the widget if hashing process was canceled
     this.observers.hashingCanceledObserver.subscribe(() => {
       this.observers.uploadModeInitiatedObserver.broadcast();
     });
 
+    // reinitialize the widget if reset button was clicked
     this.observers.widgetResetObserver.subscribe(() => {
       this.observers.uploadModeInitiatedObserver.broadcast();
     });
   }
-  
+
+  /**
+   * Links all external events
+   * @param configuration
+   */
   initializeExternalObservers(configuration) {
     const self = this;
     if (configuration.observers) {
@@ -116,7 +117,10 @@ class FileHasherWidget {
       });
     }
   }
-  
+
+  /**
+   * Creates all container elements and initialize them
+   */
   init() {
     const widgetObserverMappers = getFileHasherObserverMappers();
     const {styles: {width: widgetWidget, align}, visibility} = this.configuration;
@@ -124,37 +128,45 @@ class FileHasherWidget {
       classes: utils.extractClasses(styles, styleCodes.code),
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
     });
-  
+
+    // container to drop and select user files
     this.element.dropContainer = (new DropContainer(this)).get();
+    // container to preview all allowed files
     this.element.previewContainer = (new PreviewContainer(this)).get();
-  
+
+    // container to download file if it was listed in the configuration
     if (!!(this.provenFileConfiguration.url)) {
       this.element.downloadContainer = (new DownloadContainer(this)).get();
     }
-  
+
+    // container to display widget status title
     if (visibility.title) {
       this.element.titleContainer = (new TitleContainer(this)).get();
     }
 
+    // container to display widget filename
     if (visibility.filename) {
       this.element.filenameContainer = (new FilenameContainer(this)).get();
     }
 
+    // container to display hash
     if (visibility.hash) {
       this.element.hashContainer = (new HashContainer(this)).get();
     }
 
+    // containers to display hashing/downloading progress
     if (visibility.progress) {
       this.element.hashProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.hashProgressBar)).get();
       this.element.downloadProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.downloadProgressBar)).get();
     }
-  
+
+    // container to display widget errors
     this.element.errorContainer = (new ErrorContainer(this)).get();
-  
+
+    // if the proven file was set, initialize the download mode
     if (!!(this.provenFileConfiguration.url)) {
       this.observers.downloadModeInitiatedObserver.broadcast(this.provenFileConfiguration);
     }
-
 
     this.element.attr('id', this.widgetId);
     this.element.style({width: `${widgetWidget}`});

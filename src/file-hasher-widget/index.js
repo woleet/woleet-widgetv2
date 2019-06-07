@@ -21,18 +21,13 @@ function widget(window, document) {
   const widgetConfigurations = [];
   const widgetClassName = constants.FILE_HASHER_WIDGET_ID;
 
-  /**
-   * Grab the object created during the widget creation
-   */
+  // Grab the object created during the widget creation
   const widgetElementCollection = document.getElementsByClassName(widgetClassName);
   
   if (!widgetElementCollection.length === 0)
     widgetLogger.error(`The widget elements were not found`);
 
-  /**
-   * Convert the element collection to an array
-   * @type {Element[]}
-   */
+  // Convert the element collection to an array
   const widgetElements = Array.from(widgetElementCollection);
 
   widgetElements.forEach(widgetElement => {
@@ -41,9 +36,7 @@ function widget(window, document) {
     if (widgetConfiguration && widgetConfiguration.observers) {
       const observerCodes = Object.keys(widgetConfiguration.observers);
 
-      /**
-       * Try to find the widget observers
-       */
+      // Try to find the widget observers
       observerCodes.forEach(observerCode => {
         const observerName = widgetConfiguration.observers[observerCode];
         widgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function() {};
@@ -57,9 +50,7 @@ function widget(window, document) {
     });
   });
   
-  /**
-   * Initialize the widget
-   */
+  // Initialize the widget bu load all dependencies before
   loadDependencies()
     .then(() => initialize(widgetConfigurations));
 }
@@ -68,11 +59,10 @@ function widget(window, document) {
  * Load widget styles, libraries and dependencies
  */
 function loadDependencies() {
-  /**
-   * Load the widget styles
-   */
+  //Load the widget styles
   const sourceLink = addCssLink();
-  
+
+  // Initialize the translation library
   i18next.init({fallbackLng: getDefaultLanguage(), debug: window.dev, resources});
   
   if (!window['file-hasher-widget-source'] && sourceLink !== null) {
@@ -87,9 +77,7 @@ function loadDependencies() {
  * @param widgetConfigurations
  */
 function initialize(widgetConfigurations) {
-  /**
-   * Initialize all instances of the widget
-   */
+  //Initialize all instances of the widget
   widgetConfigurations.forEach(widgetConfiguration => {
     const uniqueWidgetId = utils.getUniqueId(`${constants.FILE_HASHER_WIDGET_ID}-`);
     const {config: customConfiguration, el: widgetElement, id: widgetId = uniqueWidgetId} = widgetConfiguration;
@@ -99,14 +87,13 @@ function initialize(widgetConfigurations) {
     }
 
     customConfiguration.widgetId = widgetId;
-    /**
-     * Extend the default widget configuration
-     */
+
+    // Extend the default widget configuration by user settings
     const configuration = getFileHasherDefaults();
     utils.extendObject(configuration, customConfiguration);
   
     const {icon: { width: iconWidth }, width: widgetWidth } = configuration.styles;
-    const widgetWidths = utils.calculateWidgetWidths(widgetWidth, iconWidth, widgetElement, widgetId);
+    const widgetWidths = utils.calculateWidgetWidths(widgetWidth, iconWidth, widgetElement);
 
     if (widgetWidths && widgetWidths.iconWidth) {
       configuration.styles.icon.width = widgetWidths.iconWidth;
@@ -114,9 +101,7 @@ function initialize(widgetConfigurations) {
 
     configuration.properties = widgetWidths;
 
-    /**
-     * Render a widget instance and render it
-     */
+    // Render a widget instance and render it but remove all children before
     while (widgetElement.firstChild) {
       widgetElement.removeChild(widgetElement.firstChild);
     }
@@ -134,13 +119,16 @@ function addCssLink() {
   const style = document.getElementById(styleId);
   let sourcePath = null;
 
+  // check it js link exists
   if (script && script.src && style === null) {
+    //grab the url of js file and generate the css path
     const styleSrc = script.src.replace('.js', '.css');
     const head = document.getElementsByTagName('head')[0];
     const link = document.createElement('link');
 
     sourcePath = utils.getFilenameSource(script.src);
 
+    // then append it to the HTML code
     link.rel = 'stylesheet';
     link.id = styleId;
     link.type = 'text/css';
@@ -152,6 +140,7 @@ function addCssLink() {
   return sourcePath;
 }
 
+// Create the method to initialize the widget in js code
 window.fileHasherWidget = {
   init: initialize
 };

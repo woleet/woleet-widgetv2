@@ -7,6 +7,7 @@ import constants from 'Common/constants';
 
 /**
  * DownloadContainer
+ * It downloads a file from the configuration if it was listed
  */
 class DownloadContainer {
   constructor(widget) {
@@ -18,6 +19,10 @@ class DownloadContainer {
     this.url = provenFileUrl || null;
     this.lang = this.widget.configurator.getLanguage();
 
+    /**
+     * A mapper for the request object to make the last more flexible and reusable
+     * @type {{downloadingFinished: string, downloadingStarted: string, downloadingProgress: string}}
+     */
     this.observerMapper = {
       'downloadingProgress': 'downloadingProgressObserver',
       'downloadingStarted': 'downloadingStartedObserver',
@@ -32,13 +37,20 @@ class DownloadContainer {
         proxyUrl = constants.PROXY_URL;
       }
 
+      /**
+       * If the proxy is listed then change the download URL
+       * @type {string}
+       */
       const downloadFilename = utils.getUrlToDownload(this.url, proxyUrl, proxyEnabled);
       this.request = utils.getHttpRequest(downloadFilename, this.widget, this.observerMapper, this.url);
     }
 
     this.init();
   }
-  
+
+  /**
+   * Creates all container elements and initialize them
+   */
   init() {
     const {icon: { width: iconWidth, color: iconColor }} = this.widget.configurator.getStyles();
 
@@ -88,6 +100,8 @@ class DownloadContainer {
    */
   initializeEvents() {
     const self = this;
+
+    // Start the file downloading if the user click on the download button
     this.element.body.icon.on('click', function () {
       self.downloadFile();
     });
@@ -115,6 +129,9 @@ class DownloadContainer {
     this.element.hide();
   }
 
+  /**
+   * It the user close the download process, abort the request
+   */
   downloadingCanceled() {
     if (this.request !== null) {
       this.request.abort();

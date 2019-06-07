@@ -5,6 +5,7 @@ import styles from './index.scss';
 
 /**
  * ProgressBarTitle
+ * The title container displays the progress of an action in percents
  */
 class ProgressBarTitle {
   constructor(widget, observerMapper) {
@@ -13,7 +14,10 @@ class ProgressBarTitle {
     this.observerMapper = observerMapper;
     this.init();
   }
-  
+
+  /**
+   * Creates all container elements and initialize them
+   */
   init() {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.progress.title.code)
@@ -27,7 +31,9 @@ class ProgressBarTitle {
     this.initializeObservers();
   }
 
-  // Initialize the observers
+  /**
+   * Initialize the observers
+   */
   initializeObservers() {
     if (this.observerMapper['processProgressObserver']) {
       let processProgressObserver = this.observerMapper['processProgressObserver'];
@@ -43,6 +49,10 @@ class ProgressBarTitle {
     }
   }
 
+  /**
+   * Catch the event and update the title by progress value
+   * @param progress
+   */
   processProgress(progress) {
     this.element.span.text(`${progress}%`);
   }

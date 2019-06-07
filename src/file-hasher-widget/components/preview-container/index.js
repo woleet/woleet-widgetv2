@@ -8,6 +8,7 @@ import faRedo from 'Resources/images/redo.svg';
 
 /**
  * PreviewContainer
+ * The container displays the file preview
  */
 class PreviewContainer {
   constructor(widget) {

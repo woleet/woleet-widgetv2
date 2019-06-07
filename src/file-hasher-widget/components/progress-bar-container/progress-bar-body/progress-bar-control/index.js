@@ -6,6 +6,7 @@ import styles from './index.scss';
 
 /**
  * ProgressBarControl
+ * The container displays a cross to close the progress
  */
 class ProgressBarControl {
   constructor(widget, observerMapper) {
@@ -14,7 +15,10 @@ class ProgressBarControl {
     this.observerMapper = observerMapper;
     this.init();
   }
-  
+
+  /**
+   * Creates all container elements and initialize them
+   */
   init() {
     const {
       progress: { icon: { color: progressIconColor } }
@@ -40,6 +44,7 @@ class ProgressBarControl {
     if (this.observerMapper['processCanceledObserver']) {
       let processCanceledObserver = this.observerMapper['processCanceledObserver'];
 
+      // If the cross icon was clicked, broadcast the event to all containers
       this.element.icon.on('click', function () {
         self.widget.observers[processCanceledObserver].broadcast();
       });

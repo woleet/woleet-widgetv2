@@ -1,4 +1,5 @@
 const styleCodes = {
+  // define all style codes to control uniqueness of class names
   code: ['file_hasher_widget--wrapper'],
   title: {
     code: ['title'],
@@ -120,7 +121,7 @@ const styleCodes = {
     }
   },
   
-  /*common styles*/
+  // common styles
   widget: {
     hidden:['woleet_widget_hidden']
   }

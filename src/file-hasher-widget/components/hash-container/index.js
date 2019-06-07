@@ -5,6 +5,7 @@ import styles from './index.scss';
 
 /**
  * HashContainer
+ * It displays the calculated hash
  */
 class HashContainer {
   constructor(widget) {
@@ -14,7 +15,10 @@ class HashContainer {
   
     this.init();
   }
-  
+
+  /**
+   * Creates all container elements and initialize them
+   */
   init() {
     const {hash: { color: hashColor, background: hashBackgroundColor }} = this.widget.configurator.getStyles();
 
@@ -33,7 +37,9 @@ class HashContainer {
     this.initializeObservers();
   }
 
-  // Initialize the observers
+  /**
+   * Initialize the observers
+   */
   initializeObservers() {
     this.widget.observers.hashingFinishedObserver.subscribe((data) => {
       this.hashingFinished(data)
@@ -43,6 +49,9 @@ class HashContainer {
     });
   }
 
+  /**
+   * Clear the hash zone if widget was reset.
+   */
   widgetReset() {
     while (this.element.target().firstChild) {
       this.element.target().removeChild(this.element.target().firstChild);
@@ -51,19 +60,27 @@ class HashContainer {
     this.element.hide();
   }
 
+  /**
+   * It hash is ready, split it into 2 parts and display them
+   * @param data
+   */
   hashingFinished(data) {
     const {properties: { px: { widgetWidth }}} = this.widget.configurator.get();
     const {hash, file} = data;
     const halfHashLength = Math.ceil(hash.length / 2);
+    // split the hash into 2 parts
     const splitHash = [hash.substr(0, halfHashLength), hash.substr(halfHashLength)];
 
     this.widgetReset();
 
+    // display each of hash parts
     splitHash.forEach((hashPart) => {
       const hashPartElement = VirtualDOMService.createElement('span', {
         classes: utils.extractClasses(styles, styleCodes.hash.code)
       });
       hashPartElement.text(hashPart);
+
+      // and recalculate the font size of the text zone to make it responsive
       const relFontsize = widgetWidth * 0.04;
       hashPartElement.attr('style', `font-size: ${relFontsize}px;`);
 

@@ -8,6 +8,7 @@ import ProgressBar from './progress-bar';
 
 /**
  * ProgressBarBody
+ * It's a wrapper for progress body
  */
 class ProgressBarBody {
   constructor(widget, observerMapper) {
@@ -16,7 +17,10 @@ class ProgressBarBody {
     this.observerMapper = observerMapper;
     this.init();
   }
-  
+
+  /**
+   * Creates all container elements and initialize them
+   */
   init() {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.progress.body.code)
