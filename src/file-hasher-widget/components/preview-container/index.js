@@ -20,12 +20,15 @@ class PreviewContainer {
     this.iconColor = null;
     this.previewFileExtensions = ['png', 'jpeg', 'jpg', 'svg'];
     this.textFileExtensions = ['pdf'];
+    // merge the extensions to get an array of allowed files
     this.allowedExtensions = this.previewFileExtensions.concat(this.textFileExtensions);
 
     this.init();
   }
-  
+
+  // create all container elements and initialize them
   init() {
+    // Select all needful options
     const {
       icon: { width: iconWidth, color: iconColor },
       preview: { icon: { color: previewIconColor} }
@@ -61,9 +64,11 @@ class PreviewContainer {
       classes: utils.extractClasses(styles, styleCodes.preview.body.image.code)
     });
 
+    // create an element to display PDF files
     this.pdfPreview = new PdfPreview(this.widget);
     this.element.pdf = (this.pdfPreview).get();
 
+    // the control to reset the preview
     this.element.control = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.control.code)
     });
@@ -76,6 +81,7 @@ class PreviewContainer {
       this.element.control.redo.setSvg(faRedo, previewIconColor);
     }
 
+    // change the button color
     this.element.target().style.setProperty('--file-hasher-widget-control-border-color', previewIconColor);
 
     this.element.hide();
@@ -116,12 +122,14 @@ class PreviewContainer {
       if (self.url !== null) {
         window.open(self.url, '_blank');
       } else if (this.allowedExtensions.indexOf(fileExtension) !== -1) {
+        // check if it's possible to open popup windows
         !utils.adsBlocked((blocked) => {
           if (!blocked) {
-            /*The solution for both IE and Edge*/
+            // The solution for both IE and Edge
             if (window.navigator && window.navigator.msSaveOrOpenBlob) {
               window.navigator.msSaveOrOpenBlob(self.file, self.file.name);
             } else {
+              // For all other normal browsers
               const objUrl = window.URL.createObjectURL(self.file, { oneTimeOnly: true });
               const tab = window.open();
               tab.location.href = objUrl;
@@ -133,6 +141,7 @@ class PreviewContainer {
       }
     });
 
+    // If the reset button was clicked
     if (this.element.control.redo) {
       this.element.control.redo.on('click', function (event) {
         event.stopPropagation();
@@ -142,23 +151,32 @@ class PreviewContainer {
       });
     }
 
+    // If the file was loaded display an image
     self.fileReader.onload = function (file) {
       self.showFilePreview(file);
     };
   }
 
+  /**
+   * Resets to upload mode
+   */
   uploadModeInitiated() {
     this.pdfPreview.hide();
     this.element.hide();
     this.resetFile();
   }
 
+  /**
+   * Display a file if it's allowed
+   * @param file
+   */
   downloadingFinished(file) {
     this.element.show();
     
     const {name: filename} = file;
     const fileExtension = utils.getFileExtension(filename);
-    
+
+    // save the file link to use it once the preview is clicked
     if (file && file.url) {
       this.url = file.url;
     } else {
@@ -167,31 +185,44 @@ class PreviewContainer {
 
     this.file = file;
 
-    if (this.previewFileExtensions.indexOf(fileExtension) !== -1) {
+    if (this.previewFileExtensions.indexOf(fileExtension) !== -1) { //display an image
       this.element.body.show();
       this.element.body.wrapper.show();
       this.element.body.icon.hide();
       this.fileReader.readAsDataURL(file);
-    } else if (this.textFileExtensions.indexOf(fileExtension) !== -1) {
+    } else if (this.textFileExtensions.indexOf(fileExtension) !== -1) { // or a PDF file
       this.element.body.hide();
+      // initialize the PDF viewer
       this.pdfPreview.setPdfFile(file);
     } else {
+      //otherwise display the default icon
       this.element.body.show();
       this.showPlaceholderIcon(faFile)
     }
   }
 
+  /**
+   * Displays an image
+   * @param event
+   */
   showFilePreview(event) {
     const {result: filePreview} = event.target;
     this.element.body.wrapper.image.attr('src', filePreview);
   }
 
+  /**
+   * Defines the icon instead of preview element if extension is not allowed
+   * @param file
+   */
   showPlaceholderIcon(file) {
     this.element.body.wrapper.hide();
     this.element.body.icon.show();
     this.element.body.icon.setSvg(file, this.iconColor);
   }
 
+  /**
+   * Resets the file
+   */
   resetFile() {
     this.file = null;
   }
