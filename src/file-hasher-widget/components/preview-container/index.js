@@ -18,8 +18,10 @@ class PreviewContainer {
     this.file = null;
     this.pdfPreview = null;
     this.iconColor = null;
-    this.previewFileFormats = ['png', 'jpeg', 'jpg', 'svg'];
-    
+    this.previewFileExtensions = ['png', 'jpeg', 'jpg', 'svg'];
+    this.textFileExtensions = ['pdf'];
+    this.allowedExtensions = this.previewFileExtensions.concat(this.textFileExtensions);
+
     this.init();
   }
   
@@ -108,9 +110,12 @@ class PreviewContainer {
     const self = this;
   
     self.element.on('click', () => {
+      const {name: filename} = self.file;
+      const fileExtension = utils.getFileExtension(filename);
+
       if (self.url !== null) {
         window.open(self.url, '_blank');
-      } else {
+      } else if (this.allowedExtensions.indexOf(fileExtension) !== -1) {
         !utils.adsBlocked((blocked) => {
           if (!blocked) {
             /*The solution for both IE and Edge*/
@@ -162,12 +167,12 @@ class PreviewContainer {
 
     this.file = file;
 
-    if (this.previewFileFormats.indexOf(fileExtension) !== -1) {
+    if (this.previewFileExtensions.indexOf(fileExtension) !== -1) {
       this.element.body.show();
       this.element.body.wrapper.show();
       this.element.body.icon.hide();
       this.fileReader.readAsDataURL(file);
-    } else if (fileExtension === 'pdf') {
+    } else if (this.textFileExtensions.indexOf(fileExtension) !== -1) {
       this.element.body.hide();
       this.pdfPreview.setPdfFile(file);
     } else {
