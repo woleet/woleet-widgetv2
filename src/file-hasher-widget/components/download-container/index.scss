@@ -1,6 +1,9 @@
+@import '../index';
+
 :local {
   .download_container {
     position: relative;
+    @extend .description-block;
 
     &--body {
       width: 100%;

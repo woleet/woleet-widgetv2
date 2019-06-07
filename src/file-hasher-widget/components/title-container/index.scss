@@ -1,7 +1,9 @@
+@import '../index';
+
 :local {
   .title {
     &_container {
-      margin-top: 5px;
+      @extend .description-block;
     }
 
     font-size: 12px;

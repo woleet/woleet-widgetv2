@@ -1,3 +1,5 @@
+@import '../index';
+
 :local {
   .progress_bar {
     &--container {
@@ -6,8 +8,8 @@
   
       &_wrapper {
         width: 60%;
-        margin-top: 5px;
         display: inline-block;
+        @extend .description-block;
       }
     }
   }

@@ -1,9 +1,12 @@
+@import '../index';
+
 :local {
   .preview_container {
     position: relative;
     display: table;
     cursor: pointer;
     width: 100%;
+    @extend .description-block;
 
     &--body {
       &-icon {
