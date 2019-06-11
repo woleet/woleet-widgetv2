@@ -14,10 +14,10 @@ class PdfPreview {
   constructor(widget) {
     const self = this;
     this.element = null;
-    // an instance of the library pdf.js
+    // An instance of the library pdf.js
     this.pdfjsLib = null;
     this.widget = widget;
-    // to save the file if it was loaded before the library is initialized
+    // To save the file if it was loaded before the library is initialized
     this.delayedFile = null;
     this.typedArray = null;
     this.fileReader = new FileReader();
@@ -59,7 +59,7 @@ class PdfPreview {
     this.reset();
   }
 
-  // create all container elements and initialize them
+  // Create all container elements and initialize them
   init() {
     // Select all needful options
     const {
@@ -112,7 +112,7 @@ class PdfPreview {
 
       delete this.result;
 
-      // initialize the instance of pdf.js once the file is available
+      // Initialize the instance of pdf.js once the file is available
       self.pdfjsLib.getDocument(self.typedArray)
         .then((pdf) => {
           self.pdfDoc = pdf;
@@ -152,16 +152,16 @@ class PdfPreview {
     // Using promise to fetch the page
     self.pdfDoc.getPage(num)
       .then((page) => {
-        // calculate the final size parameters
+        // Calculate the final size parameters
         let styleWidth = parseInt(self.styles.width);
         const [x, y, pageWidth, pageHeight] = page.view;
 
-        //if the widget size is initialized in percents, get the pixel values
+        // If the widget size is initialized in percents, get the pixel values
         if (self.styles.width.indexOf('%') !== -1) {
           styleWidth = (styleWidth * pageWidth) / 100;
         }
 
-        // calculate the ratio
+        // Calculate the ratio
         const ratio = pageHeight / pageWidth;
         const scale = styleWidth / pageWidth;
         const viewport = page.getViewport(scale, 0);
@@ -191,7 +191,7 @@ class PdfPreview {
   }
 
   /**
-   * Initializes the pdf file once it was loaded in the PreviewContainer
+   * Initialize the pdf file once it was loaded in the PreviewContainer
    * @param file
    */
   setPdfFile(file) {
@@ -205,7 +205,7 @@ class PdfPreview {
   }
 
   /**
-   * Prepares the canvas to display a PDF file
+   * Prepare the canvas to display a PDF file
    * @param file
    */
   displayPdfFile(file) {
@@ -216,7 +216,7 @@ class PdfPreview {
     this.element.show();
 
     if (this.ctx) {
-      // clear the canvas background
+      // Clear the canvas background
       this.ctx.fillStyle = 'white';
       this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
@@ -228,8 +228,8 @@ class PdfPreview {
   }
   
   /**
-   * If another page rendering in progress, waits until the rendering is
-   * finished. Otherwise, executes rendering immediately.
+   * If another page rendering in progress, wait until the rendering is
+   * finished. Otherwise, execute rendering immediately.
    */
   queueRenderPage(num) {
     const self = this;
@@ -241,7 +241,7 @@ class PdfPreview {
   }
   
   /**
-   * Displays previous page.
+   * Display previous page.
    */
   onPrevPage(event) {
     const self = this;
@@ -253,7 +253,7 @@ class PdfPreview {
   }
   
   /**
-   * Displays next page.
+   * Display next page.
    */
   onNextPage(event) {
     event.stopPropagation();
@@ -271,7 +271,7 @@ class PdfPreview {
    */
   reset() {
     if (this.pdfDoc) {
-      // and free the widget memory to avoid memory leaks
+      // And free the widget memory to avoid memory leaks
       this.pdfDoc.destroy();
       delete this.typedArray;
       delete this.pdfDoc._transport.pdfDocument;

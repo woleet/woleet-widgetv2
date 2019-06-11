@@ -20,12 +20,11 @@ class DropContainer {
     this.delayedFile = null;
   
     if (!window.woleet) {
-      // woleet library wasn't initialized do it
+      // Woleet library wasn't initialized do it
       loader.getWoleetLibs()
         .then((woleet) => {
           window.woleet = woleet;
           self.hasher = new woleet.file.Hasher;
-
           self.hashDelayedFile();
         });
     } else {
@@ -36,7 +35,7 @@ class DropContainer {
   }
 
   /**
-   * Creates all container elements and initialize them
+   * Create all container elements and initialize them
    */
   init() {
     const {icon: { width: iconWidth, color: iconColor }} = this.widget.configurator.getStyles();
@@ -108,7 +107,7 @@ class DropContainer {
   }
 
   /**
-   * And updated the progress periodically
+   * And update the progress periodically
    * @param event
    */
   updateProgress(event) {
@@ -154,7 +153,7 @@ class DropContainer {
   }
 
   /**
-   * Hashes the file
+   * Hash the file
    * @param file
    * @return {Promise}
    */

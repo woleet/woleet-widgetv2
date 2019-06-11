@@ -49,7 +49,7 @@ class DownloadContainer {
   }
 
   /**
-   * Creates all container elements and initialize them
+   * Create all container elements and initialize them
    */
   init() {
     const {icon: { width: iconWidth, color: iconColor }} = this.widget.configurator.getStyles();
@@ -115,7 +115,6 @@ class DownloadContainer {
 
   downloadFile() {
     this.element.hide();
-
     this.download(this.url);
   }
 

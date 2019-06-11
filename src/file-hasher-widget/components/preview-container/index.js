@@ -21,13 +21,13 @@ class PreviewContainer {
     this.iconColor = null;
     this.previewFileExtensions = ['png', 'jpeg', 'jpg', 'svg'];
     this.textFileExtensions = ['pdf'];
-    // merge the extensions to get an array of allowed files
+    // Merge the extensions to get an array of allowed files
     this.allowedExtensions = this.previewFileExtensions.concat(this.textFileExtensions);
 
     this.init();
   }
 
-  // create all container elements and initialize them
+  // Create all container elements and initialize them
   init() {
     // Select all needful options
     const {
@@ -82,7 +82,7 @@ class PreviewContainer {
       this.element.control.redo.setSvg(faRedo, previewIconColor);
     }
 
-    // change the button color
+    // Change the button color
     this.element.target().style.setProperty('--file-hasher-widget-control-border-color', previewIconColor);
 
     this.element.hide();
@@ -123,7 +123,7 @@ class PreviewContainer {
       if (self.url !== null) {
         window.open(self.url, '_blank');
       } else if (this.allowedExtensions.indexOf(fileExtension) !== -1) {
-        // check if it's possible to open popup windows
+        // Check if it's possible to open popup windows
         !utils.adsBlocked((blocked) => {
           if (!blocked) {
             // The solution for both IE and Edge
@@ -159,7 +159,7 @@ class PreviewContainer {
   }
 
   /**
-   * Resets to upload mode
+   * Reset to upload mode
    */
   uploadModeInitiated() {
     this.pdfPreview.hide();
@@ -177,7 +177,7 @@ class PreviewContainer {
     const {name: filename} = file;
     const fileExtension = utils.getFileExtension(filename);
 
-    // save the file link to use it once the preview is clicked
+    // Save the file link to use it once the preview is clicked
     if (file && file.url) {
       this.url = file.url;
     } else {
@@ -186,24 +186,24 @@ class PreviewContainer {
 
     this.file = file;
 
-    if (this.previewFileExtensions.indexOf(fileExtension) !== -1) { //display an image
+    if (this.previewFileExtensions.indexOf(fileExtension) !== -1) { // Display an image
       this.element.body.show();
       this.element.body.wrapper.show();
       this.element.body.icon.hide();
       this.fileReader.readAsDataURL(file);
-    } else if (this.textFileExtensions.indexOf(fileExtension) !== -1) { // or a PDF file
+    } else if (this.textFileExtensions.indexOf(fileExtension) !== -1) { // Or a PDF file
       this.element.body.hide();
-      // initialize the PDF viewer
+      // Initialize the PDF viewer
       this.pdfPreview.setPdfFile(file);
     } else {
-      //otherwise display the default icon
+      // Otherwise display the default icon
       this.element.body.show();
       this.showPlaceholderIcon(faFile)
     }
   }
 
   /**
-   * Displays an image
+   * Display an image
    * @param event
    */
   showFilePreview(event) {
@@ -212,7 +212,7 @@ class PreviewContainer {
   }
 
   /**
-   * Defines the icon instead of preview element if extension is not allowed
+   * Define the icon instead of preview element if extension is not allowed
    * @param file
    */
   showPlaceholderIcon(file) {
@@ -222,7 +222,7 @@ class PreviewContainer {
   }
 
   /**
-   * Resets the file
+   * Reset the file
    */
   resetFile() {
     this.file = null;

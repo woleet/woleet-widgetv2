@@ -5,7 +5,7 @@ import styles from './index.scss';
 
 /**
  * ProgressBarTitle
- * The title container displays the progress of an action in percents
+ * The title container displays the progress of an action in percent
  */
 class ProgressBarTitle {
   constructor(widget, observerMapper) {
@@ -16,7 +16,7 @@ class ProgressBarTitle {
   }
 
   /**
-   * Creates all container elements and initialize them
+   * Create all container elements and initialize them
    */
   init() {
     this.element = VirtualDOMService.createElement('div', {

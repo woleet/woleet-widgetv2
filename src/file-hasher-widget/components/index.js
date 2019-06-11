@@ -60,19 +60,19 @@ class FileHasherWidget {
       errorHiddenObserver: new EventObserver()
     };
 
-    // reinitialize the widget if hashing process was canceled
+    // Reinitialize the widget if hashing process was canceled
     this.observers.hashingCanceledObserver.subscribe(() => {
       this.observers.uploadModeInitiatedObserver.broadcast();
     });
 
-    // reinitialize the widget if reset button was clicked
+    // Reinitialize the widget if reset button was clicked
     this.observers.widgetResetObserver.subscribe(() => {
       this.observers.uploadModeInitiatedObserver.broadcast();
     });
   }
 
   /**
-   * Links all external events
+   * Link all external events
    * @param configuration
    */
   initializeExternalObservers(configuration) {
@@ -119,7 +119,7 @@ class FileHasherWidget {
   }
 
   /**
-   * Creates all container elements and initialize them
+   * Create all container elements and initialize them
    */
   init() {
     const widgetObserverMappers = getFileHasherObserverMappers();
@@ -129,41 +129,41 @@ class FileHasherWidget {
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
     });
 
-    // container to drop and select user files
+    // Container to drop and select user files
     this.element.dropContainer = (new DropContainer(this)).get();
-    // container to preview all allowed files
+    // Container to preview all allowed files
     this.element.previewContainer = (new PreviewContainer(this)).get();
 
-    // container to download file if it was listed in the configuration
+    // Container to download file if it was listed in the configuration
     if (!!(this.provenFileConfiguration.url)) {
       this.element.downloadContainer = (new DownloadContainer(this)).get();
     }
 
-    // container to display widget status title
+    // Container to display widget status title
     if (visibility.title) {
       this.element.titleContainer = (new TitleContainer(this)).get();
     }
 
-    // container to display widget filename
+    // Container to display widget filename
     if (visibility.filename) {
       this.element.filenameContainer = (new FilenameContainer(this)).get();
     }
 
-    // container to display hash
+    // Container to display hash
     if (visibility.hash) {
       this.element.hashContainer = (new HashContainer(this)).get();
     }
 
-    // containers to display hashing/downloading progress
+    // Container to display hashing/downloading progress
     if (visibility.progress) {
       this.element.hashProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.hashProgressBar)).get();
       this.element.downloadProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.downloadProgressBar)).get();
     }
 
-    // container to display widget errors
+    // Container to display widget errors
     this.element.errorContainer = (new ErrorContainer(this)).get();
 
-    // if the proven file was set, initialize the download mode
+    // If the proven file was set, initialize the download mode
     if (!!(this.provenFileConfiguration.url)) {
       this.observers.downloadModeInitiatedObserver.broadcast(this.provenFileConfiguration);
     }

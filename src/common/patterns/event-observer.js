@@ -7,17 +7,17 @@ class EventObserver {
     this.observers = []
   }
 
-  // subscribe on events
+  // Subscribe on events
   subscribe (fn) {
     this.observers.push(fn);
   }
 
-  // unsubscribe from events
+  // Unsubscribe from events
   unsubscribe (fn) {
     this.observers = this.observers.filter(subscriber => subscriber !== fn)
   }
 
-  // broadcast an event
+  // Broadcast an event
   broadcast (data) {
     this.observers.forEach(subscriber => subscriber(data))
   }

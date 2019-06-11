@@ -50,7 +50,7 @@ function widget(window, document) {
     });
   });
   
-  // Initialize the widget bu load all dependencies before
+  // Initialize the widget but load all dependencies before
   loadDependencies()
     .then(() => initialize(widgetConfigurations));
 }
@@ -119,16 +119,16 @@ function addCssLink() {
   const style = document.getElementById(styleId);
   let sourcePath = null;
 
-  // check it js link exists
+  // Check it js link exists
   if (script && script.src && style === null) {
-    //grab the url of js file and generate the css path
+    // Grab the url of js file and generate the css path
     const styleSrc = script.src.replace('.js', '.css');
     const head = document.getElementsByTagName('head')[0];
     const link = document.createElement('link');
 
     sourcePath = utils.getFilenameSource(script.src);
 
-    // then append it to the HTML code
+    // Then append it to the HTML code
     link.rel = 'stylesheet';
     link.id = styleId;
     link.type = 'text/css';

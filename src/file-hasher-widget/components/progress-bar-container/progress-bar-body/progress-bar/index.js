@@ -16,7 +16,7 @@ class ProgressBar {
   }
 
   /**
-   * Creates all container elements and initialize them
+   * Create all container elements and initialize them
    */
   init() {
     this.element = VirtualDOMService.createElement('div', {

@@ -1,5 +1,5 @@
 const styleCodes = {
-  // define all style codes to control uniqueness of class names
+  // Define all style codes to control uniqueness of class names
   code: ['file_hasher_widget--wrapper'],
   title: {
     code: ['title'],

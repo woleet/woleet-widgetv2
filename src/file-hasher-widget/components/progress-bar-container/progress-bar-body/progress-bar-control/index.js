@@ -17,7 +17,7 @@ class ProgressBarControl {
   }
 
   /**
-   * Creates all container elements and initialize them
+   * Create all container elements and initialize them
    */
   init() {
     const {
