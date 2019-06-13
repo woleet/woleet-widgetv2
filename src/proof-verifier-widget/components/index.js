@@ -18,14 +18,18 @@ class ProofVerifierWidget {
     this.observers = {};
     this.element = null;
     this.configurator.init(configuration);
-    
-    this.init();
 
+    // If the receipt file wasn't defined broadcast an error
     if (!this.configuration.receipt || !this.configuration.receipt.url) {
       this.observers.errorCaughtObserver.broadcast({message: 'need_receipt'});
     }
+
+    this.init();
   }
-  
+
+  /**
+   * Create all container elements and initialize them
+   */
   init() {
     const widgetStyles = this.configurator.getStyles();
 
@@ -39,34 +43,39 @@ class ProofVerifierWidget {
     this.element.attr('id', this.widgetId);
     this.element.style({width: `${widgetStyles.icon.width}`});
 
+    // Create the widget container
     this.element.container = (new WidgetContainer(this)).get();
+    // Container to display widget errors
     this.element.errorContainer = (new ErrorContainer(this)).get();
 
     this.observers.widgetInitializedObserver.broadcast();
   }
-  
+
+  /**
+   * Initialize the widget observers
+   */
   initializeObservers() {
-    /**
-     * Initialize the widget observers
-     * @type {EventObserver}
-     */
     this.observers = {
-      /*Events: errors*/
+      // Events: errors
       errorCaughtObserver: new EventObserver(),
       errorHiddenObserver: new EventObserver(),
-      /*Events: widget*/
+      // Events: widget
       widgetInitializedObserver: new EventObserver(),
-      /*Events: user actions*/
+      // Events: user actions
       iconClickedObserver: new EventObserver(),
       bannerClickedObserver: new EventObserver(),
-      /*Events: receipt*/
+      // Events: receipt
       receiptDownloadingFinishedObserver: new EventObserver(),
       receiptDownloadingFailedObserver: new EventObserver(),
       receiptParsedObserver: new EventObserver(),
       receiptVerifiedObserver: new EventObserver(),
     };
   }
-  
+
+  /**
+   * Link all external events
+   * @param configuration
+   */
   initializeExternalObservers(configuration) {
     const self = this;
     if (configuration.observers) {

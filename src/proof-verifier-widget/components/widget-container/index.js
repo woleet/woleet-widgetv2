@@ -11,6 +11,8 @@ import loader from "Common/services/loader";
 
 /**
  * WidgetContainer
+ *
+ * This's the common widget container
  */
 class WidgetContainer {
   constructor(widget) {
@@ -23,6 +25,7 @@ class WidgetContainer {
     this.cursorPointerClass = utils.extractClasses(styles, ['cursor-pointer'])[0];
 
     if (!window.woleet) {
+      // Woleet library wasn't initialized do it
       loader.getWoleetLibs()
         .then((woleet) => {
           window.woleet = woleet;
@@ -44,6 +47,9 @@ class WidgetContainer {
     this.init();
   }
 
+  /**
+   * Create all container elements and initialize them
+   */
   init() {
     let {mode} = this.widget.configuration;
     let {el: logoElement, attributes: {width: iconWidth, height: iconHeight}} = this.iconAttributes;

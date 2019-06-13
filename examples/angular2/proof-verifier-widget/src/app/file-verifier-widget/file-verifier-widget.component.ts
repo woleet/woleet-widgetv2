@@ -10,21 +10,10 @@ export class FileVerifierWidgetComponent implements AfterContentInit {
 
   constructor(private elementRef: ElementRef) {}
 
-  ngOnInit() {
-    console.log('this.config', this.config);
-
-    setTimeout(() => {
-      window['fileVerifierWidget'].init([
-        {
-          el: this.elementRef.nativeElement,
-          config: this.config
-        }
-      ]);
-    }, 50);
-  }
-
   ngAfterContentInit() {
-    window['fileVerifierWidget'].init([
+    console.log('this.config', this.config, window['fileVerifierWidget']);
+
+    window['fileVerifierWidget'] && window['fileVerifierWidget'].init([
       {
         id: this.config.id,
         el: this.elementRef.nativeElement,
@@ -32,5 +21,4 @@ export class FileVerifierWidgetComponent implements AfterContentInit {
       }
     ]);
   }
-
 }

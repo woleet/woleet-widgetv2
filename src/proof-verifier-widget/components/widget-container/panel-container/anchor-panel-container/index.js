@@ -6,6 +6,8 @@ import TitlePanelContainer from "ProofVerifierComponents/widget-container/panel-
 
 /**
  * AnchorPanelContainer
+ *
+ * The container shows the anchored hash section
  */
 class AnchorPanelContainer {
   constructor(widget) {
@@ -16,7 +18,10 @@ class AnchorPanelContainer {
   
     this.init();
   }
-  
+
+  /**
+   * Create all container elements and initialize them
+   */
   init() {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.anchor.code)
@@ -28,23 +33,30 @@ class AnchorPanelContainer {
     
     this.initializeObservers();
   }
-  
-  // Initialize the observers
+
+  /**
+   * Initialize the observers
+   */
   initializeObservers() {
     const self = this;
 
+    // If the receipt was verified
     self.widget.observers.receiptVerifiedObserver.subscribe((data) => {
       self.receiptParsed(data);
     });
   }
 
+  /**
+   * If the receipt was verified
+   */
   receiptParsed(receiptObj) {
     const self = this;
     const {confirmations, timestamp, receipt: { targetHash }} = receiptObj;
     
     if (confirmations || timestamp || targetHash) {
       this.element.show();
-      
+
+      // Display all the titles
       if (targetHash) {
         const targetHashLabel = utils.translate('anchored_hash', self.lang);
         const targetHashTitle = new TitlePanelContainer(self.widget, { filled: 'light', split: true, small: true });

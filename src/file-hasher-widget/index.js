@@ -14,10 +14,6 @@ import FileHasherWidget from './components'
  * @param document
  */
 function widget(window, document) {
-  /**
-   * TODO: customize it somehow
-   * @type {string}
-   */
   const widgetConfigurations = [];
   const widgetClassName = constants.FILE_HASHER_WIDGET_ID;
 
@@ -30,6 +26,7 @@ function widget(window, document) {
   // Convert the element collection to an array
   const widgetElements = Array.from(widgetElementCollection);
 
+  //Initialize and configure all instances of the widget
   widgetElements.forEach(widgetElement => {
     let widgetConfiguration = utils.parseWidgetAttributeConfiguration(widgetElement);
 

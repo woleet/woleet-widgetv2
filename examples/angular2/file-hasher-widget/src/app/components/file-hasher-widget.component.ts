@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, AfterContentInit } from '@angular/core';
+import { Component, Input, ElementRef, AfterContentInit } from '@angular/core';
 
 @Component({
   selector: 'file-hasher-widget',

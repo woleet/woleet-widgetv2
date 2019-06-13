@@ -8,6 +8,8 @@ import constants from "Common/constants";
 
 /**
  * CommonPanelContainer
+ *
+ * The container displays all info of the common section
  */
 class CommonPanelContainer {
   constructor(widget) {
@@ -18,7 +20,10 @@ class CommonPanelContainer {
   
     this.init();
   }
-  
+
+  /**
+   * Create all container elements and initialize them
+   */
   init() {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.common.code)
@@ -26,6 +31,8 @@ class CommonPanelContainer {
     this.element.wrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.common.wrapper.code)
     });
+
+    // There are two parts: left and right
     this.element.wrapper.leftSide = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.common.item.code)
     });
@@ -41,28 +48,35 @@ class CommonPanelContainer {
   initializeObservers() {
     const self = this;
 
+    // If the receipt was verified
     self.widget.observers.receiptVerifiedObserver.subscribe((data) => {
       self.receiptParsed(data);
     });
   }
 
+  /**
+   * If the receipt was verified
+   */
   receiptParsed(receiptObj) {
     const self = this;
     const {identityVerificationStatus: { identity, code, certificates = [] } } = receiptObj;
   
     if (identity || code || certificates) {
       this.element.show();
-      console.log(identity, code, certificates);
+      // Set the content of both section blocks
       if (identity) {
         self.renderLeftSide(code, certificates);
         self.renderRightSide(identity)
       }
     }
   }
-  
+
+  /**
+   * Render the content of the right block
+   * @param identity
+   */
   renderRightSide(identity) {
     const self = this;
-  
     /**
      * Set block label
      */
@@ -106,7 +120,12 @@ class CommonPanelContainer {
       this.element.wrapper.rightSide.append(titleObject.get().render());
     }
   }
-  
+
+  /**
+   * Render the content of the left block
+   * @param status
+   * @param certificates
+   */
   renderLeftSide(status, certificates) {
     const self = this;
     

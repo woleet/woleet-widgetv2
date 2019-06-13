@@ -5,6 +5,8 @@ import styles from './index.scss';
 
 /**
  * TitlePanelContainer
+ *
+ * The container display customized title of the PANEL container
  */
 class TitlePanelContainer {
   constructor(widget, options = {split: false, filled: false, small: false}) {
@@ -16,7 +18,10 @@ class TitlePanelContainer {
   
     this.init();
   }
-  
+
+  /**
+   * Create all container elements and initialize them
+   */
   init() {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.title.code)
@@ -31,22 +36,30 @@ class TitlePanelContainer {
       classes: utils.extractClasses(styles, valueClassCode.code)
     });
   }
-  
+
+  /**
+   * Set the label according with the options
+   * @param label
+   * @param value
+   */
   set(label, value) {
     const {panel: { title: titleOptions }} = this.widget.configurator.getStyles();
     let oValue = value;
     this.element.label.html(`<span>${label}</span>`);
-    
+
+    // Display split hash
     if (this.options.split) {
       const halfValueLength = Math.ceil(value.length / 2);
       oValue = `${value.substr(0, halfValueLength)}<br>${value.substr(halfValueLength)}`
     }
-    
+
+    // Display the smaller text
     if (this.options.small) {
       this.element.target().style
         .setProperty('--proof-verifier-value-font-size', '75%');
     }
-    
+
+    // And the color text
     const colorOptions = titleOptions[this.options.filled] ? titleOptions[this.options.filled] : titleOptions;
   
     this.element.target().style

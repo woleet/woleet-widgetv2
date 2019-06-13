@@ -1,5 +1,6 @@
 import constants from "Common/constants";
 
+// Default configuration of the widget. For more information check the README file
 function getProofVerifierWidgetDefaults() {
   return {
     styles: {
@@ -34,11 +35,7 @@ function getProofVerifierWidgetDefaults() {
     receipt: {
       url: null
     },
-    file: {
-      url: null
-    },
     lang: constants.DEFAULT_WIDGET_LANGUAGE,
-    type: constants.PROOF_VERIFIER_WIDGET_TYPE,
     mode: constants.PROOF_VERIFIER_MODE_ICON
   };
 }

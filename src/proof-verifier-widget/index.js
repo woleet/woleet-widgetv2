@@ -15,36 +15,26 @@ import ProofVerifierWidget from './components'
  * @param document
  */
 function widget(window, document) {
-  /**
-   * TODO: customize it somehow
-   * @type {string}
-   */
   const widgetConfigurations = [];
   const widgetClassName = 'proof-verifier-widget';
 
-  /**
-   * Grab the object created during the widget creation
-   */
+  // Grab the object created during the widget creation
   const widgetElementCollection = document.getElementsByClassName(widgetClassName);
 
   if (!widgetElementCollection.length === 0)
     widgetLogger.error(`The widget elements were not found`);
 
-  /**
-   * Convert the element collection to an array
-   * @type {Element[]}
-   */
+  // Convert the element collection to an array
   const widgetElements = Array.from(widgetElementCollection);
 
+  //Initialize and configure all instances of the widget
   widgetElements.forEach(widgetElement => {
     let widgetConfiguration = utils.parseWidgetAttributeConfiguration(widgetElement);
 
     if (widgetConfiguration && widgetConfiguration.observers) {
       const observerCodes = Object.keys(widgetConfiguration.observers);
 
-      /**
-       * Try to find the observers
-       */
+      // Try to find the widget observers
       observerCodes.forEach(observerCode => {
         const observerName = widgetConfiguration.observers[observerCode];
         widgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function() {};
@@ -58,9 +48,7 @@ function widget(window, document) {
     });
   });
 
-  /**
-   * Initialize the widget
-   */
+  // Initialize the widget but load all dependencies before
   loadDependencies()
     .then(() => initialize(widgetConfigurations));
 }
@@ -69,19 +57,15 @@ function widget(window, document) {
  * Load widget styles, libraries and dependencies
  */
 function loadDependencies() {
-  /**
-   * Load the widget styles
-   */
+  //Load the widget styles
   const sourceLink = addCssLink();
+
+  // Initialize the translation library
+  i18next.init({fallbackLng: getDefaultLanguage(), debug: window.dev, resources});
   
   if (!window['proof-verifier-widget-source'] && sourceLink !== null) {
     window['proof-verifier-widget-source'] = sourceLink;
   }
-  
-  /**
-   * Configure i18next
-   */
-  i18next.init({fallbackLng: getDefaultLanguage(), debug: window.dev, resources});
   
   return new Promise((resolve) => resolve(true));
 }
@@ -91,15 +75,12 @@ function loadDependencies() {
  * @param widgetConfigurations
  */
 function initialize(widgetConfigurations) {
-  /**
-   * Initialize all instances of the widget
-   */
+  //Initialize all instances of the widget
   widgetConfigurations.forEach(widgetConfiguration => {
     const {config: customConfiguration, el: widgetElement, id: widgetId} = widgetConfiguration;
     customConfiguration.widgetId = widgetId;
-    /**
-     * Extend the default widget configuration
-     */
+
+    // Extend the default widget configuration by user settings
     const configuration = getProofVerifierWidgetDefaults();
     utils.extendObject(configuration, customConfiguration);
 
@@ -108,9 +89,7 @@ function initialize(widgetConfigurations) {
 
     console.log('configuration', configuration);
 
-    /**
-     * Render a widget instance and render it
-     */
+    // Render a widget instance and render it but remove all children before
     while (widgetElement.firstChild) {
       widgetElement.removeChild(widgetElement.firstChild);
     }
@@ -128,13 +107,16 @@ function addCssLink() {
   const style = document.getElementById(styleId);
   let sourcePath = null;
 
+  // Check it js link exists
   if (script && script.src && style === null) {
+    // Grab the url of js file and generate the css path
     const styleSrc = script.src.replace('.js', '.css');
     const head = document.getElementsByTagName('head')[0];
     const link = document.createElement('link');
 
     sourcePath = utils.getFilenameSource(script.src);
 
+    // Then append it to the HTML code
     link.rel = 'stylesheet';
     link.id = styleId;
     link.type = 'text/css';
@@ -146,6 +128,7 @@ function addCssLink() {
   return sourcePath;
 }
 
+// Create the method to initialize the widget in js code
 window.fileVerifierWidget = {
   init: initialize
 };

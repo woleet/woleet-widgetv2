@@ -5,13 +5,18 @@ import styles from './index.scss';
 
 /**
  * LabelPanelContainer
+ *
+ * The containers displays the label of each section
  */
 class LabelPanelContainer {
   constructor() {
     this.element = null;
     this.init();
   }
-  
+
+  /**
+   * Create all container elements and initialize them
+   */
   init() {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.label.code)

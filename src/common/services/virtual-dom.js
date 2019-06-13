@@ -138,7 +138,22 @@ function createFileInput(options = {}, attrs = {}) {
   return createElement('input', options, utils.extendObject({ type: 'file' }, attrs));
 }
 
+/**
+ * Get text element with adaptive text font
+ */
+function createResponsiveText(text, widgetWidth, classes) {
+  const translatedTextElement = createElement('span', { classes });
+  translatedTextElement.text(text);
+
+  // And recalculate the font size of the text zone to make it responsive
+  const relFontsize = parseInt(widgetWidth, 10) * 0.035;
+  translatedTextElement.attr('style', `font-size: ${relFontsize}px;`);
+
+  return translatedTextElement.render();
+}
+
 export default {
   createElement,
-  createFileInput
+  createFileInput,
+  createResponsiveText
 }

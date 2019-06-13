@@ -1,4 +1,5 @@
 const styleCodes = {
+  // Define all style codes to control uniqueness of class names
   code: ['proof_verifier_widget--wrapper'],
   
   containers: {
@@ -89,8 +90,8 @@ const styleCodes = {
       code: ['error_container'],
     }
   },
-  
-  /*common styles*/
+
+  // Common styles
   widget: {
     hidden:['woleet_widget_hidden'],
     cursorPointer: ['cursor-pointer']
