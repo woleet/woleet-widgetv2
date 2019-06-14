@@ -83,6 +83,9 @@ function DOM(element) {
   // Add the event's listener
   defineProp('on', (type, listener, capture) => getSelf(target.addEventListener(type, listener, capture)));
 
+  // Remove the event's listener
+  defineProp('off', (type, listener) => getSelf(target.removeEventListener(type, listener)));
+
   // Render the element content
   defineProp('render', () => {
     let root = self.target();

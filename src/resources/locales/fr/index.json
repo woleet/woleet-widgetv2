@@ -31,6 +31,7 @@
     "timestamped_by": "Horodaté le {{date}} par {{organization}}",
     "errors": {
       "url_not_found": "L'URL n'a pas été trouvée",
+      "proof_receipt_not_found": "Fichier de preuve non trouvé",
       "need_receipt": {
         "main": "Aucune preuve publique trouvée",
         "sub": "No public proof receipt found at Woleet: you must provide one to verify this file"

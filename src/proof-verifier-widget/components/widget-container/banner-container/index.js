@@ -21,6 +21,7 @@ class BannerContainer {
     this.expanded = false;
   
     this.init();
+    this.bannerClickCallbackBinded = utils.bind(this.bannerClickCallback, this);
   }
 
   /**
@@ -35,6 +36,8 @@ class BannerContainer {
     this.element.wrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.bannerContainer.wrapper.code)
     });
+
+    this.element.hide();
     
     this.initializeObservers();
     // Initialize the selected mode
@@ -60,17 +63,26 @@ class BannerContainer {
     self.widget.observers.receiptVerifiedObserver.subscribe((data) => {
       self.receiptParsed(data);
     });
+
+    self.widget.observers.receiptDownloadingFailedObserver.subscribe((data) => {
+      self.receiptFileFailed(data)
+    });
   }
   
   /**
    * Initialize events for the BANNER mode
    */
   initializeEvents() {
-    const self = this;
-    
-    self.element.on('click', () => {
-      self.widget.observers.bannerClickedObserver.broadcast();
+    this.element.on('click', () => {
+      this.widget.observers.bannerClickedObserver.broadcast()
     });
+  }
+
+  /**
+   * The callback to click on banner
+   */
+  bannerClickCallback() {
+    this.widget.observers.bannerClickedObserver.broadcast();
   }
 
   /**
@@ -82,11 +94,13 @@ class BannerContainer {
     const idStatus = message.identityVerificationStatus;
     const identity = idStatus ? idStatus.identity : false;
     const pubKey = sig ? sig.pubKey : null;
-    const { banner: { width: bannerWidth } } = this.widget.configurator.getStyles();
+    const { banner: { width: bannerWidth } } = self.widget.configurator.getStyles();
+
+    self.element.show();
 
     // If the result has the confirmations than parse it and display the info
     if (message.confirmations) {
-      let date = utils.formatDate(message.timestamp, this.lang);
+      let date = utils.formatDate(message.timestamp, self.lang);
       let transParams = {date: date};
       let transCode = pubKey ? 'signed' : 'timestamped';
 
@@ -95,11 +109,11 @@ class BannerContainer {
         transParams.context = 'by';
       }
 
-      const translatedText = utils.translate(transCode, this.lang, transParams);
+      const translatedText = utils.translate(transCode, self.lang, transParams);
       const translatedTextClasses = utils.extractClasses(styles, styleCodes.bannerContainer.wrapper.title.code);
       const titleElement = VirtualDOMService.createResponsiveText(translatedText, bannerWidth, translatedTextClasses);
 
-      this.element.wrapper.target().append(titleElement);
+      self.element.wrapper.target().append(titleElement);
     }
   }
 
@@ -147,6 +161,13 @@ class BannerContainer {
       .setProperty('--proof-verifier-banner-color', widgetStyles.banner.color);
     this.element.target().style
       .setProperty('--proof-verifier-banner-background-color', widgetStyles.banner.background);
+  }
+
+  /**
+   * If the receipt file is broken or wasn't loaded hide the banner
+   */
+  receiptFileFailed() {
+    this.element.hide();
   }
   
   get() {

@@ -157,17 +157,23 @@ class WidgetContainer {
 
   receiptFileFailed(error) {
     this.widget.observers.errorCaughtObserver.broadcast(error);
+    // this.element.iconContainer.off('click', this.iconClickCallback);
   }
 
   /**
    * Initialize events for the ICON mode
    */
   initializeEvents() {
-    const self = this;
-
-    self.element.iconContainer.on('click', () => {
-      self.widget.observers.iconClickedObserver.broadcast();
+    this.element.iconContainer.on('click', () => {
+      this.widget.observers.iconClickedObserver.broadcast()
     });
+  }
+
+  /**
+   * The callback to click on icon
+   */
+  iconClickCallback() {
+    this.widget.observers.iconClickedObserver.broadcast();
   }
 
   /**

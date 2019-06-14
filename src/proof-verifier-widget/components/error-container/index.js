@@ -52,7 +52,18 @@ class ErrorContainer {
     if (error && error.message) {
       self.element.title.text(utils.translate(`errors.${error.message}.main`, this.lang));
     } else {
-      self.element.title.text(utils.translate(`errors.${error}`, this.lang));
+      let errorMessage = '';
+
+      switch (error) {
+        case 'url_not_found':
+          errorMessage = utils.translate(`errors.proof_receipt_not_found`, self.lang);
+          break;
+        default:
+          errorMessage = utils.translate(`errors.${error}`, self.lang);
+          break;
+      }
+
+      self.element.title.text(errorMessage);
     }
   }
 

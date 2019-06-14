@@ -289,6 +289,18 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
 }
 
 /**
+ * Bind context to a function
+ * @param func
+ * @param context
+ * @return {function(): *}
+ */
+function bind(func, context) {
+  return function() {
+    return func.apply(context, arguments);
+  };
+}
+
+/**
  * Get nested object property by string
  * @param o
  * @param s
@@ -500,6 +512,7 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
 }
 
 export default  {
+  bind,
   byString,
   setTimer,
   svgToHTML,
