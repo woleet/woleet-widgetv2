@@ -3,37 +3,11 @@
 
 :local {
   .panel_container {
-    &--title {
-      &:not(:last-child) {
-        padding-bottom: 20px;
-      }
-      &-item {
-        display: inline-block;
-        margin: 0 10px;
-      }
-      &-label {
-        min-width: 25%;
-        vertical-align: top;
-        color: #333;
-        text-align: right;
-      }
-      &-value, &-value_filled {
-        font-size: var(--proof-verifier-value-font-size);
-        color: var(--proof-verifier-value-color);
-        max-width: 55%;
-        span {
-          display: block;
-        }
-      }
-      &-value_filled {
-        span {
-          background-color: var(--proof-verifier-value-background-color);
-          color: var(--proof-verifier-value-color);
-          font-weight: bolder;
-          border-radius: 4px;
-          padding: 3px 9px;
-        }
-      }
+    &--label {
+      color: var(--proof-verifier-value-color);
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 12px;
     }
   }
 }

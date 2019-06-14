@@ -244,23 +244,25 @@ The following attributes can be set on `<div>` tag to configure the look and beh
             
         * __height__ - height of the panel; _DEFAULT_: ___400px___
             
-        * __title__ - the title styles:
+        * __value__ - the value styles:
         
-            * __background__ - the background title color;_DEFAULT_: ___none___
+            * __background__ - the background value color;_DEFAULT_: ___none___
         
-            * __color__ - the title color;_DEFAULT_: ___31708f___
+            * __color__ - the value color;_DEFAULT_: ___31708f___
             
-            * __light__ - The styles of the light mode:
-        
-                * __background__ - the background title color of the light mode;_DEFAULT_: ___#D7E9F6___
-        
-                * __color__ - the title color  of the light mode;_DEFAULT_: ___#31708f___
-                
-            * __dark__ - The styles of the light mode:
+            * __theme__ - the value themes
+            
+                * __light__ - The styles of the light mode:
+                        
+                    * __background__ - the background value color of the light mode;_DEFAULT_: ___#D7E9F6___
+            
+                    * __color__ - the value color  of the light mode;_DEFAULT_: ___#31708f___
                     
-                 * __background__ - the background title color of the dark mode;_DEFAULT_: ___#31708f___
-                    
-                 * __color__ - the title color  of the dark mode;_DEFAULT_: ___#fff___
+                * __dark__ - The styles of the light mode:
+                        
+                     * __background__ - the background value color of the dark mode;_DEFAULT_: ___#31708f___
+                        
+                     * __color__ - the value color  of the dark mode;_DEFAULT_: ___#fff___
         
 * __receipt__ - The receipt file option:
     
@@ -282,9 +284,9 @@ There are several ways to configure the widget:
 ```html
 <div class='proof-verifier-widget'
      lang='en'
-     verification="{'server': false}"
-     styles="{'banner': {'width': '450px'}}"
-     receipt="{'url': 'https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967&name=Terms%20of%20Servicev3_20180727.pdf'}"
+     verification='{"server": false}'
+     styles='{"banner": {"width": "450px"}}'
+     receipt='{"url": "https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967&name=Terms%20of%20Servicev3_20180727.pdf"}'
 ></div>
  ```
 * If a option has nested options they can be set also as HTML attributes by joining via '-' in lower case:

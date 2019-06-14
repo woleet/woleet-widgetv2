@@ -6,25 +6,28 @@ function getProofVerifierWidgetDefaults() {
     styles: {
       zindex: 3,
       icon: {
-        width: null,
-        height: null
+        width: '45px',
+        height: '45px'
       },
       banner: {
-        width: '600px'
+        width: '600px',
+        color: ''
       },
       panel: {
         width: null,
         height: '400px',
-        title: {
+        value: {
           background: 'none',
           color: '#31708f',
-          light: {
-            background: '#D7E9F6',
-            color: '#31708f',
-          },
-          dark: {
-            background: '#31708f',
-            color: '#fff',
+          theme: {
+            light: {
+              background: '#D7E9F6',
+              color: '#31708f',
+            },
+            dark: {
+              background: '#31708f',
+              color: '#fff',
+            }
           }
         }
       }

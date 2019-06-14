@@ -19,12 +19,12 @@ class ProofVerifierWidget {
     this.element = null;
     this.configurator.init(configuration);
 
+    this.init();
+
     // If the receipt file wasn't defined broadcast an error
     if (!this.configuration.receipt || !this.configuration.receipt.url) {
       this.observers.errorCaughtObserver.broadcast({message: 'need_receipt'});
     }
-
-    this.init();
   }
 
   /**
@@ -35,6 +35,8 @@ class ProofVerifierWidget {
 
     this.initializeObservers();
     this.initializeExternalObservers(this.configuration);
+
+    console.log('widgetStyles', widgetStyles);
 
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.code),

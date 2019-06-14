@@ -1,0 +1,40 @@
+@import '../../../../scss/variables.scss';
+@import '../../../../scss/common';
+
+:local {
+  .panel_container {
+    &--value {
+      &:not(:last-child) {
+        padding-bottom: 20px;
+      }
+      &-wrapper {
+        display: inline-block;
+        margin: 0 10px;
+      }
+      &-label {
+        min-width: 25%;
+        vertical-align: top;
+        color: #333;
+        text-align: right;
+      }
+      &-item, &-theme {
+        font-size: var(--proof-verifier-value-font-size);
+        color: var(--proof-verifier-value-color);
+        background-color: var(--proof-verifier-value-background-color);
+        max-width: 55%;
+        span {
+          display: block;
+        }
+      }
+      &-theme {
+        span {
+          background-color: var(--proof-verifier-value-background-color);
+          color: var(--proof-verifier-value-color);
+          font-weight: bolder;
+          border-radius: 4px;
+          padding: 3px 9px;
+        }
+      }
+    }
+  }
+}

@@ -34,16 +34,16 @@ const styleCodes = {
     label: {
       code: ['panel_container--label'],
     },
-    title: {
-      code: ['panel_container--title'],
+    value: {
+      code: ['panel_container--value'],
       label: {
-        code: ['panel_container--title-item', 'panel_container--title-label']
+        code: ['panel_container--value-wrapper', 'panel_container--value-label']
       },
-      value: {
-        code: ['panel_container--title-item', 'panel_container--title-value']
+      item: {
+        code: ['panel_container--value-wrapper', 'panel_container--value-item']
       },
-      valueFilled: {
-        code: ['panel_container--title-item', 'panel_container--title-value_filled']
+      theme: {
+        code: ['panel_container--value-wrapper', 'panel_container--value-theme']
       }
     },
     common: {
