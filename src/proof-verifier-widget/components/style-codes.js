@@ -39,8 +39,8 @@ const styleCodes = {
       label: {
         code: ['panel_container--value-wrapper', 'panel_container--value-label']
       },
-      item: {
-        code: ['panel_container--value-wrapper', 'panel_container--value-item']
+      default: {
+        code: ['panel_container--value-wrapper', 'panel_container--value-default']
       },
       theme: {
         code: ['panel_container--value-wrapper', 'panel_container--value-theme']

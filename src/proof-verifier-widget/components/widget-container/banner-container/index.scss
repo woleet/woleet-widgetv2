@@ -20,7 +20,7 @@
       overflow: hidden;
       text-align: center;
       margin: 0 0 0 10px;
-      background-color: var(--proof-verifier-panel-background-color);
+      background-color: var(--proof-verifier-banner-background-color);
       display: -webkit-box;
       display: -moz-box;
       display: -ms-flexbox;
@@ -33,7 +33,7 @@
       &-title {
         white-space: nowrap;
         text-overflow: ellipsis;
-        color: var(--proof-verifier-label-color);
+        color: var(--proof-verifier-banner-color);
       }
     }
   }

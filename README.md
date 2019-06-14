@@ -237,32 +237,50 @@ The following attributes can be set on `<div>` tag to configure the look and beh
     * __banner__ - Widget banner styles:
         
         * __width__ - width of the banner; _DEFAULT_: ___600px___
+        
+        * __color__ - the banner text color;_DEFAULT_: ___#31708f___
+                
+        * __background__ - the banner background color;_DEFAULT_: ___#dff0d8___
             
     * __panel__ - Widget panel styles:
             
         * __width__ - width of the panel; _DEFAULT_: ___null___
             
         * __height__ - height of the panel; _DEFAULT_: ___400px___
+        
+        * __color__ - the title color of panels;_DEFAULT_: ___#333___
+        
+        * __background__ - the background color of panels;_DEFAULT_: ___#dff0d8___
+        
+        * __header__ - the styles of sections headers:
+                
+            * __color__ - the header color;_DEFAULT_: ___#31708f___
+            
+        * __control__ - the styles of the control section:
+                
+            * __color__ - the link color;_DEFAULT_: ___#31708f___
+            
+            * __background__ - the background color;_DEFAULT_: ___#eee___
             
         * __value__ - the value styles:
         
-            * __background__ - the background value color;_DEFAULT_: ___none___
+            * __color__ - the value color;_DEFAULT_: ___#31708f___
         
-            * __color__ - the value color;_DEFAULT_: ___31708f___
+            * __background__ - the background value color;_DEFAULT_: ___none___
             
             * __theme__ - the value themes
             
                 * __light__ - The styles of the light mode:
-                        
-                    * __background__ - the background value color of the light mode;_DEFAULT_: ___#D7E9F6___
             
                     * __color__ - the value color  of the light mode;_DEFAULT_: ___#31708f___
+                        
+                    * __background__ - the background value color of the light mode;_DEFAULT_: ___#D7E9F6___
                     
                 * __dark__ - The styles of the light mode:
                         
-                     * __background__ - the background value color of the dark mode;_DEFAULT_: ___#31708f___
-                        
                      * __color__ - the value color  of the dark mode;_DEFAULT_: ___#fff___
+                     
+                     * __background__ - the background value color of the dark mode;_DEFAULT_: ___#31708f___
         
 * __receipt__ - The receipt file option:
     

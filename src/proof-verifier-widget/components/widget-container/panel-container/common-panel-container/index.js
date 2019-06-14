@@ -3,7 +3,7 @@ import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
 import ValuePanelContainer from "ProofVerifierComponents/widget-container/panel-container/value-panel-container";
-import TitlePanelContainer from "ProofVerifierComponents/widget-container/panel-container/title-panel-container";
+import HeaderPanelContainer from "ProofVerifierComponents/widget-container/panel-container/header-panel-container";
 import constants from "Common/constants";
 
 /**
@@ -81,7 +81,7 @@ class CommonPanelContainer {
      * Set block label
      */
     let label = utils.translate('claimed_identity', self.lang);
-    let labelObject = new TitlePanelContainer(self.widget);
+    let labelObject = new HeaderPanelContainer(self.widget);
     labelObject.set(label);
     this.element.wrapper.rightSide.append(labelObject.get().render());
     
@@ -131,7 +131,7 @@ class CommonPanelContainer {
     
     if (status) {
       let label = utils.translate('identity_server', self.lang);
-      let labelObject = new TitlePanelContainer(self.widget);
+      let labelObject = new HeaderPanelContainer(self.widget);
       labelObject.set(label);
       this.element.wrapper.leftSide.append(labelObject.get().render());
   
@@ -148,7 +148,7 @@ class CommonPanelContainer {
     
     if (certificates && certificates.length > 0) {
       let label = utils.translate('server_certificates', self.lang);
-      let labelObject = new TitlePanelContainer(self.widget);
+      let labelObject = new HeaderPanelContainer(self.widget);
       labelObject.set(label);
       this.element.wrapper.leftSide.append(labelObject.get().render());
       

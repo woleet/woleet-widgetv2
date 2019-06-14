@@ -37,6 +37,8 @@ class PanelContainer {
    * Create all container elements and initialize them
    */
   init() {
+    const { panel: panelOptions } = this.widget.configurator.getStyles();
+
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.code)
     });
@@ -53,6 +55,9 @@ class PanelContainer {
     this.initializeObservers();
     // Initialize the selected mode
     this.initializeView(this.mode);
+
+    this.element.target().style.setProperty('--proof-verifier-panel-color', panelOptions.color);
+    this.element.target().style.setProperty('--proof-verifier-panel-background-color', panelOptions.background);
   }
   
   // Initialize the observers

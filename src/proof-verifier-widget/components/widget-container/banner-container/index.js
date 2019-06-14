@@ -142,6 +142,11 @@ class BannerContainer {
       default:
         break;
     }
+
+    this.element.target().style
+      .setProperty('--proof-verifier-banner-color', widgetStyles.banner.color);
+    this.element.target().style
+      .setProperty('--proof-verifier-banner-background-color', widgetStyles.banner.background);
   }
   
   get() {

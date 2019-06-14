@@ -11,11 +11,21 @@ function getProofVerifierWidgetDefaults() {
       },
       banner: {
         width: '600px',
-        color: ''
+        color: '#31708f',
+        background: '#dff0d8',
       },
       panel: {
         width: null,
         height: '400px',
+        color: '#333',
+        background: '#dff0d8',
+        header: {
+          color: '#31708f'
+        },
+        control: {
+          color: '#31708f',
+          background: '#EEE',
+        },
         value: {
           background: 'none',
           color: '#31708f',

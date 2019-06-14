@@ -31,7 +31,7 @@ class ValuePanelContainer {
     });
     
     const valueClassCode = this.options.theme ?
-      styleCodes.panelContainer.value.theme : styleCodes.panelContainer.value.item;
+      styleCodes.panelContainer.value.theme : styleCodes.panelContainer.value.default;
     this.element.item = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, valueClassCode.code)
     });
@@ -56,7 +56,7 @@ class ValuePanelContainer {
     // Display the smaller text
     if (this.options.small) {
       this.element.target().style
-        .setProperty('--proof-verifier-value-font-size', '75%');
+        .setProperty('--proof-verifier-panel-value-font-size', '75%');
     }
 
     // And the color text
@@ -64,9 +64,9 @@ class ValuePanelContainer {
       valueOptions.theme[this.options.theme] : valueOptions;
   
     this.element.target().style
-      .setProperty('--proof-verifier-value-color', colorOptions.color);
+      .setProperty('--proof-verifier-panel-value-color', colorOptions.color);
     this.element.target().style
-      .setProperty('--proof-verifier-value-background-color', colorOptions.background);
+      .setProperty('--proof-verifier-panel-value-background-color', colorOptions.background);
     
     this.element.item.html(`<span>${oValue}</span>`);
   }
