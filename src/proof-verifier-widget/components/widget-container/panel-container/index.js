@@ -24,7 +24,7 @@ class PanelContainer {
     this.styles = this.widget.configurator.getStyles();
 
     /**
-     * If the panel width wasn't define calculate it as icon width + banner width
+     * If the panel width wasn't define, calculate it as icon width + banner width
      */
     if (this.styles.panel.width === null) {
       this.styles.panel.width = parseInt(this.iconStyles.width, 10) + parseInt(this.styles.banner.width, 10) + 'px';
@@ -73,12 +73,12 @@ class PanelContainer {
   }
 
   /**
-   * If the banner element was clicked show/hide the panel
+   * If the banner element was clicked, show/hide the panel
    */
   onBannerClicked() {
     const self = this;
 
-    // To expand the panel just change the style width
+    // To expand the panel, just change the style width
     if (self.expanded) {
       self.element.target().style.setProperty('--proof-verifier-panel-height', 0);
     } else {
@@ -94,13 +94,13 @@ class PanelContainer {
     const self = this;
 
     switch(mode) {
-      // If the mode is PANEL show the panel and don't allow it to be hidden
+      // If the mode is PANEL, show the panel and does not allow it to be hidden
       case constants.PROOF_VERIFIER_MODE_PANEL:
         self.element.target().style.setProperty('--proof-verifier-panel-height', '700px');
         self.element.target().style.setProperty('--proof-verifier-panel-width', self.styles.panel.width);
         break;
       case constants.PROOF_VERIFIER_MODE_ICON:
-      // If the mode is BANNER hide the panel and allow it to be shown
+      // If the mode is BANNER, hide the panel and allow it to be showned
       case constants.PROOF_VERIFIER_MODE_BANNER:
       default:
         self.element.target().style.setProperty('--proof-verifier-panel-width', self.styles.panel.width);

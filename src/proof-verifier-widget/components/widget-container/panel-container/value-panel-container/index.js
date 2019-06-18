@@ -6,7 +6,7 @@ import styles from './index.scss';
 /**
  * ValuePanelContainer
  *
- * The container display customized title of the PANEL container
+ * The container displays customized title of the PANEL container
  */
 class ValuePanelContainer {
   constructor(widget, options = {split: false, theme: false, small: false}) {

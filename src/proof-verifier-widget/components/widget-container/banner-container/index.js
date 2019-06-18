@@ -140,18 +140,18 @@ class BannerContainer {
     const widgetStyles = self.widget.configurator.getStyles();
     
     switch(mode) {
-      // If the mode is PANEL show the banner and don't allow it to be hidden
+      // If the mode is PANEL show the banner and does not allow it to be hidden
       case constants.PROOF_VERIFIER_MODE_PANEL:
         self.element.style({width: `${widgetStyles.banner.width}`});
         break;
-      // If the mode is PANEL show the banner and don't allow it to be hidden but make it clickable to open th panel
+      // If the mode is PANEL show the banner and does not allow it to be hidden but make it clickable to open th panel
       case constants.PROOF_VERIFIER_MODE_BANNER:
         self.element.addClass(self.cursorPointerClass);
         self.element.style({width: `${widgetStyles.banner.width}`});
         
         this.initializeEvents();
         break;
-      // If the mode is PANEL hide the banner and allow it to be shown
+      // If the mode is PANEL hide the banner and allow it to be showned
       case constants.PROOF_VERIFIER_MODE_ICON:
       default:
         break;
@@ -164,7 +164,7 @@ class BannerContainer {
   }
 
   /**
-   * If the receipt file is broken or wasn't loaded hide the banner
+   * If the receipt file is broken or wasn't loaded, hide the banner
    */
   receiptFileFailed() {
     this.element.hide();

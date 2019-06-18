@@ -1,6 +1,5 @@
 import constants from 'Common/constants'
 import { getDefaultLanguage } from 'Common/services/configurator'
-import loader from 'Common/services/loader'
 import {getProofVerifierWidgetDefaults} from 'ProofVerifierWidget/defaults'
 import utils from 'Common/services/utils'
 import widgetLogger from 'Common/services/logger'
@@ -27,7 +26,7 @@ function widget(window, document) {
   // Convert the element collection to an array
   const widgetElements = Array.from(widgetElementCollection);
 
-  //Initialize and configure all instances of the widget
+  // Initialize and configure all instances of the widget
   widgetElements.forEach(widgetElement => {
     let widgetConfiguration = utils.parseWidgetAttributeConfiguration(widgetElement);
 
@@ -57,7 +56,7 @@ function widget(window, document) {
  * Load widget styles, libraries and dependencies
  */
 function loadDependencies() {
-  //Load the widget styles
+  // Load the widget styles
   const sourceLink = addCssLink();
 
   // Initialize the translation library
@@ -75,7 +74,7 @@ function loadDependencies() {
  * @param widgetConfigurations
  */
 function initialize(widgetConfigurations) {
-  //Initialize all instances of the widget
+  // Initialize all instances of the widget
   widgetConfigurations.forEach(widgetConfiguration => {
     const {config: customConfiguration, el: widgetElement, id: widgetId} = widgetConfiguration;
     customConfiguration.widgetId = widgetId;
