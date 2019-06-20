@@ -8,6 +8,8 @@ import faExternalLink from 'Resources/images/external-link-alt.svg';
 
 /**
  * ControlPanelContainer
+ *
+ * The container that contains controls and links
  */
 class ControlPanelContainer {
   constructor(widget) {
@@ -19,8 +21,13 @@ class ControlPanelContainer {
   
     this.init();
   }
-  
+
+  /**
+   * Create all container elements and initialize them
+   */
   init() {
+    const { panel: { control: controlOptions } } = this.widget.configurator.getStyles();
+
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.control.code)
     });
@@ -29,9 +36,7 @@ class ControlPanelContainer {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.control.wrapper.code)
     });
     
-    /**
-     * viewTransactionEl
-     * */
+    // The link to show the transaction
     this.element.wrapper.viewTransactionEl = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.control.item.code)
     });
@@ -43,9 +48,7 @@ class ControlPanelContainer {
     );
     this.element.wrapper.viewTransactionEl.hide();
 
-    /**
-     * downloadReceiptEl
-     * */
+    // The link to download the receipt
     this.element.wrapper.downloadReceiptEl = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.control.item.code)
     });
@@ -60,6 +63,11 @@ class ControlPanelContainer {
     
     this.initializeEvents();
     this.initializeObservers();
+
+    this.element.target().style
+      .setProperty('--proof-verifier-control-color', controlOptions.color);
+    this.element.target().style
+      .setProperty('--proof-verifier-control-background-color', controlOptions.background);
   };
   
   /**
@@ -68,6 +76,7 @@ class ControlPanelContainer {
   initializeObservers() {
     const self = this;
 
+    // If the receipt was verified
     self.widget.observers.receiptVerifiedObserver.subscribe((data) => {
       self.receiptParsed(data);
     });
@@ -78,6 +87,7 @@ class ControlPanelContainer {
    */
   initializeEvents() {
     const self = this;
+    // Download the receipt file if the link was clicked
     this.element.wrapper.downloadReceiptEl.linkEl.on('click', () => {
       if (self.receipt !== null) {
         const {receipt: {targetHash = null}} = self.receipt;
@@ -89,10 +99,14 @@ class ControlPanelContainer {
     });
   }
 
+  /**
+   * If the receipt was verified
+   */
   receiptParsed(receiptObj) {
     const self = this;
 
     if (receiptObj) {
+      // Build and display the transaction link
       self.receipt = receiptObj;
       self.element.show();
       self.element.wrapper.downloadReceiptEl.show();

@@ -5,6 +5,8 @@ import styles from './index.scss';
 
 /**
  * ErrorContainer
+ *
+ * It displays all possible errors
  */
 class ErrorContainer {
   constructor(widget) {
@@ -14,7 +16,10 @@ class ErrorContainer {
   
     this.init();
   }
-  
+
+  /**
+   * Create all container elements and initialize them
+   */
   init() {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.error.container.code)
@@ -26,8 +31,10 @@ class ErrorContainer {
     this.hideErrorElement();
     this.initializeObservers();
   }
-  
-  // Initialize the observers
+
+  /**
+   * Initialize the observers
+   */
   initializeObservers() {
     this.widget.observers.errorCaughtObserver.subscribe((data) => {
       this.errorCaught(data)
@@ -43,6 +50,10 @@ class ErrorContainer {
     });
   }
 
+  /**
+   * If an error was caught display the element and the error
+   * @param error
+   */
   errorCaught(error) {
     const self = this;
     self.element.show();
@@ -54,6 +65,9 @@ class ErrorContainer {
     }
   }
 
+  /**
+   * Hide the element and clear an error text
+   */
   hideErrorElement() {
     this.element.title.text('');
     this.element.hide();

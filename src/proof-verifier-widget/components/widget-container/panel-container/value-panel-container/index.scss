@@ -3,32 +3,34 @@
 
 :local {
   .panel_container {
-    &--title {
+    &--value {
       &:not(:last-child) {
         padding-bottom: 20px;
       }
-      &-item {
+      &-wrapper {
         display: inline-block;
         margin: 0 10px;
       }
       &-label {
         min-width: 25%;
         vertical-align: top;
-        color: #333;
+        color: var(--proof-verifier-panel-color);
         text-align: right;
       }
-      &-value, &-value_filled {
-        font-size: var(--proof-verifier-value-font-size);
-        color: var(--proof-verifier-value-color);
+      &-default, &-style {
+        font-size: var(--proof-verifier-panel-value-font-size);
+        color: var(--proof-verifier-panel-value-color);
+        background-color: var(--proof-verifier-panel-value-background-color);
         max-width: 55%;
+        border-radius: 4px;
         span {
           display: block;
         }
       }
-      &-value_filled {
+      &-style {
         span {
-          background-color: var(--proof-verifier-value-background-color);
-          color: var(--proof-verifier-value-color);
+          background-color: var(--proof-verifier-panel-value-background-color);
+          color: var(--proof-verifier-panel-value-color);
           font-weight: bolder;
           border-radius: 4px;
           padding: 3px 9px;

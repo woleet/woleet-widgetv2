@@ -5,6 +5,7 @@ import styles from './index.scss';
 
 /**
  * ProgressBar
+ * It displays the progress gauge
  */
 class ProgressBar {
   constructor(widget, observerMapper) {
@@ -13,7 +14,10 @@ class ProgressBar {
     this.observerMapper = observerMapper;
     this.init();
   }
-  
+
+  /**
+   * Create all container elements and initialize them
+   */
   init() {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.progress.bar.code)
@@ -22,7 +26,9 @@ class ProgressBar {
     this.initializeObservers();
   }
 
-  // Initialize the observers
+  /**
+   * Initialize the observers
+   */
   initializeObservers() {
     if (this.observerMapper['processProgressObserver']) {
       let processProgressObserver = this.observerMapper['processProgressObserver'];
@@ -32,6 +38,10 @@ class ProgressBar {
     }
   }
 
+  /**
+   * Catch the current progress value and display the element width
+   * @param progress
+   */
   processProgress(progress) {
     this.element.style({width: `${progress}%`});
   }

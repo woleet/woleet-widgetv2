@@ -11,7 +11,7 @@
     -ms-transition: all .5s ease;
     overflow: hidden;
     transition: all .5s ease;
-    position: fixed;
+    position: absolute;
     z-index: calc(var(--z-index) + 1);
     border-radius: 4px;
     &--wrapper {
@@ -20,7 +20,7 @@
       overflow: hidden;
       text-align: center;
       margin: 0 0 0 10px;
-      background-color: var(--proof-verifier-panel-background-color);
+      background-color: var(--proof-verifier-banner-background-color);
       display: -webkit-box;
       display: -moz-box;
       display: -ms-flexbox;
@@ -33,8 +33,7 @@
       &-title {
         white-space: nowrap;
         text-overflow: ellipsis;
-        font-size: var(--proof-verifier-banner-title-fontsize);
-        color: var(--proof-verifier-label-color);
+        color: var(--proof-verifier-banner-color);
       }
     }
   }

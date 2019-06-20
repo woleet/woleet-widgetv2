@@ -8,6 +8,7 @@ import loader from 'Common/services/loader';
 
 /**
  * DropContainer area
+ * It's a container to drop and select user files and hash them
  */
 class DropContainer {
   constructor(widget, parent) {
@@ -19,11 +20,11 @@ class DropContainer {
     this.delayedFile = null;
   
     if (!window.woleet) {
+      // Woleet library wasn't initialized do it
       loader.getWoleetLibs()
         .then((woleet) => {
           window.woleet = woleet;
           self.hasher = new woleet.file.Hasher;
-
           self.hashDelayedFile();
         });
     } else {
@@ -32,7 +33,10 @@ class DropContainer {
     
     this.init();
   }
-  
+
+  /**
+   * Create all container elements and initialize them
+   */
   init() {
     const {icon: { width: iconWidth, color: iconColor }} = this.widget.configurator.getStyles();
     
@@ -91,6 +95,7 @@ class DropContainer {
    */
   initializeEvents() {
     const self = this;
+    // if the user select a file, start the hash process
     this.element.body.input.on('change', function () {
       self.onInputFileChanged.call(this, self)
         .then(result => {
@@ -100,7 +105,11 @@ class DropContainer {
         });
     });
   }
-  
+
+  /**
+   * And update the progress periodically
+   * @param event
+   */
   updateProgress(event) {
     let progress = (event.progress * 100);
   
@@ -128,6 +137,10 @@ class DropContainer {
     }
   }
 
+  /**
+   * If there is a delayed file, start its hashing
+   * @return {Promise<T | never>}
+   */
   hashDelayedFile() {
     const self = this;
     if (this.delayedFile) {
@@ -139,6 +152,11 @@ class DropContainer {
     }
   }
 
+  /**
+   * Hash the file
+   * @param file
+   * @return {Promise}
+   */
   hash(file) {
     const self = this;
 
@@ -179,7 +197,7 @@ class DropContainer {
   }
 
   downloadModeInitiated(fileConfiguration) {
-    if (!fileConfiguration.fast_download) {
+    if (!fileConfiguration.fastDownload) {
       this.element.hide();
     }
   }

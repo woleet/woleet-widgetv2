@@ -1,17 +1,28 @@
 @import './variables.scss';
 
 :root {
+  /*Control variables*/
   --proof-verifier-control-background-color: #eee;
-  --proof-verifier-banner-title-fontsize: 16px;
-  --proof-verifier-value-background-color: #31708f;
-  --proof-verifier-value-color: #31708f;
-  --proof-verifier-value-font-size: 100%;
-  --proof-verifier-label-color: #31708f;
+  --proof-verifier-control-color: #31708f;
+  
+  /*Panel variables*/
   --proof-verifier-panel-background-color: #dff0d8;
+  --proof-verifier-panel-color: #CCC;
   --proof-verifier-panel-height: 0;
   --proof-verifier-panel-width: 0;
+  /*Panel variables: value*/
+  --proof-verifier-panel-value-background-color: #31708f;
+  --proof-verifier-panel-value-color: #31708f;
+  --proof-verifier-panel-value-font-size: 100%;
+  /*Panel variables: header*/
+  --proof-verifier-panel-header-color: #31708f;
+  
+  /*Banner variables*/
+  --proof-verifier-banner-background-color: #dff0d8;
+  --proof-verifier-banner-color: #31708f;
   --proof-verifier-banner-width: 0;
-  --footer-color: #2cba92;
+  
+  /*Common variables*/
   --z-index: 3;
 }
 

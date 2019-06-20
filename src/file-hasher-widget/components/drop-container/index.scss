@@ -1,5 +1,9 @@
+@import '../index';
+
 :local {
   .drop_container {
+    @extend .description-block;
+    
     &--body {
       position: relative;
       display: inline-block;

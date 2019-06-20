@@ -8,13 +8,16 @@ import faCaretRight from 'Resources/images/caret-right.svg';
 
 /**
  * PdfPreview
+ * The element to display PDF files with controls
  */
 class PdfPreview {
   constructor(widget) {
     const self = this;
     this.element = null;
+    // An instance of the library pdf.js
     this.pdfjsLib = null;
     this.widget = widget;
+    // To save the file if it was loaded before the library is initialized
     this.delayedFile = null;
     this.typedArray = null;
     this.fileReader = new FileReader();
@@ -22,11 +25,15 @@ class PdfPreview {
     this.styles = this.widget.configurator.getStyles();
   
     if (!window.pdfJs) {
+      // If the library pdf.js isn't available, do the lazy loading
       loader.getPdfJs()
         .then((pdfJs) => {
           window.pdfJs = pdfJs;
           self.pdfjsLib = pdfJs;
 
+          /**
+           * And display a delayed file if it exists
+           */
           if (this.delayedFile) {
             self.displayPdfFile(this.delayedFile);
           } else {
@@ -42,13 +49,19 @@ class PdfPreview {
   }
   
   loaded() {
+    /**
+     * TODO: optimize the initialization
+     * initialize the worker for pdf.js
+     */
     if (window['file-hasher-widget-source']) {
       this.pdfjsLib.GlobalWorkerOptions.workerSrc = window['file-hasher-widget-source'] + '/pdf.worker.min.js';
     }
     this.reset();
   }
-  
+
+  // Create all container elements and initialize them
   init() {
+    // Select all needful options
     const {
       preview: { icon: { color: previewIconColor} }
     } = this.widget.configurator.getStyles();
@@ -99,6 +112,7 @@ class PdfPreview {
 
       delete this.result;
 
+      // Initialize the instance of pdf.js once the file is available
       self.pdfjsLib.getDocument(self.typedArray)
         .then((pdf) => {
           self.pdfDoc = pdf;
@@ -127,24 +141,32 @@ class PdfPreview {
       self.element.control.hide();
     });
   }
-  
+
+  /**
+   * Render the PDF file
+   * @param num
+   */
   renderPage(num) {
     const self = this;
     self.pageRendering = true;
     // Using promise to fetch the page
     self.pdfDoc.getPage(num)
       .then((page) => {
+        // Calculate the final size parameters
         let styleWidth = parseInt(self.styles.width);
         const [x, y, pageWidth, pageHeight] = page.view;
 
+        // If the widget size is initialized in percents, get the pixel values
         if (self.styles.width.indexOf('%') !== -1) {
           styleWidth = (styleWidth * pageWidth) / 100;
         }
 
+        // Calculate the ratio
         const ratio = pageHeight / pageWidth;
         const scale = styleWidth / pageWidth;
         const viewport = page.getViewport(scale, 0);
-        
+
+        // The final preview size shouldn't be wider than the widget
         self.element.canvasWrapper.canvas.height(styleWidth * ratio);
         self.element.canvasWrapper.canvas.width(styleWidth);
         
@@ -167,7 +189,11 @@ class PdfPreview {
         });
       });
   }
-  
+
+  /**
+   * Initialize the pdf file once it was loaded in the PreviewContainer
+   * @param file
+   */
   setPdfFile(file) {
     const self = this;
 
@@ -178,6 +204,10 @@ class PdfPreview {
     }
   }
 
+  /**
+   * Prepare the canvas to display a PDF file
+   * @param file
+   */
   displayPdfFile(file) {
     this.reset();
     let canvasElement = this.element.canvasWrapper.canvas.target();
@@ -186,6 +216,7 @@ class PdfPreview {
     this.element.show();
 
     if (this.ctx) {
+      // Clear the canvas background
       this.ctx.fillStyle = 'white';
       this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
@@ -197,8 +228,8 @@ class PdfPreview {
   }
   
   /**
-   * If another page rendering in progress, waits until the rendering is
-   * finished. Otherwise, executes rendering immediately.
+   * If another page rendering in progress, wait until the rendering is
+   * finished. Otherwise, execute rendering immediately.
    */
   queueRenderPage(num) {
     const self = this;
@@ -210,7 +241,7 @@ class PdfPreview {
   }
   
   /**
-   * Displays previous page.
+   * Display previous page.
    */
   onPrevPage(event) {
     const self = this;
@@ -222,7 +253,7 @@ class PdfPreview {
   }
   
   /**
-   * Displays next page.
+   * Display next page.
    */
   onNextPage(event) {
     event.stopPropagation();
@@ -235,8 +266,12 @@ class PdfPreview {
     self.queueRenderPage(self.pageNum);
   }
 
+  /**
+   * Reset the container state to default
+   */
   reset() {
     if (this.pdfDoc) {
+      // And free the widget memory to avoid memory leaks
       this.pdfDoc.destroy();
       delete this.typedArray;
       delete this.pdfDoc._transport.pdfDocument;

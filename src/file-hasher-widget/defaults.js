@@ -1,10 +1,11 @@
 import constants from "Common/constants";
 
+// Default configuration of the widget. For more information check the README file
 function getFileHasherDefaults() {
   return {
     file: {
       url: null,
-      fast_download: false
+      fastDownload: false
     },
     styles: {
       width: '130px',
@@ -46,6 +47,9 @@ function getFileHasherDefaults() {
   };
 }
 
+/**
+ * Define the observer mappers for progress container
+ */
 function getFileHasherObserverMappers() {
   return {
     downloadProgressBar: {

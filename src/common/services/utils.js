@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 
 /**
- * Checks if the item is object
+ * Check if the item is object
  * @param item
  * @returns {boolean}
  */
@@ -31,13 +31,13 @@ export function mergeDeep(target, ...sources) {
   }
 
   /**
-   * merge the sources recursively
+   * Merge the sources recursively
    */
   return mergeDeep(target, ...sources);
 }
 
 /**
- * Defines not enumerable object property
+ * Define not enumerable object property
  * @param target
  * @returns {function(*=, *): any}
  */
@@ -49,7 +49,7 @@ function defineProperty(target) {
 }
 
 /**
- * Finds the real class name by its hash code
+ * Find the real class name by its hash code
  * @param styles
  * @param classCodes
  * @returns {T[]}
@@ -61,7 +61,7 @@ function extractClasses(styles, classCodes) {
 }
 
 /**
- * Translates the phrase to lang
+ * Translate the phrase to lang
  * @param code
  * @param lang
  * @param options
@@ -88,7 +88,7 @@ function parseWidgetAttributeConfiguration(widgetElement) {
     elementAttributes[attrs[i].nodeName] = attrs[i].nodeValue;
   }
 
-  // all the attributes can be placed in the config attribute
+  // All the attributes can be placed in the config attribute
   if (elementAttributes.config) {
     widgetConfiguration = JSON.parse(elementAttributes.config);
   }
@@ -99,7 +99,7 @@ function parseWidgetAttributeConfiguration(widgetElement) {
     if (forbiddenAttributes.indexOf(key) === -1) {
       const attributeValue = elementAttributes[key];
 
-      // get a property by code and replace the config values if they exists
+      // Get a property by code and replace the config values if they exists
       try {
         widgetConfiguration[key] = JSON.parse(attributeValue);
       } catch (e) {
@@ -108,7 +108,7 @@ function parseWidgetAttributeConfiguration(widgetElement) {
 
       const keyParts = key.split('-');
 
-      // if an attribute name contains several parts, make them nested and merge recursively
+      // If an attribute name contains several parts, make them nested and merge recursively
       if (keyParts.length > 1) {
         const configurationObject = getObjectByString(keyParts.join('.'), widgetConfiguration[key]);
 
@@ -132,7 +132,7 @@ function getUniqueId(prefix = '', suffix = '') {
 }
 
 /**
- * Generates random string
+ * Generate random string
  * @returns {string}
  */
 function s4() {
@@ -140,7 +140,7 @@ function s4() {
 }
 
 /**
- * Sets a timer for a callback with delay
+ * Set a timer for a callback with delay
  * @param callback
  * @param delay
  */
@@ -252,7 +252,7 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
   });
 
   /**
-   * Gets and calculates percent of a downloading process
+   * Get and calculate percent of a downloading process
    */
   request.addEventListener("progress", function (evt) {
     if (evt.lengthComputable) {
@@ -289,6 +289,18 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
 }
 
 /**
+ * Bind context to a function
+ * @param func
+ * @param context
+ * @return {function(): *}
+ */
+function bind(func, context) {
+  return function() {
+    return func.apply(context, arguments);
+  };
+}
+
+/**
  * Get nested object property by string
  * @param o
  * @param s
@@ -296,8 +308,8 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
  */
 function byString(o, s) {
   s = s.replace(/^window./g, '');
-  s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
-  s = s.replace(/^\./, '');           // strip a leading dot
+  s = s.replace(/\[(\w+)\]/g, '.$1'); // Convert indexes to properties
+  s = s.replace(/^\./, '');           // Strip a leading dot
   const a = s.split('.');
   for (let i = 0, n = a.length; i < n; ++i) {
     let k = a[i];
@@ -322,7 +334,7 @@ function svgToHTML(svg) {
   const element = div.firstChild;
   const attributes = element.attributes;
 
-  // Returns the HTML element and its size params
+  // Return the HTML element and its size params
   return {
     el: element,
     attributes: {
@@ -357,7 +369,7 @@ function adsBlocked(callback){
 }
 
 /**
- * Converts a string to an object
+ * Convert a string to an object
  * @param str
  * @param value
  * @param result
@@ -394,7 +406,7 @@ function getObjectProperty(object, property) {
 }
 
 /**
- * Formats a date according with given lang
+ * Format a date according with given lang
  * @param date
  * @param lang
  * @return {string}
@@ -405,7 +417,7 @@ function formatDate(date, lang) {
 }
 
 /**
- * Saves the object in browser memory as a file
+ * Save the object in browser memory as a file
  * @param object
  * @param filename
  * @param type
@@ -431,7 +443,7 @@ function saveObjectAs(object, filename, type = 'application/json;charset=utf-8')
 }
 
 /**
- * Calculates the widget widths
+ * Calculate the widget widths
  * @param widgetWidth
  * @param iconWidth
  * @param parent
@@ -479,7 +491,7 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
 
   integerIconWidth = parseInt(results.iconWidth, 10);
 
-  // Calculates the widget and icon widths in pixels and percents
+  // Calculate the widget and icon widths in pixels and percents
   if (widgetWidthIsPercent) {
     results.percent.widgetWidth = integerWidgetWidth;
     results.px.widgetWidth = parseFloat(((integerWidgetWidth * parentOffsetWidth) / 100).toFixed(2));
@@ -500,6 +512,7 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
 }
 
 export default  {
+  bind,
   byString,
   setTimer,
   svgToHTML,

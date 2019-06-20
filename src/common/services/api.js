@@ -1,7 +1,7 @@
 import constants from "Common/constants";
 
 /**
- * Verifies user receipt
+ * Verify user receipt
  * @param receipt
  * @return {Promise}
  */

@@ -1,29 +1,43 @@
 import constants from "Common/constants";
 
+// Default configuration of the widget. For more information check the README file
 function getProofVerifierWidgetDefaults() {
   return {
     styles: {
       zindex: 3,
       icon: {
-        width: null,
-        height: null
+        width: '45px',
+        height: '45px'
       },
       banner: {
-        width: '600px'
+        width: '600px',
+        color: '#31708f',
+        background: '#dff0d8',
       },
       panel: {
         width: null,
         height: '400px',
-        title: {
+        color: '#333',
+        background: '#dff0d8',
+        header: {
+          color: '#31708f'
+        },
+        control: {
+          color: '#31708f',
+          background: '#EEE',
+        },
+        value: {
           background: 'none',
           color: '#31708f',
-          light: {
-            background: '#D7E9F6',
-            color: '#31708f',
-          },
-          dark: {
-            background: '#31708f',
-            color: '#fff',
+          style: {
+            anchoredHash: {
+              background: '#D7E9F6',
+              color: '#31708f',
+            },
+            signedHash: {
+              background: '#31708f',
+              color: '#fff',
+            }
           }
         }
       }
@@ -34,11 +48,7 @@ function getProofVerifierWidgetDefaults() {
     receipt: {
       url: null
     },
-    file: {
-      url: null
-    },
     lang: constants.DEFAULT_WIDGET_LANGUAGE,
-    type: constants.PROOF_VERIFIER_WIDGET_TYPE,
     mode: constants.PROOF_VERIFIER_MODE_ICON
   };
 }

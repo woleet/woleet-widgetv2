@@ -4,18 +4,29 @@ import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
 
 /**
- * LabelPanelContainer
+ * HeaderPanelContainer
+ *
+ * The container display headers of sub-sections
  */
-class LabelPanelContainer {
-  constructor() {
+class HeaderPanelContainer {
+  constructor(widget) {
     this.element = null;
+    this.widget = widget;
     this.init();
   }
-  
+
+  /**
+   * Create all container elements and initialize them
+   */
   init() {
+    const { panel: { header: headerOptions } } = this.widget.configurator.getStyles();
+
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.label.code)
     });
+
+    this.element.target().style
+      .setProperty('--proof-verifier-panel-header-color', headerOptions.color);
   }
   
   set(label) {
@@ -27,4 +38,4 @@ class LabelPanelContainer {
   }
 }
 
-export default LabelPanelContainer;
+export default HeaderPanelContainer;

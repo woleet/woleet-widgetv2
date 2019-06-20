@@ -8,6 +8,7 @@ import ProgressBarTitle from './progress-bar-title';
 
 /**
  * ProgressBarContainer
+ * It's responsible for all widget progress bars
  */
 class ProgressBarContainer {
   constructor(widget, observerMapper) {
@@ -16,7 +17,10 @@ class ProgressBarContainer {
     this.observerMapper = observerMapper;
     this.init();
   }
-  
+
+  /**
+   * Create all container elements and initialize them
+   */
   init() {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.progress.container.code)
@@ -25,7 +29,9 @@ class ProgressBarContainer {
       classes: utils.extractClasses(styles, styleCodes.progress.container.wrapper.code)
     });
 
+    // The progress body
     this.element.wrapper.progressBarBody = (new ProgressBarBody(this.widget, this.observerMapper)).get();
+    // The progress title
     this.element.wrapper.progressBarTitle = (new ProgressBarTitle(this.widget, this.observerMapper)).get();
 
     this.element.hide();

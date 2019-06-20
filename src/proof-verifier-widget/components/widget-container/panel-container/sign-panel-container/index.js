@@ -2,10 +2,12 @@ import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
-import TitlePanelContainer from "ProofVerifierComponents/widget-container/panel-container/title-panel-container";
+import ValuePanelContainer from "ProofVerifierComponents/widget-container/panel-container/value-panel-container";
 
 /**
  * SignPanelContainer
+ *
+ * The container shows the signed hash section
  */
 class SignPanelContainer {
   constructor(widget) {
@@ -16,7 +18,10 @@ class SignPanelContainer {
   
     this.init();
   }
-  
+
+  /**
+   * Create all container elements and initialize them
+   */
   init() {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.sign.code)
@@ -28,40 +33,47 @@ class SignPanelContainer {
     
     this.initializeObservers();
   }
-  
-  // Initialize the observers
+
+  /**
+   * Initialize the observers
+   */
   initializeObservers() {
     const self = this;
 
+    // If the receipt was verified
     self.widget.observers.receiptVerifiedObserver.subscribe((data) => {
       self.receiptParsed(data);
     });
   }
 
+  /**
+   * If the receipt was verified
+   */
   receiptParsed(receiptObj) {
     const self = this;
     const {receipt: { signature = null }} = receiptObj;
     
     if (signature !== null) {
       this.element.show();
-    
+
+      // Display all the titles
       if (signature.signedHash) {
         const signedHashLabel = utils.translate('signed_hash', self.lang);
-        const signedHashTitle = new TitlePanelContainer(self.widget, { filled: 'dark', split: true, small: true });
+        const signedHashTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', split: true, small: true });
         signedHashTitle.set(signedHashLabel, signature.signedHash);
         this.element.wrapper.append(signedHashTitle.get().render());
       }
     
       if (signature.pubKey) {
         const pubKeyLabel = utils.translate('signee', self.lang);
-        const pubKeyTitle = new TitlePanelContainer(self.widget, { filled: 'dark', small: true });
+        const pubKeyTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', small: true });
         pubKeyTitle.set(pubKeyLabel, signature.pubKey);
         this.element.wrapper.append(pubKeyTitle.get().render());
       }
     
       if (signature.signature) {
         const signatureLabel = utils.translate('signature', self.lang);
-        const signatureTitle = new TitlePanelContainer(self.widget, { split: true, small: true });
+        const signatureTitle = new ValuePanelContainer(self.widget, { split: true, small: true });
         signatureTitle.set(signatureLabel, signature.signature);
         this.element.wrapper.append(signatureTitle.get().render());
       }

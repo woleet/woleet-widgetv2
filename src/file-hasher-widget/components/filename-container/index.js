@@ -5,6 +5,7 @@ import styles from './index.scss';
 
 /**
  * FilenameContainer
+ * The container displays the filename
  */
 class FilenameContainer {
   constructor(widget) {
@@ -12,7 +13,10 @@ class FilenameContainer {
     
     this.init();
   }
-  
+
+  /**
+   * Create all container elements and initialize them
+   */
   init() {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.filename.wrapper.code)
@@ -54,6 +58,10 @@ class FilenameContainer {
     const self = this;
   }
 
+  /**
+   * If downloading process is finished, the filename is ready to be displayed
+   * @param file
+   */
   downloadingFinished(file) {
     this.element.show();
     this.element.title.text(file.name);

@@ -1,4 +1,5 @@
 const styleCodes = {
+  // Define all style codes to control uniqueness of class names
   code: ['proof_verifier_widget--wrapper'],
   
   containers: {
@@ -33,16 +34,16 @@ const styleCodes = {
     label: {
       code: ['panel_container--label'],
     },
-    title: {
-      code: ['panel_container--title'],
+    value: {
+      code: ['panel_container--value'],
       label: {
-        code: ['panel_container--title-item', 'panel_container--title-label']
+        code: ['panel_container--value-wrapper', 'panel_container--value-label']
       },
-      value: {
-        code: ['panel_container--title-item', 'panel_container--title-value']
+      default: {
+        code: ['panel_container--value-wrapper', 'panel_container--value-default']
       },
-      valueFilled: {
-        code: ['panel_container--title-item', 'panel_container--title-value_filled']
+      style: {
+        code: ['panel_container--value-wrapper', 'panel_container--value-style']
       }
     },
     common: {
@@ -89,8 +90,8 @@ const styleCodes = {
       code: ['error_container'],
     }
   },
-  
-  /*common styles*/
+
+  // Common styles
   widget: {
     hidden:['woleet_widget_hidden'],
     cursorPointer: ['cursor-pointer']

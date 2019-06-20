@@ -11,6 +11,8 @@ import loader from "Common/services/loader";
 
 /**
  * WidgetContainer
+ *
+ * This is the common widget container
  */
 class WidgetContainer {
   constructor(widget) {
@@ -23,6 +25,7 @@ class WidgetContainer {
     this.cursorPointerClass = utils.extractClasses(styles, ['cursor-pointer'])[0];
 
     if (!window.woleet) {
+      // If Woleet library wasn't initialized, initialize it
       loader.getWoleetLibs()
         .then((woleet) => {
           window.woleet = woleet;
@@ -44,6 +47,9 @@ class WidgetContainer {
     this.init();
   }
 
+  /**
+   * Create all container elements and initialize them
+   */
   init() {
     let {mode} = this.widget.configuration;
     let {el: logoElement, attributes: {width: iconWidth, height: iconHeight}} = this.iconAttributes;
@@ -151,17 +157,23 @@ class WidgetContainer {
 
   receiptFileFailed(error) {
     this.widget.observers.errorCaughtObserver.broadcast(error);
+    // this.element.iconContainer.off('click', this.iconClickCallback);
   }
 
   /**
    * Initialize events for the ICON mode
    */
   initializeEvents() {
-    const self = this;
-
-    self.element.iconContainer.on('click', () => {
-      self.widget.observers.iconClickedObserver.broadcast();
+    this.element.iconContainer.on('click', () => {
+      this.widget.observers.iconClickedObserver.broadcast()
     });
+  }
+
+  /**
+   * The callback to click on icon
+   */
+  iconClickCallback() {
+    this.widget.observers.iconClickedObserver.broadcast();
   }
 
   /**

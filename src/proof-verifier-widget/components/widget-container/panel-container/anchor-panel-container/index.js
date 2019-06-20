@@ -2,10 +2,12 @@ import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
-import TitlePanelContainer from "ProofVerifierComponents/widget-container/panel-container/title-panel-container";
+import ValuePanelContainer from "ProofVerifierComponents/widget-container/panel-container/value-panel-container";
 
 /**
  * AnchorPanelContainer
+ *
+ * The container shows the anchored hash section
  */
 class AnchorPanelContainer {
   constructor(widget) {
@@ -16,7 +18,10 @@ class AnchorPanelContainer {
   
     this.init();
   }
-  
+
+  /**
+   * Create all container elements and initialize them
+   */
   init() {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.anchor.code)
@@ -28,26 +33,33 @@ class AnchorPanelContainer {
     
     this.initializeObservers();
   }
-  
-  // Initialize the observers
+
+  /**
+   * Initialize the observers
+   */
   initializeObservers() {
     const self = this;
 
+    // If the receipt was verified
     self.widget.observers.receiptVerifiedObserver.subscribe((data) => {
       self.receiptParsed(data);
     });
   }
 
+  /**
+   * If the receipt was verified
+   */
   receiptParsed(receiptObj) {
     const self = this;
     const {confirmations, timestamp, receipt: { targetHash }} = receiptObj;
     
     if (confirmations || timestamp || targetHash) {
       this.element.show();
-      
+
+      // Display all the titles
       if (targetHash) {
         const targetHashLabel = utils.translate('anchored_hash', self.lang);
-        const targetHashTitle = new TitlePanelContainer(self.widget, { filled: 'light', split: true, small: true });
+        const targetHashTitle = new ValuePanelContainer(self.widget, { style: 'anchoredHash', split: true, small: true });
         targetHashTitle.set(targetHashLabel, targetHash);
         this.element.wrapper.append(targetHashTitle.get().render());
       }
@@ -55,14 +67,14 @@ class AnchorPanelContainer {
       if (confirmations) {
         const timestampLabel = utils.translate('timestamp', self.lang);
         const formattedTimestamp = utils.formatDate(timestamp, self.lang);
-        const targetHashTitle = new TitlePanelContainer(self.widget, { filled: 'dark', small: true });
+        const targetHashTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', small: true });
         targetHashTitle.set(timestampLabel, formattedTimestamp);
         this.element.wrapper.append(targetHashTitle.get().render());
       }
       
       if (confirmations) {
         const confirmationLabel = utils.translate('confirmations', self.lang);
-        const confirmationTitle = new TitlePanelContainer(self.widget, { small: true });
+        const confirmationTitle = new ValuePanelContainer(self.widget, { small: true });
         confirmationTitle.set(confirmationLabel, confirmations);
         this.element.wrapper.append(confirmationTitle.get().render());
       }
