@@ -29,12 +29,12 @@ function getProofVerifierWidgetDefaults() {
         value: {
           background: 'none',
           color: '#31708f',
-          theme: {
-            light: {
+          style: {
+            anchoredHash: {
               background: '#D7E9F6',
               color: '#31708f',
             },
-            dark: {
+            signedHash: {
               background: '#31708f',
               color: '#fff',
             }

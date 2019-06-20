@@ -96,13 +96,13 @@ The following attributes can be set on `<div>` tag to configure the look and beh
            
     * __url__ - the proxy URL; _DEFAULT_: ___null___
            
-    * __enabled__ - the proxy state;  _DEFAULT_: ___false___
+    * __enabled__ - the proxy state; _DEFAULT_: ___false___
     
 * __file__ - Downloaded file options:
     
     * __url__ - URL of the file to download
     
-    * __fastDownload__ - download the file as soon as the widget is initialized;  _DEFAULT_: ___false___
+    * __fastDownload__ - download the file as soon as the widget is initialized; _DEFAULT_: ___false___
 
 * __observers__ - callback functions called by the widget
 
@@ -268,19 +268,19 @@ The following attributes can be set on `<div>` tag to configure the look and beh
         
             * __background__ - the background value color;_DEFAULT_: ___none___
             
-            * __theme__ - the value themes
+            * __style__ - the decoration style of the value element
             
-                * __light__ - The styles of the light mode:
+                * __anchoredHash__ - The styles of the anchored hash value:
             
-                    * __color__ - the value color  of the light mode;_DEFAULT_: ___#31708f___
+                    * __color__ - the value color of the anchored hash value;_DEFAULT_: ___#31708f___
                         
-                    * __background__ - the background value color of the light mode;_DEFAULT_: ___#D7E9F6___
+                    * __background__ - the background value color of the anchored hash value;_DEFAULT_: ___#D7E9F6___
                     
-                * __dark__ - The styles of the light mode:
+                * __signedHash__ - The styles of the signed hash value:
                         
-                     * __color__ - the value color  of the dark mode;_DEFAULT_: ___#fff___
+                     * __color__ - the value color of the the signed hash value;_DEFAULT_: ___#fff___
                      
-                     * __background__ - the background value color of the dark mode;_DEFAULT_: ___#31708f___
+                     * __background__ - the background value color of the signed hash value;_DEFAULT_: ___#31708f___
         
 * __receipt__ - The receipt file option:
     

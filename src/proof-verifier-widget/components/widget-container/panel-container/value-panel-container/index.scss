@@ -17,7 +17,7 @@
         color: var(--proof-verifier-panel-color);
         text-align: right;
       }
-      &-default, &-theme {
+      &-default, &-style {
         font-size: var(--proof-verifier-panel-value-font-size);
         color: var(--proof-verifier-panel-value-color);
         background-color: var(--proof-verifier-panel-value-background-color);
@@ -27,7 +27,7 @@
           display: block;
         }
       }
-      &-theme {
+      &-style {
         span {
           background-color: var(--proof-verifier-panel-value-background-color);
           color: var(--proof-verifier-panel-value-color);

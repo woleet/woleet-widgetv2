@@ -59,7 +59,7 @@ class AnchorPanelContainer {
       // Display all the titles
       if (targetHash) {
         const targetHashLabel = utils.translate('anchored_hash', self.lang);
-        const targetHashTitle = new ValuePanelContainer(self.widget, { theme: 'light', split: true, small: true });
+        const targetHashTitle = new ValuePanelContainer(self.widget, { style: 'anchoredHash', split: true, small: true });
         targetHashTitle.set(targetHashLabel, targetHash);
         this.element.wrapper.append(targetHashTitle.get().render());
       }
@@ -67,7 +67,7 @@ class AnchorPanelContainer {
       if (confirmations) {
         const timestampLabel = utils.translate('timestamp', self.lang);
         const formattedTimestamp = utils.formatDate(timestamp, self.lang);
-        const targetHashTitle = new ValuePanelContainer(self.widget, { theme: 'dark', small: true });
+        const targetHashTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', small: true });
         targetHashTitle.set(timestampLabel, formattedTimestamp);
         this.element.wrapper.append(targetHashTitle.get().render());
       }

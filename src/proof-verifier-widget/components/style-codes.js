@@ -42,8 +42,8 @@ const styleCodes = {
       default: {
         code: ['panel_container--value-wrapper', 'panel_container--value-default']
       },
-      theme: {
-        code: ['panel_container--value-wrapper', 'panel_container--value-theme']
+      style: {
+        code: ['panel_container--value-wrapper', 'panel_container--value-style']
       }
     },
     common: {

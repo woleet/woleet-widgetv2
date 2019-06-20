@@ -59,14 +59,14 @@ class SignPanelContainer {
       // Display all the titles
       if (signature.signedHash) {
         const signedHashLabel = utils.translate('signed_hash', self.lang);
-        const signedHashTitle = new ValuePanelContainer(self.widget, { theme: 'dark', split: true, small: true });
+        const signedHashTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', split: true, small: true });
         signedHashTitle.set(signedHashLabel, signature.signedHash);
         this.element.wrapper.append(signedHashTitle.get().render());
       }
     
       if (signature.pubKey) {
         const pubKeyLabel = utils.translate('signee', self.lang);
-        const pubKeyTitle = new ValuePanelContainer(self.widget, { theme: 'dark', small: true });
+        const pubKeyTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', small: true });
         pubKeyTitle.set(pubKeyLabel, signature.pubKey);
         this.element.wrapper.append(pubKeyTitle.get().render());
       }

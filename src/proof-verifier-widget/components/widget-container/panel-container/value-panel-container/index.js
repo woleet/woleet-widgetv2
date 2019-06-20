@@ -9,7 +9,7 @@ import styles from './index.scss';
  * The container displays customized title of the PANEL container
  */
 class ValuePanelContainer {
-  constructor(widget, options = {split: false, theme: false, small: false}) {
+  constructor(widget, options = {split: false, style: false, small: false}) {
     this.element = null;
     this.widget = widget;
     this.options = options;
@@ -30,8 +30,8 @@ class ValuePanelContainer {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.value.label.code)
     });
     
-    const valueClassCode = this.options.theme ?
-      styleCodes.panelContainer.value.theme : styleCodes.panelContainer.value.default;
+    const valueClassCode = this.options.style ?
+      styleCodes.panelContainer.value.style : styleCodes.panelContainer.value.default;
     this.element.item = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, valueClassCode.code)
     });
@@ -60,8 +60,8 @@ class ValuePanelContainer {
     }
 
     // And the color text
-    const colorOptions = valueOptions.theme && valueOptions.theme[this.options.theme] ?
-      valueOptions.theme[this.options.theme] : valueOptions;
+    const colorOptions = valueOptions.style && valueOptions.style[this.options.style] ?
+      valueOptions.style[this.options.style] : valueOptions;
   
     this.element.target().style
       .setProperty('--proof-verifier-panel-value-color', colorOptions.color);
