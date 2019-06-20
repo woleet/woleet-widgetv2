@@ -32,6 +32,7 @@
     "errors": {
       "url_not_found": "Url wasn't found",
       "proof_receipt_not_found": "Proof receipt not found",
+      "receipt_json_broken": "The receipt JSON file is broken",
       "need_receipt": {
         "main": "No public proof found",
         "sub": "No public proof receipt found at Woleet: you must provide one to verify this file"

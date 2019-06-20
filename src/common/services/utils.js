@@ -1,15 +1,6 @@
 import i18next from 'i18next';
 
 /**
- * Check if the item is object
- * @param item
- * @returns {boolean}
- */
-export function isObject(item) {
-  return (item && typeof item === 'object' && !Array.isArray(item));
-}
-
-/**
  * Deep merge two objects.
  * @param target
  * @param sources
@@ -511,9 +502,18 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
   return results;
 }
 
+/**
+ * Check if the argument is Object
+ * TODO: move to a separate type service
+ */
+function isObject(value) {
+  return value && typeof value === 'object' && value.constructor === Object;
+}
+
 export default  {
   bind,
   byString,
+  isObject,
   setTimer,
   svgToHTML,
   translate,

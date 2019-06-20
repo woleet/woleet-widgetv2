@@ -16,7 +16,9 @@ import loader from "Common/services/loader";
  */
 class WidgetContainer {
   constructor(widget) {
+    const self = this;
     this.widget = widget;
+    this.delayedReceiptJson = null;
     this.fileReader = new FileReader();
     this.iconAttributes = utils.svgToHTML(Icon);
     this.receipt = this.widget.configuration.receipt;
@@ -29,8 +31,12 @@ class WidgetContainer {
       loader.getWoleetLibs()
         .then((woleet) => {
           window.woleet = woleet;
-          this.verifier = window.woleet ? window.woleet.verify : null;
-          this.receiptService = window.woleet ? window.woleet.receipt : null;
+          self.verifier = woleet ? woleet.verify : null;
+          self.receiptService = woleet ? woleet.receipt : null;
+
+          if (this.delayedReceiptJson) {
+            self.verifyReceiptFile(this.delayedReceiptJson);
+          }
         });
     } else {
       this.verifier = window.woleet ? window.woleet.verify : null;
@@ -89,8 +95,19 @@ class WidgetContainer {
     const self = this;
 
     this.widget.observers.widgetInitializedObserver.subscribe((data) => {
-      if (self.receipt && self.receipt.url) {
-        self.downloadFile(self.receipt.url, self.observerMappers.receipt)
+      // If the receipt file wasn't defined broadcast an error
+      if (!self.receipt || (!self.receipt.url && !self.receipt.payload)) {
+        self.widget.observers.errorCaughtObserver.broadcast({message: 'need_receipt'});
+      } else if (self.receipt) {
+        if (!self.receipt.url && self.receipt.payload) {
+          if (utils.isObject(self.receipt.payload)) {
+            self.prepareFileVerification(self.receipt.payload);
+          } else {
+            self.widget.observers.errorCaughtObserver.broadcast('receipt_json_broken');
+          }
+        } else if (self.receipt.url && !self.receipt.payload) {
+          self.downloadFile(self.receipt.url, self.observerMappers.receipt);
+        }
       }
     });
     this.widget.observers.receiptDownloadingFinishedObserver.subscribe((data) => {
@@ -103,7 +120,7 @@ class WidgetContainer {
       try {
         let parsedResult = JSON.parse(this.result);
         self.widget.observers.receiptParsedObserver.broadcast(parsedResult);
-        self.verifyReceiptFile(parsedResult);
+        self.prepareFileVerification(parsedResult);
       } catch(err) {}
     };
   }
@@ -131,24 +148,44 @@ class WidgetContainer {
     request.start();
   }
 
+  /**
+   * Prepare the file verification
+   * @param receiptJson
+   * @return {*}
+   */
+  prepareFileVerification(receiptJson) {
+    const self = this;
+
+    // If the verifier is ready, verify the receipt
+    if (self.verifier) {
+      this.verifyReceiptFile(receiptJson);
+    } else {
+      // mark the file as delayed
+      self.delayedReceiptJson = receiptJson;
+    }
+  }
+
   verifyReceiptFile(receiptJson) {
     const self = this;
     const promises = [];
 
     promises.push(self.verifier.receipt(receiptJson));
     promises.push(woleetApi.receipt.verify(receiptJson));
+    promises.push(self.receiptService.validate(receiptJson));
 
     return Promise.all(promises)
-      .then(([verification, identityVerification]) => {
+      .then(([verification, identityVerification, validation]) => {
+        console.log('VERIFICATION', verification, identityVerification, validation);
+
         verification.identityVerificationStatus = utils.extendObject(
           verification.identityVerificationStatus,
           identityVerification.identityVerificationStatus);
         self.widget.observers.receiptVerifiedObserver.broadcast(verification);
+
+        if (self.delayedReceiptJson) {
+          self.delayedReceiptJson = null;
+        }
       });
-    /**
-     * TODO: client side verification. This methods returns boolean value
-     * const verified = self.receiptService.validate(receiptJson);
-     */
   }
 
   receiptFileDownloaded(blob) {
