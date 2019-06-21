@@ -32,7 +32,6 @@
     var logElementItem = document.createElement('p');
 
     logElementItem.innerHTML = 'Receipt "' + receipt.targetHash + '" computed by widget id "' + widgetId + '"';
-    logElement.appendChild(logElementItem);
     console.log('The receipt was verified', widgetId, receipt, verificationResult);
   }
 
@@ -100,14 +99,16 @@
 <div class='proof-verifier-widget'
      lang='en'
      mode="panel"
+     styles-icon-width="32px"
+     styles-icon-height="36px"
      verification-client="false"
-     styles-banner='{"width": "800px", "background": "black", "color": "red"}'
+     styles-banner='{"width": "350px", "background": "black", "color": "red"}'
      styles-panel='{"header": {"color": "red"}, "color": "red", "background": "black"}'
      styles-panel-control='{"color": "red", "background": "black"}'
      styles-panel-value='{"style": {"anchoredHash": {"color": "black", "background": "white"}, "signedHash": {"color": "green", "background": "yellow"}}}'
      receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967'
 ></div>
 
-<div class="log verification-logging" id="verification-logging"></div>
+<!--<div class="log verification-logging" id="verification-logging"></div>-->
 </body>
 </html>

@@ -82,7 +82,7 @@ class PanelContainer {
     if (self.expanded) {
       self.element.target().style.setProperty('--proof-verifier-panel-height', 0);
     } else {
-      self.element.target().style.setProperty('--proof-verifier-panel-height', '700px'); //self.styles.panel.height
+      self.element.target().style.setProperty('--proof-verifier-panel-height', '1000px'); //self.styles.panel.height
     }
     self.expanded = !self.expanded;
   }
@@ -96,7 +96,7 @@ class PanelContainer {
     switch(mode) {
       // If the mode is PANEL, show the panel and does not allow it to be hidden
       case constants.PROOF_VERIFIER_MODE_PANEL:
-        self.element.target().style.setProperty('--proof-verifier-panel-height', '700px');
+        self.element.target().style.setProperty('--proof-verifier-panel-height', '1000px');
         self.element.target().style.setProperty('--proof-verifier-panel-width', self.styles.panel.width);
         break;
       case constants.PROOF_VERIFIER_MODE_ICON:
