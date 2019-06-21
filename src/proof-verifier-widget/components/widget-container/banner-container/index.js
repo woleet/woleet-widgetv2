@@ -60,8 +60,8 @@ class BannerContainer {
     /**
      * If the receipt was verified
      */
-    self.widget.observers.receiptVerifiedObserver.subscribe((data) => {
-      self.receiptParsed(data);
+    self.widget.observers.receiptVerifiedObserver.subscribe((data, receipt) => {
+      self.receiptParsed(data, receipt);
     });
 
     self.widget.observers.receiptDownloadingFailedObserver.subscribe((data) => {
@@ -87,33 +87,38 @@ class BannerContainer {
 
   /**
    * If the receipt was verified display the banner part of the verification
+   * @param message
+   * @param receipt
    */
-  receiptParsed(message) {
+  receiptParsed(message, receipt) {
     const self = this;
-    const sig = message.receipt.signature;
-    const idStatus = message.identityVerificationStatus;
-    const identity = idStatus ? idStatus.identity : false;
-    const pubKey = sig ? sig.pubKey : null;
-    const { banner: { width: bannerWidth } } = self.widget.configurator.getStyles();
 
-    self.element.show();
+    if (message) {
+      const sig = receipt.signature;
+      const idStatus = message.identityVerificationStatus;
+      const identity = idStatus ? idStatus.identity : false;
+      const pubKey = sig ? sig.pubKey : null;
+      const { banner: { width: bannerWidth } } = self.widget.configurator.getStyles();
 
-    // If the result has the confirmations than parse it and display the info
-    if (message.confirmations) {
-      let date = utils.formatDate(message.timestamp, self.lang);
-      let transParams = {date: date};
-      let transCode = pubKey ? 'signed' : 'timestamped';
+      self.element.show();
 
-      if (identity) {
-        transParams.organization = identity.organization;
-        transParams.context = 'by';
+      // If the result has the confirmations than parse it and display the info
+      if (message.confirmations) {
+        let date = utils.formatDate(message.timestamp, self.lang);
+        let transParams = {date: date};
+        let transCode = pubKey ? 'signed' : 'timestamped';
+
+        if (identity) {
+          transParams.organization = identity.organization;
+          transParams.context = 'by';
+        }
+
+        const translatedText = utils.translate(transCode, self.lang, transParams);
+        const translatedTextClasses = utils.extractClasses(styles, styleCodes.bannerContainer.wrapper.title.code);
+        const titleElement = VirtualDOMService.createResponsiveText(translatedText, bannerWidth, translatedTextClasses);
+
+        self.element.wrapper.target().append(titleElement);
       }
-
-      const translatedText = utils.translate(transCode, self.lang, transParams);
-      const translatedTextClasses = utils.extractClasses(styles, styleCodes.bannerContainer.wrapper.title.code);
-      const titleElement = VirtualDOMService.createResponsiveText(translatedText, bannerWidth, translatedTextClasses);
-
-      self.element.wrapper.target().append(titleElement);
     }
   }
 

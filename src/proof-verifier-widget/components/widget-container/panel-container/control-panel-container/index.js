@@ -77,8 +77,8 @@ class ControlPanelContainer {
     const self = this;
 
     // If the receipt was verified
-    self.widget.observers.receiptVerifiedObserver.subscribe((data) => {
-      self.receiptParsed(data);
+    self.widget.observers.receiptVerifiedObserver.subscribe((result, receipt) => {
+      self.receiptParsed(result, receipt);
     });
   }
   
@@ -101,16 +101,18 @@ class ControlPanelContainer {
 
   /**
    * If the receipt was verified
+   * @param verificationResult
+   * @param receipt
    */
-  receiptParsed(receiptObj) {
+  receiptParsed(verificationResult, receipt) {
     const self = this;
 
-    if (receiptObj) {
+    if (receipt) {
       // Build and display the transaction link
-      self.receipt = receiptObj;
+      self.receipt = receipt;
       self.element.show();
       self.element.wrapper.downloadReceiptEl.show();
-      const {receipt: {anchors = []}} = receiptObj;
+      const {anchors = []} = receipt;
       if (anchors.length > 0) {
         self.element.wrapper.viewTransactionEl.show();
         const transaction = anchors[0];

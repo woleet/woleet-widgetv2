@@ -288,10 +288,10 @@ The following attributes can be set on `<div>` tag to configure the look and beh
        
 * __verification__ - The receipt file verification:
            
-    * __server__ - The option defined the side of the receipt verification; _DEFAULT_: ___true___
+    * __client__ - The option defined the side of the receipt verification; _DEFAULT_: ___true___
     
-    If the option is *true*, the receipt is verified by Woleet API (ie. backend side).
-    If the option is *false* then the client side (Woleet WebLibs) is used for the verification process.
+    If the option is *true*, the the client side (Woleet WebLibs) is used for the verification process.
+    If the option is *false*, receipt is verified by Woleet API (ie. backend side).
 
 ### Usage
 
@@ -313,7 +313,7 @@ There are several ways to configure the widget:
 <div class='proof-verifier-widget'
      lang='fr'
      mode="banner"
-     verification-server="false"
+     verification-client="false"
      styles-banner-width="650px"
      styles-zIndex="20"
      receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967&name=Terms%20of%20Servicev3_20180727.pdf'

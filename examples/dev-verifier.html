@@ -8,11 +8,34 @@
         .proof-verifier-widget {
             padding: 20px 0;
         }
+
+        .log {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 10px 20px;
+            text-align: justify;
+            color: white;
+            font-size: 18px;
+        }
+
+        .verification-logging {
+            background: #0074D9;
+        }
     </style>
 </head>
 <body>
 <script>
   var dev = true;
+
+  function receiptVerified(widgetId, receipt, verificationResult) {
+    var logElement = document.getElementById('verification-logging');
+    var logElementItem = document.createElement('p');
+
+    logElementItem.innerHTML = 'Receipt "' + receipt.targetHash + '" computed by widget id "' + widgetId + '"';
+    logElement.appendChild(logElementItem);
+    console.log('The receipt was verified', widgetId, receipt, verificationResult);
+  }
+
   (function (d,s,i,f) {
     var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
     js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
@@ -20,7 +43,7 @@
 </script>
 <div class='proof-verifier-widget'
      lang='en'
-     verification-server="false"
+     verification-client="false"
      styles-icon-width="32px"
      styles-icon-height="36px"
      styles-banner-width="450px"
@@ -29,37 +52,62 @@
 <div class='proof-verifier-widget'
      lang='de'
      mode="banner"
-     verification-server="false"
+     verification-client="false"
      styles-banner-width="650px"
-     styles-zIndex="20"
+     styles-zIndex="80"
      receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967'
 ></div>
-<!--Receipt payload-->
+<p>Client verified</p>
 <div class='proof-verifier-widget'
+     id='proof-verifier-widget-client-verified'
      lang='de'
      mode="banner"
-     verification-server="false"
      styles-banner-width="650px"
+     styles-zIndex="60"
+     observers-receiptVerified='window.receiptVerified'
+     receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967'
+></div>
+<p>Server verified</p>
+<div class='proof-verifier-widget'
+     id='proof-verifier-widget-server-verified'
+     lang='de'
+     mode="banner"
+     styles-zIndex="40"
+     styles-banner-width="650px"
+     verification-client="false"
+     observers-receiptVerified='window.receiptVerified'
+     receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967'
+></div>
+<p>Receipt payload</p>
+<div class='proof-verifier-widget'
+     id='proof-verifier-widget-receipt-payload'
+     lang='de'
+     mode="banner"
      styles-zIndex="20"
+     styles-banner-width="650px"
+     verification-client="false"
+     observers-receiptVerified='window.receiptVerified'
      receipt-payload='{"targetHash":"a12eca47426b380f85ef3cbdc80db42df818988f09899d135657a4ba3239be2d","signature":{"signature":"H5XaS2m87Sy/0Sa/24XJ+YH/6KqpF83/jO/PqHCdkdM/dC7IsnZEiu1w5cNwDiD2CFMJn7C/DxAZxLL+aF1BIMQ=","signedHash":"b1567fae913f18ce5a85f24479e0a3595ff4f2dacab7934a3e04d4de61295aa5","identityURL":"https://identity.woleet.io/identity","pubKey":"1AAdZsAW9J3HjBdHy3gds3piSjAUJFruf1"},"merkleRoot":"3435d22237dfd3284397a15a3a59ac63daabd79ee671fce3937f2f201d5569c9","proof":[{"left":"68dcdc9f0508d42cabb9134f665d02ec72956482fc7022101fd3fa1389ea91c9"},{"right":"beb9420323a6f399fa8f59a50f88f7bb75886141d5802ec07aa94d1a0ed813d2"},{"left":"65b265b672133f6c8f757ba5261ddfc2936df39c739b424909ca42f574d1accd"},{"right":"0820b710bd8402e8e8362f9804a321c37adb98e3364835586aaed88d6dc651c9"},{"right":"2918dee4bbe4c5deee2d00804a2bd759719997ec7d050639c0cf1ba2c378f8a6"},{"right":"a3c74864c2ca381efc186be7a0513f142399b8732bed49d4e056e1713aeddeba"},{"left":"a076a93ea6e1e824384c3602bc884fdb0b19dec64bd92ead353669aaf6b1664f"},{"left":"a258f2fa207aa9163acad1250228ab6cfc4409598c80ae557e37987eb6b25238"},{"left":"1854d33ce52cfb1c399533abef692aaec240a70fee4cde2f4f42b579b3550b4e"},{"left":"da8cffca9c966b5de91ae94eeb1a0946aa2afa3752d5e6fe6ff5c97b7596352e"}],"anchors":[{"sourceId":"27af9af30b8792be8746f1a44db6a827b5b68760319214138fdc2f544942737b","type":"BTCOpReturn"}],"type":"ChainpointSHA256v2","@context":["https://w3id.org/chainpoint/v2","https://w3id.org/woleet/signature/v1"]}'
 ></div>
 <!--Without receipt-->
 <div class='proof-verifier-widget'
      lang='de'
      mode="banner"
-     verification-server="false"
+     verification-client="false"
      styles-banner-width="650px"
      styles-zIndex="20"
 ></div>
 <div class='proof-verifier-widget'
      lang='en'
      mode="panel"
-     verification-server="false"
+     verification-client="false"
      styles-banner='{"width": "800px", "background": "black", "color": "red"}'
      styles-panel='{"header": {"color": "red"}, "color": "red", "background": "black"}'
      styles-panel-control='{"color": "red", "background": "black"}'
      styles-panel-value='{"style": {"anchoredHash": {"color": "black", "background": "white"}, "signedHash": {"color": "green", "background": "yellow"}}}'
      receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967'
 ></div>
+
+<div class="log verification-logging" id="verification-logging"></div>
 </body>
 </html>

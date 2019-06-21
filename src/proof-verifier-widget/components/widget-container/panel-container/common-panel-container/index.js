@@ -49,24 +49,26 @@ class CommonPanelContainer {
     const self = this;
 
     // If the receipt was verified
-    self.widget.observers.receiptVerifiedObserver.subscribe((data) => {
-      self.receiptParsed(data);
+    self.widget.observers.receiptVerifiedObserver.subscribe((data, receipt) => {
+      self.receiptParsed(data, receipt);
     });
   }
 
   /**
    * If the receipt was verified
    */
-  receiptParsed(receiptObj) {
+  receiptParsed(verificationResult, receipt) {
     const self = this;
-    const {identityVerificationStatus: { identity, code, certificates = [] } } = receiptObj;
-  
-    if (identity || code || certificates) {
-      this.element.show();
-      // Set the content of both section blocks
-      if (identity) {
-        self.renderLeftSide(code, certificates);
-        self.renderRightSide(identity)
+    if (verificationResult) {
+      const {identityVerificationStatus: { identity, code, certificates = [] } } = verificationResult;
+
+      if (identity || code || certificates) {
+        this.element.show();
+        // Set the content of both section blocks
+        if (identity) {
+          self.renderLeftSide(code, certificates);
+          self.renderRightSide(identity)
+        }
       }
     }
   }

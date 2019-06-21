@@ -79,6 +79,10 @@ class ProofVerifierWidget {
       observerNames.forEach(observerName => {
         const observer = configuration.observers[observerName];
         switch (observerName.toLowerCase()) {
+          case 'receiptverified':
+            this.observers.receiptVerifiedObserver
+              .subscribe((verificationResult, receipt) => observer(self.widgetId, receipt, verificationResult));
+            break;
           default:
             break;
         }

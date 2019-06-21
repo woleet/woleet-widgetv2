@@ -43,7 +43,7 @@ function getProofVerifierWidgetDefaults() {
       }
     },
     verification: {
-      server: true
+      client: true
     },
     receipt: {
       url: null,

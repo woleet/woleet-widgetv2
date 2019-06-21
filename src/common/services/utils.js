@@ -404,7 +404,15 @@ function getObjectProperty(object, property) {
  */
 function formatDate(date, lang) {
   let options = {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'};
-  return date.toLocaleDateString(lang, options)
+
+  let timestamp = date;
+
+  if (isNumber(timestamp)) {
+    timestamp = new Date();
+    timestamp.setTime(date);
+  }
+
+  return timestamp.toLocaleDateString(lang, options)
 }
 
 /**
@@ -510,10 +518,18 @@ function isObject(value) {
   return value && typeof value === 'object' && value.constructor === Object;
 }
 
+/**
+ * Returns if a value is really a number
+ */
+function isNumber(value) {
+  return typeof value === 'number' && isFinite(value);
+}
+
 export default  {
   bind,
   byString,
   isObject,
+  isNumber,
   setTimer,
   svgToHTML,
   translate,

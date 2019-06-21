@@ -41,18 +41,19 @@ class SignPanelContainer {
     const self = this;
 
     // If the receipt was verified
-    self.widget.observers.receiptVerifiedObserver.subscribe((data) => {
-      self.receiptParsed(data);
+    self.widget.observers.receiptVerifiedObserver.subscribe((result, receipt) => {
+      self.receiptParsed(result, receipt);
     });
   }
 
   /**
    * If the receipt was verified
    */
-  receiptParsed(receiptObj) {
+  receiptParsed(verificationResult, receipt) {
     const self = this;
-    const {receipt: { signature = null }} = receiptObj;
-    
+
+    const {signature = null } = receipt;
+
     if (signature !== null) {
       this.element.show();
 
@@ -63,14 +64,14 @@ class SignPanelContainer {
         signedHashTitle.set(signedHashLabel, signature.signedHash);
         this.element.wrapper.append(signedHashTitle.get().render());
       }
-    
+
       if (signature.pubKey) {
         const pubKeyLabel = utils.translate('signee', self.lang);
         const pubKeyTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', small: true });
         pubKeyTitle.set(pubKeyLabel, signature.pubKey);
         this.element.wrapper.append(pubKeyTitle.get().render());
       }
-    
+
       if (signature.signature) {
         const signatureLabel = utils.translate('signature', self.lang);
         const signatureTitle = new ValuePanelContainer(self.widget, { split: true, small: true });

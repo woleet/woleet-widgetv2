@@ -26,21 +26,24 @@ class WidgetContainer {
     this.lang = this.widget.configurator.getLanguage();
     this.cursorPointerClass = utils.extractClasses(styles, ['cursor-pointer'])[0];
 
-    if (!window.woleet) {
-      // If Woleet library wasn't initialized, initialize it
-      loader.getWoleetLibs()
-        .then((woleet) => {
-          window.woleet = woleet;
-          self.verifier = woleet ? woleet.verify : null;
-          self.receiptService = woleet ? woleet.receipt : null;
+    const {verification: {client: clientVerificated}} = this.widget.configuration;
 
-          if (this.delayedReceiptJson) {
-            self.verifyReceiptFile(this.delayedReceiptJson);
-          }
-        });
-    } else {
-      this.verifier = window.woleet ? window.woleet.verify : null;
-      this.receiptService = window.woleet ? window.woleet.receipt : null;
+    //If the receipt is verified by client side, initialize the library
+    if (clientVerificated) {
+      if (!window.woleet) {
+        // If Woleet library wasn't initialized, initialize it
+        loader.getWoleetLibs()
+          .then((woleet) => {
+            window.woleet = woleet;
+            self.verifier = woleet ? woleet.verify : null;
+
+            if (this.delayedReceiptJson) {
+              self.verifyReceiptFile(this.delayedReceiptJson);
+            }
+          });
+      } else {
+        self.verifier = window.woleet ? window.woleet.verify : null;
+      }
     }
 
     this.observerMappers = {
@@ -155,32 +158,38 @@ class WidgetContainer {
    */
   prepareFileVerification(receiptJson) {
     const self = this;
+    const {verification: {client: clientVerificated}} = this.widget.configuration;
 
-    // If the verifier is ready, verify the receipt
-    if (self.verifier) {
-      this.verifyReceiptFile(receiptJson);
+    //If the receipt is verified by client side, check the verifier is loaded
+    if (clientVerificated) {
+      // If the verifier is ready, verify the receipt
+      if (self.verifier) {
+        this.verifyReceiptFile(receiptJson);
+      } else {
+        // mark the file as delayed
+        self.delayedReceiptJson = receiptJson;
+      }
     } else {
-      // mark the file as delayed
-      self.delayedReceiptJson = receiptJson;
+      //otherwise verify the receipt by the Woleet API
+      this.verifyReceiptFile(receiptJson);
     }
   }
 
   verifyReceiptFile(receiptJson) {
     const self = this;
     const promises = [];
+    const {verification: {client: clientVerificated}} = this.widget.configuration;
 
-    promises.push(self.verifier.receipt(receiptJson));
-    promises.push(woleetApi.receipt.verify(receiptJson));
-    promises.push(self.receiptService.validate(receiptJson));
-
+    //If the receipt is verified by client side, verify by the Woleet weblibs
+    if (clientVerificated) {
+      promises.push(self.verifier.receipt(receiptJson));
+    } else {
+      //otherwise verify the receipt by the Woleet API
+      promises.push(woleetApi.receipt.verify(receiptJson));
+    }
     return Promise.all(promises)
-      .then(([verification, identityVerification, validation]) => {
-        console.log('VERIFICATION', verification, identityVerification, validation);
-
-        verification.identityVerificationStatus = utils.extendObject(
-          verification.identityVerificationStatus,
-          identityVerification.identityVerificationStatus);
-        self.widget.observers.receiptVerifiedObserver.broadcast(verification);
+      .then(([verification]) => {
+        self.widget.observers.receiptVerifiedObserver.broadcast(verification, receiptJson);
 
         if (self.delayedReceiptJson) {
           self.delayedReceiptJson = null;
