@@ -32,7 +32,7 @@ const styleCodes = {
       }
     },
     label: {
-      code: ['panel_container--label'],
+      code: ['panel_container--label']
     },
     value: {
       code: ['panel_container--value'],
@@ -44,6 +44,12 @@ const styleCodes = {
       },
       style: {
         code: ['panel_container--value-wrapper', 'panel_container--value-style']
+      },
+      'responsive-small': {
+        code: ['panel_container--value-responsive_small'],
+        label: {
+          code: ['panel_container--value-responsive_small', 'panel_container--value-responsive_small-label']
+        }
       }
     },
     common: {

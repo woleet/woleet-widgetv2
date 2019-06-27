@@ -138,7 +138,7 @@ class CommonPanelContainer {
       this.element.wrapper.leftSide.append(labelObject.get().render());
   
       let urlLabel = utils.translate('identity_url', self.lang);
-      let urlObject = new ValuePanelContainer(self.widget);
+      let urlObject = new ValuePanelContainer(self.widget, { wordBreak: true });
       urlObject.set(urlLabel, constants.RECEIPT_IDENTITY_URL);
       this.element.wrapper.leftSide.append(urlObject.get().render());
   
@@ -157,13 +157,13 @@ class CommonPanelContainer {
       certificates.forEach((certificate) => {
         const {issuer, subject} = certificate;
         const subjectLabel = utils.translate('identity', self.lang);
-        const subjectTitle = new ValuePanelContainer(self.widget, { small: true });
+        const subjectTitle = new ValuePanelContainer(self.widget);
         const subjectValue = `${subject.CN || ''} : ${subject.O || ''} ${subject.OU || ''} ${subject.L || ''} ${subject.ST || ''} ${subject.C || ''}`;
         subjectTitle.set(subjectLabel, subjectValue);
         this.element.wrapper.leftSide.append(subjectTitle.get().render());
         
         const issuerLabel = utils.translate('certified_by', self.lang);
-        const issuerTitle = new ValuePanelContainer(self.widget, { small: true });
+        const issuerTitle = new ValuePanelContainer(self.widget);
         const issuerValue = `${issuer.CN || ''} : ${issuer.O || ''} ${subject.OU || ''} ${issuer.L || ''} ${issuer.ST || ''} ${issuer.C || ''}`;
         issuerTitle.set(issuerLabel, issuerValue);
         this.element.wrapper.leftSide.append(issuerTitle.get().render());

@@ -9,7 +9,7 @@ import styles from './index.scss';
  * The container displays customized title of the PANEL container
  */
 class ValuePanelContainer {
-  constructor(widget, options = {split: false, style: false, small: false}) {
+  constructor(widget, options = {split: false, style: false, wordBreak: false}) {
     this.element = null;
     this.widget = widget;
     this.options = options;
@@ -23,6 +23,10 @@ class ValuePanelContainer {
    * Create all container elements and initialize them
    */
   init() {
+    const self = this;
+    const {panel} = this.widget.configurator.getStyles();
+    const { value: valueOptions, width: panelWidth } = panel;
+
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.value.code)
     });
@@ -35,6 +39,43 @@ class ValuePanelContainer {
     this.element.item = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, valueClassCode.code)
     });
+
+    // Define element properties
+    if (this.options.wordBreak) {
+      this.element.item.target().style
+        .setProperty('word-break', 'break-word');
+    }
+
+    // And the color text
+    const colorOptions = valueOptions.style && valueOptions.style[this.options.style] ?
+      valueOptions.style[this.options.style] : valueOptions;
+
+    this.element.target().style
+      .setProperty('--proof-verifier-panel-value-color', colorOptions.color);
+    this.element.target().style
+      .setProperty('--proof-verifier-panel-value-background-color', colorOptions.background);
+
+    if (parseFloat(panelWidth) < 400) {
+      this.element.label.addClass(utils.extractClasses(styles, styleCodes.panelContainer.value['responsive-small'].label.code));
+      this.element.item.addClass(utils.extractClasses(styles, styleCodes.panelContainer.value['responsive-small'].code));
+    }
+
+    setTimeout(() => {
+      const cssProperties = getComputedStyle(this.element.target());
+      const {'width': elementItemWidth} = cssProperties; //cssProperties.getPropertyValue('width');
+      const floatElementItemWidth = parseFloat(elementItemWidth);
+
+      // And recalculate the font size of the text zone to make it responsive
+      let relFontsize = floatElementItemWidth * 0.08;
+      if (relFontsize > 14) {
+        relFontsize = 14;
+      }
+
+      self.element.item.target().style.setProperty('font-size', `${relFontsize}px`);
+
+      console.log('cssProperties', elementItemWidth, panelWidth, floatElementItemWidth);
+
+    }, 0)
   }
 
   /**
@@ -43,8 +84,6 @@ class ValuePanelContainer {
    * @param value
    */
   set(label, value) {
-    const {panel} = this.widget.configurator.getStyles();
-    const { value: valueOptions } = panel;
     let oValue = value;
     this.element.label.html(`<span>${label}</span>`);
 
@@ -53,23 +92,6 @@ class ValuePanelContainer {
       const halfValueLength = Math.ceil(value.length / 2);
       oValue = `${value.substr(0, halfValueLength)}<br>${value.substr(halfValueLength)}`
     }
-
-    console.log('panel', panel);
-
-    // Display the smaller text
-    if (this.options.small) {
-      this.element.target().style
-        .setProperty('--proof-verifier-panel-value-font-size', '75%');
-    }
-
-    // And the color text
-    const colorOptions = valueOptions.style && valueOptions.style[this.options.style] ?
-      valueOptions.style[this.options.style] : valueOptions;
-  
-    this.element.target().style
-      .setProperty('--proof-verifier-panel-value-color', colorOptions.color);
-    this.element.target().style
-      .setProperty('--proof-verifier-panel-value-background-color', colorOptions.background);
     
     this.element.item.html(`<span>${oValue}</span>`);
   }

@@ -525,8 +525,33 @@ function isNumber(value) {
   return typeof value === 'number' && isFinite(value);
 }
 
+function css2json(css){
+  let s = {};
+  if(!css) {
+    return s;
+  }
+
+  console.log('css', css);
+
+  if(css instanceof CSSStyleDeclaration) {
+    for(let i in css) {
+      if(css.hasOwnProperty(i) && (css[i]).toLowerCase) {
+        s[(css[i]).toLowerCase()] = (css[css[i]]);
+      }
+    }
+  } else if(typeof css === 'string') {
+    css = css.split('; ');
+    for (let i in css) {
+      let l = css[i].split(': ');
+      s[l[0].toLowerCase()] = (l[1]);
+    }
+  }
+  return s;
+}
+
 export default  {
   bind,
+  css2json,
   byString,
   isObject,
   isNumber,

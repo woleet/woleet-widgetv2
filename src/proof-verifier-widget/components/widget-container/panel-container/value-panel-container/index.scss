@@ -36,6 +36,18 @@
           padding: 3px 9px;
         }
       }
+      &-responsive {
+        &_small {
+          margin: 0;
+          min-width: 0;
+          text-align: left;
+          display: block;
+          margin-top: 5px;
+          &-label {
+            margin-top: 0;
+          }
+        }
+      }
     }
   }
 }

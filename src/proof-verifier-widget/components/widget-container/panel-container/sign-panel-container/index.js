@@ -60,21 +60,21 @@ class SignPanelContainer {
       // Display all the titles
       if (signature.signedHash) {
         const signedHashLabel = utils.translate('signed_hash', self.lang);
-        const signedHashTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', split: true, small: true });
+        const signedHashTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', split: true });
         signedHashTitle.set(signedHashLabel, signature.signedHash);
         this.element.wrapper.append(signedHashTitle.get().render());
       }
 
       if (signature.pubKey) {
         const pubKeyLabel = utils.translate('signee', self.lang);
-        const pubKeyTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', small: true });
+        const pubKeyTitle = new ValuePanelContainer(self.widget, { style: 'signedHash' });
         pubKeyTitle.set(pubKeyLabel, signature.pubKey);
         this.element.wrapper.append(pubKeyTitle.get().render());
       }
 
       if (signature.signature) {
         const signatureLabel = utils.translate('signature', self.lang);
-        const signatureTitle = new ValuePanelContainer(self.widget, { split: true, small: true });
+        const signatureTitle = new ValuePanelContainer(self.widget, { split: true });
         signatureTitle.set(signatureLabel, signature.signature);
         this.element.wrapper.append(signatureTitle.get().render());
       }
