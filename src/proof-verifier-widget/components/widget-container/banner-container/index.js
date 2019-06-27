@@ -103,7 +103,7 @@ class BannerContainer {
 
       self.element.show();
 
-      // If the result has the confirmations than parse it and display the info
+      // If the result has the confirmations, then parse it and display the info
       if (message.confirmations) {
         let date = utils.formatDate(message.timestamp, self.lang);
         let transParams = {date: date};

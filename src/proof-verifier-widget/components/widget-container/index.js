@@ -28,7 +28,7 @@ class WidgetContainer {
 
     const {verification: {client: clientVerificated}} = this.widget.configuration;
 
-    //If the receipt is verified by client side, initialize the library
+    // If the receipt is verified by client side, initialize the library
     if (clientVerificated) {
       if (!window.woleet) {
         // If Woleet library wasn't initialized, initialize it
@@ -160,17 +160,17 @@ class WidgetContainer {
     const self = this;
     const {verification: {client: clientVerificated}} = this.widget.configuration;
 
-    //If the receipt is verified by client side, check the verifier is loaded
+    // If the receipt is verified by client side, check the verifier is loaded
     if (clientVerificated) {
       // If the verifier is ready, verify the receipt
       if (self.verifier) {
         this.verifyReceiptFile(receiptJson);
       } else {
-        // mark the file as delayed
+        // Mark the file as delayed
         self.delayedReceiptJson = receiptJson;
       }
     } else {
-      //otherwise verify the receipt by the Woleet API
+      // Otherwise verify the receipt by the Woleet API
       this.verifyReceiptFile(receiptJson);
     }
   }
@@ -180,11 +180,11 @@ class WidgetContainer {
     const promises = [];
     const {verification: {client: clientVerificated}} = this.widget.configuration;
 
-    //If the receipt is verified by client side, verify by the Woleet weblibs
+    // If the receipt is verified by client side, verify by the Woleet weblibs
     if (clientVerificated) {
       promises.push(self.verifier.receipt(receiptJson));
     } else {
-      //otherwise verify the receipt by the Woleet API
+      // Otherwise verify the receipt by the Woleet API
       promises.push(woleetApi.receipt.verify(receiptJson));
     }
     return Promise.all(promises)

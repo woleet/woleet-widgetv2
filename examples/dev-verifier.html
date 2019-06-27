@@ -32,7 +32,10 @@
     var logElementItem = document.createElement('p');
 
     logElementItem.innerHTML = 'Receipt "' + receipt.targetHash + '" computed by widget id "' + widgetId + '"';
-    console.log('The receipt was verified', widgetId, receipt, verificationResult);
+    console.log('The receipt was verified');
+    console.log(widgetId);
+    console.log(receipt);
+    console.log(verificationResult);
   }
 
   (function (d,s,i,f) {
