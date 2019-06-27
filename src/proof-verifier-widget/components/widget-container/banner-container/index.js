@@ -10,10 +10,9 @@ import constants from "Common/constants";
  * The container presents the banner mode
  */
 class BannerContainer {
-  constructor(widget, iconStyles) {
+  constructor(widget) {
     this.element = null;
     this.widget = widget;
-    this.iconStyles = iconStyles;
     this.mode = this.widget.configuration.mode;
     this.lang = this.widget.configurator.getLanguage();
     // Get the class for cursor-pointer style
@@ -21,17 +20,19 @@ class BannerContainer {
     this.expanded = false;
   
     this.init();
-    this.bannerClickCallbackBinded = utils.bind(this.bannerClickCallback, this);
   }
 
   /**
    * Create all container elements and initialize them
    */
   init() {
+    const { banner: bannerOptions } = this.widget.configurator.getStyles();
+
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.bannerContainer.code)
     });
-    this.element.style({height: `${this.iconStyles.height}`});
+
+    this.element.style({height: `${bannerOptions.height}`});
     
     this.element.wrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.bannerContainer.wrapper.code)

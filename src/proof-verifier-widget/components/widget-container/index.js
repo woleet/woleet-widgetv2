@@ -83,8 +83,8 @@ class WidgetContainer {
     const image = `data:image/svg+xml;base64,${btoa(xml)}`;
     this.element.iconContainer.attr('src', image);
 
-    this.element.bannerContainer = (new BannerContainer(this.widget, {height: iconHeight, width: iconWidth})).get();
-    this.element.panelContainer = (new PanelContainer(this.widget, {height: iconHeight, width: iconWidth})).get();
+    this.element.bannerContainer = (new BannerContainer(this.widget)).get();
+    this.element.panelContainer = (new PanelContainer(this.widget)).get();
 
     this.initializeObservers();
     this.initializeStyles();

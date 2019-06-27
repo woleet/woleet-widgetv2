@@ -43,7 +43,8 @@ class ValuePanelContainer {
    * @param value
    */
   set(label, value) {
-    const {panel: { value: valueOptions }} = this.widget.configurator.getStyles();
+    const {panel} = this.widget.configurator.getStyles();
+    const { value: valueOptions } = panel;
     let oValue = value;
     this.element.label.html(`<span>${label}</span>`);
 
@@ -52,6 +53,8 @@ class ValuePanelContainer {
       const halfValueLength = Math.ceil(value.length / 2);
       oValue = `${value.substr(0, halfValueLength)}<br>${value.substr(halfValueLength)}`
     }
+
+    console.log('panel', panel);
 
     // Display the smaller text
     if (this.options.small) {

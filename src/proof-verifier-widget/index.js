@@ -83,8 +83,25 @@ function initialize(widgetConfigurations) {
     const configuration = getProofVerifierWidgetDefaults();
     utils.extendObject(configuration, customConfiguration);
 
-    if (!widgetElement)
+    if (!widgetElement){
       widgetLogger.error(`Widget element wasn't found`);
+    }
+
+    /**
+     * If the banner height wasn't define, set it to icon height
+     */
+    if (!configuration.styles.banner.height) {
+      const styles = configuration.styles;
+      configuration.styles.banner.height = styles.icon.height;
+    }
+
+    /**
+     * If the panel width wasn't define, calculate it as icon width + banner width
+     */
+    if (!configuration.styles.panel.width) {
+      const styles = configuration.styles;
+      configuration.styles.panel.width = parseInt(styles.icon.width, 10) + parseInt(styles.banner.width, 10) + 'px';
+    }
 
     console.log('configuration', configuration);
 

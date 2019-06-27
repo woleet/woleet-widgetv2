@@ -14,21 +14,14 @@ import CommonPanelContainer from "ProofVerifierComponents/widget-container/panel
  * This is the common container for all PANEL sub-containers
  */
 class PanelContainer {
-  constructor(widget, iconStyles) {
+  constructor(widget) {
+    this.defaultPanelHeight = '1200px';
     this.element = null;
     this.expanded = false;
     this.widget = widget;
-    this.iconStyles = iconStyles;
     this.mode = this.widget.configuration.mode;
     this.lang = this.widget.configurator.getLanguage();
     this.styles = this.widget.configurator.getStyles();
-
-    /**
-     * If the panel width wasn't define, calculate it as icon width + banner width
-     */
-    if (this.styles.panel.width === null) {
-      this.styles.panel.width = parseInt(this.iconStyles.width, 10) + parseInt(this.styles.banner.width, 10) + 'px';
-    }
   
     this.init();
   }
@@ -82,7 +75,7 @@ class PanelContainer {
     if (self.expanded) {
       self.element.target().style.setProperty('--proof-verifier-panel-height', 0);
     } else {
-      self.element.target().style.setProperty('--proof-verifier-panel-height', '1000px'); //self.styles.panel.height
+      self.element.target().style.setProperty('--proof-verifier-panel-height', self.defaultPanelHeight);
     }
     self.expanded = !self.expanded;
   }
@@ -96,7 +89,8 @@ class PanelContainer {
     switch(mode) {
       // If the mode is PANEL, show the panel and does not allow it to be hidden
       case constants.PROOF_VERIFIER_MODE_PANEL:
-        self.element.target().style.setProperty('--proof-verifier-panel-height', '1000px');
+        self.element.target().style.setProperty('--proof-verifier-panel-position', 'relative');
+        self.element.target().style.setProperty('--proof-verifier-panel-height', self.defaultPanelHeight);
         self.element.target().style.setProperty('--proof-verifier-panel-width', self.styles.panel.width);
         break;
       case constants.PROOF_VERIFIER_MODE_ICON:
