@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@alienfast/i18next-loader": "^1.0.18",
-    "@woleet/woleet-weblibs": "^0.7.0",
+    "@woleet/woleet-weblibs": "^0.7.1",
     "i18next": "^14.1.1"
   }
 }
