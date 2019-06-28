@@ -42,6 +42,7 @@ class CommonPanelContainer {
     
     this.element.hide();
     this.initializeObservers();
+    this.stylize();
   }
   
   // Initialize the observers
@@ -52,6 +53,19 @@ class CommonPanelContainer {
     self.widget.observers.receiptVerifiedObserver.subscribe((data, receipt) => {
       self.receiptParsed(data, receipt);
     });
+  }
+
+  /**
+   * Stylize the element: responsive, customization and etc.
+   */
+  stylize() {
+    const { panel } = this.widget.configurator.getStyles();
+    const { width: panelWidth  } = panel;
+
+    // TODO: refactor
+    if (parseFloat(panelWidth) < 400) {
+      this.element.wrapper.leftSide.addClass(utils.extractClasses(styles, styleCodes.panelContainer.common.item['responsive-small'].code));
+    }
   }
 
   /**

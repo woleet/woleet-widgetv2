@@ -4,6 +4,7 @@
 :local {
   .panel_container {
     &--value {
+      $valueSelector: &;
       &:not(:last-child) {
         padding-bottom: 20px;
       }
@@ -35,14 +36,20 @@
           border-radius: 4px;
           padding: 3px 9px;
         }
+        &.panel_container--value-responsive-responsive {
+          &_small {
+            margin-right: 0;
+          }
+        }
       }
       &-responsive {
         &_small {
-          margin: 0;
           min-width: 0;
+          max-width: none;
           text-align: left;
           display: block;
-          margin-top: 5px;
+          margin: 5px 0 0;
+          
           &-label {
             margin-top: 0;
           }

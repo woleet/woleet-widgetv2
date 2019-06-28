@@ -525,33 +525,27 @@ function isNumber(value) {
   return typeof value === 'number' && isFinite(value);
 }
 
-function css2json(css){
-  let s = {};
-  if(!css) {
-    return s;
+/**
+ * Calculate the responsive font size
+ * @param elementWidth
+ * @param ratio
+ * @param maxFontSize
+ * @return {number}
+ */
+function calculateResponsiveFontSize(elementWidth, ratio = 0.08, maxFontSize = 14) {
+  const elementFloatWidth = parseFloat(elementWidth);
+
+  // Recalculate the font size of the text zone to make it responsive
+  let fontsize = elementFloatWidth * ratio;
+  if (fontsize > maxFontSize) {
+    fontsize = maxFontSize;
   }
 
-  console.log('css', css);
-
-  if(css instanceof CSSStyleDeclaration) {
-    for(let i in css) {
-      if(css.hasOwnProperty(i) && (css[i]).toLowerCase) {
-        s[(css[i]).toLowerCase()] = (css[css[i]]);
-      }
-    }
-  } else if(typeof css === 'string') {
-    css = css.split('; ');
-    for (let i in css) {
-      let l = css[i].split(': ');
-      s[l[0].toLowerCase()] = (l[1]);
-    }
-  }
-  return s;
+  return fontsize;
 }
 
 export default  {
   bind,
-  css2json,
   byString,
   isObject,
   isNumber,
@@ -574,5 +568,6 @@ export default  {
   getObjectByString,
   getObjectProperty,
   calculateWidgetWidths,
+  calculateResponsiveFontSize,
   parseWidgetAttributeConfiguration
 }

@@ -3,11 +3,18 @@
 
 :local {
   .panel_container {
-    &--label {
+    &--header {
       color: var(--proof-verifier-panel-header-color);
       font-size: 18px;
       text-align: center;
       margin-bottom: 12px;
+  
+      &-responsive {
+        &_small {
+          text-align: left;
+          margin: 0 0 10px 0;
+        }
+      }
     }
   }
 }

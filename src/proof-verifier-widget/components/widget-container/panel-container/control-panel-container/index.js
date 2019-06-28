@@ -26,8 +26,6 @@ class ControlPanelContainer {
    * Create all container elements and initialize them
    */
   init() {
-    const { panel: { control: controlOptions } } = this.widget.configurator.getStyles();
-
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.control.code)
     });
@@ -63,11 +61,7 @@ class ControlPanelContainer {
     
     this.initializeEvents();
     this.initializeObservers();
-
-    this.element.target().style
-      .setProperty('--proof-verifier-control-color', controlOptions.color);
-    this.element.target().style
-      .setProperty('--proof-verifier-control-background-color', controlOptions.background);
+    this.stylize();
   };
   
   /**
@@ -97,6 +91,18 @@ class ControlPanelContainer {
         }
       }
     });
+  }
+
+  /**
+   * Stylize the element: responsive, customization and etc.
+   */
+  stylize() {
+    const { panel: { control: controlOptions } } = this.widget.configurator.getStyles();
+
+    this.element.target().style
+      .setProperty('--proof-verifier-control-color', controlOptions.color);
+    this.element.target().style
+      .setProperty('--proof-verifier-control-background-color', controlOptions.background);
   }
 
   /**

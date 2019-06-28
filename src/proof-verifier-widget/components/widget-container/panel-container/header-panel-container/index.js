@@ -19,14 +19,35 @@ class HeaderPanelContainer {
    * Create all container elements and initialize them
    */
   init() {
-    const { panel: { header: headerOptions } } = this.widget.configurator.getStyles();
-
     this.element = VirtualDOMService.createElement('div', {
-      classes: utils.extractClasses(styles, styleCodes.panelContainer.label.code)
+      classes: utils.extractClasses(styles, styleCodes.panelContainer.header.code)
     });
 
-    this.element.target().style
+    this.stylize();
+  }
+
+  /**
+   * Stylize the element: responsive, customization and etc.
+   */
+  stylize() {
+    const self = this;
+    const { panel } = this.widget.configurator.getStyles();
+    const { header: headerOptions, width: panelWidth  } = panel;
+    setTimeout(() => {
+      const cssProperties = getComputedStyle(this.element.target());
+      const {'width': elementItemWidth} = cssProperties;
+
+      // Adapt the font size
+      const fontSize = utils.calculateResponsiveFontSize(elementItemWidth, 0.13, 16);
+      self.element.target().style.setProperty('font-size', `${fontSize}px`);
+    }, 0);
+    self.element.target().style
       .setProperty('--proof-verifier-panel-header-color', headerOptions.color);
+
+    // TODO: refactor
+    if (parseFloat(panelWidth) < 400) {
+      self.element.addClass(utils.extractClasses(styles, styleCodes.panelContainer.header['responsive-small'].code));
+    }
   }
   
   set(label) {

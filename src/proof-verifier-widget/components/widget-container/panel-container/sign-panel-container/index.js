@@ -60,7 +60,7 @@ class SignPanelContainer {
       // Display all the titles
       if (signature.signedHash) {
         const signedHashLabel = utils.translate('signed_hash', self.lang);
-        const signedHashTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', split: true });
+        const signedHashTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', split: true, fontRatio: {item: 0.04}});
         signedHashTitle.set(signedHashLabel, signature.signedHash);
         this.element.wrapper.append(signedHashTitle.get().render());
       }
