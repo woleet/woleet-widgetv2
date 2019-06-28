@@ -57,6 +57,8 @@ class ValuePanelContainer {
     // Define element properties
     if (this.options.wordBreak) {
       this.element.item.target().style.setProperty('word-break', 'break-word');
+      //MS Edge fix
+      this.element.item.target().style.setProperty('word-wrap', 'break-word');
     }
 
     this.element.target().style
