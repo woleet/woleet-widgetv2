@@ -96,6 +96,10 @@ class PreviewContainer {
    */
   initializeObservers() {
     const self = this;
+
+    self.widget.observers.downloadModeInitiatedObserver.subscribe((data) => {
+      self.downloadModeInitiated(data)
+    });
   
     self.widget.observers.downloadingFinishedObserver.subscribe((file) => {
       self.downloadingFinished(file)
@@ -165,6 +169,15 @@ class PreviewContainer {
     this.pdfPreview.hide();
     this.element.hide();
     this.resetFile();
+  }
+
+  /**
+   * If downloading is started, show the default preview
+   */
+  downloadModeInitiated() {
+    this.element.show();
+    this.element.body.show();
+    this.showPlaceholderIcon(faFile)
   }
 
   /**
