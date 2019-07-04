@@ -32,7 +32,7 @@ class PreviewContainer {
     // Select all needful options
     const {
       icon: { width: iconWidth, color: iconColor },
-      preview: { icon: { color: previewIconColor} }
+      preview: { icon: { color: previewIconColor } }
     } = this.widget.configurator.getStyles();
 
     const {
@@ -48,19 +48,19 @@ class PreviewContainer {
     this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.code)
     });
-    
+
     this.element.body.icon = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.icon.code)
     });
 
     if (!!(iconWidth)) {
-      this.element.body.icon.style({'width': `${iconWidth}`});
+      this.element.body.icon.style({ 'width': `${iconWidth}` });
     }
-    
+
     this.element.body.wrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.image.wrapper.code)
     });
-    
+
     this.element.body.wrapper.image = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.image.code)
     });
@@ -86,11 +86,11 @@ class PreviewContainer {
     this.element.target().style.setProperty('--file-hasher-widget-control-border-color', previewIconColor);
 
     this.element.hide();
-    
+
     this.initializeObservers();
     this.initializeEvents();
   }
-  
+
   /**
    * Initialize the observers
    */
@@ -100,11 +100,11 @@ class PreviewContainer {
     self.widget.observers.downloadModeInitiatedObserver.subscribe((data) => {
       self.downloadModeInitiated(data)
     });
-  
+
     self.widget.observers.downloadingFinishedObserver.subscribe((file) => {
       self.downloadingFinished(file)
     });
-  
+
     self.widget.observers.fileSelectedObserver.subscribe((file) => {
       self.downloadingFinished(file)
     });
@@ -113,36 +113,38 @@ class PreviewContainer {
       self.uploadModeInitiated(data)
     });
   }
-  
+
   /**
    * Initialize the events
    */
   initializeEvents() {
     const self = this;
-  
-    self.element.on('click', () => {
-      const {name: filename} = self.file;
-      const fileExtension = utils.getFileExtension(filename);
 
-      if (self.url !== null) {
-        window.open(self.url, '_blank');
-      } else if (this.allowedExtensions.indexOf(fileExtension) !== -1) {
-        // Check if it's possible to open popup windows
-        !utils.adsBlocked((blocked) => {
-          if (!blocked) {
-            // The solution for both IE and Edge
-            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-              window.navigator.msSaveOrOpenBlob(self.file, self.file.name);
+    self.element.on('click', () => {
+      if (self.file) {
+        const { name: filename } = self.file;
+        const fileExtension = utils.getFileExtension(filename);
+
+        if (self.url !== null) {
+          window.open(self.url, '_blank');
+        } else if (this.allowedExtensions.indexOf(fileExtension) !== -1) {
+          // Check if it's possible to open popup windows
+          !utils.adsBlocked((blocked) => {
+            if (!blocked) {
+              // The solution for both IE and Edge
+              if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                window.navigator.msSaveOrOpenBlob(self.file, self.file.name);
+              } else {
+                // For all other normal browsers
+                const objUrl = window.URL.createObjectURL(self.file, { oneTimeOnly: true });
+                const tab = window.open();
+                tab.location.href = objUrl;
+              }
             } else {
-              // For all other normal browsers
-              const objUrl = window.URL.createObjectURL(self.file, { oneTimeOnly: true });
-              const tab = window.open();
-              tab.location.href = objUrl;
+              console.log('Disable ads blockers, please!');
             }
-          } else {
-            console.log('Disable ads blockers, please!');
-          }
-        })
+          })
+        }
       }
     });
 
@@ -186,8 +188,8 @@ class PreviewContainer {
    */
   downloadingFinished(file) {
     this.element.show();
-    
-    const {name: filename} = file;
+
+    const { name: filename } = file;
     const fileExtension = utils.getFileExtension(filename);
 
     // Save the file link to use it once the preview is clicked
@@ -220,7 +222,7 @@ class PreviewContainer {
    * @param event
    */
   showFilePreview(event) {
-    const {result: filePreview} = event.target;
+    const { result: filePreview } = event.target;
     this.element.body.wrapper.image.attr('src', filePreview);
   }
 
