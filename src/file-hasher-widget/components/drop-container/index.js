@@ -73,6 +73,9 @@ class DropContainer {
     this.widget.observers.downloadModeInitiatedObserver.subscribe((data) => {
       this.downloadModeInitiated(data)
     });
+    this.widget.observers.downloadingFailedObserver.subscribe((data, code, message) => {
+      this.downloadingFailed(data)
+    });
     this.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
       this.uploadModeInitiated(data);
       this.hashingCanceled(data)
@@ -197,6 +200,10 @@ class DropContainer {
   }
 
   downloadModeInitiated(fileConfiguration) {
+    this.element.hide();
+  }
+
+  downloadingFailed() {
     this.element.hide();
   }
 

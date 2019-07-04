@@ -26,7 +26,8 @@ class DownloadContainer {
     this.observerMapper = {
       'downloadingProgress': 'downloadingProgressObserver',
       'downloadingStarted': 'downloadingStartedObserver',
-      'downloadingFinished': 'downloadingFinishedObserver'
+      'downloadingFinished': 'downloadingFinishedObserver',
+      'downloadingFailed': 'downloadingFailedObserver'
     };
 
     if (this.url !== null) {

@@ -114,6 +114,14 @@ The following attributes can be set on `<div>` tag to configure the look and beh
     
     * __downloadingFinished__ - is called once the file is downloaded. Parameters: ___widgetId___, ___downloaded file___;
     
+    * __downloadingFailed__ - is called once the file is failed. Parameters: ___widgetId___, ___error code___, ___response status___, ___response message___;
+    
+    Possible codes:
+         
+            url_not_found - the download url is wrong;
+            
+            cors - CORS policy issue;
+    
     * __hashingStarted__ - is called once the hashing process is started. Parameters: ___widgetId___, ___hashed file___;
     
     * __hashingCanceled__ - is called once the hashing process is canceled. Parameters: ___widgetId___;
