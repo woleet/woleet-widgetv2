@@ -144,8 +144,13 @@ class CommonPanelContainer {
    */
   renderLeftSide(status, certificates) {
     const self = this;
+    let { endpoints: { identification: identificationUrl } } = this.widget.configurator.get();
     
     if (status) {
+      if (!identificationUrl) {
+        identificationUrl = constants.RECEIPT_IDENTITY_URL;
+      }
+
       let label = utils.translate('identity_server', self.lang);
       let labelObject = new HeaderPanelContainer(self.widget);
       labelObject.set(label);
@@ -153,7 +158,7 @@ class CommonPanelContainer {
   
       let urlLabel = utils.translate('identity_url', self.lang);
       let urlObject = new ValuePanelContainer(self.widget, { wordBreak: true });
-      urlObject.set(urlLabel, constants.RECEIPT_IDENTITY_URL);
+      urlObject.set(urlLabel, identificationUrl);
       this.element.wrapper.leftSide.append(urlObject.get().render());
   
       let statusLabel = utils.translate('status', self.lang);

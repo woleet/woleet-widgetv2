@@ -49,6 +49,11 @@ function getProofVerifierWidgetDefaults() {
       url: null,
       payload: null
     },
+    endpoints: {
+      transaction: null,
+      verification: null,
+      identification: null
+    },
     lang: constants.DEFAULT_WIDGET_LANGUAGE,
     mode: constants.PROOF_VERIFIER_MODE_ICON
   };

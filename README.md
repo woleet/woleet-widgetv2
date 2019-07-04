@@ -285,6 +285,18 @@ The following attributes can be set on `<div>` tag to configure the look and beh
 * __receipt__ - The receipt file option:
     
     * __url__ - the receipt file URL; _DEFAULT_: ___null___
+    
+* __endpoints__ - The endpoint configuration:
+    
+    * __transaction__ - the transaction endpoint; _DEFAULT_: ___https://blockstream.info/tx/$sourceId___
+    
+    Possible params:
+     
+        $sourceId - the transaction hash;
+    
+    * __verification__ - the verification endpoint; _DEFAULT_: ___https://share.woleet.io/api/receipt/verify___
+    
+    * __identification__ - the identification endpoint; _DEFAULT_: ___https://identity.woleet.io/identity___
        
 * __verification__ - The receipt file verification:
            
