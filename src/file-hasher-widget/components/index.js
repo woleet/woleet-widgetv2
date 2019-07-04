@@ -49,6 +49,7 @@ class FileHasherWidget {
       downloadingStartedObserver: new EventObserver(),
       downloadingFinishedObserver: new EventObserver(),
       downloadingCanceledObserver: new EventObserver(),
+      downloadingFailedObserver: new EventObserver(),
       // Events: file hashing
       fileSelectedObserver: new EventObserver(),
       hashingProgressObserver: new EventObserver(),
@@ -68,6 +69,11 @@ class FileHasherWidget {
     // Reinitialize the widget if reset button was clicked
     this.observers.widgetResetObserver.subscribe(() => {
       this.observers.uploadModeInitiatedObserver.broadcast();
+    });
+
+    // If downloading is failed, raise an error
+    this.observers.downloadingFailedObserver.subscribe((error) => {
+      this.observers.errorCaughtObserver.broadcast(error);
     });
   }
 
@@ -95,6 +101,9 @@ class FileHasherWidget {
           case 'downloadingfinished':
             this.observers.downloadingFinishedObserver.subscribe(file => observer(self.widgetId, file));
             this.observers.fileSelectedObserver.subscribe(file => observer(self.widgetId, file));
+            break;
+          case 'downloadingfailed':
+            this.observers.downloadingFailedObserver.subscribe((error, code, message) => observer(self.widgetId, error, code, message));
             break;
           case 'hashcalculated':
             this.observers.hashingFinishedObserver.subscribe(({hash, file}) => observer(self.widgetId, hash, file));

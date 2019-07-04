@@ -112,6 +112,11 @@ class ControlPanelContainer {
    */
   receiptParsed(verificationResult, receipt) {
     const self = this;
+    let { endpoints: { transaction: transactionUrl } } = this.widget.configurator.get();
+
+    if (!transactionUrl) {
+      transactionUrl = constants.TRANSACTION_URL;
+    }
 
     if (receipt) {
       // Build and display the transaction link
@@ -124,7 +129,7 @@ class ControlPanelContainer {
         const transaction = anchors[0];
         self.element.wrapper.viewTransactionEl.linkEl
           .attr('target', '_blank')
-          .attr('href',constants.TRANSACTION_URL.replace('$sourceId', transaction.sourceId));
+          .attr('href', transactionUrl.replace('$sourceId', transaction.sourceId));
       }
     }
   }

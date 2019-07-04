@@ -236,7 +236,7 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
          */
         if (observerMapper['downloadingFailed']) {
           const downloadingFailedObserver = observerMapper['downloadingFailed'];
-          widget.observers[downloadingFailedObserver].broadcast('url_not_found');
+          widget.observers[downloadingFailedObserver].broadcast('url_not_found', request.status, request.statusText);
         }
       }
     }
@@ -260,7 +260,12 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
   request.onerror = function (error) {
     if (observerMapper['downloadingFailed']) {
       const downloadingFailedObserver = observerMapper['downloadingFailed'];
-      widget.observers[downloadingFailedObserver].broadcast(error);
+
+      if (error instanceof ProgressEvent) {
+        widget.observers[downloadingFailedObserver].broadcast('cors', 0, '');
+      } else {
+        widget.observers[downloadingFailedObserver].broadcast('url_not_found', 0, '');
+      }
     }
   };
 

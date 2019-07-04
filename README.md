@@ -114,6 +114,14 @@ The following attributes can be set on `<div>` tag to configure the look and beh
     
     * __downloadingFinished__ - is called once the file is downloaded. Parameters: ___widgetId___, ___downloaded file___;
     
+    * __downloadingFailed__ - is called once the file is failed. Parameters: ___widgetId___, ___error code___, ___response status___, ___response message___;
+    
+    Possible codes:
+         
+            url_not_found - the download url is wrong;
+            
+            cors - CORS policy issue;
+    
     * __hashingStarted__ - is called once the hashing process is started. Parameters: ___widgetId___, ___hashed file___;
     
     * __hashingCanceled__ - is called once the hashing process is canceled. Parameters: ___widgetId___;
@@ -285,6 +293,18 @@ The following attributes can be set on `<div>` tag to configure the look and beh
 * __receipt__ - The receipt file option:
     
     * __url__ - the receipt file URL; _DEFAULT_: ___null___
+    
+* __endpoints__ - The endpoint configuration:
+    
+    * __transaction__ - the transaction endpoint; _DEFAULT_: ___https://blockstream.info/tx/$sourceId___
+    
+    Possible params:
+     
+        $sourceId - the transaction hash;
+    
+    * __verification__ - the verification endpoint; _DEFAULT_: ___https://share.woleet.io/api/receipt/verify___
+    
+    * __identification__ - the identification endpoint; _DEFAULT_: ___https://identity.woleet.io/identity___
        
 * __verification__ - The receipt file verification:
            

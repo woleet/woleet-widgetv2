@@ -3,12 +3,17 @@ import constants from "Common/constants";
 /**
  * Verify user receipt
  * @param receipt
+ * @param receiptVerificationUrl
  * @return {Promise}
  */
-export function verifyReceipt(receipt) {
+export function verifyReceipt(receipt, receiptVerificationUrl) {
+  if (!receiptVerificationUrl) {
+    receiptVerificationUrl = constants.RECEIPT_VERIFICATION_URL
+  }
+
   return new Promise(function(resolve, reject) {
     const req = new XMLHttpRequest();
-    req.open('post', constants.RECEIPT_VERIFICATION_URL);
+    req.open('post', receiptVerificationUrl);
     req.setRequestHeader('Content-Type', 'application/json');
     req.onload = function() {
       if (req.status === 200) {

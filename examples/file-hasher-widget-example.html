@@ -10,7 +10,14 @@
     var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
     js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'file-hasher-widget', '../dist/file-hasher-widget.js'));
+
+  function downloadingFailedObserver(widgetId, error, code, message) {
+    console.log('FAILED', widgetId, error, code, message);
+  }
 </script>
-<div class="file-hasher-widget" lang="fr"></div>
+<div class="file-hasher-widget"
+     file='{"url": "https://archive.org/download/Mahabharata_201712/6_Mahabharat", "fastDownload": true}'
+     observers='{"downloadingFailed": "downloadingFailedObserver"}'
+     lang="fr"></div>
 </body>
 </html>

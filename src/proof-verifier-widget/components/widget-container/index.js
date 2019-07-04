@@ -178,14 +178,14 @@ class WidgetContainer {
   verifyReceiptFile(receiptJson) {
     const self = this;
     const promises = [];
-    const {verification: {client: clientVerificated}} = this.widget.configuration;
+    const {verification: {client: clientVerificated}, endpoints: { verification: verificationUrl }} = this.widget.configuration;
 
     // If the receipt is verified by client side, verify by the Woleet weblibs
     if (clientVerificated) {
       promises.push(self.verifier.receipt(receiptJson));
     } else {
       // Otherwise verify the receipt by the Woleet API
-      promises.push(woleetApi.receipt.verify(receiptJson));
+      promises.push(woleetApi.receipt.verify(receiptJson, verificationUrl));
     }
     return Promise.all(promises)
       .then(([verification]) => {
