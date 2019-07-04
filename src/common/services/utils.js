@@ -1,15 +1,6 @@
 import i18next from 'i18next';
 
 /**
- * Check if the item is object
- * @param item
- * @returns {boolean}
- */
-export function isObject(item) {
-  return (item && typeof item === 'object' && !Array.isArray(item));
-}
-
-/**
  * Deep merge two objects.
  * @param target
  * @param sources
@@ -413,7 +404,15 @@ function getObjectProperty(object, property) {
  */
 function formatDate(date, lang) {
   let options = {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'};
-  return date.toLocaleDateString(lang, options)
+
+  let timestamp = date;
+
+  if (isNumber(timestamp)) {
+    timestamp = new Date();
+    timestamp.setTime(date);
+  }
+
+  return timestamp.toLocaleDateString(lang, options)
 }
 
 /**
@@ -511,9 +510,45 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
   return results;
 }
 
+/**
+ * Check if the argument is Object
+ * TODO: move to a separate type service
+ */
+function isObject(value) {
+  return value && typeof value === 'object' && value.constructor === Object;
+}
+
+/**
+ * Return true if a value is really a number
+ */
+function isNumber(value) {
+  return typeof value === 'number' && isFinite(value);
+}
+
+/**
+ * Calculate the responsive font size
+ * @param elementWidth
+ * @param ratio
+ * @param maxFontSize
+ * @return {number}
+ */
+function calculateResponsiveFontSize(elementWidth, ratio = 0.08, maxFontSize = 14) {
+  const elementFloatWidth = parseFloat(elementWidth);
+
+  // Recalculate the font size of the text zone to make it responsive
+  let fontsize = elementFloatWidth * ratio;
+  if (fontsize > maxFontSize) {
+    fontsize = maxFontSize;
+  }
+
+  return fontsize;
+}
+
 export default  {
   bind,
   byString,
+  isObject,
+  isNumber,
   setTimer,
   svgToHTML,
   translate,
@@ -533,5 +568,6 @@ export default  {
   getObjectByString,
   getObjectProperty,
   calculateWidgetWidths,
+  calculateResponsiveFontSize,
   parseWidgetAttributeConfiguration
 }

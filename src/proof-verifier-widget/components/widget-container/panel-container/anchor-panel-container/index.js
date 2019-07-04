@@ -41,42 +41,47 @@ class AnchorPanelContainer {
     const self = this;
 
     // If the receipt was verified
-    self.widget.observers.receiptVerifiedObserver.subscribe((data) => {
-      self.receiptParsed(data);
+    self.widget.observers.receiptVerifiedObserver.subscribe((result, receipt) => {
+      self.receiptParsed(result, receipt);
     });
   }
 
   /**
    * If the receipt was verified
+   * @param verificationResult
+   * @param receipt
    */
-  receiptParsed(receiptObj) {
+  receiptParsed(verificationResult, receipt) {
     const self = this;
-    const {confirmations, timestamp, receipt: { targetHash }} = receiptObj;
-    
-    if (confirmations || timestamp || targetHash) {
-      this.element.show();
+    if (verificationResult) {
+      const { confirmations, timestamp } = verificationResult;
+      const { targetHash } = receipt;
 
-      // Display all the titles
-      if (targetHash) {
-        const targetHashLabel = utils.translate('anchored_hash', self.lang);
-        const targetHashTitle = new ValuePanelContainer(self.widget, { style: 'anchoredHash', split: true, small: true });
-        targetHashTitle.set(targetHashLabel, targetHash);
-        this.element.wrapper.append(targetHashTitle.get().render());
-      }
-      
-      if (confirmations) {
-        const timestampLabel = utils.translate('timestamp', self.lang);
-        const formattedTimestamp = utils.formatDate(timestamp, self.lang);
-        const targetHashTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', small: true });
-        targetHashTitle.set(timestampLabel, formattedTimestamp);
-        this.element.wrapper.append(targetHashTitle.get().render());
-      }
-      
-      if (confirmations) {
-        const confirmationLabel = utils.translate('confirmations', self.lang);
-        const confirmationTitle = new ValuePanelContainer(self.widget, { small: true });
-        confirmationTitle.set(confirmationLabel, confirmations);
-        this.element.wrapper.append(confirmationTitle.get().render());
+      if (confirmations || timestamp || targetHash) {
+        this.element.show();
+
+        // Display all the titles
+        if (targetHash) {
+          const targetHashLabel = utils.translate('anchored_hash', self.lang);
+          const targetHashTitle = new ValuePanelContainer(self.widget, { style: 'anchoredHash', split: true, fontRatio: {item: 0.052} });
+          targetHashTitle.set(targetHashLabel, targetHash);
+          this.element.wrapper.append(targetHashTitle.get().render());
+        }
+
+        if (confirmations) {
+          const timestampLabel = utils.translate('timestamp', self.lang);
+          const formattedTimestamp = utils.formatDate(timestamp, self.lang);
+          const targetHashTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', fontRatio: {item: 0.0455} });
+          targetHashTitle.set(timestampLabel, formattedTimestamp);
+          this.element.wrapper.append(targetHashTitle.get().render());
+        }
+
+        if (confirmations) {
+          const confirmationLabel = utils.translate('confirmations', self.lang);
+          const confirmationTitle = new ValuePanelContainer(self.widget, { fontRatio: {item: 0.0455} });
+          confirmationTitle.set(confirmationLabel, confirmations);
+          this.element.wrapper.append(confirmationTitle.get().render());
+        }
       }
     }
   }

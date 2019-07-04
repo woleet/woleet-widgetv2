@@ -41,39 +41,40 @@ class SignPanelContainer {
     const self = this;
 
     // If the receipt was verified
-    self.widget.observers.receiptVerifiedObserver.subscribe((data) => {
-      self.receiptParsed(data);
+    self.widget.observers.receiptVerifiedObserver.subscribe((result, receipt) => {
+      self.receiptParsed(result, receipt);
     });
   }
 
   /**
    * If the receipt was verified
    */
-  receiptParsed(receiptObj) {
+  receiptParsed(verificationResult, receipt) {
     const self = this;
-    const {receipt: { signature = null }} = receiptObj;
-    
+
+    const {signature = null } = receipt;
+
     if (signature !== null) {
       this.element.show();
 
       // Display all the titles
       if (signature.signedHash) {
         const signedHashLabel = utils.translate('signed_hash', self.lang);
-        const signedHashTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', split: true, small: true });
+        const signedHashTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', split: true, fontRatio: {item: 0.052}});
         signedHashTitle.set(signedHashLabel, signature.signedHash);
         this.element.wrapper.append(signedHashTitle.get().render());
       }
-    
+
       if (signature.pubKey) {
         const pubKeyLabel = utils.translate('signee', self.lang);
-        const pubKeyTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', small: true });
+        const pubKeyTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', fontRatio: {item: 0.0455} });
         pubKeyTitle.set(pubKeyLabel, signature.pubKey);
         this.element.wrapper.append(pubKeyTitle.get().render());
       }
-    
+
       if (signature.signature) {
         const signatureLabel = utils.translate('signature', self.lang);
-        const signatureTitle = new ValuePanelContainer(self.widget, { split: true, small: true });
+        const signatureTitle = new ValuePanelContainer(self.widget, { split: true, fontRatio: {item: 0.039} });
         signatureTitle.set(signatureLabel, signature.signature);
         this.element.wrapper.append(signatureTitle.get().render());
       }

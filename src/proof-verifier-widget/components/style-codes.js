@@ -31,8 +31,11 @@ const styleCodes = {
         code: ['panel_container--wrapper-icon']
       }
     },
-    label: {
-      code: ['panel_container--label'],
+    header: {
+      code: ['panel_container--header'],
+      'responsive-small': {
+        code: ['panel_container--header-responsive_small']
+      }
     },
     value: {
       code: ['panel_container--value'],
@@ -44,6 +47,12 @@ const styleCodes = {
       },
       style: {
         code: ['panel_container--value-wrapper', 'panel_container--value-style']
+      },
+      'responsive-small': {
+        code: ['panel_container--value-responsive_small'],
+        label: {
+          code: ['panel_container--value-responsive_small', 'panel_container--value-responsive_small-label']
+        }
       }
     },
     common: {
@@ -52,7 +61,10 @@ const styleCodes = {
         code: ['panel_container--common_wrapper']
       },
       item: {
-        code: ['panel_container--common-item']
+        code: ['panel_container--common-item'],
+        'responsive-small': {
+          code: ['panel_container--common-item-responsive_small'],
+        }
       }
     },
     sign: {

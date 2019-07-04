@@ -15,6 +15,13 @@
         display: inline-block;
         width: 50%;
         vertical-align: top;
+        &-responsive {
+          &_small {
+            div {
+              margin-right: 10px;
+            }
+          }
+        }
       }
     }
   }

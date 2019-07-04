@@ -26,8 +26,6 @@ class ControlPanelContainer {
    * Create all container elements and initialize them
    */
   init() {
-    const { panel: { control: controlOptions } } = this.widget.configurator.getStyles();
-
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.control.code)
     });
@@ -63,11 +61,7 @@ class ControlPanelContainer {
     
     this.initializeEvents();
     this.initializeObservers();
-
-    this.element.target().style
-      .setProperty('--proof-verifier-control-color', controlOptions.color);
-    this.element.target().style
-      .setProperty('--proof-verifier-control-background-color', controlOptions.background);
+    this.stylize();
   };
   
   /**
@@ -77,8 +71,8 @@ class ControlPanelContainer {
     const self = this;
 
     // If the receipt was verified
-    self.widget.observers.receiptVerifiedObserver.subscribe((data) => {
-      self.receiptParsed(data);
+    self.widget.observers.receiptVerifiedObserver.subscribe((result, receipt) => {
+      self.receiptParsed(result, receipt);
     });
   }
   
@@ -100,17 +94,31 @@ class ControlPanelContainer {
   }
 
   /**
-   * If the receipt was verified
+   * Stylize the element: responsive, customization and etc.
    */
-  receiptParsed(receiptObj) {
+  stylize() {
+    const { panel: { control: controlOptions } } = this.widget.configurator.getStyles();
+
+    this.element.target().style
+      .setProperty('--proof-verifier-control-color', controlOptions.color);
+    this.element.target().style
+      .setProperty('--proof-verifier-control-background-color', controlOptions.background);
+  }
+
+  /**
+   * If the receipt was verified
+   * @param verificationResult
+   * @param receipt
+   */
+  receiptParsed(verificationResult, receipt) {
     const self = this;
 
-    if (receiptObj) {
+    if (receipt) {
       // Build and display the transaction link
-      self.receipt = receiptObj;
+      self.receipt = receipt;
       self.element.show();
       self.element.wrapper.downloadReceiptEl.show();
-      const {receipt: {anchors = []}} = receiptObj;
+      const {anchors = []} = receipt;
       if (anchors.length > 0) {
         self.element.wrapper.viewTransactionEl.show();
         const transaction = anchors[0];

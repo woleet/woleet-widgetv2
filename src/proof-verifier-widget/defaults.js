@@ -43,10 +43,11 @@ function getProofVerifierWidgetDefaults() {
       }
     },
     verification: {
-      server: true
+      client: true
     },
     receipt: {
-      url: null
+      url: null,
+      payload: null
     },
     lang: constants.DEFAULT_WIDGET_LANGUAGE,
     mode: constants.PROOF_VERIFIER_MODE_ICON

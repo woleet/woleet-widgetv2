@@ -10,7 +10,7 @@
     -o-transition: all .5s ease;
     -ms-transition: all .5s ease;
     transition: all .5s ease;
-    position: absolute;
+    position: var(--proof-verifier-panel-position);
     z-index: var(--z-index);
     overflow: hidden;
 

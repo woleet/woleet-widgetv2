@@ -197,9 +197,7 @@ class DropContainer {
   }
 
   downloadModeInitiated(fileConfiguration) {
-    if (!fileConfiguration.fastDownload) {
-      this.element.hide();
-    }
+    this.element.hide();
   }
 
   uploadModeInitiated() {

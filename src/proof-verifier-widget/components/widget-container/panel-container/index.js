@@ -14,21 +14,14 @@ import CommonPanelContainer from "ProofVerifierComponents/widget-container/panel
  * This is the common container for all PANEL sub-containers
  */
 class PanelContainer {
-  constructor(widget, iconStyles) {
+  constructor(widget) {
+    this.defaultPanelHeight = '1200px';
     this.element = null;
     this.expanded = false;
     this.widget = widget;
-    this.iconStyles = iconStyles;
     this.mode = this.widget.configuration.mode;
     this.lang = this.widget.configurator.getLanguage();
     this.styles = this.widget.configurator.getStyles();
-
-    /**
-     * If the panel width wasn't define, calculate it as icon width + banner width
-     */
-    if (this.styles.panel.width === null) {
-      this.styles.panel.width = parseInt(this.iconStyles.width, 10) + parseInt(this.styles.banner.width, 10) + 'px';
-    }
   
     this.init();
   }
@@ -37,8 +30,6 @@ class PanelContainer {
    * Create all container elements and initialize them
    */
   init() {
-    const { panel: panelOptions } = this.widget.configurator.getStyles();
-
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.code)
     });
@@ -55,9 +46,7 @@ class PanelContainer {
     this.initializeObservers();
     // Initialize the selected mode
     this.initializeView(this.mode);
-
-    this.element.target().style.setProperty('--proof-verifier-panel-color', panelOptions.color);
-    this.element.target().style.setProperty('--proof-verifier-panel-background-color', panelOptions.background);
+    this.stylize();
   }
   
   // Initialize the observers
@@ -73,6 +62,16 @@ class PanelContainer {
   }
 
   /**
+   * Stylize the element: responsive, customization and etc.
+   */
+  stylize() {
+    const { panel: panelOptions } = this.widget.configurator.getStyles();
+
+    this.element.target().style.setProperty('--proof-verifier-panel-color', panelOptions.color);
+    this.element.target().style.setProperty('--proof-verifier-panel-background-color', panelOptions.background);
+  }
+
+  /**
    * If the banner element was clicked, show/hide the panel
    */
   onBannerClicked() {
@@ -82,7 +81,7 @@ class PanelContainer {
     if (self.expanded) {
       self.element.target().style.setProperty('--proof-verifier-panel-height', 0);
     } else {
-      self.element.target().style.setProperty('--proof-verifier-panel-height', '700px'); //self.styles.panel.height
+      self.element.target().style.setProperty('--proof-verifier-panel-height', self.defaultPanelHeight);
     }
     self.expanded = !self.expanded;
   }
@@ -96,7 +95,8 @@ class PanelContainer {
     switch(mode) {
       // If the mode is PANEL, show the panel and does not allow it to be hidden
       case constants.PROOF_VERIFIER_MODE_PANEL:
-        self.element.target().style.setProperty('--proof-verifier-panel-height', '700px');
+        self.element.target().style.setProperty('--proof-verifier-panel-position', 'relative');
+        self.element.target().style.setProperty('--proof-verifier-panel-height', self.defaultPanelHeight);
         self.element.target().style.setProperty('--proof-verifier-panel-width', self.styles.panel.width);
         break;
       case constants.PROOF_VERIFIER_MODE_ICON:

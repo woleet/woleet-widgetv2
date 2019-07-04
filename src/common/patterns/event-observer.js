@@ -18,8 +18,8 @@ class EventObserver {
   }
 
   // Broadcast an event
-  broadcast (data) {
-    this.observers.forEach(subscriber => subscriber(data))
+  broadcast (data, ...args) {
+    this.observers.forEach(subscriber => subscriber(data, ...args))
   }
 }
 
