@@ -11,7 +11,7 @@ import constants from 'Common/constants';
  */
 class DownloadContainer {
   constructor(widget) {
-    const {url: provenFileUrl} = widget.configuration.file;
+    const { url: provenFileUrl } = widget.configuration.file;
 
     this.element = null;
     this.request = null;
@@ -30,7 +30,7 @@ class DownloadContainer {
     };
 
     if (this.url !== null) {
-      let {proxy: {url: proxyUrl, enabled: proxyEnabled} } = widget.configuration;
+      let { proxy: { url: proxyUrl, enabled: proxyEnabled } } = widget.configuration;
 
       if (window.dev) {
         proxyEnabled = true;
@@ -52,24 +52,24 @@ class DownloadContainer {
    * Create all container elements and initialize them
    */
   init() {
-    const {icon: { width: iconWidth, color: iconColor }} = this.widget.configurator.getStyles();
+    const { icon: { width: iconWidth, color: iconColor } } = this.widget.configurator.getStyles();
 
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.download.code)
     });
-    
+
     this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.download.body.code)
     });
-    
+
     if (!!(iconWidth)) {
-      this.element.body.style({'width': `${iconWidth}`});
+      this.element.body.style({ 'width': `${iconWidth}` });
     }
-  
+
     this.element.body.icon = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.download.body.icon.code)
     });
-  
+
     this.element.body.icon.setSvg(faDownload, iconColor);
     this.element.body.icon.attr('title', utils.translate('click_to_download', this.lang));
 
@@ -93,6 +93,9 @@ class DownloadContainer {
     this.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
       this.uploadModeInitiated(data)
     });
+    this.widget.observers.widgetResetObserver.subscribe(() => {
+      this.downloadingCanceled();
+    });
   }
 
   /**
@@ -106,7 +109,7 @@ class DownloadContainer {
       self.downloadFile();
     });
   }
-  
+
   download() {
     if (this.request !== null) {
       this.request.start();
@@ -120,7 +123,7 @@ class DownloadContainer {
 
   downloadModeInitiated(fileConfiguration) {
     if (fileConfiguration.fastDownload) {
-     this.downloadFile();
+      this.downloadFile();
     }
   }
 
