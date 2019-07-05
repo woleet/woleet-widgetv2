@@ -18,7 +18,8 @@ class DropContainer {
     this.widget = widget;
     this.parent = parent;
     this.delayedFile = null;
-  
+    this.importIcon = null;
+
     if (!window.woleet) {
       // Woleet library wasn't initialized do it
       loader.getWoleetLibs()
@@ -38,8 +39,6 @@ class DropContainer {
    * Create all container elements and initialize them
    */
   init() {
-    const {icon: { width: iconWidth, color: iconColor }} = this.widget.configurator.getStyles();
-    
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.drop.code)
     });
@@ -47,10 +46,6 @@ class DropContainer {
     this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.drop.body.code)
     });
-  
-    if (!!(iconWidth)) {
-      this.element.body.style({'width': `${iconWidth}`});
-    }
     
     this.element.body.icon = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.drop.body.icon.code)
@@ -58,9 +53,8 @@ class DropContainer {
     this.element.body.input = VirtualDOMService.createFileInput({
       classes: utils.extractClasses(styles, styleCodes.drop.body.input.code)
     });
-    
-    this.element.body.icon.setSvg(faFileImport, iconColor);
 
+    this.stylize();
     this.initializeObservers();
     this.initializeEvents();
   }
@@ -107,6 +101,31 @@ class DropContainer {
           }
         });
     });
+  }
+
+  /**
+   * Stylize the container
+   */
+  stylize() {
+    const self = this;
+    const {icon: { width: iconWidth, color: iconColor }} = this.widget.configurator.getStyles();
+    const { icons: { import: importIcon } } = this.widget.configurator.get();
+
+    if (importIcon) {
+      this.importIcon = true;
+      utils.toDataUrl(importIcon, (response) => {
+        self.element.body.icon.setSrc(response);
+      });
+    }
+
+    if (!!(iconWidth)) {
+      this.element.body.style({'width': `${iconWidth}`});
+    }
+
+    // If download icon wasn't customized, display the default one
+    if (!this.importIcon) {
+      this.element.body.icon.setSvg(faFileImport, iconColor);
+    }
   }
 
   /**

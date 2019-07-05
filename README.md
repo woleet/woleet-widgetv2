@@ -92,6 +92,16 @@ The following attributes can be set on `<div>` tag to configure the look and beh
        
        * __reset__ - visibility of reset icon; _DEFAULT_: ___true___
        
+* __icons__ - The option to customize widget icons:
+    
+    * __import__ - The icon URL of the drop container; _DEFAULT_: ___fa-file-import___
+    
+    * __download__ - The icon URL of the download file container; _DEFAULT_: ___fa-download___
+    
+    * __preview__ - The preview icon URLs;
+       
+       * __common__ - The common icon URL of the preview container; _DEFAULT_: ___fa-file___
+       
 * __proxy__ - A proxy to download external files via XMLHttpRequest:
            
     * __url__ - the proxy URL; _DEFAULT_: ___null___

@@ -11,13 +11,14 @@ import constants from 'Common/constants';
  */
 class DownloadContainer {
   constructor(widget) {
-    const { url: provenFileUrl } = widget.configuration.file;
+    const { file: { url: provenFileUrl } } = widget.configuration;
 
     this.element = null;
     this.request = null;
     this.widget = widget;
     this.url = provenFileUrl || null;
     this.lang = this.widget.configurator.getLanguage();
+    this.downloadIcon = null;
 
     /**
      * A mapper for the request object to make the last more flexible and reusable
@@ -53,8 +54,6 @@ class DownloadContainer {
    * Create all container elements and initialize them
    */
   init() {
-    const { icon: { width: iconWidth, color: iconColor } } = this.widget.configurator.getStyles();
-
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.download.code)
     });
@@ -63,17 +62,11 @@ class DownloadContainer {
       classes: utils.extractClasses(styles, styleCodes.download.body.code)
     });
 
-    if (!!(iconWidth)) {
-      this.element.body.style({ 'width': `${iconWidth}` });
-    }
-
     this.element.body.icon = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.download.body.icon.code)
     });
 
-    this.element.body.icon.setSvg(faDownload, iconColor);
-    this.element.body.icon.attr('title', utils.translate('click_to_download', this.lang));
-
+    this.stylize();
     this.initializeObservers();
     this.initializeEvents();
   }
@@ -87,6 +80,9 @@ class DownloadContainer {
     });
     this.widget.observers.downloadingCanceledObserver.subscribe((data) => {
       this.downloadingCanceled(data);
+    });
+    this.widget.observers.downloadingStartedObserver.subscribe((data) => {
+      this.downloadingStarted(data);
     });
     this.widget.observers.errorCaughtObserver.subscribe(() => {
       this.downloadingCanceled();
@@ -111,6 +107,34 @@ class DownloadContainer {
     });
   }
 
+  /**
+   * Stylize the container
+   */
+  stylize() {
+    const self = this;
+    const { icon: { width: iconWidth, color: iconColor } } = this.widget.configurator.getStyles();
+    const { icons: { download: downloadIcon } } = this.widget.configurator.get();
+
+    if (downloadIcon) {
+      this.downloadIcon = true;
+
+      utils.toDataUrl(downloadIcon, (response) => {
+        self.element.body.icon.setSrc(response);
+      });
+    }
+
+    if (!!(iconWidth)) {
+      this.element.body.style({ 'width': `${iconWidth}` });
+    }
+
+    // If download icon wasn't customized, display the default one
+    if (!this.downloadIcon) {
+      this.element.body.icon.setSvg(faDownload, iconColor);
+    }
+
+    this.element.body.icon.attr('title', utils.translate('click_to_download', this.lang));
+  }
+
   download() {
     if (this.request !== null) {
       this.request.start();
@@ -118,17 +142,24 @@ class DownloadContainer {
   }
 
   downloadFile() {
-    this.element.hide();
     this.download(this.url);
   }
 
   downloadModeInitiated(fileConfiguration) {
     if (fileConfiguration.fastDownload) {
+      this.element.hide();
       this.downloadFile();
     }
   }
 
   uploadModeInitiated() {
+    this.element.hide();
+  }
+
+  /**
+   * If the downloading started, hide the element
+   */
+  downloadingStarted() {
     this.element.hide();
   }
 

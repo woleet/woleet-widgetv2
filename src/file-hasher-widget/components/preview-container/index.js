@@ -12,34 +12,36 @@ import faRedo from 'Resources/images/redo.svg';
  */
 class PreviewContainer {
   constructor(widget) {
+    const {
+      icons: { preview: { common: commonIcon } }
+    } = widget.configurator.get();
+    const self = this;
+
     this.element = null;
     this.url = null;
     this.widget = widget;
     this.fileReader = new FileReader();
     this.file = null;
+    this.commomPreviewIcon = null;
     this.pdfPreview = null;
-    this.iconColor = null;
     this.previewFileExtensions = ['png', 'jpeg', 'jpg', 'svg'];
     this.textFileExtensions = ['pdf'];
     // Merge the extensions to get an array of allowed files
     this.allowedExtensions = this.previewFileExtensions.concat(this.textFileExtensions);
 
+    if (commonIcon) {
+      utils.toDataUrl(commonIcon, (response) => {
+        self.commomPreviewIcon = response;
+      });
+    }
     this.init();
   }
 
   // Create all container elements and initialize them
   init() {
-    // Select all needful options
-    const {
-      icon: { width: iconWidth, color: iconColor },
-      preview: { icon: { color: previewIconColor } }
-    } = this.widget.configurator.getStyles();
-
     const {
       visibility: { controls: controlVisibility }
     } = this.widget.configurator.get();
-
-    this.iconColor = iconColor;
 
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.code)
@@ -52,10 +54,6 @@ class PreviewContainer {
     this.element.body.icon = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.icon.code)
     });
-
-    if (!!(iconWidth)) {
-      this.element.body.icon.style({ 'width': `${iconWidth}` });
-    }
 
     this.element.body.wrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.image.wrapper.code)
@@ -78,17 +76,13 @@ class PreviewContainer {
       this.element.control.redo = VirtualDOMService.createElement('img', {
         classes: utils.extractClasses(styles, styleCodes.preview.control.icon.redo.code)
       });
-
-      this.element.control.redo.setSvg(faRedo, previewIconColor);
     }
-
-    // Change the button color
-    this.element.target().style.setProperty('--file-hasher-widget-control-border-color', previewIconColor);
 
     this.element.hide();
 
     this.initializeObservers();
     this.initializeEvents();
+    this.stylize();
   }
 
   /**
@@ -96,6 +90,10 @@ class PreviewContainer {
    */
   initializeObservers() {
     const self = this;
+
+    self.widget.observers.downloadingStartedObserver.subscribe((data) => {
+      self.downloadingStarted(data)
+    });
 
     self.widget.observers.downloadModeInitiatedObserver.subscribe((data) => {
       self.downloadModeInitiated(data)
@@ -106,6 +104,7 @@ class PreviewContainer {
     });
 
     self.widget.observers.fileSelectedObserver.subscribe((file) => {
+      self.displayDefaultIcon();
       self.downloadingFinished(file)
     });
 
@@ -165,6 +164,30 @@ class PreviewContainer {
   }
 
   /**
+   * Stylize the container
+   */
+  stylize() {
+    // Select all needful options
+    const {
+      icon: { width: iconWidth, color: iconColor },
+      preview: { icon: { color: previewIconColor } }
+    } = this.widget.configurator.getStyles();
+
+    this.iconColor = iconColor;
+
+    if (!!(iconWidth)) {
+      this.element.body.icon.style({ 'width': `${iconWidth}` });
+    }
+
+    if (this.element.control && this.element.control.redo) {
+      this.element.control.redo.setSvg(faRedo, previewIconColor);
+    }
+
+    // Change the button color
+    this.element.target().style.setProperty('--file-hasher-widget-control-border-color', previewIconColor);
+  }
+
+  /**
    * Reset to upload mode
    */
   uploadModeInitiated() {
@@ -176,10 +199,17 @@ class PreviewContainer {
   /**
    * If downloading is started, show the default preview
    */
-  downloadModeInitiated() {
-    this.element.show();
-    this.element.body.show();
-    this.showPlaceholderIcon(faFile)
+  downloadModeInitiated(fileConfiguration) {
+    if (fileConfiguration.fastDownload) {
+      this.displayDefaultIcon();
+    }
+  }
+
+  /**
+   * If the downloading started, show the default icon
+   */
+  downloadingStarted() {
+    this.displayDefaultIcon();
   }
 
   /**
@@ -187,8 +217,6 @@ class PreviewContainer {
    * @param file
    */
   downloadingFinished(file) {
-    this.element.show();
-
     const { name: filename } = file;
     const fileExtension = utils.getFileExtension(filename);
 
@@ -202,7 +230,6 @@ class PreviewContainer {
     this.file = file;
 
     if (this.previewFileExtensions.indexOf(fileExtension) !== -1) { // Display an image
-      this.element.body.show();
       this.element.body.wrapper.show();
       this.element.body.icon.hide();
       this.fileReader.readAsDataURL(file);
@@ -210,11 +237,16 @@ class PreviewContainer {
       this.element.body.hide();
       // Initialize the PDF viewer
       this.pdfPreview.setPdfFile(file);
-    } else {
-      // Otherwise display the default icon
-      this.element.body.show();
-      this.showPlaceholderIcon(faFile)
     }
+  }
+
+  /**
+   * Show the default icon
+   */
+  displayDefaultIcon() {
+    this.element.show();
+    this.element.body.show();
+    this.showPlaceholderIcon();
   }
 
   /**
@@ -228,12 +260,18 @@ class PreviewContainer {
 
   /**
    * Define the icon instead of preview element if extension is not allowed
-   * @param file
    */
-  showPlaceholderIcon(file) {
+  showPlaceholderIcon() {
     this.element.body.wrapper.hide();
     this.element.body.icon.show();
-    this.element.body.icon.setSvg(file, this.iconColor);
+
+    // If user common icon was defined, display it
+    if (this.commomPreviewIcon) {
+      this.element.body.icon.setSrc(this.commomPreviewIcon);
+    } else {
+      // otherwise display the default one
+      this.element.body.icon.setSvg(faFile, this.iconColor);
+    }
   }
 
   /**

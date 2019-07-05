@@ -20,21 +20,14 @@ class HashContainer {
    * Create all container elements and initialize them
    */
   init() {
-    const {hash: { color: hashColor, background: hashBackgroundColor }} = this.widget.configurator.getStyles();
-
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.hash.container.code)
     });
 
-    this.element.target().style
-      .setProperty('--file-hasher-widget-hash-color', hashColor);
-
-    this.element.target().style
-      .setProperty('--file-hasher-widget-hash-background-color', hashBackgroundColor);
-
     this.element.hide();
 
     this.initializeObservers();
+    this.stylize();
   }
 
   /**
@@ -47,6 +40,19 @@ class HashContainer {
     this.widget.observers.widgetResetObserver.subscribe((data) => {
       this.widgetReset(data)
     });
+  }
+
+  /**
+   * Stylize the container
+   */
+  stylize() {
+    const {hash: { color: hashColor, background: hashBackgroundColor }} = this.widget.configurator.getStyles();
+
+    this.element.target().style
+      .setProperty('--file-hasher-widget-hash-color', hashColor);
+
+    this.element.target().style
+      .setProperty('--file-hasher-widget-hash-background-color', hashBackgroundColor);
   }
 
   /**
