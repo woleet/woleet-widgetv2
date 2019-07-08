@@ -29,6 +29,13 @@ function getFileHasherDefaults() {
         background: '#00A2FF'
       }
     },
+    icons: {
+      import: null,
+      download: null,
+      preview: {
+        common: null
+      }
+    },
     visibility: {
       title: true,
       filename: true,

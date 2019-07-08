@@ -27,6 +27,9 @@ function DOM(element) {
   defineProp('setSvg', (svg, color = null) => getSelf(svg=!!(color) ? svg.replace('currentColor', color) : svg,
     svg ? target.setAttribute('src', `data:image/svg+xml;base64,${btoa(svg)}`) : target.removeAttribute('src')));
 
+  // Define src attribute
+  defineProp('setSrc', (svg) => getSelf(svg ? target.setAttribute('src', svg) : target.removeAttribute('src')));
+
   // Define element's attribute
   defineProp('attr', (attr, val) => getSelf(val ? target.setAttribute(attr, val) : target.removeAttribute(attr)));
 

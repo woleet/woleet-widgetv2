@@ -61,11 +61,6 @@ class PdfPreview {
 
   // Create all container elements and initialize them
   init() {
-    // Select all needful options
-    const {
-      preview: { icon: { color: previewIconColor} }
-    } = this.widget.configurator.getStyles();
-
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.code)
     });
@@ -78,8 +73,6 @@ class PdfPreview {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.canvas.code)
     });
     
-    this.element.canvasWrapper.canvas.style({width: `${this.styles.width}`});
-    
     this.element.control = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.code)
     });
@@ -87,19 +80,16 @@ class PdfPreview {
     this.element.control.prev = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.icon.prev.code)
     });
-  
-    this.element.control.prev.setSvg(faCaretLeft, previewIconColor);
     
     this.element.control.next = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.icon.next.code)
     });
-  
-    this.element.control.next.setSvg(faCaretRight, previewIconColor);
     
     this.element.hide();
     this.element.control.hide();
 
     this.initializeEvents();
+    this.stylize();
   }
   
   /**
@@ -140,6 +130,22 @@ class PdfPreview {
     this.element.on('mouseleave', function () {
       self.element.control.hide();
     });
+  }
+
+  /**
+   * Stylize the container
+   */
+  stylize() {
+    // Select all needful options
+    const {
+      preview: { icon: { color: previewIconColor} }
+    } = this.widget.configurator.getStyles();
+
+    this.element.canvasWrapper.canvas.style({width: `${this.styles.width}`});
+
+    this.element.control.prev.setSvg(faCaretLeft, previewIconColor);
+
+    this.element.control.next.setSvg(faCaretRight, previewIconColor);
   }
 
   /**

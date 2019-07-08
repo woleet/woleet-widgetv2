@@ -20,10 +20,6 @@ class ProgressBarControl {
    * Create all container elements and initialize them
    */
   init() {
-    const {
-      progress: { icon: { color: progressIconColor } }
-    } = this.widget.configurator.getStyles();
-
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.progress.control.code)
     });
@@ -32,8 +28,8 @@ class ProgressBarControl {
       classes: utils.extractClasses(styles, styleCodes.progress.control.icon.code)
     });
 
-    this.element.icon.setSvg(faTimes, progressIconColor);
     this.initializeEvents();
+    this.stylize();
   }
 
   /**
@@ -48,6 +44,17 @@ class ProgressBarControl {
         self.widget.observers.widgetResetObserver.broadcast();
       });
     }
+  }
+
+  /**
+   * Stylize the container
+   */
+  stylize() {
+    const {
+      progress: { icon: { color: progressIconColor } }
+    } = this.widget.configurator.getStyles();
+
+    this.element.icon.setSvg(faTimes, progressIconColor);
   }
 
   get() {
