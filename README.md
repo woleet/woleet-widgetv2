@@ -163,10 +163,11 @@ There are several ways to configure the widget:
 * If a option has nested options they can be set also as HTML attributes by joining via '-' in lower case:
 
 ```html
-<div class='file-hasher-widget' id='file-hasher-widget-de'
+<div class='file-hasher-widget'
+     id='file-hasher-widget-de'
      observers-hashCalculated='window.hashCalculated'
      styles-width='270'
-     lang='de'></div>
+     lang='fr'></div>
 ```
 
 The dynamic initialization is also available. It is realized using the method __init__ of the widget. The an example in the file [examples/file-hasher-widget-delayed-several-instances-example.html](examples/file-hasher-widget-delayed-several-instances-example.html)
@@ -334,7 +335,7 @@ There are several ways to configure the widget:
      lang='en'
      verification='{"server": false}'
      styles='{"banner": {"width": "450px"}}'
-     receipt='{"url": "https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967&name=Terms%20of%20Servicev3_20180727.pdf"}'
+     receipt='{"url": "https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967"}'
 ></div>
  ```
 * If a option has nested options they can be set also as HTML attributes by joining via '-' in lower case:
@@ -346,7 +347,7 @@ There are several ways to configure the widget:
      verification-client="false"
      styles-banner-width="650px"
      styles-zIndex="20"
-     receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967&name=Terms%20of%20Servicev3_20180727.pdf'
+     receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967'
 ></div>
 ```
 
