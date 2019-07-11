@@ -1,7 +1,4 @@
 const express = require('express');
-const https = require('https');
-const path = require('path');
-const mime = require('mime');
 const request = require('request');
 const progress = require('request-progress');
 const app = express();
@@ -11,6 +8,7 @@ const conf = {
 };
 
 app.use(cors());
+app.use('/static', express.static('src'));
 
 app.get('/download', function (req, res) {
   const { url: fileUrl } = req.query;
