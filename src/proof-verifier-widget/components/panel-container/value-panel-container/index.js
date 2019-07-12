@@ -39,7 +39,19 @@ class ValuePanelContainer {
       classes: utils.extractClasses(styles, valueClassCode.code)
     });
 
+    this.initializeObservers();
     this.stylize();
+  }
+
+  /**
+   * Initialize the observers
+   */
+  initializeObservers() {
+    const self = this;
+
+    self.widget.observers.windowResizedObserver.subscribe(() => {
+      self.changeTitleFont()
+    });
   }
 
   /**
@@ -67,13 +79,7 @@ class ValuePanelContainer {
       .setProperty('--proof-verifier-panel-value-background-color', colorOptions.background);
 
     setTimeout(() => {
-      const cssProperties = getComputedStyle(this.element.target());
-      const {'width': elementItemWidth} = cssProperties;
-      // Adapt the font size
-      const labelFontSize = utils.calculateResponsiveFontSize(elementItemWidth, self.options.fontRatio.label);
-      const itemFontSize = utils.calculateResponsiveFontSize(elementItemWidth, self.options.fontRatio.item);
-      self.element.label.target().style.setProperty('font-size', `${labelFontSize}px`);
-      self.element.item.target().style.setProperty('font-size', `${itemFontSize}px`);
+      self.changeTitleFont();
     }, 0);
 
     // TODO: refactor
@@ -81,6 +87,19 @@ class ValuePanelContainer {
       this.element.label.addClass(utils.extractClasses(styles, styleCodes.panelContainer.value['responsive-small'].label.code));
       this.element.item.addClass(utils.extractClasses(styles, styleCodes.panelContainer.value['responsive-small'].code));
     }
+  }
+
+  /**
+   * Change the title font size
+   */
+  changeTitleFont() {
+    const cssProperties = getComputedStyle(this.element.target());
+    const {'width': elementItemWidth} = cssProperties;
+    // Adapt the font size
+    const labelFontSize = utils.calculateResponsiveFontSize(elementItemWidth, this.options.fontRatio.label);
+    const itemFontSize = utils.calculateResponsiveFontSize(elementItemWidth, this.options.fontRatio.item);
+    this.element.label.target().style.setProperty('font-size', `${labelFontSize}px`);
+    this.element.item.target().style.setProperty('font-size', `${itemFontSize}px`);
   }
 
   /**

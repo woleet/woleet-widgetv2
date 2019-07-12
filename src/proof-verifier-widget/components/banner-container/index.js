@@ -168,17 +168,17 @@ class BannerContainer {
    */
   initializeView(mode) {
     const self = this;
-    const widgetStyles = self.widget.configurator.getStyles();
+    const { icon: iconStyles, width, banner } = self.widget.configurator.getStyles();
     
     switch(mode) {
       // If the mode is PANEL show the banner and does not allow it to be hidden
       case constants.PROOF_VERIFIER_MODE_PANEL:
-        self.element.style({width: `${widgetStyles.banner.width}`});
+        self.element.style({width: `calc(${width} - ${iconStyles.width})`});
         break;
       // If the mode is PANEL show the banner and does not allow it to be hidden but make it clickable to open th panel
       case constants.PROOF_VERIFIER_MODE_BANNER:
         self.element.addClass(self.cursorPointerClass);
-        self.element.style({width: `${widgetStyles.banner.width}`});
+        self.element.style({width: `calc(${width} - ${iconStyles.width})`});
 
         this.initializeEvents();
         break;
@@ -189,9 +189,9 @@ class BannerContainer {
     }
 
     this.element.target().style
-      .setProperty('--proof-verifier-banner-color', widgetStyles.banner.color);
+      .setProperty('--proof-verifier-banner-color', banner.color);
     this.element.target().style
-      .setProperty('--proof-verifier-banner-background-color', widgetStyles.banner.background);
+      .setProperty('--proof-verifier-banner-background-color', banner.background);
   }
 
   /**
