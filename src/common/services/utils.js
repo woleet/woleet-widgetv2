@@ -549,6 +549,26 @@ function calculateResponsiveFontSize(elementWidth, ratio = 0.08, maxFontSize = 1
   return fontsize;
 }
 
+/**
+ *
+ * @param parentWidth
+ * @param width
+ * @return {number}
+ */
+function getWidthDifference(parentWidth, width) {
+  let result = 0;
+
+  if (width.indexOf('%') >= 0) {
+    const widthInPercent = parseFloat(width);
+    result = parentWidth - ((widthInPercent * width) / 100).toFixed(2)
+  } else {
+    const widthInPixel = parseFloat(width);
+    result = parentWidth - widthInPixel
+  }
+
+  return result;
+}
+
 function toDataUrl(url, callback) {
   let xhr = new XMLHttpRequest();
   xhr.onload = function() {
@@ -571,6 +591,7 @@ export default  {
   setTimer,
   svgToHTML,
   translate,
+  toDataUrl,
   blobToFile,
   formatDate,
   adsBlocked,
@@ -578,7 +599,6 @@ export default  {
   saveObjectAs,
   extendObject: mergeDeep,
   defineProperty,
-  toDataUrl,
   getHttpRequest,
   extractClasses,
   getFilenameUrl,
@@ -587,6 +607,7 @@ export default  {
   getFilenameSource,
   getObjectByString,
   getObjectProperty,
+  getWidthDifference,
   calculateWidgetWidths,
   calculateResponsiveFontSize,
   parseWidgetAttributeConfiguration

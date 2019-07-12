@@ -144,32 +144,7 @@ function createFileInput(options = {}, attrs = {}) {
   return createElement('input', options, utils.extendObject({ type: 'file' }, attrs));
 }
 
-/**
- * Get text element with adaptive text font
- * @param text
- * @param widgetWidth
- * @param classes
- * @param maxFontSize
- * @return {*}
- */
-function createResponsiveText(text, widgetWidth, classes, maxFontSize = 18) {
-  const translatedTextElement = createElement('span', { classes });
-  translatedTextElement.text(text);
-
-  // And recalculate the font size of the text zone to make it responsive
-  let fontSize = parseInt(widgetWidth, 10) * 0.04;
-
-  if (fontSize > maxFontSize) {
-    fontSize = maxFontSize;
-  }
-
-  translatedTextElement.attr('style', `font-size: ${fontSize}px;`);
-
-  return translatedTextElement.render();
-}
-
 export default {
   createElement,
-  createFileInput,
-  createResponsiveText
+  createFileInput
 }

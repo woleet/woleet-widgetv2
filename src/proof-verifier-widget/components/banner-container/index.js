@@ -34,6 +34,10 @@ class BannerContainer {
       classes: utils.extractClasses(styles, styleCodes.bannerContainer.wrapper.code)
     });
 
+    this.element.wrapper.title = VirtualDOMService.createElement('span', {
+      classes: utils.extractClasses(styles, styleCodes.bannerContainer.wrapper.title.code)
+    });
+
     this.element.hide();
     
     this.initializeObservers();
@@ -64,6 +68,10 @@ class BannerContainer {
 
     self.widget.observers.receiptDownloadingFailedObserver.subscribe((data) => {
       self.receiptFileFailed(data)
+    });
+
+    self.widget.observers.windowResizedObserver.subscribe(() => {
+      self.changeTitleFont()
     });
   }
 
@@ -98,13 +106,13 @@ class BannerContainer {
    */
   receiptParsed(message, receipt) {
     const self = this;
+    const { icon: iconStyles } = this.widget.configurator.getStyles();
 
     if (message) {
       const sig = receipt.signature;
       const idStatus = message.identityVerificationStatus;
       const identity = idStatus ? idStatus.identity : false;
       const pubKey = sig ? sig.pubKey : null;
-      const { banner: { width: bannerWidth } } = self.widget.configurator.getStyles();
 
       self.element.show();
 
@@ -119,13 +127,24 @@ class BannerContainer {
           transParams.context = 'by';
         }
 
+        const bannerWidth = utils.getWidthDifference(this.element.target().parentElement.offsetWidth, iconStyles.width);
         const translatedText = utils.translate(transCode, self.lang, transParams);
-        const translatedTextClasses = utils.extractClasses(styles, styleCodes.bannerContainer.wrapper.title.code);
-        const titleElement = VirtualDOMService.createResponsiveText(translatedText, bannerWidth, translatedTextClasses);
-
-        self.element.wrapper.target().append(titleElement);
+        self.element.wrapper.title.text(translatedText);
+        self.changeTitleFont(bannerWidth);
       }
     }
+  }
+
+  /**
+   * Change the title font size
+   */
+  changeTitleFont(width) {
+    if (!width) {
+      width = this.element.wrapper.target().offsetWidth;
+    }
+
+    const fontSize = utils.calculateResponsiveFontSize(width, 0.04, 16);
+    this.element.wrapper.title.attr('style', `font-size: ${fontSize}px;`);
   }
 
   /**
@@ -134,8 +153,6 @@ class BannerContainer {
   onIconClicked() {
     const self = this;
     const { icon: iconStyles, width } = this.widget.configurator.getStyles();
-
-    console.log('widgetStyles', iconStyles, width);
 
     // To expand the banner just change the style width
     if (self.expanded) {
@@ -162,7 +179,7 @@ class BannerContainer {
       case constants.PROOF_VERIFIER_MODE_BANNER:
         self.element.addClass(self.cursorPointerClass);
         self.element.style({width: `${widgetStyles.banner.width}`});
-        
+
         this.initializeEvents();
         break;
       // If the mode is PANEL hide the banner and allow it to be showned

@@ -28,7 +28,7 @@ class ProofVerifierWidget {
    * Create all container elements and initialize them
    */
   init() {
-    const widgetStyles = this.configurator.getStyles();
+    const { mode } = this.configurator.get();
 
     this.initializeObservers();
     this.initializeExternalObservers(this.configuration);
@@ -42,7 +42,11 @@ class ProofVerifierWidget {
     // Create the widget container
     this.element.iconContainer = (new IconContainer(this)).get();
     this.element.bannerContainer = (new BannerContainer(this)).get();
-    this.element.panelContainer = (new PanelContainer(this)).get();
+
+    if (mode !== 'icon') {
+      this.element.panelContainer = (new PanelContainer(this)).get();
+    }
+
     // Container to display widget errors
     this.element.errorContainer = (new ErrorContainer(this)).get();
 
@@ -53,10 +57,13 @@ class ProofVerifierWidget {
    * Initialize the widget observers
    */
   initializeObservers() {
+    const self = this;
     this.observers = {
       // Events: errors
       errorCaughtObserver: new EventObserver(),
       errorHiddenObserver: new EventObserver(),
+      // Events: global
+      windowResizedObserver: new EventObserver(),
       // Events: widget
       widgetInitializedObserver: new EventObserver(),
       // Events: user actions
@@ -68,6 +75,10 @@ class ProofVerifierWidget {
       receiptParsedObserver: new EventObserver(),
       receiptVerifiedObserver: new EventObserver(),
     };
+
+    window.addEventListener('resize', (event) => {
+      this.observers.windowResizedObserver.broadcast(self.widgetId, event);
+    });
   }
 
   /**
