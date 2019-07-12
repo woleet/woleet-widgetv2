@@ -1,10 +1,6 @@
 const styleCodes = {
   // Define all style codes to control uniqueness of class names
   code: ['proof_verifier_widget--wrapper'],
-  
-  containers: {
-    code: ['container'],
-  },
 
   iconContainer: {
     code: ['icon_container'],

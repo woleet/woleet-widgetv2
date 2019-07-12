@@ -2,14 +2,14 @@
 @import '../../scss/common';
 
 :local {
-  .container {
-    position: relative;
-    display: inline-block
-  }
   .icon_container {
+    position: relative;
     display: inline-block;
-    svg {
-      display: block;
+    &-icon {
+      display: inline-block;
+      svg {
+        display: block;
+      }
     }
   }
 }

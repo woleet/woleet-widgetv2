@@ -2,8 +2,8 @@ import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
-import ValuePanelContainer from "ProofVerifierComponents/widget-container/panel-container/value-panel-container";
-import HeaderPanelContainer from "ProofVerifierComponents/widget-container/panel-container/header-panel-container";
+import ValuePanelContainer from "ProofVerifierComponents/panel-container/value-panel-container";
+import HeaderPanelContainer from "ProofVerifierComponents/panel-container/header-panel-container";
 import constants from "Common/constants";
 
 /**

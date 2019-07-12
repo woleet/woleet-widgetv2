@@ -5,16 +5,14 @@ import constants from 'Common/constants'
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
 import Icon from 'Resources/images/icon.svg';
-import BannerContainer from "./banner-container";
-import PanelContainer from "./panel-container";
 import loader from "Common/services/loader";
 
 /**
- * WidgetContainer
+ * IconContainer
  *
- * This is the common widget container
+ * The container presents the icon mode
  */
-class WidgetContainer {
+class IconContainer {
   constructor(widget) {
     const self = this;
     this.widget = widget;
@@ -72,19 +70,16 @@ class WidgetContainer {
     }
 
     this.element = VirtualDOMService.createElement('div', {
-      classes: utils.extractClasses(styles, styleCodes.containers.code)
+      classes: utils.extractClasses(styles, styleCodes.iconContainer.code)
     });
 
     this.element.iconContainer = VirtualDOMService.createElement('img', {
-      classes: utils.extractClasses(styles, styleCodes.iconContainer.code)
+      classes: utils.extractClasses(styles, styleCodes.iconContainer.icon.code)
     });
     this.element.iconContainer.style({width: iconWidth, height: iconHeight});
     const xml = new XMLSerializer().serializeToString(logoElement);
     const image = `data:image/svg+xml;base64,${btoa(xml)}`;
     this.element.iconContainer.attr('src', image);
-
-    this.element.bannerContainer = (new BannerContainer(this.widget)).get();
-    this.element.panelContainer = (new PanelContainer(this.widget)).get();
 
     this.initializeObservers();
     this.initializeStyles();
@@ -243,4 +238,4 @@ class WidgetContainer {
   }
 }
 
-export default WidgetContainer;
+export default IconContainer;

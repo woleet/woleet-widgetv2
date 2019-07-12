@@ -247,6 +247,8 @@ The following attributes can be set on `<div>` tag to configure the look and beh
     
     * __zindex__ - z-index of the panel block; _DEFAULT_: ___3___
     
+    * __width__ - width of the widget; _DEFAULT_: ___600px___
+    
     * __icon__ - Widget icon styles:
     
         * __width__ - width of the icon; _DEFAULT_: ___null___
@@ -255,17 +257,11 @@ The following attributes can be set on `<div>` tag to configure the look and beh
         
     * __banner__ - Widget banner styles:
         
-        * __width__ - width of the banner; _DEFAULT_: ___600px___
-        
         * __color__ - the banner text color;_DEFAULT_: ___#31708f___
                 
         * __background__ - the banner background color;_DEFAULT_: ___#dff0d8___
             
     * __panel__ - Widget panel styles:
-            
-        * __width__ - width of the panel; _DEFAULT_: ___null___
-            
-        * __height__ - height of the panel; _DEFAULT_: ___400px___
         
         * __color__ - the title color of panels;_DEFAULT_: ___#333___
         

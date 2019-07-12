@@ -3,10 +3,10 @@ import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
 import constants from "Common/constants";
-import AnchorPanelContainer from "ProofVerifierWidget/components/widget-container/panel-container/anchor-panel-container";
-import ControlPanelContainer from "ProofVerifierWidget/components/widget-container/panel-container/control-panel-container";
-import SignPanelContainer from "ProofVerifierComponents/widget-container/panel-container/sign-panel-container";
-import CommonPanelContainer from "ProofVerifierComponents/widget-container/panel-container/common-panel-container";
+import AnchorPanelContainer from "ProofVerifierWidget/components/panel-container/anchor-panel-container";
+import ControlPanelContainer from "ProofVerifierWidget/components/panel-container/control-panel-container";
+import SignPanelContainer from "ProofVerifierComponents/panel-container/sign-panel-container";
+import CommonPanelContainer from "ProofVerifierComponents/panel-container/common-panel-container";
 
 /**
  * PanelContainer

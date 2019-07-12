@@ -4,8 +4,10 @@ import EventObserver from 'Common/patterns/event-observer';
 import utils from 'Common/services/utils';
 import styleCodes from './style-codes';
 import styles from './index.scss';
-import WidgetContainer from "ProofVerifierComponents/widget-container";
-import ErrorContainer from "ProofVerifierWidget/components/error-container";
+import ErrorContainer from 'ProofVerifierWidget/components/error-container';
+import IconContainer from 'ProofVerifierComponents/icon-container';
+import BannerContainer from 'ProofVerifierComponents/banner-container';
+import PanelContainer from 'ProofVerifierComponents/panel-container';
 
 /**
  * Define a class of the widget
@@ -36,10 +38,11 @@ class ProofVerifierWidget {
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
     });
     this.element.attr('id', this.widgetId);
-    this.element.style({width: `${widgetStyles.icon.width}`});
 
     // Create the widget container
-    this.element.container = (new WidgetContainer(this)).get();
+    this.element.iconContainer = (new IconContainer(this)).get();
+    this.element.bannerContainer = (new BannerContainer(this)).get();
+    this.element.panelContainer = (new PanelContainer(this)).get();
     // Container to display widget errors
     this.element.errorContainer = (new ErrorContainer(this)).get();
 

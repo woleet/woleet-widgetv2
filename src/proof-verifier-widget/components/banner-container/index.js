@@ -26,13 +26,9 @@ class BannerContainer {
    * Create all container elements and initialize them
    */
   init() {
-    const { banner: bannerOptions } = this.widget.configurator.getStyles();
-
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.bannerContainer.code)
     });
-
-    this.element.style({height: `${bannerOptions.height}`});
     
     this.element.wrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.bannerContainer.wrapper.code)
@@ -43,6 +39,7 @@ class BannerContainer {
     this.initializeObservers();
     // Initialize the selected mode
     this.initializeView(this.mode);
+    this.stylize()
   }
 
   /**
@@ -68,6 +65,14 @@ class BannerContainer {
     self.widget.observers.receiptDownloadingFailedObserver.subscribe((data) => {
       self.receiptFileFailed(data)
     });
+  }
+
+  /**
+   * Stylize the element: responsive, customization and etc.
+   */
+  stylize() {
+    const { banner: bannerOptions } = this.widget.configurator.getStyles();
+    this.element.style({height: `${bannerOptions.height}`});
   }
   
   /**
@@ -128,12 +133,15 @@ class BannerContainer {
    */
   onIconClicked() {
     const self = this;
-    const widgetStyles = this.widget.configurator.getStyles();
+    const { icon: iconStyles, width } = this.widget.configurator.getStyles();
+
+    console.log('widgetStyles', iconStyles, width);
+
     // To expand the banner just change the style width
     if (self.expanded) {
       self.element.target().style.setProperty('--proof-verifier-banner-width', 0);
     } else {
-      self.element.target().style.setProperty('--proof-verifier-banner-width', widgetStyles.banner.width);
+      self.element.target().style.setProperty('--proof-verifier-banner-width', `calc(${width} - ${iconStyles.width})`);
     }
     self.expanded = !self.expanded;
   }
