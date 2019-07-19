@@ -23,7 +23,20 @@ class HeaderPanelContainer {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.header.code)
     });
 
+    this.initializeObservers();
     this.stylize();
+  }
+
+  /**
+   * Initialize the observers
+   */
+  initializeObservers() {
+    const self = this;
+
+    self.widget.observers.windowResizedObserver.subscribe(() => {
+      self.changeTitleFont();
+      self.makeResponsive();
+    });
   }
 
   /**
@@ -33,20 +46,42 @@ class HeaderPanelContainer {
     const self = this;
     const { panel } = this.widget.configurator.getStyles();
     const { header: headerOptions, width: panelWidth  } = panel;
-    setTimeout(() => {
-      const cssProperties = getComputedStyle(this.element.target());
-      const {'width': elementItemWidth} = cssProperties;
-
-      // Adapt the font size
-      const fontSize = utils.calculateResponsiveFontSize(elementItemWidth, 0.13, 16);
-      self.element.target().style.setProperty('font-size', `${fontSize}px`);
-    }, 0);
     self.element.target().style
       .setProperty('--proof-verifier-panel-header-color', headerOptions.color);
 
+    setTimeout(() => {
+      self.changeTitleFont();
+    }, 0);
+
+    setTimeout(() => {
+      self.makeResponsive();
+    }, 0);
+  }
+
+  /**
+   * Change the title font size
+   */
+  changeTitleFont() {
+    const cssProperties = getComputedStyle(this.element.target());
+    const {'width': elementItemWidth} = cssProperties;
+
+    // Adapt the font size
+    const fontSize = utils.calculateResponsiveFontSize(elementItemWidth, 0.13, 16);
+    this.element.target().style.setProperty('font-size', `${fontSize}px`);
+  }
+
+  /**
+   * Make it responsive
+   */
+  makeResponsive() {
+    const cssProperties = getComputedStyle(this.widget.panel.target());
+    const {'width': panelWidth} = cssProperties;
+
     // TODO: refactor
-    if (parseFloat(panelWidth) < 400) {
-      self.element.addClass(utils.extractClasses(styles, styleCodes.panelContainer.header['responsive-small'].code));
+    if (parseFloat(panelWidth) < 540) {
+      this.element.addClass(utils.extractClasses(styles, styleCodes.panelContainer.header['responsive-small'].code));
+    } else {
+      this.element.removeClass(utils.extractClasses(styles, styleCodes.panelContainer.header['responsive-small'].code));
     }
   }
   

@@ -53,18 +53,32 @@ class CommonPanelContainer {
     self.widget.observers.receiptVerifiedObserver.subscribe((data, receipt) => {
       self.receiptParsed(data, receipt);
     });
+
+    self.widget.observers.windowResizedObserver.subscribe(() => {
+      self.makeResponsive();
+    });
   }
 
   /**
    * Stylize the element: responsive, customization and etc.
    */
   stylize() {
-    const { panel } = this.widget.configurator.getStyles();
-    const { width: panelWidth  } = panel;
+    setTimeout(() => {
+      this.makeResponsive();
+    }, 0);
+  }
 
-    // TODO: refactor
-    if (parseFloat(panelWidth) < 400) {
+  /**
+   * Make it responsive
+   */
+  makeResponsive() {
+    const cssProperties = getComputedStyle(this.widget.panel.target());
+    const {'width': panelWidth} = cssProperties;
+
+    if (parseFloat(panelWidth) < 540) {
       this.element.wrapper.leftSide.addClass(utils.extractClasses(styles, styleCodes.panelContainer.common.item['responsive-small'].code));
+    } else {
+      this.element.wrapper.leftSide.removeClass(utils.extractClasses(styles, styleCodes.panelContainer.common.item['responsive-small'].code));
     }
   }
 

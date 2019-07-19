@@ -34,7 +34,9 @@ class PanelContainer {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.code)
     });
 
-    // There are three different sections: common
+    this.widget.panel = this.element;
+
+      // There are three different sections: common
     this.element.common = (new CommonPanelContainer(this.widget)).get();
     // The section that contains signed hash info
     this.element.sign = (new SignPanelContainer(this.widget)).get();

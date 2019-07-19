@@ -50,7 +50,8 @@ class ValuePanelContainer {
     const self = this;
 
     self.widget.observers.windowResizedObserver.subscribe(() => {
-      self.changeTitleFont()
+      self.changeTitleFont();
+      self.makeResponsive();
     });
   }
 
@@ -82,11 +83,9 @@ class ValuePanelContainer {
       self.changeTitleFont();
     }, 0);
 
-    // TODO: refactor
-    if (parseFloat(panelWidth) < 400) {
-      this.element.label.addClass(utils.extractClasses(styles, styleCodes.panelContainer.value['responsive-small'].label.code));
-      this.element.item.addClass(utils.extractClasses(styles, styleCodes.panelContainer.value['responsive-small'].code));
-    }
+    setTimeout(() => {
+      self.makeResponsive();
+    }, 0);
   }
 
   /**
@@ -100,6 +99,23 @@ class ValuePanelContainer {
     const itemFontSize = utils.calculateResponsiveFontSize(elementItemWidth, this.options.fontRatio.item);
     this.element.label.target().style.setProperty('font-size', `${labelFontSize}px`);
     this.element.item.target().style.setProperty('font-size', `${itemFontSize}px`);
+  }
+
+  /**
+   * Make it responsive
+   */
+  makeResponsive() {
+    const cssProperties = getComputedStyle(this.widget.panel.target());
+    const {'width': panelWidth} = cssProperties;
+
+    // TODO: refactor
+    if (parseFloat(panelWidth) < 540) {
+      this.element.label.addClass(utils.extractClasses(styles, styleCodes.panelContainer.value['responsive-small'].label.code));
+      this.element.item.addClass(utils.extractClasses(styles, styleCodes.panelContainer.value['responsive-small'].code));
+    } else {
+      this.element.label.removeClass(utils.extractClasses(styles, styleCodes.panelContainer.value['responsive-small'].label.code));
+      this.element.item.removeClass(utils.extractClasses(styles, styleCodes.panelContainer.value['responsive-small'].code));
+    }
   }
 
   /**
