@@ -10,23 +10,19 @@ export class HomeComponent implements OnInit {
   private self = this;
   hashes = [];
   files = [];
+  isHashed = false;
 
   fileHasherConfig = {
     id: 'my-id-todo',
     lang: 'fr',
-    file:{
-      url: "http://pngimg.com/uploads/google/google_PNG19644.png"
-    },
-    styles: {
-      width: '250px'
-    },
+    styles: { width: '100%' },
     observers: {
       hashCalculated: (widgetId, hash) => {this.hashCalculated(widgetId, hash)},
       downloadingFinished: (widgetId, file) => {this.downloadingFinished(widgetId, file)}
     }
   };
 
-  widgetConfig = {
+  proofVerifierConfig = {
     id: 'my-id-todo',
     lang: 'fr',
     verification: {

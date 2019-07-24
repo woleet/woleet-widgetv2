@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <title>Angular 2+ application: proof verifier</title>
@@ -10,16 +10,8 @@
 </head>
 <body>
   <app-root></app-root>
-  <script>
-    (function (d,s,i,f) {
-      var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
-      js.id = i; js.src = f; fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'file-hasher-widget', 'file-hasher-widget.js'));
 
-    (function (d,s,i,f) {
-      var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
-      js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'proof-verifier-widget', 'proof-verifier-widget.js'));
-  </script>
+  <script type="text/javascript" id="file-hasher-widget" src="http://localhost:3000/public/file-hasher-widget.js"></script>
+  <script type="text/javascript" id="proof-verifier-widget" src="http://localhost:3000/public/proof-verifier-widget.js"></script>
 </body>
 </html>

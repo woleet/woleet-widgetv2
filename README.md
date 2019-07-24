@@ -24,6 +24,12 @@ To integrate one or several widgets in a web page, first insert the following co
 </script>
 ```
 
+You can also integrate it directly like this:
+
+```html
+<script type="text/javascript" id="file-hasher-widget" src="<url_to_script>/file-hasher-widget.js"></script>
+```
+
 Note that you need to replace *<url_to_script>* with the actual path of the script.
 
 Then, instantiate the widget by creating a `<div>` tag with a `class="file-hasher-widget"` attribute:
@@ -217,6 +223,12 @@ To integrate one or several widgets in a web page, first insert the following co
   }(document, 'script', 'proof-verifier-widget', '<url_to_script>/proof-verifier-widget.js'));
 </script>
 ```
+You can also integrate it directly like this:
+
+```html
+<script type="text/javascript" id="proof-verifier-widget" src="<url_to_script>/proof-verifier-widget.js"></script>
+```
+
 Note that you need to replace *<url_to_script>* with the actual path of the script.
 
 Then, instantiate the widget by creating a `<div>` tag with a `class="proof-verifier-widget"` attribute:

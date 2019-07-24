@@ -1,8 +1,11 @@
 {
-  "http://localhost:4000/*": {
-    "target": "http://localhost:9000",
+  "/dist": {
+    "target": "http://localhost:3000/",
     "secure": false,
     "logLevel": "debug",
+    "pathRewrite": {
+      "^/dist": "public"
+    },
     "changeOrigin": true
   }
 }

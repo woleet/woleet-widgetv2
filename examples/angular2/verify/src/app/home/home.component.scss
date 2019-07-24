@@ -1,3 +1,20 @@
 .home {
 	margin: 10px 0;
+	
+	&__demo {
+		&--title {
+			font-size: 18px;
+		}
+		&--file {
+			&-hasher {
+				width: 20%;
+				margin: 20px auto;
+				border: 2px dotted blue;
+				padding: 20px;
+				&_inner {
+				
+				}
+			}
+		}
+	}
 }

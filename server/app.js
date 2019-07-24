@@ -9,6 +9,7 @@ const conf = {
 
 app.use(cors());
 app.use('/static', express.static('src'));
+app.use('/public', express.static('../dist'));
 
 app.get('/download', function (req, res) {
   const { url: fileUrl } = req.query;
