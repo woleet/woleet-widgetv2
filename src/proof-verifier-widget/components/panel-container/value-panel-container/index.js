@@ -50,7 +50,6 @@ class ValuePanelContainer {
     const self = this;
 
     self.widget.observers.windowResizedObserver.subscribe(() => {
-      self.changeTitleFont();
       self.makeResponsive();
     });
   }
@@ -78,10 +77,6 @@ class ValuePanelContainer {
       .setProperty('--proof-verifier-panel-value-color', colorOptions.color);
     this.element.target().style
       .setProperty('--proof-verifier-panel-value-background-color', colorOptions.background);
-
-    setTimeout(() => {
-      self.changeTitleFont();
-    }, 0);
 
     setTimeout(() => {
       self.makeResponsive();

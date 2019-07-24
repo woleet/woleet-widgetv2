@@ -71,7 +71,7 @@ class BannerContainer {
     });
 
     self.widget.observers.windowResizedObserver.subscribe(() => {
-      self.changeTitleFont()
+      // self.changeTitleFont()
     });
   }
 
@@ -130,7 +130,7 @@ class BannerContainer {
         const bannerWidth = utils.getWidthDifference(this.element.target().parentElement.offsetWidth, iconStyles.width);
         const translatedText = utils.translate(transCode, self.lang, transParams);
         self.element.wrapper.title.text(translatedText);
-        self.changeTitleFont(bannerWidth);
+        // self.changeTitleFont(bannerWidth);
       }
     }
   }
@@ -143,7 +143,7 @@ class BannerContainer {
       width = this.element.wrapper.target().offsetWidth;
     }
 
-    const fontSize = utils.calculateResponsiveFontSize(width, 0.04, 16);
+    const fontSize = utils.calculateResponsiveFontSize(width, 0.04, 14);
     this.element.wrapper.title.attr('style', `font-size: ${fontSize}px;`);
   }
 

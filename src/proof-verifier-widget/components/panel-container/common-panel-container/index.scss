@@ -17,6 +17,10 @@
         vertical-align: top;
         &-responsive {
           &_small {
+            width: 100%;
+            &:first-child {
+              padding-bottom: 20px;
+            }
             div {
               margin-right: 10px;
             }

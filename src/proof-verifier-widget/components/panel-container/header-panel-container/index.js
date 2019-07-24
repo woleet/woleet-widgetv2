@@ -34,7 +34,7 @@ class HeaderPanelContainer {
     const self = this;
 
     self.widget.observers.windowResizedObserver.subscribe(() => {
-      self.changeTitleFont();
+      // self.changeTitleFont();
       self.makeResponsive();
     });
   }
@@ -48,10 +48,6 @@ class HeaderPanelContainer {
     const { header: headerOptions, width: panelWidth  } = panel;
     self.element.target().style
       .setProperty('--proof-verifier-panel-header-color', headerOptions.color);
-
-    setTimeout(() => {
-      self.changeTitleFont();
-    }, 0);
 
     setTimeout(() => {
       self.makeResponsive();

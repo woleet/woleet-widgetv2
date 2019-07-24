@@ -3,6 +3,7 @@
 
 :local {
   .panel_container {
+    font-size: 14px;
     &--value {
       $valueSelector: &;
       &:not(:last-child) {
@@ -24,6 +25,7 @@
         background-color: var(--proof-verifier-panel-value-background-color);
         max-width: 55%;
         border-radius: 4px;
+        word-break: break-all;
         span {
           display: block;
         }

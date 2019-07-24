@@ -77,8 +77,10 @@ class CommonPanelContainer {
 
     if (parseFloat(panelWidth) < 540) {
       this.element.wrapper.leftSide.addClass(utils.extractClasses(styles, styleCodes.panelContainer.common.item['responsive-small'].code));
+      this.element.wrapper.rightSide.addClass(utils.extractClasses(styles, styleCodes.panelContainer.common.item['responsive-small'].code));
     } else {
       this.element.wrapper.leftSide.removeClass(utils.extractClasses(styles, styleCodes.panelContainer.common.item['responsive-small'].code));
+      this.element.wrapper.rightSide.removeClass(utils.extractClasses(styles, styleCodes.panelContainer.common.item['responsive-small'].code));
     }
   }
 
