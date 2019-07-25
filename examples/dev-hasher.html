@@ -103,19 +103,18 @@
      visibility-controls-reset="false"
      id='file-hasher-widget-de'
      observers='{"hashCalculated": "window.hashCalculated", "hashingStarted": "hashingStarted", "hashingCanceled": "hashingCanceled", "hashingProgress": "hashingProgress", "widgetReset": "widgetReset"}'></div>
-<div class='file-hasher-widget'
-     lang='fr'
-     styles-color='#FFFFFF'
-     styles-width='250px'
-     styles-align='left'
-     styles-icon-width='150px'
-     visibility-filename="false"
-     observers-hashCalculated='test.hashCalculatedObserver'
-     observers-downloadingFinished='test.downloadingFinishedObserver'
-     observers-downloadingStarted='test.downloadingStartedObserver'
-     observers-downloadingCanceled='test.downloadingCanceledObserver'
-     observers-downloadingProgress='test.downloadingProgressObserver'
-     file='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf", "fastDownload": true}'></div>
+<div style="width: 150px; margin: 0 auto;">
+    <div class='file-hasher-widget'
+         lang='fr'
+         styles-color='#FFFFFF'
+         styles-width='100%'
+         observers-hashCalculated='test.hashCalculatedObserver'
+         observers-downloadingFinished='test.downloadingFinishedObserver'
+         observers-downloadingStarted='test.downloadingStartedObserver'
+         observers-downloadingCanceled='test.downloadingCanceledObserver'
+         observers-downloadingProgress='test.downloadingProgressObserver'
+         file='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf", "fastDownload": true}'></div>
+</div>
 <div class='file-hasher-widget'
      styles='{"width": "150px", "progress": {"icon": {"color": "red"}}}'
      proxy='{"url": "http://localhost:3000/download?url=", "enabled": false}'

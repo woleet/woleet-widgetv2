@@ -471,6 +471,8 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
   let integerWidgetWidth = parseInt(widgetWidth, 10);
   let integerIconWidth = parseInt(iconWidth, 10);
 
+  console.log('PARENT', parent, parentOffsetWidth);
+
   // If all widgetWidth and iconWidth are in percents
   const widgetWidthIsPercent = widgetWidth && widgetWidth.indexOf('%') !== -1;
   const iconWidthIsPercent = iconWidth && iconWidth.indexOf('%') !== -1;

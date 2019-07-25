@@ -1,16 +1,33 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
-  production: false
+  production: false,
+  widget: {
+    configuration: {
+      fileHasher: {
+        lang: 'fr',
+        styles: { width: '100%', icon: { color: '#258C90' } },
+        observers: {}
+      },
+      proofVerifier: {
+        id: 'my-id-todo',
+        lang: 'fr',
+        verification: {
+          server: false
+        },
+        mode: 'banner',
+        styles: {
+          zindex: 20,
+          icon: {
+            width: '32px',
+            height: '36px'
+          },
+          banner: {
+            width: '800px'
+          }
+        },
+        receipt: {
+          url: 'https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967'
+        }
+      }
+    }
+  }
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.

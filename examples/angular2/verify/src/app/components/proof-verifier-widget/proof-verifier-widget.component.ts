@@ -1,9 +1,8 @@
 import { Component, Input, ElementRef, AfterContentInit } from '@angular/core';
 
 @Component({
-  selector: 'proof-verifier-widget',
-  templateUrl: './proof-verifier-widget.component.html',
-  styleUrls: ['./proof-verifier-widget.component.scss']
+  selector: 'div[proof-verifier-widget]',
+  template: '<ng-content></ng-content>'
 })
 export class ProofVerifierWidgetComponent implements AfterContentInit {
   @Input() config: any = {};

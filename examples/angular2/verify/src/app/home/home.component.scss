@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .home {
 	margin: 10px 0;
 	
@@ -9,10 +11,12 @@
 			&-hasher {
 				width: 20%;
 				margin: 20px auto;
-				border: 2px dotted blue;
+				border: 2px dotted $first-theme-color;
 				padding: 20px;
 				&_inner {
-				
+					.file-hasher-widget {
+						color: $first-theme-color;
+					}
 				}
 			}
 		}

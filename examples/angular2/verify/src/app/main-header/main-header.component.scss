@@ -1,5 +1,21 @@
+@import '../../variables.scss';
+
 .main-header {
-	height: 80px;
 	width: 100%;
-	background-color: lightgrey;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 9px;
+	margin: 40px 0 20px;
+	
+	&--wrapper {
+		width: 800px;
+		margin: 0 auto;
+		
+		h2 {
+			color: $first-theme-color;
+			
+			small {
+				color: gray;
+			}
+		}
+	}
 }

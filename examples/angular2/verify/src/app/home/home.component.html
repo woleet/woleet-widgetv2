@@ -2,12 +2,13 @@
   <div class="home__demo--title">Please, select a file you want to verify:</div>
   <div class="home__demo--file-hasher">
     <div class="home__demo--file-hasher_inner">
-      <file-hasher-widget [lang]="fileHasherConfig.lang" [config]="fileHasherConfig"></file-hasher-widget>
-<!--      <file-verifier-widget [config]="widgetConfig"></file-verifier-widget>-->
+      <div file-hasher-widget [lang]="fileHasherConfig.lang" [config]="fileHasherConfig"></div>
+<!--      <div file-verifier-widget [config]="widgetConfig"></div>-->
     </div>
   </div>
   <div *ngIf="isHashed">Drop proof receipt here, please!</div>
   <div *ngIf="hashes.length > 0" class="">
     Proof verifier widgets are here!
   </div>
+  <sass-helper></sass-helper>
 </div>

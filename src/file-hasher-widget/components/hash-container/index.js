@@ -86,6 +86,8 @@ class HashContainer {
       });
       hashPartElement.text(hashPart);
 
+      console.log('widgetWidth', widgetWidth);
+
       // And recalculate the font size of the text zone to make it responsive
       const relFontsize = widgetWidth * 0.04;
       hashPartElement.attr('style', `font-size: ${relFontsize}px;`);

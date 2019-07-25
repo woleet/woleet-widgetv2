@@ -1,9 +1,8 @@
 import { Component, Input, ElementRef, AfterContentInit } from '@angular/core';
 
 @Component({
-  selector: 'file-hasher-widget',
-  templateUrl: './file-hasher-widget.component.html',
-  styleUrls: ['./file-hasher-widget.component.scss']
+  selector: 'div[file-hasher-widget]',
+  template: '<ng-content></ng-content>'
 })
 export class FileHasherWidgetComponent implements AfterContentInit {
   @Input() lang: string = document.documentElement.lang;
@@ -13,6 +12,8 @@ export class FileHasherWidgetComponent implements AfterContentInit {
     if (this.lang.length > 0) {
       this.config.lang = this.lang;
     }
+
+    this.elementRef.nativeElement.classList.add('file-hasher-widget');
   }
 
   ngAfterContentInit() {
