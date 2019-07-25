@@ -2,7 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { environment } from '../../environments/environment';
-import { SassHelperComponent} from '../components/sass-helper/sass-helper.component';
+import { SassHelperComponent } from '../components/sass-helper/sass-helper.component';
+import { AnchorModelService } from '../../data/model/app.data.model.anchor.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,8 @@ import { SassHelperComponent} from '../components/sass-helper/sass-helper.compon
 export class HomeComponent implements OnInit {
   @ViewChild(SassHelperComponent) sassHelper: SassHelperComponent;
   hashes = [];
-  files = [];
+  payloads = [];
+  proofVerifierConfigs = [];
   isHashed = false;
   receiptName = null;
   receipt = null;
@@ -20,7 +22,8 @@ export class HomeComponent implements OnInit {
   proofVerifierConfig = environment.widget.configuration.proofVerifier;
 
   constructor(private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private anchorModelService: AnchorModelService) {
     this.fileHasherConfig.observers['hashCalculated'] = (widgetId, hash) => { this.hashCalculated(widgetId, hash) }
   }
 
@@ -40,7 +43,6 @@ export class HomeComponent implements OnInit {
         try {
           self.receipt = JSON.parse(reader.result.toString());
         } catch (e) {
-          console.log('cant parse the file');
         }
       };
     }
@@ -55,7 +57,29 @@ export class HomeComponent implements OnInit {
   }
 
   hashCalculated(widgetId, hash) {
+    const self = this;
+
     this.hashes.push(hash);
     this.isHashed = this.hashes.length > 0;
+
+    if (hash) {
+      this.anchorModelService.getAnchorIds(hash)
+          .then((result: any) => {
+            if (result && result.number && result.content) {
+              self.payloads = result.content;
+
+              self.buildProofVerifierConfigs();
+            }
+          });
+    }
+  }
+
+  buildProofVerifierConfigs() {
+    const self = this;
+    this.proofVerifierConfigs = [];
+
+    this.payloads.forEach((payload) => {
+      // this.proofVerifierConfigs.push()
+    });
   }
 }

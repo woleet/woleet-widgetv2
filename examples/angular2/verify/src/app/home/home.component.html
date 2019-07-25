@@ -3,7 +3,7 @@
   <div class="home__demo--file-hasher">
     <div class="home__demo--file-hasher_inner">
       <div file-hasher-widget [lang]="fileHasherConfig.lang" [config]="fileHasherConfig"></div>
-<!--      <div file-verifier-widget [config]="widgetConfig"></div>-->
+<!--      -->
     </div>
   </div>
   <div *ngIf="isHashed" class="home__demo--receipt">
@@ -15,5 +15,8 @@
          (dragleave)="unHighlightDragZone($event)">
       <input class="dropZone clickable" type="file" (change)="onFileChange($event)">
     </div>
+  </div>
+  <div *ngIf="isHashed" class="home__demo--proof-verifier">
+<!--    <div file-verifier-widget [config]="widgetConfig"></div>-->
   </div>
 </div>

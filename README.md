@@ -313,6 +313,8 @@ The following attributes can be set on `<div>` tag to configure the look and beh
     
     * __url__ - the receipt file URL; _DEFAULT_: ___null___
     
+    * __payload__ - the receipt payload; _DEFAULT_: ___null___
+    
 * __endpoints__ - The endpoint configuration:
     
     * __transaction__ - the transaction endpoint; _DEFAULT_: ___https://blockstream.info/tx/$sourceId___

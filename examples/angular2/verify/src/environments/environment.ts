@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  apiEndpoint: 'https://api.woleet.io/v1',
   widget: {
     configuration: {
       fileHasher: {
@@ -8,7 +9,6 @@ export const environment = {
         observers: {}
       },
       proofVerifier: {
-        id: 'my-id-todo',
         lang: 'fr',
         verification: {
           server: false
@@ -16,16 +16,11 @@ export const environment = {
         mode: 'banner',
         styles: {
           zindex: 20,
+          width: '100%',
           icon: {
             width: '32px',
             height: '36px'
-          },
-          banner: {
-            width: '800px'
           }
-        },
-        receipt: {
-          url: 'https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967'
         }
       }
     }
