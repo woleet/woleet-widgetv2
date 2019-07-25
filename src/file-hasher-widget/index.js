@@ -98,8 +98,6 @@ function initialize(widgetConfigurations) {
 
     configuration.properties = widgetWidths;
 
-    console.log('properties', configuration.properties);
-
     // Render a widget instance and render it but remove all children before
     while (widgetElement.firstChild) {
       widgetElement.removeChild(widgetElement.firstChild);

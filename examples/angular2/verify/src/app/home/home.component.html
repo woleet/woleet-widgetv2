@@ -6,9 +6,14 @@
 <!--      <div file-verifier-widget [config]="widgetConfig"></div>-->
     </div>
   </div>
-  <div *ngIf="isHashed">Drop proof receipt here, please!</div>
-  <div *ngIf="hashes.length > 0" class="">
-    Proof verifier widgets are here!
+  <div *ngIf="isHashed" class="home__demo--receipt">
+    <span class="home__demo--receipt__text">{{ receiptName ? receiptName : 'Drop the receipt file here' }}</span>
+    <div class="home__demo--receipt__inner"
+         (dragstart)="highlightDragZone($event)"
+         (dragover)="highlightDragZone($event)"
+         (drop)="unHighlightDragZone($event)"
+         (dragleave)="unHighlightDragZone($event)">
+      <input class="dropZone clickable" type="file" (change)="onFileChange($event)">
+    </div>
   </div>
-  <sass-helper></sass-helper>
 </div>

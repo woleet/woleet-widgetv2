@@ -11,7 +11,7 @@
 			&-hasher {
 				width: 20%;
 				margin: 20px auto;
-				border: 2px dotted $first-theme-color;
+				border: 2px dashed $first-theme-color;
 				padding: 20px;
 				&_inner {
 					.file-hasher-widget {
@@ -20,5 +20,49 @@
 				}
 			}
 		}
+		
+		&--receipt {
+			border-radius: 4px;
+			border: 2px dashed $first-theme-color;
+			color: $first-theme-color;
+			height: 60px;
+			width: 25%;
+			margin: 20px auto;
+			text-align: center;
+			
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+			
+			&__text {
+				word-break: break-all;
+				padding: 0 10px;
+			}
+			
+			&__inner {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				input[type=file] {
+					cursor: pointer;
+					opacity: 0;
+					width: 100%;
+					position: absolute;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					top: 0;
+				}
+			}
+		}
+	}
+	
+	.highlight {
+		color: #fff;
+		background-color: $first-theme-color;
+		opacity: 0.5;
 	}
 }

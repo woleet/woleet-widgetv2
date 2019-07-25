@@ -17,8 +17,6 @@ export class FileHasherWidgetComponent implements AfterContentInit {
   }
 
   ngAfterContentInit() {
-    console.log('this.config', this.config, window['fileHasherWidget']);
-
     window['fileHasherWidget'] && window['fileHasherWidget'].init([
       {
         id: this.config.id,
