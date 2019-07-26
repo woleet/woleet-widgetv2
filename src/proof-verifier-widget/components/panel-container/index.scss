@@ -13,6 +13,7 @@
     position: var(--proof-verifier-panel-position);
     z-index: var(--z-index);
     overflow: hidden;
+    white-space: normal;
 
     & * {
       z-index: var(--z-index);

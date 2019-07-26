@@ -42,7 +42,7 @@ function widget(window, document) {
 
     widgetConfigurations.push({
       el: widgetElement,
-      id: widgetConfiguration.id || utils.getUniqueId(widgetClassName + '-'),
+      id: widgetConfiguration.id,
       config: widgetConfiguration
     });
   });
@@ -76,7 +76,13 @@ function loadDependencies() {
 function initialize(widgetConfigurations) {
   // Initialize all instances of the widget
   widgetConfigurations.forEach(widgetConfiguration => {
-    const {config: customConfiguration, el: widgetElement, id: widgetId} = widgetConfiguration;
+    const uniqueWidgetId = utils.getUniqueId(`${constants.PROOF_VERIFIER_WIDGET_ID}-`);
+    const {config: customConfiguration, el: widgetElement, id: widgetId = uniqueWidgetId} = widgetConfiguration;
+
+    if (!widgetElement) {
+      widgetLogger.error(`Widget element wasn't found`);
+    }
+
     customConfiguration.widgetId = widgetId;
 
     // Extend the default widget configuration by user settings

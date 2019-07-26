@@ -79,8 +79,13 @@ class BannerContainer {
    * Stylize the element: responsive, customization and etc.
    */
   stylize() {
-    const { banner: bannerOptions } = this.widget.configurator.getStyles();
+    const { banner: bannerOptions, zindex: zIndex } = this.widget.configurator.getStyles();
     this.element.style({height: `${bannerOptions.height}`});
+
+    if (zIndex) {
+      this.element.target().style
+        .setProperty('--z-index', zIndex);
+    }
   }
   
   /**

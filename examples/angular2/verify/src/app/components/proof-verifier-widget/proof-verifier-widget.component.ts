@@ -10,7 +10,7 @@ export class ProofVerifierWidgetComponent implements AfterContentInit {
   constructor(private elementRef: ElementRef) {}
 
   ngAfterContentInit() {
-    console.log('this.config', this.config, window['fileVerifierWidget']);
+    console.log('this.config', this.config);
 
     window['fileVerifierWidget'] && window['fileVerifierWidget'].init([
       {

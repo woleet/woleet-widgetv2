@@ -82,7 +82,7 @@ class IconContainer {
     this.element.iconContainer.attr('src', image);
 
     this.initializeObservers();
-    this.initializeStyles();
+    this.stylize();
     this.initializeContainerView(mode);
   }
 
@@ -126,7 +126,7 @@ class IconContainer {
   /**
    * Initialize the widget styles
    */
-  initializeStyles() {
+  stylize() {
     const {banner: bannerStyles, zindex: zIndex} = this.widget.configurator.getStyles();
 
     if (bannerStyles.title && bannerStyles.title.color) {

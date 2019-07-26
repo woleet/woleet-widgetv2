@@ -1,7 +1,7 @@
 @import '../../variables.scss';
 
 .home {
-	margin: 10px 0;
+	margin: 0 0 60px;
 	
 	&__demo {
 		&--title {
@@ -56,6 +56,22 @@
 					bottom: 0;
 					top: 0;
 				}
+			}
+		}
+		
+		&--proof-verifier {
+			width: 50%;
+			margin: 0 auto;
+			&__inner {
+				padding-bottom: 15px;
+			}
+		}
+		
+		&--content {
+			padding: 70px 0;
+			p {
+				text-align: justify;
+				color: $first-theme-color;
 			}
 		}
 	}

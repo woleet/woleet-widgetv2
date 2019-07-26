@@ -67,10 +67,15 @@ class PanelContainer {
    * Stylize the element: responsive, customization and etc.
    */
   stylize() {
-    const { panel: panelOptions } = this.widget.configurator.getStyles();
+    const { panel: panelOptions, zindex: zIndex } = this.widget.configurator.getStyles();
 
     this.element.target().style.setProperty('--proof-verifier-panel-color', panelOptions.color);
     this.element.target().style.setProperty('--proof-verifier-panel-background-color', panelOptions.background);
+
+    if (zIndex) {
+      this.element.target().style
+        .setProperty('--z-index', zIndex);
+    }
   }
 
   /**

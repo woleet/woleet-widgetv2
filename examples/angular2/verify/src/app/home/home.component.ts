@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { SassHelperComponent } from '../components/sass-helper/sass-helper.component';
 import { AnchorModelService } from '../../data/model/app.data.model.anchor.service';
+import { ObjectService } from '../services/object/object.service';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,6 @@ export class HomeComponent implements OnInit {
   receiptName = null;
   receipt = null;
   fileHasherConfig = environment.widget.configuration.fileHasher;
-  proofVerifierConfig = environment.widget.configuration.proofVerifier;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -42,6 +42,13 @@ export class HomeComponent implements OnInit {
       reader.onload = () => {
         try {
           self.receipt = JSON.parse(reader.result.toString());
+
+          if (self.receipt) {
+            let proofVerifierConfig = self.buildProofVerifierConfig(self.receipt);
+
+            this.proofVerifierConfigs = [];
+            this.proofVerifierConfigs.push(proofVerifierConfig);
+          }
         } catch (e) {
         }
       };
@@ -79,7 +86,18 @@ export class HomeComponent implements OnInit {
     this.proofVerifierConfigs = [];
 
     this.payloads.forEach((payload) => {
-      // this.proofVerifierConfigs.push()
+      const proofVerifierConfig = self.buildProofVerifierConfig(payload);
+      // It's used 'unshift' instead of 'push' because the configuration with the highest zindex should be first in the list
+      this.proofVerifierConfigs.unshift(proofVerifierConfig)
     });
+  }
+
+  buildProofVerifierConfig(payload: any): any {
+    let proofVerifierConfig = ObjectService.copy(environment.widget.configuration.proofVerifier);
+
+    proofVerifierConfig.receipt.payload = payload;
+    proofVerifierConfig.styles.zindex = proofVerifierConfig.styles.zindex + this.proofVerifierConfigs.length * 2;
+
+    return proofVerifierConfig;
   }
 }

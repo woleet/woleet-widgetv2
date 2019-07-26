@@ -10,18 +10,10 @@ export const environment = {
       },
       proofVerifier: {
         lang: 'fr',
-        verification: {
-          server: false
-        },
+        verification: { client: false },
+        receipt: { url: null, payload: null },
         mode: 'banner',
-        styles: {
-          zindex: 20,
-          width: '100%',
-          icon: {
-            width: '32px',
-            height: '36px'
-          }
-        }
+        styles: { zindex: 10, width: '100%', icon: { width: '32px', height: '36px' } }
       }
     }
   }
