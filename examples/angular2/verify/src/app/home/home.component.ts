@@ -3,7 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { environment } from '../../environments/environment';
 import { SassHelperComponent } from '../components/sass-helper/sass-helper.component';
-import { AnchorModelService } from '../../data/model/app.data.model.anchor.service';
+import { AnchorModelService } from '../../data/model/anchor/app.data.model.anchor.service';
+import { ReceiptModelService } from '../../data/model/receipt/app.data.model.receipt.service';
 import { ObjectService } from '../services/object/object.service';
 
 @Component({
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
+              private receiptModelService: ReceiptModelService,
               private anchorModelService: AnchorModelService) {
     this.fileHasherConfig.observers['hashCalculated'] = (widgetId, hash) => { this.hashCalculated(widgetId, hash) }
   }
@@ -70,14 +72,23 @@ export class HomeComponent implements OnInit {
     this.isHashed = this.hashes.length > 0;
 
     if (hash) {
-      this.anchorModelService.getAnchorIds(hash)
-          .then((result: any) => {
-            if (result && result.number && result.content) {
-              self.payloads = result.content;
+      Promise.all([
+        self.anchorModelService.getAnchorIds(hash),
+        self.anchorModelService.getAnchorIds(hash, true)
+      ]).then(values => {
+        const anchorsIds = [].concat(values[0].content, values[1].content);
+        const promises = [];
 
+        anchorsIds.forEach((anchorId) => {
+          promises.push(self.receiptModelService.getReceiptByAnchorId(anchorId));
+        });
+
+        Promise.all(promises)
+            .then((receipts) => {
+              self.payloads = receipts;
               self.buildProofVerifierConfigs();
-            }
-          });
+            });
+      });
     }
   }
 
@@ -90,6 +101,12 @@ export class HomeComponent implements OnInit {
       // It's used 'unshift' instead of 'push' because the configuration with the highest zindex should be first in the list
       this.proofVerifierConfigs.unshift(proofVerifierConfig)
     });
+  }
+
+  removeReceipt() {
+    this.receipt = null;
+    this.receiptName = null;
+    this.buildProofVerifierConfigs();
   }
 
   buildProofVerifierConfig(payload: any): any {

@@ -57,6 +57,13 @@
 					top: 0;
 				}
 			}
+			
+			&__control {
+				color: $error-theme-color;
+				padding: 10px;
+				cursor: pointer;
+				z-index: 3;
+			}
 		}
 		
 		&--proof-verifier {

@@ -89,7 +89,7 @@ class CommonPanelContainer {
    */
   receiptParsed(verificationResult, receipt) {
     const self = this;
-    if (verificationResult) {
+    if (verificationResult && verificationResult.identityVerificationStatus) {
       const {identityVerificationStatus: { identity, code, certificates = [] } } = verificationResult;
 
       if (identity || code || certificates) {

@@ -7,6 +7,7 @@
   </div>
   <div *ngIf="isHashed" class="home__demo--receipt">
     <span class="home__demo--receipt__text">{{ receiptName ? receiptName : 'Drop the receipt file here' }}</span>
+    <span class="home__demo--receipt__control" (click)="removeReceipt()" *ngIf="receiptName">X</span>
     <div class="home__demo--receipt__inner"
          (dragstart)="highlightDragZone($event)"
          (dragover)="highlightDragZone($event)"

@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
   apiEndpoint: 'https://api.woleet.io/v1',
+  appEndpoint: 'https://app.woleet.io/api',
   widget: {
     configuration: {
       fileHasher: {
