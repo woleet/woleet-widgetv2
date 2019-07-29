@@ -84,7 +84,7 @@ class ControlPanelContainer {
     // Download the receipt file if the link was clicked
     this.element.wrapper.downloadReceiptEl.linkEl.on('click', () => {
       if (self.receipt !== null) {
-        const {receipt: {targetHash = null}} = self.receipt;
+        const { targetHash: targetHash = null } = self.receipt;
         if (targetHash !== null) {
           const filename = `${targetHash}_receipt.json`;
           utils.saveObjectAs(self.receipt, filename);
