@@ -1,0 +1,91 @@
+@import '../../variables.scss';
+
+.home {
+	margin: 0 0 60px;
+	
+	&__demo {
+		&--title {
+			font-size: 18px;
+		}
+		&--file {
+			&-hasher {
+				width: 20%;
+				margin: 20px auto;
+				border: 2px dashed $first-theme-color;
+				padding: 20px;
+				&_inner {
+					.file-hasher-widget {
+						color: $first-theme-color;
+					}
+				}
+			}
+		}
+		
+		&--receipt {
+			border-radius: 4px;
+			border: 2px dashed $first-theme-color;
+			color: $first-theme-color;
+			height: 60px;
+			width: 25%;
+			margin: 20px auto;
+			text-align: center;
+			
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+			
+			&__text {
+				word-break: break-all;
+				padding: 0 10px;
+			}
+			
+			&__inner {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				input[type=file] {
+					cursor: pointer;
+					opacity: 0;
+					width: 100%;
+					position: absolute;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					top: 0;
+				}
+			}
+			
+			&__control {
+				color: $error-theme-color;
+				padding: 10px;
+				cursor: pointer;
+				z-index: 3;
+			}
+		}
+		
+		&--proof-verifier {
+			width: 50%;
+			margin: 0 auto;
+			&__inner {
+				padding-bottom: 15px;
+			}
+		}
+		
+		&--content {
+			padding: 70px 0;
+			p {
+				text-align: justify;
+				color: $first-theme-color;
+			}
+		}
+	}
+	
+	.highlight {
+		color: #fff;
+		background-color: $first-theme-color;
+		opacity: 0.5;
+	}
+}

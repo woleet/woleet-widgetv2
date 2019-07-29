@@ -1,0 +1,16 @@
+@import '../../../scss/variables.scss';
+@import '../../../scss/common';
+
+:local {
+  .panel_container {
+    &--anchor {
+      background-color: var(--proof-verifier-panel-background-color);
+      font-size: 14px;
+      border-radius: 4px;
+      margin-bottom: 3px;
+      &_wrapper {
+        padding: 10px;
+      }
+    }
+  }
+}

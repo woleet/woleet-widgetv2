@@ -4,8 +4,10 @@
 :local {
   .proof_verifier_widget {
     &--wrapper {
-      display: inline-block;
-      font-family: 'Arial';
+      font-family: 'Roboto', sans-serif;
+      position: relative;
+      display: block;
+      white-space: nowrap;
     }
   }
 }

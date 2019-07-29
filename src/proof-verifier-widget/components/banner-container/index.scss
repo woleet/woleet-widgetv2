@@ -1,0 +1,37 @@
+@import '../../scss/variables';
+@import '../../scss/common';
+
+:local {
+  .banner_container {
+    width: var(--proof-verifier-banner-width);
+    display: inline-block;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    overflow: hidden;
+    transition: all .5s ease;
+    position: absolute;
+    z-index: calc(var(--z-index) + 1);
+    border-radius: 4px;
+    &--wrapper {
+      width: calc(100% - 5px);
+      height: 100%;
+      background-color: var(--proof-verifier-banner-background-color);
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+
+      &-title {
+        font-size: 14px;
+        padding: 10px;
+        color: var(--proof-verifier-banner-color);
+      }
+    }
+  }
+}

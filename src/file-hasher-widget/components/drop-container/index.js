@@ -235,7 +235,9 @@ class DropContainer {
   }
 
   hashingCanceled() {
-    this.hasher.cancel();
+    if (this.hasher) {
+      this.hasher.cancel();
+    }
   }
 
   get() {

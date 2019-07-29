@@ -24,6 +24,12 @@ To integrate one or several widgets in a web page, first insert the following co
 </script>
 ```
 
+You can also integrate it directly like this:
+
+```html
+<script type="text/javascript" id="file-hasher-widget" src="<url_to_script>/file-hasher-widget.js"></script>
+```
+
 Note that you need to replace *<url_to_script>* with the actual path of the script.
 
 Then, instantiate the widget by creating a `<div>` tag with a `class="file-hasher-widget"` attribute:
@@ -163,10 +169,11 @@ There are several ways to configure the widget:
 * If a option has nested options they can be set also as HTML attributes by joining via '-' in lower case:
 
 ```html
-<div class='file-hasher-widget' id='file-hasher-widget-de'
+<div class='file-hasher-widget'
+     id='file-hasher-widget-de'
      observers-hashCalculated='window.hashCalculated'
      styles-width='270'
-     lang='de'></div>
+     lang='fr'></div>
 ```
 
 The dynamic initialization is also available. It is realized using the method __init__ of the widget. The an example in the file [examples/file-hasher-widget-delayed-several-instances-example.html](examples/file-hasher-widget-delayed-several-instances-example.html)
@@ -216,6 +223,12 @@ To integrate one or several widgets in a web page, first insert the following co
   }(document, 'script', 'proof-verifier-widget', '<url_to_script>/proof-verifier-widget.js'));
 </script>
 ```
+You can also integrate it directly like this:
+
+```html
+<script type="text/javascript" id="proof-verifier-widget" src="<url_to_script>/proof-verifier-widget.js"></script>
+```
+
 Note that you need to replace *<url_to_script>* with the actual path of the script.
 
 Then, instantiate the widget by creating a `<div>` tag with a `class="proof-verifier-widget"` attribute:
@@ -246,6 +259,8 @@ The following attributes can be set on `<div>` tag to configure the look and beh
     
     * __zindex__ - z-index of the panel block; _DEFAULT_: ___3___
     
+    * __width__ - width of the widget; _DEFAULT_: ___600px___
+    
     * __icon__ - Widget icon styles:
     
         * __width__ - width of the icon; _DEFAULT_: ___null___
@@ -254,17 +269,11 @@ The following attributes can be set on `<div>` tag to configure the look and beh
         
     * __banner__ - Widget banner styles:
         
-        * __width__ - width of the banner; _DEFAULT_: ___600px___
-        
         * __color__ - the banner text color;_DEFAULT_: ___#31708f___
                 
         * __background__ - the banner background color;_DEFAULT_: ___#dff0d8___
             
     * __panel__ - Widget panel styles:
-            
-        * __width__ - width of the panel; _DEFAULT_: ___null___
-            
-        * __height__ - height of the panel; _DEFAULT_: ___400px___
         
         * __color__ - the title color of panels;_DEFAULT_: ___#333___
         
@@ -304,6 +313,8 @@ The following attributes can be set on `<div>` tag to configure the look and beh
     
     * __url__ - the receipt file URL; _DEFAULT_: ___null___
     
+    * __payload__ - the receipt payload; _DEFAULT_: ___null___
+    
 * __endpoints__ - The endpoint configuration:
     
     * __transaction__ - the transaction endpoint; _DEFAULT_: ___https://blockstream.info/tx/$sourceId___
@@ -334,7 +345,7 @@ There are several ways to configure the widget:
      lang='en'
      verification='{"server": false}'
      styles='{"banner": {"width": "450px"}}'
-     receipt='{"url": "https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967&name=Terms%20of%20Servicev3_20180727.pdf"}'
+     receipt='{"url": "https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967"}'
 ></div>
  ```
 * If a option has nested options they can be set also as HTML attributes by joining via '-' in lower case:
@@ -346,7 +357,7 @@ There are several ways to configure the widget:
      verification-client="false"
      styles-banner-width="650px"
      styles-zIndex="20"
-     receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967&name=Terms%20of%20Servicev3_20180727.pdf'
+     receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967'
 ></div>
 ```
 

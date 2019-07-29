@@ -1,0 +1,19 @@
+@import '../../../scss/variables.scss';
+@import '../../../scss/common';
+
+:local {
+  .panel_container {
+    &--header {
+      color: var(--proof-verifier-panel-header-color);
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 12px;
+  
+      &-responsive {
+        &_small {
+          margin: 0 0 10px 0;
+        }
+      }
+    }
+  }
+}

@@ -4,6 +4,7 @@
   .filename_container {
     &--title {
       font-weight: bolder;
+      word-break: break-all;
       &_wrapper {
         font-size: 14px;
         @extend .description-block;

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>File Hasher widget: development page</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         .file-hasher-widget {
             padding: 20px 0;
@@ -96,26 +97,24 @@
     <p>Light PDF file: http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf</p>
 </div>
 <div class='file-hasher-widget'
-     lang='de'
      styles-icon-width='90px'
      visibility-title="false"
      visibility-progress="false"
      visibility-controls-reset="false"
      id='file-hasher-widget-de'
      observers='{"hashCalculated": "window.hashCalculated", "hashingStarted": "hashingStarted", "hashingCanceled": "hashingCanceled", "hashingProgress": "hashingProgress", "widgetReset": "widgetReset"}'></div>
-<div class='file-hasher-widget'
-     lang='fr'
-     styles-color='#FFFFFF'
-     styles-width='250px'
-     styles-align='left'
-     styles-icon-width='150px'
-     visibility-filename="false"
-     observers-hashCalculated='test.hashCalculatedObserver'
-     observers-downloadingFinished='test.downloadingFinishedObserver'
-     observers-downloadingStarted='test.downloadingStartedObserver'
-     observers-downloadingCanceled='test.downloadingCanceledObserver'
-     observers-downloadingProgress='test.downloadingProgressObserver'
-     file='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf", "fastDownload": true}'></div>
+<div style="width: 150px; margin: 0 auto;">
+    <div class='file-hasher-widget'
+         lang='fr'
+         styles-color='#FFFFFF'
+         styles-width='100%'
+         observers-hashCalculated='test.hashCalculatedObserver'
+         observers-downloadingFinished='test.downloadingFinishedObserver'
+         observers-downloadingStarted='test.downloadingStartedObserver'
+         observers-downloadingCanceled='test.downloadingCanceledObserver'
+         observers-downloadingProgress='test.downloadingProgressObserver'
+         file='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf", "fastDownload": true}'></div>
+</div>
 <div class='file-hasher-widget'
      styles='{"width": "150px", "progress": {"icon": {"color": "red"}}}'
      proxy='{"url": "http://localhost:3000/download?url=", "enabled": false}'
@@ -123,6 +122,15 @@
      icons-preview-common="https://image.flaticon.com/icons/svg/874/874984.svg"
      icons-download="https://image.flaticon.com/icons/svg/947/947089.svg"
      icons-import="https://image.flaticon.com/icons/svg/1053/1053324.svg"
+     observers='{"hashCalculated": "test.hashCalculatedObserver", "fileDownloaded": "test.downloadingFinishedObserver", "downloadingFailed": "test.downloadingFailedObserver"}'
+></div>
+<div class='file-hasher-widget'
+     styles='{"width": "150px", "progress": {"icon": {"color": "red"}}}'
+     proxy='{"url": "http://localhost:3000/download?url=", "enabled": false}'
+     file='{"url": "https://archive.org/download/Mahabharata_201712/6_Mahabharata.pdf"}'
+     icons-preview-common="https://image.flaticon.com/icons/svg/874/874984.svg"
+     icons-download="http://localhost:3000/static/img/svg/flag.svg"
+     icons-import="https://cdn.glitch.com/4c9ebeb9-8b9a-4adc-ad0a-238d9ae00bb5%2Fmdn_logo-only_color.svg"
      observers='{"hashCalculated": "test.hashCalculatedObserver", "fileDownloaded": "test.downloadingFinishedObserver", "downloadingFailed": "test.downloadingFailedObserver"}'
 ></div>
 <div class="log download-logging" id="download-logging"></div>

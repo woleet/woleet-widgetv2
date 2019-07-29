@@ -5,18 +5,16 @@ function getProofVerifierWidgetDefaults() {
   return {
     styles: {
       zindex: 3,
+      width: '600px',
       icon: {
         width: '45px',
         height: '45px'
       },
       banner: {
-        width: '600px',
         color: '#31708f',
         background: '#dff0d8',
       },
       panel: {
-        width: null,
-        height: '400px',
         color: '#333',
         background: '#dff0d8',
         header: {

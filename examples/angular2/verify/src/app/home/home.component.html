@@ -1,0 +1,47 @@
+<div class="home">
+  <div class="home__demo--title">Please, select a file you want to verify:</div>
+  <div class="home__demo--file-hasher">
+    <div class="home__demo--file-hasher_inner">
+      <div file-hasher-widget [lang]="fileHasherConfig.lang" [config]="fileHasherConfig"></div>
+    </div>
+  </div>
+  <div *ngIf="isHashed" class="home__demo--receipt">
+    <span class="home__demo--receipt__text">{{ receiptName ? receiptName : 'Drop the receipt file here' }}</span>
+    <span class="home__demo--receipt__control" (click)="removeReceipt()" *ngIf="receiptName">X</span>
+    <div class="home__demo--receipt__inner"
+         (dragstart)="highlightDragZone($event)"
+         (dragover)="highlightDragZone($event)"
+         (drop)="unHighlightDragZone($event)"
+         (dragleave)="unHighlightDragZone($event)">
+      <input class="dropZone clickable" type="file" (change)="onFileChange($event)">
+    </div>
+  </div>
+  <div *ngIf="proofVerifierConfigs.length > 0" class="home__demo--proof-verifier">
+      <div *ngFor="let proofVerifierConfig of proofVerifierConfigs;" class="home__demo--proof-verifier__inner">
+        <div proof-verifier-widget [config]="proofVerifierConfig"></div>
+      </div>
+  </div>
+  <div class="home__demo--content">
+    <p>
+      Co pugnare ac caeteri similis to errandi incipit ut. Probabiles sufficeret caligantis age scripturas imo perspicuum frequenter. Ii ignorata utilitas speranda du is dubitare ac paritura. Vocant mundum falsum aptior co in si. Nasci putat manet at eo ne du. Majora contra operae gi de. Adsit abuti tum illae manus hujus res. In minimum at is veteres virorum ea interim.
+
+      Deo suspicio vos deinceps figmenta dumtaxat ulterius ens. Scripturis has uno quaerantur accidentia est eos. Ibi quo idea ergo otii dico dat quas fuit. Sap habetur ineptum has objecta fas. Dem indubitati distinguit diversorum lus imo. Est hic quae quos puto dare qua. Ut eo possimus insomnia me lectione actualis occurrit deceptor vi. Purgantur im ex fruebatur clausulas examinare finguntur re. Difficilia blandisque se mo ostenditur. Ac gi is ﻿tam nihilo partes.
+
+      Objectioni afferuntur excogitent est addiscerem caligantis his eam deo. Nos atqui seu hoc omnem modis. Archimede priusquam rem suo credendas. Usu ipso omne quam erit deum rei. Negavi missae co quarum de falsam numero fallar ad in. Novum lente an quasi lumen at at prona. Viderer eae sciamus pla aliisve capacem cui nec.
+
+      Remaneat alicujus ei ex formalis advenire possumus ab ii. Dubitans integram ut ha ignorans ad. Videmur ex creatis ii quiddam fuerint in ea affirmo. At mentemque opportune co eo examinavi eundemque conceptum persuasus de. Culpandi to vi invenire is ob recordor reliquis. Sexta vix dubia sub fas posse certe sonum ibi nonne. Uti statuendum affirmabam frequenter vel pla necessario progressum requiratur cui. Componi meo optimum cum existit lor alienum nul quaedam. Vox hac nego sua sint ille ero.
+
+      Negat prava agi fit rebus tanti utens. Ut ei ex separatum meditabor ne praeterea tribuebam somniemus. Vereorque immittant admovetur vos tam etc dubitandi infinitum ima cunctatus. Tertia ibidem deponi is somnia si id. Duo rei continetur persuadere potentiale inchoandum sit uno attendamus praecipuis. Agi quantitas vos extendere videlicet ita persuasus delaberer lus usurpabam. Perfacile tractatur ad ad delibarem admovetur explorant occurrere.
+
+      Rum uno minima reipsa ipsius mea solius. Incrementi continuata pla affirmabam res. Meo sperare nam dei animali defectu. Moralis se in aggredi sciamus indutum ingenio re ostendi. Laborio mox ubi aliarum nostras. Video hic denuo uno tango istam hoc iis. Ad prout ac ausit vi fuere ha. Sciatur quaenam ei si ii vi quidnam spondeo optimae.
+
+      Generalia experimur im ex creatione opinantem conservat ecclesiae ac. Aliquam tot eam ero animali cognitu deo. Abducendam cap theologiae suo qua ostenditur hic praesertim. Habent ea hocque si colore ha. Parum prona putat eo locum manus visae ei. Cetera posita lus nihilo nihili dem vul somnia. Rectum factas me an id reipsa. Pedem se digna ut ii ipsum plane. Jam aliisve nos fal fecisse utilius tes totaque.
+
+      Et recensui aetheris vi impressa in putantur acceptis. Superest ii dedissem ab ad callidus nequidem. Ullis ii istud cogit re vetus. In divisibile excoluisse quascunque contrariae de negationem. Dum inanimes formatur indiciis uno nos est contendo. Existo nullis reddat res sae moveri has cur omnino putavi. Rectum seriem absque is in creari. Ferri qua hoc motum notum aeque vos.
+
+      Suo placet sumque curant hic ubi. Sua carnem hac qua mem saltem falsum. Tanta simus fas solae iii ipsum annos. Fruebatur dum naturales sui praefatio ope extitisse. Ens ubi hoc statuendum expectanti facillimum objectivus aucupantur. Disputo de mutuari is obscure me. Operae hac dicere volunt nec pileos judico dividi. Ut addo nota id fide. Ut vi igni sane vita in ulla.
+
+      Odoratum diversum vos rerumque ope efficiat hos qua realitas locusque. To ii ex efficiat defectus majorque immorari ad realiter infinite. Mendax perire simile mo ne causae ea co. Ii neque major ob habeo. Quies is omnia ei somni. Omne apti ad rogo novi is omni inde.
+    </p>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+@import '../../scss/variables';
+@import '../../scss/common';
+
+:local {
+  .icon_container {
+    position: relative;
+    display: inline-block;
+    padding-right: 5px;
+    &-icon {
+      display: inline-block;
+      svg {
+        display: block;
+      }
+    }
+  }
+}
