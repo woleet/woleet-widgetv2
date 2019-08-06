@@ -5,8 +5,9 @@
   .panel_container {
     &--header {
       color: var(--proof-verifier-panel-header-color);
-      font-size: 18px;
-      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: left;
       margin-bottom: 12px;
   
       &-responsive {

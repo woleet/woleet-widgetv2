@@ -3,6 +3,8 @@ import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
 import ValuePanelContainer from "ProofVerifierComponents/panel-container/value-panel-container";
+import HeaderPanelContainer from "ProofVerifierComponents/panel-container/header-panel-container";
+import constants from 'Common/constants';
 
 /**
  * AnchorPanelContainer
@@ -53,21 +55,20 @@ class AnchorPanelContainer {
    */
   receiptParsed(verificationResult, receipt) {
     const self = this;
+
     if (verificationResult) {
       const { confirmations, timestamp } = verificationResult;
-      const { targetHash } = receipt;
+      const { targetHash, merkleRoot, type } = receipt;
 
       if (confirmations || timestamp || targetHash) {
+        
         this.element.show();
+        let label = utils.translate('bitcoin_proof', self.lang);
+        let labelObject = new HeaderPanelContainer(self.widget);
+        labelObject.set(label);
+        this.element.wrapper.append(labelObject.get().render());
 
         // Display all the titles
-        if (targetHash) {
-          const targetHashLabel = utils.translate('anchored_hash', self.lang);
-          const targetHashTitle = new ValuePanelContainer(self.widget, { style: 'anchoredHash', split: true, fontRatio: {item: 0.052} });
-          targetHashTitle.set(targetHashLabel, targetHash);
-          this.element.wrapper.append(targetHashTitle.get().render());
-        }
-
         if (confirmations) {
           const timestampLabel = utils.translate('timestamp', self.lang);
           const formattedTimestamp = utils.formatDate(timestamp, self.lang);
@@ -75,13 +76,53 @@ class AnchorPanelContainer {
           targetHashTitle.set(timestampLabel, formattedTimestamp);
           this.element.wrapper.append(targetHashTitle.get().render());
         }
-
+        
+        let { endpoints: { transaction: transactionUrl } } = this.widget.configurator.get();
+    
+        if (!transactionUrl) {
+          transactionUrl = constants.TRANSACTION_URL;
+        }
+        if (receipt) {
+          // Build and display the transaction link
+          self.receipt = receipt;
+          const {anchors = []} = receipt;
+          if (anchors.length > 0) {
+            const transaction = anchors[0];
+            const transactionLabel = utils.translate('transaction', self.lang);
+            const transactionTitle = new ValuePanelContainer(self.widget, { fontRatio: {item: 0.0455} });
+            transactionTitle.set(transactionLabel, `<a target="blank" href="`+ 
+              transactionUrl.replace('$sourceId', transaction.sourceId) + `">` + transaction.sourceId +
+              `</a>`);
+            this.element.wrapper.append(transactionTitle.get().render());
+          }
+        }
         if (confirmations) {
+          const proofTypeLabel = utils.translate('proofType', self.lang);
+          const proofTypeTitle = new ValuePanelContainer(self.widget, { fontRatio: {item: 0.0455} });
+          proofTypeTitle.set(proofTypeLabel, type);
+          this.element.wrapper.append(proofTypeTitle.get().render());
+        }  
+
+        if (targetHash) {
+          const targetHashLabel = utils.translate('anchored_hash', self.lang);
+          const targetHashTitle = new ValuePanelContainer(self.widget, { style: 'anchoredHash', split: true, fontRatio: {item: 0.052} });
+          targetHashTitle.set(targetHashLabel, targetHash);
+          this.element.wrapper.append(targetHashTitle.get().render());
+        }
+
+/*         if (confirmations) {
           const confirmationLabel = utils.translate('confirmations', self.lang);
           const confirmationTitle = new ValuePanelContainer(self.widget, { fontRatio: {item: 0.0455} });
           confirmationTitle.set(confirmationLabel, confirmations);
           this.element.wrapper.append(confirmationTitle.get().render());
-        }
+        } */
+
+        if (confirmations) {
+          const merkleRootLabel = utils.translate('merkleRoot', self.lang);
+          const merkleRootTitle = new ValuePanelContainer(self.widget, { style: 'anchoredHash', split: true, fontRatio: {item: 0.0455} });
+          merkleRootTitle.set(merkleRootLabel, merkleRoot);
+          this.element.wrapper.append(merkleRootTitle.get().render());
+        }        
       }
     }
   }

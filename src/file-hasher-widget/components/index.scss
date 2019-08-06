@@ -1,13 +1,13 @@
 @import '../scss/common';
 
 :root {
-  --file-hasher-error-color: #FF9494;
+  --file-hasher-error-color: red;
   --file-hasher-widget-alignment: 'center';
   --file-hasher-widget-hash-color: white;
-  --file-hasher-widget-hash-background-color: #00A2FF;
+  --file-hasher-widget-hash-background-color: #333333;
   --file-hasher-widget-control-border-color: lightgray;
-  --file-hasher-widget-progress-color: #3A98D8;
-  --file-hasher-widget-progress-bar-color: #3A98D8;
+  --file-hasher-widget-progress-color: #05b8c0;
+  --file-hasher-widget-progress-bar-color: #05b8c0;
 }
 
 :local {
@@ -15,7 +15,7 @@
     &--wrapper {
       display: block;
       text-align: var(--file-hasher-widget-alignment);
-      font-family: 'Arial';
+      font-family: 'Montserrat';
       line-height: 1;
       max-width: 100%;
       img {

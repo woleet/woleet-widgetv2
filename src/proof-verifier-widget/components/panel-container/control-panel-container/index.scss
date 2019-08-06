@@ -6,7 +6,10 @@
     &--control {
       background-color: var(--proof-verifier-control-background-color);
       min-height: 10%;
-      font-size: 14px;
+      font-size: 12px;
+      border-radius: 4px;
+      border: 1px solid;
+      border-color: var(--proof-verifier-banner-border-color);       
       &_wrapper {
         padding: 10px;
 
