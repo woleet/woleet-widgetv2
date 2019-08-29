@@ -141,7 +141,7 @@ function createElement(element = 'div', options = {}, attrs = {}) {
  * @param attrs
  */
 function createFileInput(options = {}, attrs = {}) {
-  return createElement('input', options, utils.extendObject({ type: 'file' }, attrs));
+  return createElement('input', options, utils.extendObject({ type: 'file', title: ' ' }, attrs));
 }
 
 export default {
