@@ -24,10 +24,42 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "vendors*.js",
+                "input": "../../../dist/",
+                "output": "/dist"
+              },
+              {
+                "glob": "pdf*.js",
+                "input": "../../../dist/",
+                "output": "/dist"
+              },
+              {
+                "glob": "woleet*.js",
+                "input": "../../../dist/",
+                "output": "/dist"
+              },
+              {
+                "glob": "file-hasher-widget.js",
+                "input": "../../../dist/",
+                "output": "/dist"
+              },
+              {
+                "glob": "proof-verifier-widget.js",
+                "input": "../../../dist/",
+                "output": "/dist"
+              },
+              {
+                "glob": "*.map",
+                "input": "../../../dist/",
+                "output": "/dist"
+              }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "../../../dist/file-hasher-widget.css",
+              "../../../dist/proof-verifier-widget.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true
