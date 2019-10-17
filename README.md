@@ -237,6 +237,71 @@ Then, instantiate the widget by creating a `<div>` tag with a `class="proof-veri
 <div class="proof-verifier-widget"></div>
 ```
 
+## For Angular 2+ integration 
+
+for easy integration: 
+open the angular.json at root of your project and add vidget line 
+
+```json
+{   
+    ....
+    "architect": {
+         "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              {
+                "glob": "vendors*.js",
+                "input": "node_modules/woleet-widgetv2/",
+                "output": "/dist"
+              },
+              {
+                "glob": "pdf*.js",
+                "input": "node_modules/woleet-widgetv2/",
+                "output": "/dist"
+              },
+              {
+                "glob": "woleet*.js",
+                "input": "node_modules/woleet-widgetv2/",
+                "output": "/dist"
+              },
+              {
+                "glob": "file-hasher-widget.js",
+                "input": "node_modules/woleet-widgetv2/",
+                "output": "/dist"
+              },
+              {
+                "glob": "proof-verifier-widget.js",
+                "input": "node_modules/woleet-widgetv2/",
+                "output": "/dist"
+              },
+              {
+                "glob": "*.map",
+                "input": "node_modules/woleet-widgetv2/",
+                "output": "/dist"
+              }
+            ],
+            "styles": [
+              "src/styles.scss",
+              "node_modules/woleet-widgetv2/file-hasher-widget.css",
+            ],
+        ...
+    }
+}
+```
+
+in index.html file add script
+
+```html
+<script src="dist/file-hasher-widget.js" ></script>
+```
+
+Then see the angular 2 example for component implementation 
+
+```
+cd /examples/angular2/file-hasher-widget
+```
+
+
 ## Configuration
 
 ### Attributes
@@ -377,3 +442,52 @@ See [index.html](examples/angular2/proof-verifier-widget/src/index.html) and [ap
 for an example about how to insert the widget in an Angular2+ application.
 
 An example of a working Angular2+ component using the widget can be found in the [components](examples/angular2/proof-verifier-widget/src/app/file-verifier-widget) directory.
+
+
+## For Angular 2+ integration 
+
+for easy integration: 
+open the angular.json at root of your project and add vidget line 
+
+```json
+{   
+    ....
+    "architect": {
+         "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              {
+                "glob": "vendors*.js",
+                "input": "../../../dist/",
+                "output": "/dist"
+              },
+              {
+                "glob": "woleet*.js",
+                "input": "../../../dist/",
+                "output": "/dist"
+              },
+              {
+                "glob": "proof-verifier-widget.js",
+                "input": "../../../dist/",
+                "output": "/dist"
+              },
+              {
+                "glob": "*.map",
+                "input": "../../../dist/",
+                "output": "/dist"
+              }
+            ],
+            "styles": [
+              "src/styles.scss",
+              "../../../dist/proof-verifier-widget.css"
+            ],
+        ...
+    }
+}
+```
+
+in index.html file add script
+
+```html
+<script src="dist/proof-verifier-widget.js" ></script>
+```
