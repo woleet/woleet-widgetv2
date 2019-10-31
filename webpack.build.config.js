@@ -4,7 +4,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
 
-const resourcePath = 'dist';
+const resourcePath = './dist';
 const config = require('./webpack.config')(resourcePath);
 
 config.mode = 'production';
@@ -13,7 +13,7 @@ config.output = {
   filename: resourcePath + '/[name].js',
   chunkFilename: resourcePath + '/[name].js',
   path: path.resolve(__dirname),
-  publicPath: '../'
+  publicPath: ''
 };
 
 /**

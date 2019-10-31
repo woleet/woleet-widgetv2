@@ -24,10 +24,36 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "vendors*.js",
+                "input": "../../../dist/",
+                "output": "/dist"
+              },
+              {
+                "glob": "pdf*.js",
+                "input": "../../../dist/",
+                "output": "/dist"
+              },
+              {
+                "glob": "woleet*.js",
+                "input": "../../../dist/",
+                "output": "/dist"
+              },
+              {
+                "glob": "file-hasher-widget.js",
+                "input": "../../../dist/",
+                "output": "/dist"
+              },
+              {
+                "glob": "*.map",
+                "input": "../../../dist/",
+                "output": "/dist"
+              }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "../../../dist/file-hasher-widget.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true
@@ -91,7 +117,32 @@
             "scripts": [],
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "vendors*.js",
+                "input": "../../../dist/woleet-widgetv2/dist/",
+                "output": "/dist"
+              },
+              {
+                "glob": "pdf*.js",
+                "input": "../../../dist/woleet-widgetv2/dist/",
+                "output": "/dist"
+              },
+              {
+                "glob": "woleet*.js",
+                "input": "../../../dist/woleet-widgetv2/dist/",
+                "output": "/dist"
+              },
+              {
+                "glob": "file-hasher-widget.js",
+                "input": "../../../dist/woleet-widgetv2/dist/",
+                "output": "/dist"
+              }
+              
+            ],
+            "styles": [
+              "src/styles.scss",
+              "../../../dist/woleet-widgetv2/dist/file-hasher-widget.css"
             ]
           }
         },

@@ -3,6 +3,8 @@ import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
 import constants from "Common/constants";
+import faElectronicSignature from 'Resources/images/esig.svg';
+import faTimestamp from 'Resources/images/timestamp.svg';
 
 /**
  * BannerContainer
@@ -33,10 +35,16 @@ class BannerContainer {
     this.element.wrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.bannerContainer.wrapper.code)
     });
+    
+    //add icon
+    this.element.wrapper.icon = VirtualDOMService.createElement('i', {
+      classes: utils.extractClasses(styles, styleCodes.bannerContainer.wrapper.icon.code)
+    }); 
 
     this.element.wrapper.title = VirtualDOMService.createElement('span', {
       classes: utils.extractClasses(styles, styleCodes.bannerContainer.wrapper.title.code)
     });
+
 
     this.element.hide();
     
@@ -132,10 +140,15 @@ class BannerContainer {
           transParams.context = 'by';
         }
 
-        const bannerWidth = utils.getWidthDifference(this.element.target().parentElement.offsetWidth, iconStyles.width);
+        //const bannerWidth = utils.getWidthDifference(this.element.target().parentElement.offsetWidth, iconStyles.width);
         const translatedText = utils.translate(transCode, self.lang, transParams);
         self.element.wrapper.title.text(translatedText);
-        // self.changeTitleFont(bannerWidth);
+        if (pubKey) {
+          self.element.wrapper.icon.html(faElectronicSignature);
+        } else {
+          self.element.wrapper.icon.html(faTimestamp);
+        }
+        //self.changeTitleFont(bannerWidth);
       }
     }
   }

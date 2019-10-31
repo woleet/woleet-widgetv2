@@ -15,6 +15,9 @@ const styleCodes = {
       code: ['banner_container--wrapper'],
       title: {
         code: ['banner_container--wrapper-title']
+      },
+      icon: {
+        code: ['banner_container--wrapper-icon']
       }
     }
   },

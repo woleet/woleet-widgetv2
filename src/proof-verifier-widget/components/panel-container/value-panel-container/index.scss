@@ -3,11 +3,11 @@
 
 :local {
   .panel_container {
-    font-size: 14px;
+    font-size: 12px;
     &--value {
       $valueSelector: &;
       &:not(:last-child) {
-        padding-bottom: 20px;
+        padding-bottom: 10px;
       }
       &-wrapper {
         display: inline-block;
@@ -17,7 +17,7 @@
         min-width: 25%;
         vertical-align: top;
         color: var(--proof-verifier-panel-color);
-        text-align: right;
+        text-align: left;
       }
       &-default, &-style {
         font-size: var(--proof-verifier-panel-value-font-size);
@@ -33,6 +33,7 @@
       &-style {
         span {
           background-color: var(--proof-verifier-panel-value-background-color);
+          font-family: 'Inconsolata', sans-serif;
           color: var(--proof-verifier-panel-value-color);
           font-weight: bolder;
           border-radius: 4px;

@@ -35,16 +35,16 @@ class ControlPanelContainer {
     });
     
     // The link to show the transaction
-    this.element.wrapper.viewTransactionEl = VirtualDOMService.createElement('div', {
-      classes: utils.extractClasses(styles, styleCodes.panelContainer.control.item.code)
-    });
-    this.element.wrapper.viewTransactionEl.linkEl = VirtualDOMService.createElement('a',{
-      classes: utils.extractClasses(styles, styleCodes.widget.cursorPointer)
-    });
-    this.element.wrapper.viewTransactionEl.linkEl.html(
-      `<i>${faExternalLink}</i>` + `<span>${utils.translate('view_transaction', this.lang)}</span>`
-    );
-    this.element.wrapper.viewTransactionEl.hide();
+    // this.element.wrapper.viewTransactionEl = VirtualDOMService.createElement('div', {
+    //   classes: utils.extractClasses(styles, styleCodes.panelContainer.control.item.code)
+    // });
+    // this.element.wrapper.viewTransactionEl.linkEl = VirtualDOMService.createElement('a',{
+    //   classes: utils.extractClasses(styles, styleCodes.widget.cursorPointer)
+    // });
+    // this.element.wrapper.viewTransactionEl.linkEl.html(
+    //   `<i>${faExternalLink}</i>` + `<span>${utils.translate('view_transaction', this.lang)}</span>`
+    // );
+    // this.element.wrapper.viewTransactionEl.hide();
 
     // The link to download the receipt
     this.element.wrapper.downloadReceiptEl = VirtualDOMService.createElement('div', {
@@ -112,26 +112,30 @@ class ControlPanelContainer {
    */
   receiptParsed(verificationResult, receipt) {
     const self = this;
-    let { endpoints: { transaction: transactionUrl } } = this.widget.configurator.get();
-
-    if (!transactionUrl) {
-      transactionUrl = constants.TRANSACTION_URL;
-    }
-
     if (receipt) {
-      // Build and display the transaction link
-      self.receipt = receipt;
       self.element.show();
       self.element.wrapper.downloadReceiptEl.show();
-      const {anchors = []} = receipt;
-      if (anchors.length > 0) {
-        self.element.wrapper.viewTransactionEl.show();
-        const transaction = anchors[0];
-        self.element.wrapper.viewTransactionEl.linkEl
-          .attr('target', '_blank')
-          .attr('href', transactionUrl.replace('$sourceId', transaction.sourceId));
-      }
     }
+    // let { endpoints: { transaction: transactionUrl } } = this.widget.configurator.get();
+
+    // if (!transactionUrl) {
+    //   transactionUrl = constants.TRANSACTION_URL;
+    // }
+
+    // if (receipt) {
+    //   // Build and display the transaction link
+    //   self.receipt = receipt;
+    //   self.element.show();
+    //   self.element.wrapper.downloadReceiptEl.show();
+    //   const {anchors = []} = receipt;
+    //   if (anchors.length > 0) {
+    //     self.element.wrapper.viewTransactionEl.show();
+    //     const transaction = anchors[0];
+    //     self.element.wrapper.viewTransactionEl.linkEl
+    //       .attr('target', '_blank')
+    //       .attr('href', transactionUrl.replace('$sourceId', transaction.sourceId));
+    //   }
+    // }
   }
   
   get() {
