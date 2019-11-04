@@ -1,28 +1,33 @@
 {
   "translation": {
     "select_file_to_hash": "Veuillez sélectionner un fichier",
-    "click_to_download": "Cliquez sur l'icône pour télécharger le fichier",
-    "click_to_download_proof_receipt": "Téléchargez le reçu de preuve Chainpoint",
-    "file_downloading_in_progress": "Téléchargement du fichier...",
-    "file_hashing_in_progress": "Hachage du fichier...",
+    "click_to_download": "Cliquez sur l’icône pour télécharger le fichier",
+    "click_to_download_proof_receipt": "Téléchargez l’accusé de réception Chainpoint",
+    "file_downloading_in_progress": "Fichier en cours de téléchargement...",
+    "file_hashing_in_progress": "Fichier en cours de hachage...",
     "file_hashing_done": "Hachage du fichier terminé",
-    "claimed_identity": "Identité prétendue",
-    "identity_server": "Serveur d'identité",
-    "server_certificates": "Certificats de serveur",
-    "identity_url": "URL d'identité",
+    "view_transaction": "Afficher la transaction",
+    "claimed_identity": "Identité déclarée",
+    "identity_server": "Serveur d’identités",
+    "server_certificates": "Certificats du serveur",
+    "identity_url": "URL d’identité",
     "status": "Statut",
     "identity": "Identité",
     "certified_by": "Certifié par",
-    "view_transaction": "Voir transaction",
-    "common_name": "Nom courant",
+    "common_name": "Nom usuel",
     "country": "Pays",
     "locality": "Localité",
     "organization": "Organisation",
     "organizational_unit": "Unité",
     "timestamp": "Horodatage",
     "confirmations": "Confirmations",
-    "signed_hash": "Empreinte signée",
-    "anchored_hash": "Empreinte ancrée",
+    "merkleRoot": "Racine de Merkle",
+    "proofType": "Type de preuve",
+    "transaction": "Transaction",
+    "bitcoin_proof": "Preuve de l’horodatage",
+    "digital_signature": "Preuve de la signature",
+    "signed_hash": "Hachage signé",
+    "anchored_hash": "Hachage ancré",
     "signature": "Signature",
     "signee": "Signataire",
     "signed": "Signé le {{date}}",
@@ -30,73 +35,73 @@
     "timestamped": "Horodaté le {{date}}",
     "timestamped_by": "Horodaté le {{date}} par {{organization}}",
     "errors": {
-      "url_not_found": "L'URL n'a pas été trouvée",
-      "cors": "Erreur de politique CORS",
-      "proof_receipt_not_found": "Fichier de preuve non trouvé",
-      "receipt_json_broken": "Le fichier JSON est invalide",
+      "url_not_found": "URL introuvable",
+      "cors": "Erreur concernant la politique CORS",
+      "proof_receipt_not_found": "Accusé de réception introuvable",
+      "receipt_json_broken": "Fichier JSON de réception invalide",
       "need_receipt": {
-        "main": "Aucune preuve publique trouvée",
-        "sub": "No public proof receipt found at Woleet: you must provide one to verify this file"
+        "main": "Preuve publique introuvable",
+        "sub": "Preuve publique introuvable chez Woleet : vous devez en fournir une pour vérifier ce fichier"
       },
       "file_matched_but_anchor_not_yet_processed": {
-        "main": "No public proof found at Woleet",
-        "sub": "No public proof receipt found at Woleet: you must provide one to verify this file"
+        "main": "Preuve publique introuvable chez Woleet",
+        "sub": "Preuve publique introuvable chez Woleet : vous devez en fournir une pour vérifier ce fichier"
       },
       "target_hash_mismatch": {
-        "main": "The proof mismatches the file",
-        "sub": "The proof receipt's target hash attribute doesn't match the file hash"
+        "main": "La preuve ne correspond pas au fichier",
+        "sub": "L’attribut de hachage de la cible de l’accusé de réception ne correspond pas au fichier haché"
       },
       "unable_to_parse_json": {
-        "main": "The proof cannot be parsed",
-        "sub": "The file you provided is not a valid Chainpoint 1 or 2 proof receipt"
+        "main": "Impossible d’analyser la preuve",
+        "sub": "Le fichier que vous avez fourni n’est pas un accusé de réception Chainpoint 1 or 2 valide"
       },
       "merkle_root_mismatch": {
-        "main": "The proof is corrupted",
-        "sub": "The proof receipt's merkle root attribute does not match the proof result"
+        "main": "Preuve corrompue",
+        "sub": "L’attribut de la racine de Merkel de l’accusé de réception ne correspond pas au résultat de preuve"
       },
       "non_sha256_target_proof_element": {
-        "main": "The proof is corrupted",
-        "sub": "An attribute in the proof (parent or left or right) in not a SHA256 hash"
+        "main": "Preuve corrompue",
+        "sub": "Un attribut de la preuve (parent ou gauche ou droit) n’est pas la fonction de hachage SHA256"
       },
       "invalid_parent_in_proof_element": {
-        "main": "The proof is corrupted",
-        "sub": "A parent in the proof is not the SHA256 of its children"
+        "main": "Preuve corrompue",
+        "sub": "Un parent de la preuve n’est pas le SHA256 de ses enfants"
       },
       "invalid_receipt_format": {
-        "main": "The proof is corrupted",
-        "sub": "The proof receipt does not conform to the Chainpoint 1 or 2 format"
+        "main": "Preuve corrompue",
+        "sub": "L’accusé de réception ne correspond pas au format Chainpoint 1 ou 2"
       },
       "invalid_target_proof": {
-        "main": "The proof is corrupted",
-        "sub": "The proof receipt's merkle proof attribute is invalid"
+        "main": "Preuve corrompue",
+        "sub": "Attribut de la preuve de Merkel de l’accusé de réception invalide"
       },
       "op_return_mismatches_merkle_root": {
-        "main": "The proof is corrupted",
-        "sub": "The transaction's OP_RETURN mismatches the proof receipt's merkle root"
+        "main": "Preuve corrompue",
+        "sub": "Le OP_RETURN de la transaction ne correspond pas à la racine de Merkel de l’accusé de réception"
       },
       "http_error": {
-        "main": "Unexpected HTTP error",
-        "sub": "An unexpected HTTP error occurred during the verification process"
+        "main": "Erreur HTTP inattendue",
+        "sub": "Une erreur HTTP inattendue est survenue lors du processus de vérification"
       },
       "tx_not_found": {
-        "main": "The transaction cannot be found",
-        "sub": "The proof receipt's transaction doesn't exist in the blockchain"
+        "main": "Transaction introuvable",
+        "sub": "La transaction de l’accusé de réception inexistante dans la chaîne de blocs"
       },
       "tx_not_confirmed": {
-        "main": "The transaction is not confirmed",
-        "sub": "The proof receipt's transaction is not yet confirmed by the blockchain"
+        "main": "Transaction non confirmée",
+        "sub": "La transaction de l’accusé de réception n’est pas encore confirmée par la chaîne de blocs"
       },
       "invalid_receipt_signature": {
-        "main": "The signature is invalid",
-        "sub": "The proof receipt's signature is not valid for signedHash and pubKey attributes"
+        "main": "Signature invalide",
+        "sub": "Signature de l’accusé de réception invalide pour les attributs HachageSigné et CléPublique"
       },
       "invalid_receipt_signature_format": {
-        "main": "The signature is corrupted",
-        "sub": "The proof receipt does not conform to the Chainpoint 1 or 2 format with signature extension"
+        "main": "Signature corrompue",
+        "sub": "L’accusé de réception ne correspond pas au format Chainpoint 1 ou 2 avec l’extension de la signature"
       },
       "file_too_big_to_be_hashed_without_worker": {
-        "main": "Cannot hash without worker",
-        "sub": "The file is too big to be hashed without worker"
+        "main": "Impossible de hacher sans travailleur",
+        "sub": "Fichier trop volumineux pour être haché sans un travailleur"
       }
     }
   }
