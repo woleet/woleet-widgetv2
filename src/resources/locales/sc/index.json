@@ -1,0 +1,109 @@
+{
+    "translation": {
+      "select_file_to_hash": "ÇëÑ¡ÔñÒ»¸öÎÄ¼þ",
+      "click_to_download": "µã»÷Í¼±êÏÂÔØÎÄ¼þ",
+      "click_to_download_proof_receipt": "ÏÂÔØÁ´½ÓÁ´µãÑéÖ¤ÊÕ¾Ý",
+      "file_downloading_in_progress": "ÎÄ¼þÕýÔÚÏÂÔØ......",
+      "file_hashing_in_progress": "ÎÄ¼þÕýÔÚÉ¢ÁÐ......",
+      "file_hashing_done": "ÎÄ¼þÉ¢ÁÐÍê³É",
+      "view_transaction": "²é¿´½»Ò×",
+      "claimed_identity": "Éí·ÝÉêÇë",
+      "identity_server": "Éí·ÝÈÏÖ¤·þÎñÆ÷",
+      "server_certificates": "·þÎñÆ÷Ö¤Êé",
+      "identity_url": "Éí·ÝURL",
+      "status": "×´Ì¬",
+      "identity": "Éí·Ý",
+      "certified_by": "¾­Ö¤Ã÷",
+      "common_name": "³£ÓÃÃû",
+      "country": "¹ú¼Ò",
+      "locality": "ËùÔÚµØ",
+      "organization": "×éÖ¯",
+      "organizational_unit": "µ¥Î»",
+      "timestamp": "Ê±¼ä±ê¼Ç",
+      "confirmations": "È·ÈÏ",
+      "merkleRoot": "¸ù½Úµã",
+      "proofType": "ÑéÖ¤ÀàÐÍ",
+      "transaction": "½»Ò×",
+      "bitcoin_proof": "Ê±¼ä±ê¼ÇÑéÖ¤",
+      "digital_signature": "Ç©ÊðÑéÖ¤",
+      "signed_hash": "ÒÑÇ©ÊðÉ¢ÁÐ",
+      "anchored_hash": "ÒÑÃª¶¨É¢ÁÐ",
+      "signature": "Ç©Ãû",
+      "signee": "Ç©ÃûÕß",
+      "signed": "Ç©ÊðÈÕÆÚ {{date}}",
+      "signed_by": "Ç©ÊðÈÕÆÚ {{date}} ÓÉ {{organization}}",
+      "timestamped": "Ê±¼ä±ê¼Ç {{date}}",
+      "timestamped_by": "Ê±¼ä±ê¼ÇÓÚ {{date}} ÓÉ {{organization}}",
+      "errors": {
+        "url_not_found": "UrlµØÖ·Î´ÕÒµ½",
+        "cors": "¿çÓò×ÊÔ´¹²Ïí£¨CORS£©Õþ²ß´íÎó",
+        "proof_receipt_not_found": "ÑéÖ¤ÊÕ¾ÝÎ´ÕÒµ½",
+        "receipt_json_broken": "JSONÐ£ÑéÎÄ¼þÊÕ¾ÝÎÞÐ§",
+        "need_receipt": {
+          "main": "Î´ÕÒµ½¹«¿ªÑéÖ¤",
+          "sub": "ÔÚWoleetÎ´ÕÒµ½¹«¿ªÑéÖ¤ÊÕ¾Ý£ºÄú±ØÐëÌá¹©¸ÃÊÕ¾ÝÀ´ÑéÖ¤´ËÎÄ¼þ"
+        },
+        "file_matched_but_anchor_not_yet_processed": {
+          "main": "ÔÚWoleetÎ´ÕÒµ½¹«¿ªÑéÖ¤ÊÕ¾Ý",
+          "sub": "ÔÚWoleetÎ´ÕÒµ½¹«¿ªÑéÖ¤ÊÕ¾Ý£ºÄú±ØÐëÌá¹©¸ÃÊÕ¾ÝÀ´ÑéÖ¤´ËÎÄ¼þ"
+        },
+        "target_hash_mismatch": {
+          "main": "ÑéÖ¤ÎÞ·¨Æ¥Åä¸ÃÎÄ¼þ",
+          "sub": "ÑéÖ¤ÊÕµ½µÄÄ¿±êÉ¢ÁÐÊôÐÔÓëÎÄ¼þÉ¢ÁÐ²»Æ¥Åä"
+        },
+        "unable_to_parse_json": {
+          "main": "ÑéÖ¤ÎÞ·¨½âÎö",
+          "sub": "ÄúÌá¹©µÄÎÄ¼þÊÇÎÞÐ§µÄÁ´µã1»ò2ÑéÖ¤ÊÕ¾Ý"
+        },
+        "merkle_root_mismatch": {
+          "main": "ÑéÖ¤ÒÑËð»µ",
+          "sub": "ÑéÖ¤ÊÕ¾ÝµÄ¸ù½ÚµãÊôÐÔÓëÑéÖ¤½á¹û²»Æ¥Åä¡£"
+        },
+        "non_sha256_target_proof_element": {
+          "main": "ÑéÖ¤ÒÑËð»µ",
+          "sub": "ÑéÖ¤ÊôÐÔ£¨¸¸Àà»ò×óÀà»òÓÒÀà£©·ÇSHA256É¢ÁÐ"
+        },
+        "invalid_parent_in_proof_element": {
+          "main": "ÑéÖ¤ÒÑËð»µ",
+          "sub": "ÑéÖ¤ÖÐµÄ¸¸½Úµã²»ÊÇÆä×Ó½ÚµãµÄSHA256É¢ÁÐ"
+        },
+        "invalid_receipt_format": {
+          "main": "ÑéÖ¤ÒÑËð»µ",
+          "sub": "ÑéÖ¤ÊÕ¾ÝÓëÁ´µã1»ò2µÄ¸ñÊ½²»Ïà·û"
+        },
+        "invalid_target_proof": {
+          "main": "ÑéÖ¤ÒÑËð»µ",
+          "sub": "ÑéÖ¤ÊÕ¾ÝµÄmerkleÑéÖ¤ÊôÐÔÎÞÐ§"
+        },
+        "op_return_mismatches_merkle_root": {
+          "main": "ÑéÖ¤ÒÑËð»µ",
+          "sub": "½»Ò×µÄ OP_RETURN ÓëÑéÖ¤ÊÕ¾ÝµÄÒª½Úµã²»Æ¥Åä"
+        },
+        "http_error": {
+          "main": "ÒâÍâµÄHTTP´íÎó",
+          "sub": "ÑéÖ¤¹ý³ÌÖÐ·¢ÉúÁËÒâÍâµÄHTTP´íÎó"
+        },
+        "tx_not_found": {
+          "main": "ÎÞ·¨ÕÒµ½¸Ã½»Ò×",
+          "sub": "ÑéÖ¤ÊÕ¾ÝµÄ½»Ò×²»´æÔÚÓÚ±¾Çø¿éÁ´ÖÐ"
+        },
+        "tx_not_confirmed": {
+          "main": "½»Ò×Î´±»È·ÈÏ",
+          "sub": "ÑéÖ¤ÊÕ¾ÝµÄ½»Ò×»¹Î´±»Çø¿éÁ´È·ÈÏ"
+        },
+        "invalid_receipt_signature": {
+          "main": "Ç©ÃûÎÞÐ§",
+          "sub": "ÑéÖ¤ÊÕ¾ÝµÄÇ©Ãû¶ÔÓÚÒÑÇ©ÊðÉ¢ÁÐºÍ¹«Ô¿ÊôÐÔÎÞÐ§"
+        },
+        "invalid_receipt_signature_format": {
+          "main": "Ç©ÃûÒÑËð»µ",
+          "sub": "ÑéÖ¤ÊÕ¾ÝÓë´øÀ©Õ¹Ç©ÃûµÄÁ´µã1»ò2µÄ¸ñÊ½²»Ïà·û"
+        },
+        "file_too_big_to_be_hashed_without_worker": {
+          "main": "Ã»ÓÐÈÎÎñ¶ÔÏó£¬²»ÄÜ½øÐÐÉ¢ÁÐ",
+          "sub": "ÎÄ¼þÌ«´ó£¬Ã»ÓÐÈÎÎñ¶ÔÏóÎÞ·¨½øÐÐÉ¢ÁÐ"
+        }
+      }
+    }
+  }
+  

@@ -1,0 +1,108 @@
+{
+  "translation": {
+    "select_file_to_hash": "ƒtƒ@ƒCƒ‹‚ð‘I‘ð‚µ‚Ä‚­‚¾‚³‚¢",
+    "click_to_download": "ƒAƒCƒRƒ“‚ðƒNƒŠƒbƒN‚µ‚Äƒtƒ@ƒCƒ‹‚ðƒ_ƒEƒ“ƒ[ƒh‚µ‚Ä‚­‚¾‚³‚¢",
+    "click_to_download_proof_receipt": "Chainpoint —ÌŽû‘‚ðƒ_ƒEƒ“ƒ[ƒh‚·‚é",
+    "file_downloading_in_progress": "ƒtƒ@ƒCƒ‹‚Ìƒ_ƒEƒ“ƒ[ƒh’†...",
+    "file_hashing_in_progress": "ƒtƒ@ƒCƒ‹‚ÌƒnƒbƒVƒ“ƒO’†...",
+    "file_hashing_done": "ƒtƒ@ƒCƒ‹‚ÌƒnƒbƒVƒ“ƒO‚ªI—¹‚µ‚Ü‚µ‚½",
+    "view_transaction": "ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“‚ð•\\Ž¦‚·‚é",
+    "claimed_identity": "ƒNƒŒ[ƒ€ ƒAƒCƒfƒ“ƒeƒBƒeƒB",
+    "identity_server": "ƒAƒCƒfƒ“ƒeƒBƒeƒB ƒT[ƒo[",
+    "server_certificates": "ƒT[ƒo[Ø–¾‘",
+    "identity_url": "ƒAƒCƒfƒ“ƒeƒBƒeƒB URL",
+    "status": "ƒXƒe[ƒ^ƒX",
+    "identity": "ƒAƒCƒfƒ“ƒeƒBƒeƒB",
+    "certified_by": "Ø–¾Œ³",
+    "common_name": "‹¤’Ê–¼",
+    "country": "‘",
+    "locality": "’nˆæ",
+    "organization": "‘gD",
+    "organizational_unit": "’PˆÊ",
+    "timestamp": "ƒ^ƒCƒ€ƒXƒ^ƒ“ƒv",
+    "confirmations": "Šm”F",
+    "merkleRoot": "ƒ}[ƒNƒ‹ƒ‹[ƒg",
+    "proofType": "Ø–¾‘ƒ^ƒCƒv",
+    "transaction": "ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“",
+    "bitcoin_proof": "ƒ^ƒCƒ€ƒXƒ^ƒ“ƒvØ–¾‘",
+    "digital_signature": "–¼Ø–¾‘",
+    "signed_hash": "–¼‚³‚ê‚½ƒnƒbƒVƒ…",
+    "anchored_hash": "ƒAƒ“ƒJ[ ƒnƒbƒVƒ…",
+    "signature": "–¼",
+    "signee": "–¼ŽÒ",
+    "signed": "ƒTƒCƒ“ƒIƒ“ {{date}}",
+    "signed_by": "ƒTƒCƒ“ƒIƒ“{{date}}Œ³ {{organization}}",
+    "timestamped": "ƒ^ƒCƒ€ƒXƒ^ƒ“ƒv‚Ì“ú•t {{date}}",
+    "timestamped_by": "{{date}}‚Ìƒ^ƒCƒ€ƒXƒ^ƒ“ƒv‚Ì”­sŒ³ {{organization}}",
+    "errors": {
+      "url_not_found": "URL‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½",
+      "cors": "CORSƒ|ƒŠƒV[ƒGƒ‰[",
+      "proof_receipt_not_found": "—ÌŽû‘‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½",
+      "receipt_json_broken": "ƒŒƒV[ƒgJSONƒtƒ@ƒCƒ‹‚ª–³Œø‚Å‚·",
+      "need_receipt": {
+        "main": "Œö“IØ–¾‘‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½",
+        "sub": "Œö“I—ÌŽû‘‚ªWoleet‚ÉŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½: ‚±‚Ìƒtƒ@ƒCƒ‹‚ðØ–¾‚·‚é•K—v‚ª‚ ‚è‚Ü‚·"
+      },
+      "file_matched_but_anchor_not_yet_processed": {
+        "main": "Œö“IØ–¾‘‚ªWoleet‚ÉŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½",
+        "sub": "Œö“I—ÌŽû‘‚ªWoleet‚ÉŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½: ‚±‚Ìƒtƒ@ƒCƒ‹‚ðØ–¾‚·‚é•K—v‚ª‚ ‚è‚Ü‚·"
+      },
+      "target_hash_mismatch": {
+        "main": "Ø–¾‘‚Æƒtƒ@ƒCƒ‹‚ªˆê’v‚µ‚Ü‚¹‚ñ",
+        "sub": "—ÌŽû‘‚Ìƒ^[ƒQƒbƒgƒnƒbƒVƒ…‘®«‚ªƒtƒ@ƒCƒ‹‚ÌƒnƒbƒVƒ…‚Æˆê’v‚µ‚Ü‚¹‚ñ"
+      },
+      "unable_to_parse_json": {
+        "main": "Ø–¾‘‚ª‰ðÍ‚Å‚«‚Ü‚¹‚ñ",
+        "sub": "’ño‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ÍA—LŒø‚ÈChainpoint 1‚Ü‚½‚Í2‚Ì—ÌŽû‘‚Å‚Í‚ ‚è‚Ü‚¹‚ñ "
+      },
+      "merkle_root_mismatch": {
+        "main": "Ø–¾‘‚Í”j‘¹‚µ‚Ä‚¢‚Ü‚·",
+        "sub": "—ÌŽû‘‚Ìƒ}[ƒNƒ‹ƒ‹[ƒg‘®«‚ªØ–¾‘‚ÌŒ‹‰Ê‚Æˆê’v‚µ‚Ü‚¹‚ñ"
+      },
+      "non_sha256_target_proof_element": {
+        "main": "Ø–¾‘‚Í”j‘¹‚µ‚Ä‚¢‚Ü‚·",
+        "sub": "Ø–¾‘‚Ì‘®«iƒyƒAƒŒƒ“ƒgA¶A‰Ej‚ÍASHA256ƒnƒbƒVƒ…‚Å‚Í‚ ‚è‚Ü‚¹‚ñ"
+      },
+      "invalid_parent_in_proof_element": {
+        "main": "Ø–¾‘‚Í”j‘¹‚µ‚Ä‚¢‚Ü‚·",
+        "sub": "Ø–¾‘‚ÌƒyƒAƒŒƒ“ƒg‚ÍA‚»‚ÌŽq‚Å‚ ‚éSHA256‚Å‚Í‚ ‚è‚Ü‚¹‚ñ "
+      },
+      "invalid_receipt_format": {
+        "main": "Ø–¾‘‚Í”j‘¹‚µ‚Ä‚¢‚Ü‚·",
+        "sub": "—ÌŽû‘‚ÍAChainpoint 1‚Ü‚½‚Í2‚ÌŒ`Ž®‚É]‚Á‚Ä‚¢‚Ü‚¹‚ñ"
+      },
+      "invalid_target_proof": {
+        "main": "Ø–¾‘‚Í”j‘¹‚µ‚Ä‚¢‚Ü‚·",
+        "sub": "—ÌŽû‘‚Ìƒ}[ƒNƒ‹Ø–¾‘‘®«‚ª–³Œø‚Å‚·"
+      },
+      "op_return_mismatches_merkle_root": {
+        "main": "Ø–¾‘‚Í”j‘¹‚µ‚Ä‚¢‚Ü‚·",
+        "sub": "ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“‚ÌOP_RETURN‚ªA—ÌŽû‘‚Ìƒ}[ƒNƒ‹ƒ‹[ƒg‚Æˆê’v‚µ‚Ü‚¹‚ñ"
+      },
+      "http_error": {
+        "main": "—\\Šú‚µ‚È‚¢HTTPƒGƒ‰[‚Å‚·",
+        "sub": "Šm”FƒvƒƒZƒX’†‚É—\\Šú‚µ‚È‚¢HTTPƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½"
+      },
+      "tx_not_found": {
+        "main": "ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ",
+        "sub": "—ÌŽû‘‚Ìƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“‚ÍAƒuƒƒbƒNƒ`ƒF[ƒ“‚É‘¶Ý‚µ‚Ü‚¹‚ñ"
+      },
+      "tx_not_confirmed": {
+        "main": "ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“‚ªŠm”F‚Å‚«‚Ü‚¹‚ñ",
+        "sub": "—ÌŽû‘‚Ìƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“‚Í‚Ü‚¾ƒuƒƒbƒNƒ`ƒF[ƒ“‚É‚æ‚Á‚ÄŠm”F‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ"
+      },
+      "invalid_receipt_signature": {
+        "main": "–¼‚ª–³Œø‚Å‚·",
+        "sub": "—ÌŽû‘‚Ì–¼‚ªsignedHash‚¨‚æ‚ÑpubKey‚Ì‘®«‚É‘Î‚µ‚Ä–³Œø‚Å‚·"
+      },
+      "invalid_receipt_signature_format": {
+        "main": "–¼‚ª”j‘¹‚µ‚Ä‚¢‚Ü‚·",
+        "sub": "—ÌŽû‘‚ÍA–¼‚ÌŠg’£Žq‚ðŽ‚ÂChainpoint 1‚Ü‚½‚Í2‚ÌŒ`Ž®‚É]‚Á‚Ä‚¢‚Ü‚¹‚ñ"
+      },
+      "file_too_big_to_be_hashed_without_worker": {
+        "main": "ƒ[ƒJ[‚È‚µ‚ÅƒnƒbƒVƒ…‚Å‚«‚Ü‚¹‚ñ",
+        "sub": "ƒtƒ@ƒCƒ‹‚ªƒ[ƒJ[‚È‚µ‚ÅƒnƒbƒVƒ…‚·‚é‚É‚Í‘å‚«‚·‚¬‚Ü‚·"
+      }
+    }
+  }
+}
