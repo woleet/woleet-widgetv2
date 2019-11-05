@@ -3,7 +3,7 @@
 :local {
   .drop_container {
     @extend .description-block;
-    
+    height: 100%;
     &--body {
       position: relative;
       display: inline-block;
