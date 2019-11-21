@@ -16,7 +16,6 @@ class PreviewContainer {
       icons: { preview: { common: commonIcon } }
     } = widget.configurator.get();
     const self = this;
-
     this.element = null;
     this.url = null;
     this.widget = widget;
@@ -119,33 +118,45 @@ class PreviewContainer {
   initializeEvents() {
     const self = this;
 
-    self.element.on('click', () => {
-      if (self.file) {
-        const { name: filename } = self.file;
-        const fileExtension = utils.getFileExtension(filename);
+    // Display or not the document in new tab when the user click in the widget
+    const enablePreview = self.widget.configurator.get().visibility.preview;
 
-        if (self.url !== null) {
-          window.open(self.url, '_blank');
-        } else if (this.allowedExtensions.indexOf(fileExtension) !== -1) {
-          // Check if it's possible to open popup windows
-          !utils.adsBlocked((blocked) => {
-            if (!blocked) {
-              // The solution for both IE and Edge
-              if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                window.navigator.msSaveOrOpenBlob(self.file, self.file.name);
+    // If a parameter is define to true or by default, it displays the document in new tab
+    if (enablePreview === undefined || enablePreview) {
+      self.element.on('click', () => {
+
+        if (self.file) {
+          const { name: filename } = self.file;
+          const fileExtension = utils.getFileExtension(filename);
+
+          if (self.url !== null) {
+            window.open(self.url, '_blank');
+          } else if (this.allowedExtensions.indexOf(fileExtension) !== -1) {
+            // Check if it's possible to open popup windows
+            !utils.adsBlocked((blocked) => {
+              if (!blocked) {
+                // The solution for both IE and Edge
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                  window.navigator.msSaveOrOpenBlob(self.file, self.file.name);
+                } else {
+                  // For all other normal browsers
+                  const objUrl = window.URL.createObjectURL(self.file, { oneTimeOnly: true });
+                  const tab = window.open();
+                  tab.location.href = objUrl;
+                }
               } else {
-                // For all other normal browsers
-                const objUrl = window.URL.createObjectURL(self.file, { oneTimeOnly: true });
-                const tab = window.open();
-                tab.location.href = objUrl;
+                console.log('Disable ads blockers, please!');
               }
-            } else {
-              console.log('Disable ads blockers, please!');
-            }
-          })
+            })
+          }
         }
-      }
-    });
+      });
+    } else {
+      // If a parameter is define to false
+      // then change cursor  on hover on the widget to make not clickable/cannot display preview of the file in a tab
+      this.element.attr('style', 'cursor: unset;');
+    }
+
 
     // If the reset button was clicked
     if (this.element.control.redo) {
