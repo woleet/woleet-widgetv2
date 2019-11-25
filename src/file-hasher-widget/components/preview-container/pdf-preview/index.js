@@ -21,9 +21,9 @@ class PdfPreview {
     this.delayedFile = null;
     this.typedArray = null;
     this.fileReader = new FileReader();
-    
+
     this.styles = this.widget.configurator.getStyles();
-  
+
     if (!window.pdfJs) {
       // If the library pdf.js isn't available, do the lazy loading
       loader.getPdfJs()
@@ -44,10 +44,10 @@ class PdfPreview {
       self.pdfjsLib = window.pdfJs;
       self.loaded();
     }
-  
+
     this.init();
   }
-  
+
   loaded() {
     /**
      * TODO: optimize the initialization
@@ -64,69 +64,69 @@ class PdfPreview {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.code)
     });
-    
+
     this.element.canvasWrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.canvas.wrapper.code)
     });
-    
+
     this.element.canvasWrapper.canvas = VirtualDOMService.createElement('canvas', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.canvas.code)
     });
-    
+
     this.element.control = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.code)
     });
-    
+
     this.element.control.prev = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.icon.prev.code)
     });
-    
+
     this.element.control.next = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.icon.next.code)
     });
-    
+
     this.element.hide();
     this.element.control.hide();
 
     this.initializeEvents();
     this.stylize();
   }
-  
+
   /**
    * Initialize the events
    */
   initializeEvents() {
     const self = this;
-    this.fileReader.onload = function() {
+    this.fileReader.onload = function () {
       self.typedArray = new Uint8Array(this.result);
 
       delete this.result;
 
       // Initialize the instance of pdf.js once the file is available
-      self.pdfjsLib.getDocument(self.typedArray)
+      self.pdfjsLib.getDocument(self.typedArray).promise
         .then((pdf) => {
           self.pdfDoc = pdf;
           self.pageCount = self.pdfDoc.numPages;
           self.renderPage(self.pageNum);
         });
     };
-  
+
     this.element.control.prev.on('click', function (event) {
       event.stopPropagation();
       self.onPrevPage(event);
       return false;
     });
-  
+
     this.element.control.next.on('click', function (event) {
       event.stopPropagation();
       self.onNextPage(event);
       return false;
     });
-  
+
     this.element.on('mouseenter', function () {
       self.element.control.show();
     });
-  
+
     this.element.on('mouseleave', function () {
       self.element.control.hide();
     });
@@ -138,10 +138,10 @@ class PdfPreview {
   stylize() {
     // Select all needful options
     const {
-      preview: { icon: { color: previewIconColor} }
+      preview: { icon: { color: previewIconColor } }
     } = this.widget.configurator.getStyles();
 
-    this.element.canvasWrapper.canvas.style({width: `${this.styles.width}`});
+    this.element.canvasWrapper.canvas.style({ width: `${this.styles.width}` });
 
     this.element.control.prev.setSvg(faCaretLeft, previewIconColor);
 
@@ -170,22 +170,22 @@ class PdfPreview {
         // Calculate the ratio
         const ratio = pageHeight / pageWidth;
         const scale = styleWidth / pageWidth;
-        const viewport = page.getViewport(scale, 0);
+        const viewport = page.getViewport(scale);
 
         // The final preview size shouldn't be wider than the widget
         self.element.canvasWrapper.canvas.height(styleWidth * ratio);
         self.element.canvasWrapper.canvas.width(styleWidth);
-        
+
         // Render PDF page into canvas context
         const renderContext = {
           canvasContext: this.ctx,
           viewport: viewport
         };
-        
+
         const renderTask = page.render(renderContext);
 
         // Wait for rendering to finish
-        renderTask.promise.then(function() {
+        renderTask.promise.then(function () {
           self.pageRendering = false;
           if (self.pageNumPending !== null) {
             // New page rendering is pending
@@ -232,7 +232,7 @@ class PdfPreview {
     this.reset();
     this.element.hide();
   }
-  
+
   /**
    * If another page rendering in progress, wait until the rendering is
    * finished. Otherwise, execute rendering immediately.
@@ -245,7 +245,7 @@ class PdfPreview {
       self.renderPage(num);
     }
   }
-  
+
   /**
    * Display previous page.
    */
@@ -257,13 +257,13 @@ class PdfPreview {
     self.pageNum--;
     self.queueRenderPage(self.pageNum);
   }
-  
+
   /**
    * Display next page.
    */
   onNextPage(event) {
     event.stopPropagation();
-    
+
     const self = this;
     if (self.pageNum >= self.pdfDoc.numPages) {
       return;
@@ -289,7 +289,7 @@ class PdfPreview {
     this.pageCount = null;
     this.pageNumPending = null;
   }
-  
+
   get() {
     return this.element;
   }
