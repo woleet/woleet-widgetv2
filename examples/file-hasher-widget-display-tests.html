@@ -21,25 +21,31 @@
 <body>
   <script>
     (function (d, s, i, f) {
-      var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
-      js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
+      var js = d.createElement(s);
+      var fjs = d.getElementsByTagName(s)[0];
+      js.id = i;
+      js.src = f;
+      js.async = 1;
+      fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'file-hasher-widget', '../dist/file-hasher-widget.js'));
   </script>
 
   <div>
     <p class="block-display">Test 01: <br> styles-width='250px' <br> styles-iconWidth='100px' <br> parent-width="100%"
     </p>
-    <div class='file-hasher-widget block-parent' visibility-title="false" visibility-filename="false" id='id-01' styles-width='250px'
-      styles-icon-width='100px' lang='fr'>
+    <div class='file-hasher-widget block-parent' visibility-title="false" visibility-filename="false" id='id-01'
+      styles-width='250px' styles-icon-width='100px' styles-input-width='300px' lang='fr'>
     </div>
   </div>
 
   <hr>
 
   <div>
-    <p class="block-display">Test 02: <br> styles-width='50px' <br> styles-iconWidth='100px' <br> parent-width="100%"
+    <p class="block-display">Test 02: <br> styles-width='50px' <br> styles-input-width='300px' <br>
+      parent-width="100%"
     </p>
-    <div class='file-hasher-widget block-parent' id='id-02' styles-width='50px' styles-icon-width='100px' lang='fr'>
+    <div class='file-hasher-widget block-parent' id='id-02' styles-width='50px' styles-input-width='300px'
+      lang='fr' styles-icon-width='0px'>
     </div>
   </div>
 

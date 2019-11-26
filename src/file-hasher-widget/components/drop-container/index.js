@@ -108,8 +108,10 @@ class DropContainer {
    */
   stylize() {
     const self = this;
-    const {icon: { width: iconWidth, color: iconColor }} = this.widget.configurator.getStyles();
+    const {icon: { width: iconWidth, color: iconColor }, input: { width: inputWidth, height: inputHeight }} = this.widget.configurator.getStyles();
     const { icons: { import: importIcon } } = this.widget.configurator.get();
+
+    console.log(this.widget.configurator.getStyles());
 
     if (importIcon) {
       this.importIcon = true;
@@ -118,8 +120,19 @@ class DropContainer {
       });
     }
 
+    if (!!(inputWidth)) {
+      this.element.body.style({'width': `${inputWidth}`});
+    }
+
+    if(!!(inputHeight)) {
+      this.element.body.input.style({'height': `${inputHeight}`});
+    }
+
     if (!!(iconWidth)) {
-      this.element.body.style({'width': `${iconWidth}`});
+      this.element.body.icon.style({'width': `${iconWidth}`});
+      if (!(inputWidth)) {
+        this.element.body.style({'width': `${iconWidth}`});
+      }
     }
 
     // If download icon wasn't customized, display the default one

@@ -14,6 +14,10 @@ function getFileHasherDefaults() {
         width: null,
         color: '#696969'
       },
+      input: {
+        width: null,
+        height: 'inherit'
+      },
       preview: {
         icon: {
           color: '#FF9494'

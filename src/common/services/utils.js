@@ -14,11 +14,15 @@ export function mergeDeep(target, ...sources) {
     for (const key in source) {
       if (isObject(source[key])) {
         if (!target[key]) {
-          Object.assign(target, { [key]: {} });
+          Object.assign(target, {
+            [key]: {}
+          });
         }
         mergeDeep(target[key], source[key]);
       } else {
-        Object.assign(target, { [key]: source[key] });
+        Object.assign(target, {
+          [key]: source[key]
+        });
       }
     }
   }
@@ -62,7 +66,9 @@ function extractClasses(styles, classCodes) {
  */
 function translate(code, lang = '', options = {}) {
   if (i18next.t) {
-    return i18next.t(code, mergeDeep({ lng: lang }, options));
+    return i18next.t(code, mergeDeep({
+      lng: lang
+    }, options));
   }
   return code;
 }
@@ -119,7 +125,7 @@ function parseWidgetAttributeConfiguration(widgetElement) {
  * @returns {*}
  */
 function getUniqueId(prefix = '', suffix = '') {
-  const uniqueId = (s4()+s4()+"-"+s4()+"-"+s4()+"-"+s4()+"-"+s4()+s4()+s4());
+  const uniqueId = (s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4());
 
   return prefix + uniqueId + suffix;
 }
@@ -129,7 +135,7 @@ function getUniqueId(prefix = '', suffix = '') {
  * @returns {string}
  */
 function s4() {
-  return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+  return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 }
 
 /**
@@ -150,7 +156,10 @@ function setTimer(callback, delay) {
  * @returns {File}
  */
 function blobToFile(blob, filename) {
-  return new File([blob], filename, {type: blob.type, lastModifiedDate: new Date()});
+  return new File([blob], filename, {
+    type: blob.type,
+    lastModifiedDate: new Date()
+  });
 }
 
 /**
@@ -170,7 +179,7 @@ function getUrlToDownload(filename, proxyUrl, useProxy) {
  * @returns {string}
  */
 function getFilenameUrl(url) {
-  return url.substring(url.lastIndexOf('/')+1);
+  return url.substring(url.lastIndexOf('/') + 1);
 }
 
 /**
@@ -188,7 +197,7 @@ function getFilenameSource(url) {
  * @returns {string}
  */
 function getFileExtension(filename) {
-  return filename.substring(filename.lastIndexOf('.')+1).toLowerCase();
+  return filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
 }
 
 /**
@@ -204,15 +213,15 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
 
   // If the request status was changed
   request.addEventListener('readystatechange', () => {
-    if(request.readyState === 2 && request.status === 200) {
+    if (request.readyState === 2 && request.status === 200) {
       // Download is being started
       if (observerMapper['downloadingStarted']) {
         const downloadingStartedObserver = observerMapper['downloadingStarted'];
         widget.observers[downloadingStartedObserver].broadcast(url);
       }
-    } else if(request.readyState === 3) {
+    } else if (request.readyState === 3) {
       // Download is under progress
-    } else if(request.readyState === 4) {
+    } else if (request.readyState === 4) {
       // Downloading has finished
       if (request.response && request.status === 200) {
         const filename = getFilenameUrl(downloadFilename);
@@ -256,7 +265,7 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
       }
     }
   }, false);
-  
+
   request.responseType = 'blob';
 
   request.onerror = function (error) {
@@ -278,11 +287,11 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
     try {
       request.open("GET", downloadFilename, true);
       request.send();
-    } catch(err) {
+    } catch (err) {
       console.log('downloading failed', err);
     }
   };
-  
+
   return request;
 }
 
@@ -293,7 +302,7 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
  * @return {function(): *}
  */
 function bind(func, context) {
-  return function() {
+  return function () {
     return func.apply(context, arguments);
   };
 }
@@ -307,7 +316,7 @@ function bind(func, context) {
 function byString(o, s) {
   s = s.replace(/^window./g, '');
   s = s.replace(/\[(\w+)\]/g, '.$1'); // Convert indexes to properties
-  s = s.replace(/^\./, '');           // Strip a leading dot
+  s = s.replace(/^\./, ''); // Strip a leading dot
   const a = s.split('.');
   for (let i = 0, n = a.length; i < n; ++i) {
     let k = a[i];
@@ -328,7 +337,7 @@ function byString(o, s) {
 function svgToHTML(svg) {
   const div = document.createElement('div');
   div.innerHTML = svg.trim();
-  
+
   const element = div.firstChild;
   const attributes = element.attributes;
 
@@ -347,7 +356,7 @@ function svgToHTML(svg) {
  * @param callback
  * @return Promise
  */
-function adsBlocked(callback){
+function adsBlocked(callback) {
   const testURL = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
 
   const myInit = {
@@ -357,11 +366,11 @@ function adsBlocked(callback){
 
   const myRequest = new Request(testURL, myInit);
 
-  fetch(myRequest).then(function(response) {
+  fetch(myRequest).then(function (response) {
     return response;
-  }).then(function(response) {
+  }).then(function (response) {
     callback(false)
-  }).catch(function(e){
+  }).catch(function (e) {
     callback(true)
   });
 }
@@ -410,7 +419,13 @@ function getObjectProperty(object, property) {
  * @return {string}
  */
 function formatDate(date, lang) {
-  let options = {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+  let options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric'
+  };
 
   let timestamp = date;
 
@@ -430,7 +445,9 @@ function formatDate(date, lang) {
  */
 function saveObjectAs(object, filename, type = 'application/json;charset=utf-8') {
   const strObject = JSON.stringify(object, null, 4);
-  const file = new Blob([strObject],{type});
+  const file = new Blob([strObject], {
+    type
+  });
   // If it's EDGE of IE
   if (window.navigator && window.navigator.msSaveOrOpenBlob) {
     window.navigator.msSaveOrOpenBlob(file, filename);
@@ -441,7 +458,7 @@ function saveObjectAs(object, filename, type = 'application/json;charset=utf-8')
     a.download = filename;
     document.body.appendChild(a);
     a.click();
-    setTimeout(function() {
+    setTimeout(function () {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
     }, 0);
@@ -469,7 +486,9 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
     }
   };
 
-  const {offsetWidth: parentOffsetWidth} = parent;
+  const {
+    offsetWidth: parentOffsetWidth
+  } = parent;
   let integerWidgetWidth = parseInt(widgetWidth, 10);
   let integerIconWidth = parseInt(iconWidth, 10);
 
@@ -573,9 +592,9 @@ function getWidthDifference(parentWidth, width) {
 
 function toDataUrl(url, callback) {
   let xhr = new XMLHttpRequest();
-  xhr.onload = function() {
+  xhr.onload = function () {
     let reader = new FileReader();
-    reader.onloadend = function() {
+    reader.onloadend = function () {
       callback(reader.result);
     };
     reader.readAsDataURL(xhr.response);
@@ -585,7 +604,7 @@ function toDataUrl(url, callback) {
   xhr.send();
 }
 
-export default  {
+export default {
   bind,
   byString,
   isObject,

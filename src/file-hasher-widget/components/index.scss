@@ -17,10 +17,11 @@
       text-align: var(--file-hasher-widget-alignment);
       font-family: 'Arial';
       line-height: 1;
-      max-width: 100%;
       img {
         box-sizing: border-box;
       }
+      max-width: -moz-available;
+      overflow: hidden;
     }
   }
   

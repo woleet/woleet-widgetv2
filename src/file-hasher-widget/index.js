@@ -89,7 +89,7 @@ function initialize(widgetConfigurations) {
     const configuration = getFileHasherDefaults();
     utils.extendObject(configuration, customConfiguration);
   
-    const {icon: { width: iconWidth }, width: widgetWidth } = configuration.styles;
+    const {icon: { width: iconWidth }, input: { width: inputWidth}, width: widgetWidth } = configuration.styles;
     const widgetWidths = utils.calculateWidgetWidths(widgetWidth, iconWidth, widgetElement);
 
     if (widgetWidths && widgetWidths.iconWidth) {

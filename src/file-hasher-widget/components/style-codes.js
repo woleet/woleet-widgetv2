@@ -27,7 +27,7 @@ const styleCodes = {
         code: ['drop_container--body-icon']
       },
       input: {
-        code: ['drop_container--body-file_input']
+        code: ['drop_container--body-input']
       }
     }
   },
