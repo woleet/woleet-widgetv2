@@ -13,7 +13,7 @@ import loader from 'Common/services/loader';
 class DropContainer {
   constructor(widget, parent) {
     const self = this;
-    
+
     this.element = null;
     this.widget = widget;
     this.parent = parent;
@@ -31,7 +31,7 @@ class DropContainer {
     } else {
       self.hasher = new window.woleet.file.Hasher;
     }
-    
+
     this.init();
   }
 
@@ -42,11 +42,11 @@ class DropContainer {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.drop.code)
     });
-  
+
     this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.drop.body.code)
     });
-    
+
     this.element.body.icon = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.drop.body.icon.code)
     });
@@ -108,10 +108,22 @@ class DropContainer {
    */
   stylize() {
     const self = this;
-    const {icon: { width: iconWidth, color: iconColor }, input: { width: inputWidth, height: inputHeight }} = this.widget.configurator.getStyles();
-    const { icons: { import: importIcon } } = this.widget.configurator.get();
-
-    console.log(this.widget.configurator.getStyles());
+    const {
+      icon: {
+        width: iconWidth,
+        color: iconColor
+      },
+      input: {
+        width: inputWidth,
+        height: inputHeight
+      },
+      width: widgetWidth
+    } = this.widget.configurator.getStyles();
+    const {
+      icons: {
+        import: importIcon
+      }
+    } = this.widget.configurator.get();
 
     if (importIcon) {
       this.importIcon = true;
@@ -121,18 +133,27 @@ class DropContainer {
     }
 
     if (!!(inputWidth)) {
-      this.element.body.style({'width': `${inputWidth}`});
+      this.element.body.style({
+        'width': `${inputWidth}`
+      });
     }
 
-    if(!!(inputHeight)) {
-      this.element.body.input.style({'height': `${inputHeight}`});
+    if (!!(inputHeight)) {
+      this.element.body.input.style({
+        'height': `${inputHeight}`
+      });
     }
 
     if (!!(iconWidth)) {
-      this.element.body.icon.style({'width': `${iconWidth}`});
-      if (!(inputWidth)) {
-        this.element.body.style({'width': `${iconWidth}`});
-      }
+      this.element.body.icon.style({
+        'width': `${iconWidth}`
+      });
+    }
+
+    if (!(inputWidth)) {
+      this.element.body.style({
+        'width': `${widgetWidth}`
+      });
     }
 
     // If download icon wasn't customized, display the default one
@@ -147,11 +168,11 @@ class DropContainer {
    */
   updateProgress(event) {
     let progress = (event.progress * 100);
-  
+
     if (progress !== progress) {
       progress = 0;
     }
-  
+
     progress = progress.toFixed(0);
     this.widget.observers.hashingProgressObserver.broadcast(progress);
   }
@@ -159,7 +180,7 @@ class DropContainer {
   handleError(event) {
     this.widget.observers.errorCaughtObserver.broadcast(event.error);
   }
-  
+
   startHashing(file) {
     if (!this.hasher) {
       this.delayedFile = file;
@@ -195,7 +216,9 @@ class DropContainer {
   hash(file) {
     const self = this;
 
-    self.updateProgress({progress: 0});
+    self.updateProgress({
+      progress: 0
+    });
     self.widget.observers.hashingStartedObserver.broadcast(file);
     self.element.hide();
     self.delayedFile = null;
@@ -216,18 +239,18 @@ class DropContainer {
       })
     })
   }
-  
+
   onInputFileChanged(self) {
     let file = this.files[0];
-  
+
     if (!file)
       widgetLogger.error(`${this.widget.widgetId}: File isn't found`);
-  
+
     // Reset input value
     this.value = null;
-  
+
     self.widget.observers.fileSelectedObserver.broadcast(file);
-    
+
     return self.startHashing(file);
   }
 
@@ -242,7 +265,7 @@ class DropContainer {
   uploadModeInitiated() {
     this.element.show();
   }
-  
+
   downloadingStarted() {
     this.element.show();
   }
