@@ -9,14 +9,11 @@ function getFileHasherDefaults() {
     },
     styles: {
       width: '130px',
+      height: '130px',
       align: 'center',
       icon: {
         width: null,
         color: '#696969'
-      },
-      input: {
-        width: null,
-        height: 'inherit'
       },
       preview: {
         icon: {

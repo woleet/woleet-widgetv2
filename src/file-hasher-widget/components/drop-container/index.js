@@ -113,11 +113,8 @@ class DropContainer {
         width: iconWidth,
         color: iconColor
       },
-      input: {
-        width: inputWidth,
-        height: inputHeight
-      },
-      width: widgetWidth
+      width: widgetWidth,
+      height: widgetHeight
     } = this.widget.configurator.getStyles();
     const {
       icons: {
@@ -132,27 +129,16 @@ class DropContainer {
       });
     }
 
-    if (!!(inputWidth)) {
-      this.element.body.style({
-        'width': `${inputWidth}`
-      });
-    }
-
-    if (!!(inputHeight)) {
-      this.element.body.input.style({
-        'height': `${inputHeight}`
-      });
-    }
+    this.element.body.style({
+      'width': `${widgetWidth}`
+    });
+    this.element.body.style({
+      'height': `${widgetHeight}`
+    });
 
     if (!!(iconWidth)) {
       this.element.body.icon.style({
         'width': `${iconWidth}`
-      });
-    }
-
-    if (!(inputWidth)) {
-      this.element.body.style({
-        'width': `${widgetWidth}`
       });
     }
 

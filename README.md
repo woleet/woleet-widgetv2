@@ -55,6 +55,8 @@ The following attributes can be set on `<div>` tag to configure the look and beh
 * __styles__ - Styling options:
     
     * __width__ - width of the widget; _DEFAULT_: ___130px___
+
+    * __height__ - height of the widget; _DEFAULT_: ___130px___
     
     * __align__ - alignment of elements inside the widget; _DEFAULT_: ___center___
        
