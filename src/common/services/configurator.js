@@ -8,7 +8,7 @@ class ConfigurationService {
   constructor() {
     this.configuration = [];
   }
-  
+
   /**
    * Initialize the instance
    * @param configuration
@@ -16,7 +16,7 @@ class ConfigurationService {
   init(configuration) {
     this.configuration = configuration;
   }
-  
+
   /**
    * Initialize the widget language
    * @returns {*}
@@ -27,7 +27,7 @@ class ConfigurationService {
     }
     return getDefaultLanguage();
   }
-  
+
   /**
    * Get the widget configuration
    * @returns {*}
@@ -38,7 +38,7 @@ class ConfigurationService {
     }
     return {};
   }
-  
+
   /**
    * Get the widget styles
    * @returns {*}
@@ -48,7 +48,7 @@ class ConfigurationService {
       return this.configuration.styles;
     }
   }
-  
+
   /**
    * Get observers
    * @returns {*}
@@ -61,5 +61,7 @@ class ConfigurationService {
   }
 }
 
-export { getDefaultLanguage };
+export {
+  getDefaultLanguage
+};
 export default ConfigurationService;

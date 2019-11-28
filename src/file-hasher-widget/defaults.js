@@ -42,6 +42,7 @@ function getFileHasherDefaults() {
       filename: true,
       progress: true,
       hash: true,
+      icon: true,
       controls: {
         reset: true
       },

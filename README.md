@@ -97,6 +97,8 @@ The following attributes can be set on `<div>` tag to configure the look and beh
     * __preview__ - display the file in new tab for images and pdf on click in the icon; _DEFAULT_: ___true___
     
     * __hash__ - visibility of the hash label; _DEFAULT_: ___true___
+
+    * __icon__ - visibility of the drop container icon; _DEFAULT_: ___true___
     
     * __controls__ - visibility of the widget controls;
        

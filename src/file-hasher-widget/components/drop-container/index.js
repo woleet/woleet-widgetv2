@@ -136,6 +136,12 @@ class DropContainer {
       'height': `${widgetHeight}`
     });
 
+    if (!this.widget.configurator.get().visibility.icon) {
+      this.element.body.icon.style({
+        'display': 'none'
+      });
+    }
+
     if (!!(iconWidth)) {
       this.element.body.icon.style({
         'width': `${iconWidth}`
