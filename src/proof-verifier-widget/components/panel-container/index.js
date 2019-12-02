@@ -35,15 +35,14 @@ class PanelContainer {
     });
 
     this.widget.panel = this.element;
-
+    // The section that contains controls and links
+    this.element.control = (new ControlPanelContainer(this.widget)).get();
       // There are three different sections: common
     this.element.common = (new CommonPanelContainer(this.widget)).get();
     // The section that contains signed hash info
     this.element.sign = (new SignPanelContainer(this.widget)).get();
     // The section that contains anchored hash info
     this.element.anchor = (new AnchorPanelContainer(this.widget)).get();
-    // The section that contains controls and links
-    this.element.control = (new ControlPanelContainer(this.widget)).get();
     
     this.initializeObservers();
     // Initialize the selected mode

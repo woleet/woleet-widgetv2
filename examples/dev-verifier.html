@@ -46,15 +46,18 @@
   }(document, 'script', 'proof-verifier-widget', 'proof-verifier-widget.js'));
 </script>
 <p>The icon mode and minimal customization</p>
+
 <div class='proof-verifier-widget'
      lang='en'
+     mode="panel"
      verification-client="false"
      styles-icon-width="32px"
      styles-icon-height="36px"
-     styles-width="450px"
-     receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967'
+     styles-width="700px"
+     receipt-url='https://api.woleet.io/v1/receipt/938af566-65ee-4ecb-8e18-c6b45aeb0afc'
 ></div>
-<p>The customized styles</p>
+
+<!-- <p>The customized styles</p>
 <div class='proof-verifier-widget'
      lang='fr'
      mode="banner"
@@ -67,6 +70,7 @@
      styles-panel-value='{"style": {"anchoredHash": {"color": "black", "background": "white"}, "signedHash": {"color": "green", "background": "yellow"}}}'
      receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967'
 ></div>
+
 <p>Client verified</p>
 <div class='proof-verifier-widget'
      id='proof-verifier-widget-client-verified'
@@ -77,6 +81,7 @@
      observers-receiptVerified='window.receiptVerified'
      receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967'
 ></div>
+
 <p>Server verified</p>
 <div class='proof-verifier-widget'
      id='proof-verifier-widget-server-verified'
@@ -191,6 +196,6 @@
          endpoints-identification='https://google.com'
     ></div>
 </div>
-<!--<div class="log verification-logging" id="verification-logging"></div>-->
+ --><!--<div class="log verification-logging" id="verification-logging"></div>-->
 </body>
 </html>

@@ -7,34 +7,34 @@ function getProofVerifierWidgetDefaults() {
       zindex: 3,
       width: '600px',
       icon: {
-        width: '45px',
-        height: '45px'
+        width: '32px',
+        height: '32px'
       },
       banner: {
-        color: '#31708f',
-        background: '#dff0d8',
+        color: '#555555',
+        background: '#FBFBFB',
       },
       panel: {
-        color: '#333',
-        background: '#dff0d8',
+        color: '#999999',
+        background: '#FBFBFB',
         header: {
-          color: '#31708f'
+          color: '#555555'
         },
         control: {
-          color: '#31708f',
-          background: '#EEE',
+          color: '#555555',
+          background: '#FBFBFB',
         },
         value: {
           background: 'none',
-          color: '#31708f',
+          color: '#555555',
           style: {
             anchoredHash: {
-              background: '#D7E9F6',
-              color: '#31708f',
+              background: '#EBEBEB',
+              color: '#555555',
             },
             signedHash: {
-              background: '#31708f',
-              color: '#fff',
+              background: '#EBEBEB',
+              color: '#555555',
             }
           }
         }

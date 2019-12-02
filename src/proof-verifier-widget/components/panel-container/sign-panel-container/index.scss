@@ -5,8 +5,10 @@
   .panel_container {
     &--sign {
       background-color: var(--proof-verifier-panel-background-color);
-      font-size: 14px;
+      font-size: 12px;
       border-radius: 4px;
+      border: 1px solid;
+      border-color: var(--proof-verifier-banner-border-color);      
       margin-bottom: 3px;
       &_wrapper {
         padding: 10px;

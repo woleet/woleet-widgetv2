@@ -13,8 +13,11 @@
     transition: all .5s ease;
     position: absolute;
     z-index: calc(var(--z-index) + 1);
-    border-radius: 4px;
+
     &--wrapper {
+      border-radius: 4px;
+      border: 1px solid;
+      border-color: var(--proof-verifier-banner-border-color);
       width: calc(100% - 5px);
       height: 100%;
       background-color: var(--proof-verifier-banner-background-color);
@@ -25,13 +28,24 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 4px;
+      
 
       &-title {
         font-size: 14px;
         padding: 10px;
         color: var(--proof-verifier-banner-color);
       }
+      &-icon {
+        padding: 6px;
+        height: 19px;
+        width: 16px;
+        color: var(--proof-verifier-control-color);
+        i {
+          padding-left: 5px;
+          width: 12px;
+          display: inline-block;
+        }
+      }      
     }
   }
 }

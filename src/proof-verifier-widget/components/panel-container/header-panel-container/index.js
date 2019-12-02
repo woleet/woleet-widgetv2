@@ -81,7 +81,7 @@ class HeaderPanelContainer {
     }
   }
   
-  set(label) {
+  set(label,icon) {
     this.element.html(`<span>${label}</span>`);
   }
   

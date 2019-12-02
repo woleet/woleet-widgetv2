@@ -3,6 +3,7 @@ import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
 import ValuePanelContainer from "ProofVerifierComponents/panel-container/value-panel-container";
+import HeaderPanelContainer from "ProofVerifierComponents/panel-container/header-panel-container";
 
 /**
  * SignPanelContainer
@@ -57,6 +58,10 @@ class SignPanelContainer {
     if (signature !== null) {
       this.element.show();
 
+      let label = utils.translate('digital_signature', self.lang);
+      let labelObject = new HeaderPanelContainer(self.widget);
+      labelObject.set(label);
+      this.element.wrapper.append(labelObject.get().render());
       // Display all the titles
       if (signature.signedHash) {
         const signedHashLabel = utils.translate('signed_hash', self.lang);
@@ -74,7 +79,7 @@ class SignPanelContainer {
 
       if (signature.signature) {
         const signatureLabel = utils.translate('signature', self.lang);
-        const signatureTitle = new ValuePanelContainer(self.widget, { split: true, fontRatio: {item: 0.039} });
+        const signatureTitle = new ValuePanelContainer(self.widget, { style: 'signedHash', split: true, fontRatio: {item: 0.039} });
         signatureTitle.set(signatureLabel, signature.signature);
         this.element.wrapper.append(signatureTitle.get().render());
       }
