@@ -12,7 +12,7 @@ class HashContainer {
     this.element = null;
     this.widget = widget;
     this.lang = this.widget.configurator.getLanguage();
-  
+
     this.init();
   }
 
@@ -35,10 +35,10 @@ class HashContainer {
    */
   initializeObservers() {
     this.widget.observers.hashingFinishedObserver.subscribe((data) => {
-      this.hashingFinished(data)
+      this.hashingFinished(data);
     });
     this.widget.observers.widgetResetObserver.subscribe((data) => {
-      this.widgetReset(data)
+      this.widgetReset(data);
     });
   }
 
@@ -46,7 +46,7 @@ class HashContainer {
    * Stylize the container
    */
   stylize() {
-    const {hash: { color: hashColor, background: hashBackgroundColor }} = this.widget.configurator.getStyles();
+    const { hash: { color: hashColor, background: hashBackgroundColor } } = this.widget.configurator.getStyles();
 
     this.element.target().style
       .setProperty('--file-hasher-widget-hash-color', hashColor);
@@ -71,8 +71,8 @@ class HashContainer {
    * @param data
    */
   hashingFinished(data) {
-    const {properties: { px: { widgetWidth }}} = this.widget.configurator.get();
-    const {hash, file} = data;
+    const { properties: { px: { widgetWidth } } } = this.widget.configurator.get();
+    const { hash, file } = data;
     const halfHashLength = Math.ceil(hash.length / 2);
     // Split the hash into 2 parts
     const splitHash = [hash.substr(0, halfHashLength), hash.substr(halfHashLength)];
@@ -95,7 +95,7 @@ class HashContainer {
 
     this.element.show();
   }
-  
+
   get() {
     return this.element;
   }

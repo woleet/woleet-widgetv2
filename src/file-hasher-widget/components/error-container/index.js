@@ -13,7 +13,7 @@ class ErrorContainer {
     this.element = null;
     this.widget = widget;
     this.lang = this.widget.configurator.getLanguage();
-  
+
     this.init();
   }
 
@@ -37,16 +37,16 @@ class ErrorContainer {
    */
   initializeObservers() {
     this.widget.observers.errorCaughtObserver.subscribe((data) => {
-      this.errorCaught(data)
+      this.errorCaught(data);
     });
     this.widget.observers.hashingStartedObserver.subscribe(() => {
-      this.hideErrorElement()
+      this.hideErrorElement();
     });
     this.widget.observers.downloadingStartedObserver.subscribe(() => {
-      this.hideErrorElement()
+      this.hideErrorElement();
     });
     this.widget.observers.uploadModeInitiatedObserver.subscribe(() => {
-      this.hideErrorElement()
+      this.hideErrorElement();
     });
   }
 
@@ -57,7 +57,7 @@ class ErrorContainer {
   errorCaught(error) {
     const self = this;
     self.element.show();
-  
+
     if (error && error.message) {
       self.element.title.text(utils.translate(`errors.${error.message}.main`, this.lang));
     } else {
@@ -74,7 +74,7 @@ class ErrorContainer {
 
     this.widget.observers.errorHiddenObserver.broadcast();
   }
-  
+
   get() {
     return this.element;
   }

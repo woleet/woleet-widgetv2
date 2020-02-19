@@ -10,7 +10,7 @@ import styles from './index.scss';
 class FilenameContainer {
   constructor(widget) {
     this.widget = widget;
-    
+
     this.init();
   }
 
@@ -27,30 +27,30 @@ class FilenameContainer {
     });
 
     this.element.hide();
-    
+
     this.initializeObservers();
     this.initializeEvents();
   }
-  
+
   /**
    * Initialize the observers
    */
   initializeObservers() {
     const self = this;
-  
+
     self.widget.observers.downloadingFinishedObserver.subscribe((file) => {
-      self.downloadingFinished(file)
+      self.downloadingFinished(file);
     });
-  
+
     self.widget.observers.fileSelectedObserver.subscribe((file) => {
-      self.downloadingFinished(file)
+      self.downloadingFinished(file);
     });
 
     self.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
-      self.uploadModeInitiated(data)
+      self.uploadModeInitiated(data);
     });
   }
-  
+
   /**
    * Initialize the events
    */

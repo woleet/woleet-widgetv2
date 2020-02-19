@@ -1,4 +1,4 @@
-import {getFileHasherObserverMappers} from 'FileHasherWidget/defaults';
+import { getFileHasherObserverMappers } from 'FileHasherWidget/defaults';
 import ConfigurationService from 'Common/services/configurator';
 import VirtualDOMService from 'Common/services/virtual-dom';
 import EventObserver from 'Common/patterns/event-observer';
@@ -26,9 +26,9 @@ class FileHasherWidget {
     this.provenFileConfiguration = configuration.file;
     this.observers = {};
     this.element = null;
-  
+
     this.configurator.init(configuration);
-    
+
     this.initializeObservers();
     this.initializeExternalObservers(configuration);
     this.init();
@@ -85,7 +85,7 @@ class FileHasherWidget {
     const self = this;
     if (configuration.observers) {
       const observerNames = Object.keys(configuration.observers);
-      
+
       observerNames.forEach(observerName => {
         const observer = configuration.observers[observerName];
         switch (observerName.toLowerCase()) {
@@ -106,7 +106,7 @@ class FileHasherWidget {
             this.observers.downloadingFailedObserver.subscribe((error, code, message) => observer(self.widgetId, error, code, message));
             break;
           case 'hashcalculated':
-            this.observers.hashingFinishedObserver.subscribe(({hash, file}) => observer(self.widgetId, hash, file));
+            this.observers.hashingFinishedObserver.subscribe(({ hash, file }) => observer(self.widgetId, hash, file));
             break;
           case 'hashingstarted':
             this.observers.hashingStartedObserver.subscribe(file => observer(self.widgetId, file));
@@ -132,7 +132,7 @@ class FileHasherWidget {
    */
   init() {
     const widgetObserverMappers = getFileHasherObserverMappers();
-    const {styles: {width: widgetWidget, align}, visibility} = this.configuration;
+    const { styles: { width: widgetWidget, align }, visibility } = this.configuration;
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.code),
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
@@ -178,11 +178,11 @@ class FileHasherWidget {
     }
 
     this.element.attr('id', this.widgetId);
-    this.element.style({width: `${widgetWidget}`});
+    this.element.style({ width: `${widgetWidget}` });
     this.element.target().style
       .setProperty('--file-hasher-widget-alignment', align);
   }
-  
+
   render() {
     return this.element.render();
   }

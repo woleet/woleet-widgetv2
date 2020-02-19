@@ -2,7 +2,7 @@ import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
-import PdfPreview from "FileHasherWidget/components/preview-container/pdf-preview";
+import PdfPreview from 'FileHasherWidget/components/preview-container/pdf-preview';
 import faFile from 'Resources/images/file.svg';
 import faRedo from 'Resources/images/redo.svg';
 
@@ -91,24 +91,24 @@ class PreviewContainer {
     const self = this;
 
     self.widget.observers.downloadingStartedObserver.subscribe((data) => {
-      self.downloadingStarted(data)
+      self.downloadingStarted(data);
     });
 
     self.widget.observers.downloadModeInitiatedObserver.subscribe((data) => {
-      self.downloadModeInitiated(data)
+      self.downloadModeInitiated(data);
     });
 
     self.widget.observers.downloadingFinishedObserver.subscribe((file) => {
-      self.downloadingFinished(file)
+      self.downloadingFinished(file);
     });
 
     self.widget.observers.fileSelectedObserver.subscribe((file) => {
       self.displayDefaultIcon();
-      self.downloadingFinished(file)
+      self.downloadingFinished(file);
     });
 
     self.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
-      self.uploadModeInitiated(data)
+      self.uploadModeInitiated(data);
     });
   }
 
@@ -124,7 +124,6 @@ class PreviewContainer {
     // If a parameter is define to true or by default, it displays the document in new tab
     if (enablePreview === undefined || enablePreview) {
       self.element.on('click', () => {
-
         if (self.file) {
           const { name: filename } = self.file;
           const fileExtension = utils.getFileExtension(filename);
@@ -147,7 +146,7 @@ class PreviewContainer {
               } else {
                 console.log('Disable ads blockers, please!');
               }
-            })
+            });
           }
         }
       });

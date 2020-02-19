@@ -72,7 +72,7 @@ function DOM(element) {
   // Define the element's class
   defineProp('style', (props) => {
     if (Array.isArray(props)) {
-      return props.map((p) => target.style[p])
+      return props.map((p) => target.style[p]);
     }
     else if (typeof props === 'string') return target.style[props];
     else {
@@ -99,7 +99,7 @@ function DOM(element) {
           if (Array.isArray(elt))
             elt.forEach((e) => root.appendChild(e.render()));
           else
-            root.appendChild(elt.render())
+            root.appendChild(elt.render());
         } catch (err) {
           console.warn(e, target, self[e], err);
         }
@@ -121,11 +121,11 @@ function createElement(element = 'div', options = {}, attrs = {}) {
   if (options.classes) {
     domElement.addClass(options.classes);
   }
-  
+
   if (options.hidden) {
     domElement.setHiddenClass(options.hidden);
   }
-  
+
   if (attrs) {
     const attributes = Object.keys(attrs);
     attributes.forEach(attribute => {
@@ -147,4 +147,4 @@ function createFileInput(options = {}, attrs = {}) {
 export default {
   createElement,
   createFileInput
-}
+};

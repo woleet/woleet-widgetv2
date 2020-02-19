@@ -1,12 +1,16 @@
-import constants from 'Common/constants'
-import { getDefaultLanguage } from 'Common/services/configurator'
-import { getFileHasherDefaults } from 'FileHasherWidget/defaults'
-import utils from 'Common/services/utils'
-import widgetLogger from 'Common/services/logger'
-import resources from 'Resources/locales'
+import constants from 'Common/constants';
+import {
+  getDefaultLanguage
+} from 'Common/services/configurator';
+import {
+  getFileHasherDefaults
+} from 'FileHasherWidget/defaults';
+import utils from 'Common/services/utils';
+import widgetLogger from 'Common/services/logger';
+import resources from 'Resources/locales';
 import i18next from 'i18next';
 
-import FileHasherWidget from './components'
+import FileHasherWidget from './components';
 
 /**
  * The main entry of the widget
@@ -19,14 +23,15 @@ function widget(window, document) {
 
   // Grab the object created during the widget creation
   const widgetElementCollection = document.getElementsByClassName(widgetClassName);
-  
-  if (!widgetElementCollection.length === 0)
-    widgetLogger.error(`The widget elements were not found`);
+
+  if (!widgetElementCollection.length === 0) {
+    widgetLogger.error('The widget elements were not found');
+  }
 
   // Convert the element collection to an array
   const widgetElements = Array.from(widgetElementCollection);
 
-  //Initialize and configure all instances of the widget
+  // Initialize and configure all instances of the widget
   widgetElements.forEach(widgetElement => {
     let widgetConfiguration = utils.parseWidgetAttributeConfiguration(widgetElement);
 
@@ -36,8 +41,8 @@ function widget(window, document) {
       // Try to find the widget observers
       observerCodes.forEach(observerCode => {
         const observerName = widgetConfiguration.observers[observerCode];
-        widgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function() {};
-      })
+        widgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function () {};
+      });
     }
 
     widgetConfigurations.push({
@@ -46,7 +51,7 @@ function widget(window, document) {
       config: widgetConfiguration
     });
   });
-  
+
   // Initialize the widget but load all dependencies before
   loadDependencies()
     .then(() => initialize(widgetConfigurations));
@@ -56,16 +61,20 @@ function widget(window, document) {
  * Load widget styles, libraries and dependencies
  */
 function loadDependencies() {
-  //Load the widget styles
+  // Load the widget styles
   const sourceLink = addCssLink();
 
   // Initialize the translation library
-  i18next.init({fallbackLng: getDefaultLanguage(), debug: window.dev, resources});
-  
+  i18next.init({
+    fallbackLng: getDefaultLanguage(),
+    debug: window.dev,
+    resources
+  });
+
   if (!window['file-hasher-widget-source'] && sourceLink !== null) {
     window['file-hasher-widget-source'] = sourceLink;
   }
-  
+
   return new Promise((resolve) => resolve(true));
 }
 
@@ -74,13 +83,17 @@ function loadDependencies() {
  * @param widgetConfigurations
  */
 function initialize(widgetConfigurations) {
-  //Initialize all instances of the widget
+  // Initialize all instances of the widget
   widgetConfigurations.forEach(widgetConfiguration => {
     const uniqueWidgetId = utils.getUniqueId(`${constants.FILE_HASHER_WIDGET_ID}-`);
-    const {config: customConfiguration, el: widgetElement, id: widgetId = uniqueWidgetId} = widgetConfiguration;
+    const {
+      config: customConfiguration,
+      el: widgetElement,
+      id: widgetId = uniqueWidgetId
+    } = widgetConfiguration;
 
     if (!widgetElement) {
-      widgetLogger.error(`Widget element wasn't found`);
+      widgetLogger.error('Widget element wasn\'t found');
     }
 
     customConfiguration.widgetId = widgetId;
@@ -88,8 +101,13 @@ function initialize(widgetConfigurations) {
     // Extend the default widget configuration by user settings
     const configuration = getFileHasherDefaults();
     utils.extendObject(configuration, customConfiguration);
-  
-    const {icon: { width: iconWidth }, width: widgetWidth } = configuration.styles;
+
+    const {
+      icon: {
+        width: iconWidth
+      },
+      width: widgetWidth
+    } = configuration.styles;
     const widgetWidths = utils.calculateWidgetWidths(widgetWidth, iconWidth, widgetElement);
 
     if (widgetWidths && widgetWidths.iconWidth) {

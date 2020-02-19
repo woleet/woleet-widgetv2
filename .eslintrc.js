@@ -3,6 +3,7 @@ module.exports = {
     'airbnb-base/legacy'
   ],
   parserOptions: {
+    "sourceType": "module",
     ecmaVersion: 2017
   },
   env: {
@@ -30,6 +31,9 @@ module.exports = {
     'no-loop-func': 0,
     'no-use-before-define': 0,
     'no-var': 0,
+    'no-plusplus': 0,
+    'no-extra-boolean-cast': 0,
+    'quote-props': 0,
     'const': 0,
     'object-shorthand': 0,
     'prefer-arrow-callback': 0,

@@ -1,6 +1,6 @@
 import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
-import loader from 'Common/services/loader'
+import loader from 'Common/services/loader';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 import faCaretLeft from 'Resources/images/caret-left.svg';

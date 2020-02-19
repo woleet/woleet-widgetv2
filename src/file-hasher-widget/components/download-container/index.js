@@ -76,7 +76,7 @@ class DownloadContainer {
    */
   initializeObservers() {
     this.widget.observers.downloadModeInitiatedObserver.subscribe((data) => {
-      this.downloadModeInitiated(data)
+      this.downloadModeInitiated(data);
     });
     this.widget.observers.downloadingCanceledObserver.subscribe((data) => {
       this.downloadingCanceled(data);
@@ -88,7 +88,7 @@ class DownloadContainer {
       this.downloadingCanceled();
     });
     this.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
-      this.uploadModeInitiated(data)
+      this.uploadModeInitiated(data);
     });
     this.widget.observers.widgetResetObserver.subscribe(() => {
       this.downloadingCanceled();

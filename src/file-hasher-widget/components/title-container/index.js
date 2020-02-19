@@ -12,7 +12,7 @@ class TitleContainer {
     this.element = null;
     this.widget = widget;
     this.lang = this.widget.configurator.getLanguage();
-  
+
     this.init();
   }
 
@@ -36,31 +36,31 @@ class TitleContainer {
    */
   initializeObservers() {
     this.widget.observers.downloadModeInitiatedObserver.subscribe((data) => {
-      this.downloadModeInitiated(data)
+      this.downloadModeInitiated(data);
     });
     this.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
-      this.uploadModeInitiated(data)
+      this.uploadModeInitiated(data);
     });
     this.widget.observers.hashingStartedObserver.subscribe((data) => {
-      this.hashingStarted(data)
+      this.hashingStarted(data);
     });
     this.widget.observers.downloadingStartedObserver.subscribe((data) => {
-      this.downloadingStarted(data)
+      this.downloadingStarted(data);
     });
     this.widget.observers.downloadingFinishedObserver.subscribe((data) => {
-      this.downloadingFinished(data)
+      this.downloadingFinished(data);
     });
     this.widget.observers.downloadingCanceledObserver.subscribe((data) => {
       this.downloadingFinished(data);
     });
     this.widget.observers.hashingFinishedObserver.subscribe((data) => {
-      this.hashingFinished(data)
+      this.hashingFinished(data);
     });
     this.widget.observers.errorHiddenObserver.subscribe((data) => {
-      this.titleShown(data)
+      this.titleShown(data);
     });
     this.widget.observers.errorCaughtObserver.subscribe((data) => {
-      this.titleHidden(data)
+      this.titleHidden(data);
     });
   }
 
@@ -121,7 +121,7 @@ class TitleContainer {
   titleHidden() {
     this.element.hide();
   }
-  
+
   get() {
     return this.element;
   }

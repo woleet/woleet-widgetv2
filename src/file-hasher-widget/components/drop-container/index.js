@@ -25,11 +25,11 @@ class DropContainer {
       loader.getWoleetLibs()
         .then((woleet) => {
           window.woleet = woleet;
-          self.hasher = new woleet.file.Hasher;
+          self.hasher = new woleet.file.Hasher();
           self.hashDelayedFile();
         });
     } else {
-      self.hasher = new window.woleet.file.Hasher;
+      self.hasher = new window.woleet.file.Hasher();
     }
 
     this.init();
@@ -65,14 +65,14 @@ class DropContainer {
   initializeObservers() {
     const self = this;
     this.widget.observers.downloadModeInitiatedObserver.subscribe((data) => {
-      this.downloadModeInitiated(data)
+      this.downloadModeInitiated(data);
     });
     this.widget.observers.downloadingFailedObserver.subscribe((data, code, message) => {
-      this.downloadingFailed(data)
+      this.downloadingFailed(data);
     });
     this.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
       this.uploadModeInitiated(data);
-      this.hashingCanceled(data)
+      this.hashingCanceled(data);
     });
     this.widget.observers.downloadingFinishedObserver.subscribe((data) => {
       this.startHashing(data).then(result => {
@@ -161,7 +161,7 @@ class DropContainer {
   updateProgress(event) {
     let progress = (event.progress * 100);
 
-    if (progress !== progress) {
+    if (!progress) {
       progress = 0;
     }
 
@@ -178,11 +178,10 @@ class DropContainer {
       this.delayedFile = file;
 
       return new Promise((resolve, reject) => {
-        resolve(false)
+        resolve(false);
       });
-    } else {
-      return this.hash(file);
     }
+    return this.hash(file);
   }
 
   /**
@@ -198,6 +197,7 @@ class DropContainer {
         }
       });
     }
+    return null;
   }
 
   /**
@@ -228,15 +228,16 @@ class DropContainer {
           hash: r.result,
           file
         });
-      })
-    })
+      });
+    });
   }
 
   onInputFileChanged(self) {
     let file = this.files[0];
 
-    if (!file)
+    if (!file) {
       widgetLogger.error(`${this.widget.widgetId}: File isn't found`);
+    }
 
     // Reset input value
     this.value = null;
