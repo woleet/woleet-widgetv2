@@ -4,19 +4,19 @@ const styleCodes = {
   title: {
     code: ['title'],
     container: {
-      code: ['title_container'],
+      code: ['title_container']
     }
   },
   hash: {
     code: ['hash'],
     container: {
-      code: ['hash_container'],
+      code: ['hash_container']
     }
   },
   error: {
     code: ['error'],
     container: {
-      code: ['error_container'],
+      code: ['error_container']
     }
   },
   drop: {
@@ -90,7 +90,7 @@ const styleCodes = {
       code: ['progress_bar--container'],
       wrapper: {
         code: ['progress_bar--container_wrapper']
-      },
+      }
     },
     bar: {
       code: ['progress_bar']
@@ -99,7 +99,7 @@ const styleCodes = {
       code: ['progress_bar--control'],
       icon: {
         code: ['progress_bar--control-icon']
-      },
+      }
     },
     wrapper: {
       code: ['progress_bar--wrapper']
@@ -120,10 +120,10 @@ const styleCodes = {
       code: ['filename_container--title_wrapper']
     }
   },
-  
+
   // common styles
   widget: {
-    hidden:['woleet_widget_hidden']
+    hidden: ['woleet_widget_hidden']
   }
 };
 

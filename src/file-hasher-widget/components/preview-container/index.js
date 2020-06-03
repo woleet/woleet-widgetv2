@@ -13,7 +13,11 @@ import faRedo from 'Resources/images/redo.svg';
 class PreviewContainer {
   constructor(widget) {
     const {
-      icons: { preview: { common: commonIcon } }
+      icons: {
+        preview: {
+          common: commonIcon
+        }
+      }
     } = widget.configurator.get();
     const self = this;
     this.element = null;
@@ -23,10 +27,10 @@ class PreviewContainer {
     this.file = null;
     this.commomPreviewIcon = null;
     this.pdfPreview = null;
-    this.previewFileExtensions = ['png', 'jpeg', 'jpg', 'svg'];
-    this.textFileExtensions = ['pdf'];
+    this.previewFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg'];
+    this.textFileTypes = ['application/pdf'];
     // Merge the extensions to get an array of allowed files
-    this.allowedExtensions = this.previewFileExtensions.concat(this.textFileExtensions);
+    this.allowedType = this.previewFileTypes.concat(this.textFileTypes);
 
     if (commonIcon) {
       utils.toDataUrl(commonIcon, (response) => {
@@ -39,7 +43,9 @@ class PreviewContainer {
   // Create all container elements and initialize them
   init() {
     const {
-      visibility: { controls: controlVisibility }
+      visibility: {
+        controls: controlVisibility
+      }
     } = this.widget.configurator.get();
 
     this.element = VirtualDOMService.createElement('div', {
@@ -125,12 +131,13 @@ class PreviewContainer {
     if (enablePreview === undefined || enablePreview) {
       self.element.on('click', () => {
         if (self.file) {
-          const { name: filename } = self.file;
-          const fileExtension = utils.getFileExtension(filename);
+          const {
+            type: filetype
+          } = self.file;
 
           if (self.url !== null) {
             window.open(self.url, '_blank');
-          } else if (this.allowedExtensions.indexOf(fileExtension) !== -1) {
+          } else if (this.allowedType.includes(filetype)) {
             // Check if it's possible to open popup windows
             !utils.adsBlocked((blocked) => {
               if (!blocked) {
@@ -139,7 +146,9 @@ class PreviewContainer {
                   window.navigator.msSaveOrOpenBlob(self.file, self.file.name);
                 } else {
                   // For all other normal browsers
-                  const objUrl = window.URL.createObjectURL(self.file, { oneTimeOnly: true });
+                  const objUrl = window.URL.createObjectURL(self.file, {
+                    oneTimeOnly: true
+                  });
                   const tab = window.open();
                   tab.location.href = objUrl;
                 }
@@ -179,14 +188,23 @@ class PreviewContainer {
   stylize() {
     // Select all needful options
     const {
-      icon: { width: iconWidth, color: iconColor },
-      preview: { icon: { color: previewIconColor } }
+      icon: {
+        width: iconWidth,
+        color: iconColor
+      },
+      preview: {
+        icon: {
+          color: previewIconColor
+        }
+      }
     } = this.widget.configurator.getStyles();
 
     this.iconColor = iconColor;
 
     if (!!(iconWidth)) {
-      this.element.body.icon.style({ 'width': `${iconWidth}` });
+      this.element.body.icon.style({
+        'width': `${iconWidth}`
+      });
     }
 
     if (this.element.control && this.element.control.redo) {
@@ -227,8 +245,9 @@ class PreviewContainer {
    * @param file
    */
   downloadingFinished(file) {
-    const { name: filename } = file;
-    const fileExtension = utils.getFileExtension(filename);
+    const {
+      type: filetype
+    } = file;
 
     // Save the file link to use it once the preview is clicked
     if (file && file.url) {
@@ -239,11 +258,11 @@ class PreviewContainer {
 
     this.file = file;
 
-    if (this.previewFileExtensions.indexOf(fileExtension) !== -1) { // Display an image
+    if (this.previewFileTypes.includes(filetype)) { // Display an image
       this.element.body.wrapper.show();
       this.element.body.icon.hide();
       this.fileReader.readAsDataURL(file);
-    } else if (this.textFileExtensions.indexOf(fileExtension) !== -1) { // Or a PDF file
+    } else if (this.textFileTypes.includes(filetype)) { // Or a PDF file
       this.element.body.hide();
       // Initialize the PDF viewer
       this.pdfPreview.setPdfFile(file);
@@ -264,7 +283,9 @@ class PreviewContainer {
    * @param event
    */
   showFilePreview(event) {
-    const { result: filePreview } = event.target;
+    const {
+      result: filePreview
+    } = event.target;
     this.element.body.wrapper.image.attr('src', filePreview);
   }
 
