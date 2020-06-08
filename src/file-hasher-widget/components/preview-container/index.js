@@ -27,7 +27,7 @@ class PreviewContainer {
     this.file = null;
     this.commomPreviewIcon = null;
     this.pdfPreview = null;
-    this.previewFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg'];
+    this.previewFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml', 'image/svg'];
     this.textFileTypes = ['application/pdf'];
     // Merge the extensions to get an array of allowed files
     this.allowedType = this.previewFileTypes.concat(this.textFileTypes);
@@ -134,6 +134,9 @@ class PreviewContainer {
           const {
             type: filetype
           } = self.file;
+
+          console.log('WIDGET FILE');
+          console.log(self.file);
 
           if (self.url !== null) {
             window.open(self.url, '_blank');
@@ -258,6 +261,8 @@ class PreviewContainer {
 
     this.file = file;
 
+    console.log('WIDGET FILE');
+    console.log(file);
     if (this.previewFileTypes.includes(filetype)) { // Display an image
       this.element.body.wrapper.show();
       this.element.body.icon.hide();
