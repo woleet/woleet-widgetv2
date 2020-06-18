@@ -135,9 +135,6 @@ class PreviewContainer {
             type: filetype
           } = self.file;
 
-          console.log('WIDGET FILE');
-          console.log(self.file);
-
           if (self.url !== null) {
             window.open(self.url, '_blank');
           } else if (this.allowedType.includes(filetype)) {
