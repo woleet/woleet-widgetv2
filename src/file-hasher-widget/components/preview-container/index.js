@@ -258,8 +258,6 @@ class PreviewContainer {
 
     this.file = file;
 
-    console.log('WIDGET FILE');
-    console.log(file);
     if (this.previewFileTypes.includes(filetype)) { // Display an image
       this.element.body.wrapper.show();
       this.element.body.icon.hide();
