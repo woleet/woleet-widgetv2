@@ -170,7 +170,7 @@ class PdfPreview {
         // Calculate the ratio
         const ratio = pageHeight / pageWidth;
         const scale = styleWidth / pageWidth;
-        const viewport = page.getViewport(scale);
+        const viewport = page.getViewport({ scale });
 
         // The final preview size shouldn't be wider than the widget
         self.element.canvasWrapper.canvas.height(styleWidth * ratio);
