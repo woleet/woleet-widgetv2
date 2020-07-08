@@ -10,7 +10,7 @@ let hiddenClass = 'hidden';
  */
 function DOM(element) {
   if ((!element instanceof Element)) {
-    throw new TypeError;
+    throw new TypeError();
   }
   /**
    * @type {DOM}
@@ -24,7 +24,7 @@ function DOM(element) {
   defineProp('target', () => target);
 
   // Define base64 SVG image as src attribute
-  defineProp('setSvg', (svg, color = null) => getSelf(svg=!!(color) ? svg.replace('currentColor', color) : svg,
+  defineProp('setSvg', (svg, color = null) => getSelf(svg = !!(color) ? svg.replace('currentColor', color) : svg,
     svg ? target.setAttribute('src', `data:image/svg+xml;base64,${btoa(svg)}`) : target.removeAttribute('src')));
 
   // Define src attribute
@@ -74,12 +74,11 @@ function DOM(element) {
     if (Array.isArray(props)) {
       return props.map((p) => target.style[p]);
     }
-    else if (typeof props === 'string') return target.style[props];
-    else {
-      for (let prop in props) {
-        //noinspection JSUnfilteredForInLoop
-        target.style[prop] = props[prop];
-      }
+    if (typeof props === 'string') return target.style[props];
+
+    for (let prop in props) {
+      // noinspection JSUnfilteredForInLoop
+      target.style[prop] = props[prop];
     }
   });
 
@@ -93,13 +92,14 @@ function DOM(element) {
   defineProp('render', () => {
     let root = self.target();
     for (let e in self) {
-      if(self.hasOwnProperty(e)) {
+      if (self.hasOwnProperty(e)) {
         const elt = self[e];
         try {
-          if (Array.isArray(elt))
+          if (Array.isArray(elt)) {
             elt.forEach((e) => root.appendChild(e.render()));
-          else
+          } else {
             root.appendChild(elt.render());
+          }
         } catch (err) {
           console.warn(e, target, self[e], err);
         }
@@ -141,7 +141,10 @@ function createElement(element = 'div', options = {}, attrs = {}) {
  * @param attrs
  */
 function createFileInput(options = {}, attrs = {}) {
-  return createElement('input', options, utils.extendObject({ type: 'file', title: '' }, attrs));
+  return createElement('input', options, utils.extendObject({
+    type: 'file',
+    title: ''
+  }, attrs));
 }
 
 export default {

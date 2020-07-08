@@ -42,7 +42,7 @@ function defineProperty(target) {
   return (name, value) => Object.defineProperty(target, name, {
     enumerable: false,
     value
-  })
+  });
 }
 
 /**
@@ -125,7 +125,7 @@ function parseWidgetAttributeConfiguration(widgetElement) {
  * @returns {*}
  */
 function getUniqueId(prefix = '', suffix = '') {
-  const uniqueId = (s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4());
+  const uniqueId = (s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4());
 
   return prefix + uniqueId + suffix;
 }
@@ -135,7 +135,7 @@ function getUniqueId(prefix = '', suffix = '') {
  * @returns {string}
  */
 function s4() {
-  return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  return (((1 + Math.random()) * 0x10000) || 0).toString(16).substring(1);
 }
 
 /**
@@ -145,7 +145,7 @@ function s4() {
  */
 function setTimer(callback, delay) {
   if (delay && delay > 0) {
-    setTimeout(callback, delay)
+    setTimeout(callback, delay);
   }
 }
 
@@ -215,8 +215,8 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
   request.addEventListener('readystatechange', () => {
     if (request.readyState === 2 && request.status === 200) {
       // Download is being started
-      if (observerMapper['downloadingStarted']) {
-        const downloadingStartedObserver = observerMapper['downloadingStarted'];
+      if (observerMapper.downloadingStarted) {
+        const downloadingStartedObserver = observerMapper.downloadingStarted;
         widget.observers[downloadingStartedObserver].broadcast(url);
       }
     } else if (request.readyState === 3) {
@@ -237,16 +237,16 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
         /**
          * If a downloadingFinished observer was defined, it will be noticed
          */
-        if (observerMapper['downloadingFinished']) {
-          const downloadingFinishedObserver = observerMapper['downloadingFinished'];
+        if (observerMapper.downloadingFinished) {
+          const downloadingFinishedObserver = observerMapper.downloadingFinished;
           widget.observers[downloadingFinishedObserver].broadcast(file);
         }
       } else if (request.status === 404) {
         /**
          * If a downloadingFailed observer was defined, it will be noticed that a downloading process is failed
          */
-        if (observerMapper['downloadingFailed']) {
-          const downloadingFailedObserver = observerMapper['downloadingFailed'];
+        if (observerMapper.downloadingFailed) {
+          const downloadingFailedObserver = observerMapper.downloadingFailed;
           widget.observers[downloadingFailedObserver].broadcast('url_not_found', request.status, request.statusText);
         }
       }
@@ -256,11 +256,11 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
   /**
    * Get and calculate percent of a downloading process
    */
-  request.addEventListener("progress", function (evt) {
+  request.addEventListener('progress', function (evt) {
     if (evt.lengthComputable) {
       const percentComplete = parseInt((evt.loaded / evt.total) * 100, 10);
-      if (observerMapper['downloadingProgress']) {
-        const downloadingProgressObserver = observerMapper['downloadingProgress'];
+      if (observerMapper.downloadingProgress) {
+        const downloadingProgressObserver = observerMapper.downloadingProgress;
         widget.observers[downloadingProgressObserver].broadcast(percentComplete);
       }
     }
@@ -269,8 +269,8 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
   request.responseType = 'blob';
 
   request.onerror = function (error) {
-    if (observerMapper['downloadingFailed']) {
-      const downloadingFailedObserver = observerMapper['downloadingFailed'];
+    if (observerMapper.downloadingFailed) {
+      const downloadingFailedObserver = observerMapper.downloadingFailed;
 
       if (error instanceof ProgressEvent) {
         widget.observers[downloadingFailedObserver].broadcast('cors', 0, '');
@@ -285,7 +285,7 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
    */
   request.start = () => {
     try {
-      request.open("GET", downloadFilename, true);
+      request.open('GET', downloadFilename, true);
       request.send();
     } catch (err) {
       console.log('downloading failed', err);
@@ -368,10 +368,10 @@ function adsBlocked(callback) {
 
   fetch(myRequest).then(function (response) {
     return response;
-  }).then(function (response) {
-    callback(false)
-  }).catch(function (e) {
-    callback(true)
+  }).then(function () {
+    callback(false);
+  }).catch(function () {
+    callback(true);
   });
 }
 
@@ -434,7 +434,7 @@ function formatDate(date, lang) {
     timestamp.setTime(date);
   }
 
-  return timestamp.toLocaleDateString(lang, options)
+  return timestamp.toLocaleDateString(lang, options);
 }
 
 /**
@@ -452,7 +452,7 @@ function saveObjectAs(object, filename, type = 'application/json;charset=utf-8')
   if (window.navigator && window.navigator.msSaveOrOpenBlob) {
     window.navigator.msSaveOrOpenBlob(file, filename);
   } else {
-    const a = document.createElement("a");
+    const a = document.createElement('a');
     const url = URL.createObjectURL(file);
     a.href = url;
     a.download = filename;
@@ -501,7 +501,7 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
   }
 
   // If the widths are in pixels and icon is wider than the widget
-  /*if (!(iconWidth) || (!widgetWidthIsPercent && !iconWidthIsPercent && integerIconWidth > integerWidgetWidth)) {
+  /* if (!(iconWidth) || (!widgetWidthIsPercent && !iconWidthIsPercent && integerIconWidth > integerWidgetWidth)) {
     results.iconWidth = widgetWidth;
   } else if (widgetWidthIsPercent && !iconWidthIsPercent) {
     // Calculates the icon width if it was in pixel (f.e. 200px) and the widget is in percent (f.e. 45%)
@@ -512,7 +512,7 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
     if (integerIconWidth > widgetWidthInPixels) {
       results.iconWidth = `${widgetWidthInPixels}px`;
     }
-  }*/
+  } */
 
   integerIconWidth = parseInt(results.iconWidth, 10);
 
@@ -581,10 +581,10 @@ function getWidthDifference(parentWidth, width) {
 
   if (width.indexOf('%') >= 0) {
     const widthInPercent = parseFloat(width);
-    result = parentWidth - ((widthInPercent * width) / 100).toFixed(2)
+    result = parentWidth - ((widthInPercent * width) / 100).toFixed(2);
   } else {
     const widthInPixel = parseFloat(width);
-    result = parentWidth - widthInPixel
+    result = parentWidth - widthInPixel;
   }
 
   return result;
@@ -632,4 +632,4 @@ export default {
   calculateWidgetWidths,
   calculateResponsiveFontSize,
   parseWidgetAttributeConfiguration
-}
+};

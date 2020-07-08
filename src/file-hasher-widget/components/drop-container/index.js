@@ -247,7 +247,7 @@ class DropContainer {
     return self.startHashing(file);
   }
 
-  downloadModeInitiated(fileConfiguration) {
+  downloadModeInitiated() {
     this.element.hide();
   }
 

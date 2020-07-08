@@ -1,4 +1,4 @@
-import constants from "Common/constants";
+import constants from 'Common/constants';
 
 function getDefaultLanguage() {
   return constants.DEFAULT_WIDGET_LANGUAGE;
