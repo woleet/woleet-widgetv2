@@ -1,4 +1,4 @@
-import constants from "Common/constants";
+import constants from 'Common/constants';
 
 // Default configuration of the widget. For more information check the README file
 function getFileHasherDefaults() {
@@ -45,7 +45,7 @@ function getFileHasherDefaults() {
       icon: true,
       controls: {
         reset: true
-      },
+      }
     },
     proxy: {
       url: null,
@@ -79,4 +79,4 @@ function getFileHasherObserverMappers() {
 export {
   getFileHasherDefaults,
   getFileHasherObserverMappers
-}
+};

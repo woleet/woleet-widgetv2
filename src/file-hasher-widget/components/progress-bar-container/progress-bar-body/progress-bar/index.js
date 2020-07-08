@@ -30,10 +30,10 @@ class ProgressBar {
    * Initialize the observers
    */
   initializeObservers() {
-    if (this.observerMapper['processProgressObserver']) {
-      let processProgressObserver = this.observerMapper['processProgressObserver'];
+    if (this.observerMapper.processProgressObserver) {
+      let processProgressObserver = this.observerMapper.processProgressObserver;
       this.widget.observers[processProgressObserver].subscribe((data) => {
-        this.processProgress(data)
+        this.processProgress(data);
       });
     }
   }
@@ -43,9 +43,9 @@ class ProgressBar {
    * @param progress
    */
   processProgress(progress) {
-    this.element.style({width: `${progress}%`});
+    this.element.style({ width: `${progress}%` });
   }
-  
+
   get() {
     return this.element;
   }

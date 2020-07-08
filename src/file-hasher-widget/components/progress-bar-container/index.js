@@ -41,29 +41,29 @@ class ProgressBarContainer {
 
   // Initialize the observers
   initializeObservers() {
-    if (this.observerMapper['processStartedObserver']) {
-      let processStartedObserver = this.observerMapper['processStartedObserver'];
+    if (this.observerMapper.processStartedObserver) {
+      let processStartedObserver = this.observerMapper.processStartedObserver;
       this.widget.observers[processStartedObserver].subscribe((data) => {
-        this.processStarted(data)
+        this.processStarted(data);
       });
     }
-    if (this.observerMapper['processFinishedObserver']) {
-      let processFinishedObserver = this.observerMapper['processFinishedObserver'];
+    if (this.observerMapper.processFinishedObserver) {
+      let processFinishedObserver = this.observerMapper.processFinishedObserver;
       this.widget.observers[processFinishedObserver].subscribe((data) => {
-        this.processFinished(data)
+        this.processFinished(data);
       });
     }
-    if (this.observerMapper['processCanceledObserver']) {
-      let processCanceledObserver = this.observerMapper['processCanceledObserver'];
+    if (this.observerMapper.processCanceledObserver) {
+      let processCanceledObserver = this.observerMapper.processCanceledObserver;
       this.widget.observers[processCanceledObserver].subscribe((data) => {
-        this.processFinished(data)
+        this.processFinished(data);
       });
     }
     this.widget.observers.errorCaughtObserver.subscribe((data) => {
-      this.processFinished(data)
+      this.processFinished(data);
     });
     this.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
-      this.uploadModeInitiated(data)
+      this.uploadModeInitiated(data);
     });
   }
 
@@ -78,7 +78,7 @@ class ProgressBarContainer {
   processFinished() {
     this.element.hide();
   }
-  
+
   get() {
     return this.element;
   }

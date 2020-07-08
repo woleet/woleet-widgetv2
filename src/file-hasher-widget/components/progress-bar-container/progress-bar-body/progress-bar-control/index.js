@@ -37,7 +37,7 @@ class ProgressBarControl {
    */
   initializeEvents() {
     const self = this;
-    if (this.observerMapper['processCanceledObserver']) {
+    if (this.observerMapper.processCanceledObserver) {
       // If the cross icon was clicked, broadcast the event to all containers
       this.element.icon.on('click', function () {
         // Notify and make the same behaviour on click reset widget button
