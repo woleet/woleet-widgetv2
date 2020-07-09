@@ -135,7 +135,8 @@ function getUniqueId(prefix = '', suffix = '') {
  * @returns {string}
  */
 function s4() {
-  return (((1 + Math.random()) * 0x10000) || 0).toString(16).substring(1);
+  // eslint-disable-next-line no-bitwise
+  return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 }
 
 /**
@@ -499,20 +500,6 @@ function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
   if (!iconWidth) {
     results.iconWidth = widgetWidth;
   }
-
-  // If the widths are in pixels and icon is wider than the widget
-  /* if (!(iconWidth) || (!widgetWidthIsPercent && !iconWidthIsPercent && integerIconWidth > integerWidgetWidth)) {
-    results.iconWidth = widgetWidth;
-  } else if (widgetWidthIsPercent && !iconWidthIsPercent) {
-    // Calculates the icon width if it was in pixel (f.e. 200px) and the widget is in percent (f.e. 45%)
-    // It checks if 200px <= 45% (of the parent element)
-    const widgetWidthInPixels = (integerWidgetWidth * parentOffsetWidth) / 100;
-
-    // if it isn't change the icon size
-    if (integerIconWidth > widgetWidthInPixels) {
-      results.iconWidth = `${widgetWidthInPixels}px`;
-    }
-  } */
 
   integerIconWidth = parseInt(results.iconWidth, 10);
 

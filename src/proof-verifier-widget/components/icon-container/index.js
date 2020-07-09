@@ -1,11 +1,11 @@
 import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import woleetApi from 'Common/services/api';
-import constants from 'Common/constants'
+import constants from 'Common/constants';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
 import Icon from 'Resources/images/icon.svg';
-import loader from "Common/services/loader";
+import loader from 'Common/services/loader';
 
 /**
  * IconContainer
@@ -24,7 +24,7 @@ class IconContainer {
     this.lang = this.widget.configurator.getLanguage();
     this.cursorPointerClass = utils.extractClasses(styles, ['cursor-pointer'])[0];
 
-    const {verification: {client: clientVerificated}} = this.widget.configuration;
+    const { verification: { client: clientVerificated } } = this.widget.configuration;
 
     // If the receipt is verified by client side, initialize the library
     if (clientVerificated) {
@@ -58,8 +58,8 @@ class IconContainer {
    * Create all container elements and initialize them
    */
   init() {
-    let {mode} = this.widget.configuration;
-    let {el: logoElement, attributes: {width: iconWidth, height: iconHeight}} = this.iconAttributes;
+    let { mode } = this.widget.configuration;
+    let { el: logoElement, attributes: { width: iconWidth, height: iconHeight } } = this.iconAttributes;
 
     if (this.styles.icon.width !== null) {
       iconWidth = this.styles.icon.width;
@@ -76,7 +76,7 @@ class IconContainer {
     this.element.iconContainer = VirtualDOMService.createElement('img', {
       classes: utils.extractClasses(styles, styleCodes.iconContainer.icon.code)
     });
-    this.element.iconContainer.style({width: iconWidth, height: iconHeight});
+    this.element.iconContainer.style({ width: iconWidth, height: iconHeight });
     const xml = new XMLSerializer().serializeToString(logoElement);
     const image = `data:image/svg+xml;base64,${btoa(xml)}`;
     this.element.iconContainer.attr('src', image);
@@ -95,7 +95,7 @@ class IconContainer {
     this.widget.observers.widgetInitializedObserver.subscribe((data) => {
       // If the receipt file wasn't defined broadcast an error
       if (!self.receipt || (!self.receipt.url && !self.receipt.payload)) {
-        self.widget.observers.errorCaughtObserver.broadcast({message: 'need_receipt'});
+        self.widget.observers.errorCaughtObserver.broadcast({ message: 'need_receipt' });
       } else if (self.receipt) {
         if (!self.receipt.url && self.receipt.payload) {
           if (utils.isObject(self.receipt.payload)) {
@@ -109,17 +109,17 @@ class IconContainer {
       }
     });
     this.widget.observers.receiptDownloadingFinishedObserver.subscribe((data) => {
-      self.receiptFileDownloaded(data)
+      self.receiptFileDownloaded(data);
     });
     this.widget.observers.receiptDownloadingFailedObserver.subscribe((data) => {
-      self.receiptFileFailed(data)
+      self.receiptFileFailed(data);
     });
-    this.fileReader.onload = function() {
+    this.fileReader.onload = function () {
       try {
         let parsedResult = JSON.parse(this.result);
         self.widget.observers.receiptParsedObserver.broadcast(parsedResult);
         self.prepareFileVerification(parsedResult);
-      } catch(err) {}
+      } catch (err) {}
     };
   }
 
@@ -127,7 +127,7 @@ class IconContainer {
    * Initialize the widget styles
    */
   stylize() {
-    const {banner: bannerStyles, zindex: zIndex} = this.widget.configurator.getStyles();
+    const { banner: bannerStyles, zindex: zIndex } = this.widget.configurator.getStyles();
 
     if (bannerStyles.title && bannerStyles.title.color) {
       this.element.target().style
@@ -153,7 +153,7 @@ class IconContainer {
    */
   prepareFileVerification(receiptJson) {
     const self = this;
-    const {verification: {client: clientVerificated}} = this.widget.configuration;
+    const { verification: { client: clientVerificated } } = this.widget.configuration;
 
     // If the receipt is verified by client side, check the verifier is loaded
     if (clientVerificated) {
@@ -173,7 +173,7 @@ class IconContainer {
   verifyReceiptFile(receiptJson) {
     const self = this;
     const promises = [];
-    const {verification: {client: clientVerificated}, endpoints: { verification: verificationUrl }} = this.widget.configuration;
+    const { verification: { client: clientVerificated }, endpoints: { verification: verificationUrl } } = this.widget.configuration;
 
     // If the receipt is verified by client side, verify by the Woleet weblibs
     if (clientVerificated) {
@@ -206,7 +206,7 @@ class IconContainer {
    */
   initializeEvents() {
     this.element.iconContainer.on('click', () => {
-      this.widget.observers.iconClickedObserver.broadcast()
+      this.widget.observers.iconClickedObserver.broadcast();
     });
   }
 
@@ -223,13 +223,13 @@ class IconContainer {
   initializeContainerView(mode) {
     const self = this;
 
-    switch(mode) {
+    switch (mode) {
       case constants.PROOF_VERIFIER_MODE_ICON:
         self.element.iconContainer.addClass(self.cursorPointerClass);
         self.initializeEvents();
         break;
       default:
-        break
+        break;
     }
   }
 
