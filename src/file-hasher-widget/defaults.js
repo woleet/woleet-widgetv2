@@ -8,8 +8,8 @@ function getFileHasherDefaults() {
       fastDownload: false
     },
     styles: {
-      width: '130px',
-      height: '130px',
+      width: '100%',
+      height: '100%',
       align: 'center',
       icon: {
         width: null,

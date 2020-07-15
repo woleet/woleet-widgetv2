@@ -144,7 +144,7 @@ The following attributes can be set on `<div>` tag to configure the look and beh
             
             cors - CORS policy issue;
     
-    * __hashingStarted__ - is called once the hashing process is started. Parameters: ___widgetId___, ___hashed file___;
+    * __hashingStarted__ - is called once the hashing process is started. Parameters: ___widgetId___, ___hashed file___, ___isPreviewable___;
     
     * __hashingCanceled__ - is called once the hashing process is canceled. Parameters: ___widgetId___;
     

@@ -139,7 +139,7 @@ class PreviewContainer {
             window.open(self.url, '_blank');
           } else if (this.allowedType.includes(filetype)) {
             // Check if it's possible to open popup windows
-            !utils.adsBlocked((blocked) => {
+            utils.adsBlocked((blocked) => {
               if (!blocked) {
                 // The solution for both IE and Edge
                 if (window.navigator && window.navigator.msSaveOrOpenBlob) {

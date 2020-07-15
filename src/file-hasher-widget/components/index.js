@@ -109,7 +109,7 @@ class FileHasherWidget {
             this.observers.hashingFinishedObserver.subscribe(({ hash, file }) => observer(self.widgetId, hash, file));
             break;
           case 'hashingstarted':
-            this.observers.hashingStartedObserver.subscribe(file => observer(self.widgetId, file));
+            this.observers.hashingStartedObserver.subscribe((file, isPreviewable) => observer(self.widgetId, file, isPreviewable));
             break;
           case 'hashingprogress':
             this.observers.hashingProgressObserver.subscribe((progress) => observer(self.widgetId, progress));

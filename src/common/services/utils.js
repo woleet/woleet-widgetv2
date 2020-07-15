@@ -1,5 +1,7 @@
 import i18next from 'i18next';
 
+const previewableFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml', 'image/svg', 'application/pdf'];
+
 /**
  * Deep merge two objects.
  * @param target
@@ -190,6 +192,18 @@ function getFilenameUrl(url) {
  */
 function getFilenameSource(url) {
   return url.substring(0, url.lastIndexOf('/'));
+}
+
+/**
+ * Get filename of a URL
+ * @param file
+ * @returns {boolean}
+ */
+function isPreviewable(file) {
+  const {
+    type: filetype
+  } = file;
+  return previewableFileTypes.includes(filetype);
 }
 
 /**
@@ -473,6 +487,7 @@ function saveObjectAs(object, filename, type = 'application/json;charset=utf-8')
  * @param parent
  * @return {{iconWidth: *, widgetWidth: *, px: {iconWidth: *, widgetWidth: *}, percent: {iconWidth: *, widgetWidth: *}}}
  */
+// TO DELETE
 function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
   const results = {
     widgetWidth,
@@ -618,5 +633,6 @@ export default {
   getWidthDifference,
   calculateWidgetWidths,
   calculateResponsiveFontSize,
-  parseWidgetAttributeConfiguration
+  parseWidgetAttributeConfiguration,
+  isPreviewable
 };

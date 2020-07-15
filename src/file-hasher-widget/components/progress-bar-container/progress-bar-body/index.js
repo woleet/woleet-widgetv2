@@ -31,7 +31,7 @@ class ProgressBarBody {
     this.element.progressBarControl = (new ProgressBarControl(this.widget, this.observerMapper)).get();
     this.element.progressBarWrapper.progressBar = (new ProgressBar(this.widget, this.observerMapper)).get();
   }
-  
+
   get() {
     return this.element;
   }

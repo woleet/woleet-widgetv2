@@ -22,11 +22,11 @@ class ProgressBarTitle {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.progress.title.code)
     });
-  
+
     this.element.span = VirtualDOMService.createElement('span', {
       classes: utils.extractClasses(styles, styleCodes.progress.title.span.code)
     });
-    
+
     this.reset();
     this.initializeObservers();
   }
@@ -35,16 +35,16 @@ class ProgressBarTitle {
    * Initialize the observers
    */
   initializeObservers() {
-    if (this.observerMapper['processProgressObserver']) {
-      let processProgressObserver = this.observerMapper['processProgressObserver'];
+    if (this.observerMapper.processProgressObserver) {
+      let processProgressObserver = this.observerMapper.processProgressObserver;
       this.widget.observers[processProgressObserver].subscribe((data) => {
-        this.processProgress(data)
+        this.processProgress(data);
       });
     }
-    if (this.observerMapper['processStartedObserver']) {
-      let processStartedObserver = this.observerMapper['processStartedObserver'];
+    if (this.observerMapper.processStartedObserver) {
+      let processStartedObserver = this.observerMapper.processStartedObserver;
       this.widget.observers[processStartedObserver].subscribe((data) => {
-        this.processStarted(data)
+        this.processStarted(data);
       });
     }
   }
@@ -60,11 +60,11 @@ class ProgressBarTitle {
   processStarted() {
     this.reset();
   }
-  
+
   reset() {
     this.element.span.text(`${0}%`);
   }
-  
+
   get() {
     return this.element;
   }

@@ -211,7 +211,9 @@ class DropContainer {
     self.updateProgress({
       progress: 0
     });
-    self.widget.observers.hashingStartedObserver.broadcast(file);
+
+    const isPreviewable = utils.isPreviewable(file);
+    self.widget.observers.hashingStartedObserver.broadcast(file, isPreviewable);
     self.element.hide();
     self.delayedFile = null;
 
