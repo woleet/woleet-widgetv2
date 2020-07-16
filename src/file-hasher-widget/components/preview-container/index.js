@@ -3,7 +3,6 @@ import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 import PdfPreview from 'FileHasherWidget/components/preview-container/pdf-preview';
-import faFile from 'Resources/images/file.svg';
 import faRedo from 'Resources/images/redo.svg';
 
 /**
@@ -42,12 +41,6 @@ class PreviewContainer {
 
   // Create all container elements and initialize them
   init() {
-    const {
-      visibility: {
-        controls: controlVisibility
-      }
-    } = this.widget.configurator.get();
-
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.code)
     });
@@ -56,16 +49,8 @@ class PreviewContainer {
       classes: utils.extractClasses(styles, styleCodes.preview.body.code)
     });
 
-    this.element.body.icon = VirtualDOMService.createElement('img', {
-      classes: utils.extractClasses(styles, styleCodes.preview.body.icon.code)
-    });
-
     this.element.body.wrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.image.wrapper.code)
-    });
-
-    this.element.body.wrapper.image = VirtualDOMService.createElement('img', {
-      classes: utils.extractClasses(styles, styleCodes.preview.body.image.code)
     });
 
     // create an element to display PDF files
@@ -76,12 +61,6 @@ class PreviewContainer {
     this.element.control = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.control.code)
     });
-
-    if (controlVisibility && controlVisibility.reset) {
-      this.element.control.redo = VirtualDOMService.createElement('img', {
-        classes: utils.extractClasses(styles, styleCodes.preview.control.icon.redo.code)
-      });
-    }
 
     this.element.hide();
 
@@ -96,20 +75,11 @@ class PreviewContainer {
   initializeObservers() {
     const self = this;
 
-    self.widget.observers.downloadingStartedObserver.subscribe((data) => {
-      self.downloadingStarted(data);
-    });
-
-    self.widget.observers.downloadModeInitiatedObserver.subscribe((data) => {
-      self.downloadModeInitiated(data);
-    });
-
     self.widget.observers.downloadingFinishedObserver.subscribe((file) => {
       self.downloadingFinished(file);
     });
 
     self.widget.observers.fileSelectedObserver.subscribe((file) => {
-      self.displayDefaultIcon();
       self.downloadingFinished(file);
     });
 
@@ -188,24 +158,12 @@ class PreviewContainer {
   stylize() {
     // Select all needful options
     const {
-      icon: {
-        width: iconWidth,
-        color: iconColor
-      },
       preview: {
         icon: {
           color: previewIconColor
         }
       }
     } = this.widget.configurator.getStyles();
-
-    this.iconColor = iconColor;
-
-    if (!!(iconWidth)) {
-      this.element.body.icon.style({
-        'width': `${iconWidth}`
-      });
-    }
 
     if (this.element.control && this.element.control.redo) {
       this.element.control.redo.setSvg(faRedo, previewIconColor);
@@ -222,22 +180,6 @@ class PreviewContainer {
     this.pdfPreview.hide();
     this.element.hide();
     this.resetFile();
-  }
-
-  /**
-   * If downloading is started, show the default preview
-   */
-  downloadModeInitiated(fileConfiguration) {
-    if (fileConfiguration.fastDownload) {
-      this.displayDefaultIcon();
-    }
-  }
-
-  /**
-   * If the downloading started, show the default icon
-   */
-  downloadingStarted() {
-    this.displayDefaultIcon();
   }
 
   /**
@@ -260,22 +202,12 @@ class PreviewContainer {
 
     if (this.previewFileTypes.includes(filetype)) { // Display an image
       this.element.body.wrapper.show();
-      this.element.body.icon.hide();
       this.fileReader.readAsDataURL(file);
     } else if (this.textFileTypes.includes(filetype)) { // Or a PDF file
       this.element.body.hide();
       // Initialize the PDF viewer
       this.pdfPreview.setPdfFile(file);
     }
-  }
-
-  /**
-   * Show the default icon
-   */
-  displayDefaultIcon() {
-    this.element.show();
-    this.element.body.show();
-    this.showPlaceholderIcon();
   }
 
   /**
@@ -287,22 +219,6 @@ class PreviewContainer {
       result: filePreview
     } = event.target;
     this.element.body.wrapper.image.attr('src', filePreview);
-  }
-
-  /**
-   * Define the icon instead of preview element if extension is not allowed
-   */
-  showPlaceholderIcon() {
-    this.element.body.wrapper.hide();
-    this.element.body.icon.show();
-
-    // If user common icon was defined, display it
-    if (this.commomPreviewIcon) {
-      this.element.body.icon.setSrc(this.commomPreviewIcon);
-    } else {
-      // otherwise display the default one
-      this.element.body.icon.setSvg(faFile, this.iconColor);
-    }
   }
 
   /**

@@ -1,4 +1,3 @@
-import { getFileHasherObserverMappers } from 'FileHasherWidget/defaults';
 import ConfigurationService from 'Common/services/configurator';
 import VirtualDOMService from 'Common/services/virtual-dom';
 import EventObserver from 'Common/patterns/event-observer';
@@ -7,13 +6,9 @@ import styleCodes from './style-codes';
 import styles from './index.scss';
 
 import DropContainer from 'FileHasherWidget/components/drop-container';
-import TitleContainer from 'FileHasherWidget/components/title-container';
-import ProgressBarContainer from 'FileHasherWidget/components/progress-bar-container';
 import ErrorContainer from 'FileHasherWidget/components/error-container';
 import DownloadContainer from 'FileHasherWidget/components/download-container';
 import PreviewContainer from 'FileHasherWidget/components/preview-container';
-import HashContainer from 'FileHasherComponents/hash-container';
-import FilenameContainer from 'FileHasherComponents/filename-container';
 
 /**
  * Define a class of the widget
@@ -131,8 +126,7 @@ class FileHasherWidget {
    * Create all container elements and initialize them
    */
   init() {
-    const widgetObserverMappers = getFileHasherObserverMappers();
-    const { styles: { width: widgetWidget, align }, visibility } = this.configuration;
+    const { styles: { width: widgetWidget, align } } = this.configuration;
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.code),
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
@@ -146,27 +140,6 @@ class FileHasherWidget {
     // Container to download file if it was listed in the configuration
     if (!!(this.provenFileConfiguration.url)) {
       this.element.downloadContainer = (new DownloadContainer(this)).get();
-    }
-
-    // Container to display widget status title
-    if (visibility.title) {
-      this.element.titleContainer = (new TitleContainer(this)).get();
-    }
-
-    // Container to display widget filename
-    if (visibility.filename) {
-      this.element.filenameContainer = (new FilenameContainer(this)).get();
-    }
-
-    // Container to display hash
-    if (visibility.hash) {
-      this.element.hashContainer = (new HashContainer(this)).get();
-    }
-
-    // Container to display hashing/downloading progress
-    if (visibility.progress) {
-      this.element.hashProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.hashProgressBar)).get();
-      this.element.downloadProgressBar = (new ProgressBarContainer(this, widgetObserverMappers.downloadProgressBar)).get();
     }
 
     // Container to display widget errors

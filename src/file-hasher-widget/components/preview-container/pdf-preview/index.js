@@ -250,6 +250,8 @@ class PdfPreview {
    * Display previous page.
    */
   onPrevPage(event) {
+    event.stopPropagation();
+
     const self = this;
     if (self.pageNum <= 1) {
       return;

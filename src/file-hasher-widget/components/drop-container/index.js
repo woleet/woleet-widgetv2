@@ -1,7 +1,6 @@
 import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import widgetLogger from 'Common/services/logger';
-import faFileImport from 'Resources/images/file-import.svg';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 import loader from 'Common/services/loader';
@@ -45,10 +44,6 @@ class DropContainer {
 
     this.element.body = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.drop.body.code)
-    });
-
-    this.element.body.icon = VirtualDOMService.createElement('img', {
-      classes: utils.extractClasses(styles, styleCodes.drop.body.icon.code)
     });
     this.element.body.input = VirtualDOMService.createFileInput({
       classes: utils.extractClasses(styles, styleCodes.drop.body.input.code)
@@ -107,27 +102,10 @@ class DropContainer {
    * Stylize the container
    */
   stylize() {
-    const self = this;
     const {
-      icon: {
-        width: iconWidth,
-        color: iconColor
-      },
       width: widgetWidth,
       height: widgetHeight
     } = this.widget.configurator.getStyles();
-    const {
-      icons: {
-        import: importIcon
-      }
-    } = this.widget.configurator.get();
-
-    if (importIcon) {
-      this.importIcon = true;
-      utils.toDataUrl(importIcon, (response) => {
-        self.element.body.icon.setSrc(response);
-      });
-    }
 
     this.element.body.style({
       'width': `${widgetWidth}`
@@ -140,17 +118,6 @@ class DropContainer {
       this.element.body.icon.style({
         'display': 'none'
       });
-    }
-
-    if (!!(iconWidth)) {
-      this.element.body.icon.style({
-        'width': `${iconWidth}`
-      });
-    }
-
-    // If download icon wasn't customized, display the default one
-    if (!this.importIcon) {
-      this.element.body.icon.setSvg(faFileImport, iconColor);
     }
   }
 
