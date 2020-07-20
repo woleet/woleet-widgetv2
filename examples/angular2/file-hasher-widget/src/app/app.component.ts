@@ -18,20 +18,20 @@ export class AppComponent {
       width: '250px'
     },
     observers: {
-      hashCalculated: (widgetId, hash) => {this.hashCalculated(widgetId, hash)},
-      downloadingFinished: (widgetId, file) => {this.downloadingFinished(widgetId, file)}
+      hashCalculated: (widgetId, hash) => {this.hashCalculated(widgetId, hash); },
+      downloadingFinished: (widgetId, file) => {this.downloadingFinished(widgetId, file); }
     }
   };
 
   hashCalculated(widgetId, hash) {
     this.hashes.push({
       widgetId, hash
-    })
+    });
   }
 
   downloadingFinished(widgetId, file) {
     this.files.push({
       widgetId, file
-    })
+    });
   }
 }

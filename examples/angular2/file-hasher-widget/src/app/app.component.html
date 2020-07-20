@@ -3,7 +3,7 @@
   <h1>
     Example of usage "{{ widget }}" in Angular2+ (7.2)!
   </h1>
-  <file-hasher-widget [lang]="widgetConfig.lang" [config]="widgetConfig"></file-hasher-widget>
+  <app-file-hasher-widget [lang]="widgetConfig.lang" [config]="widgetConfig"></app-file-hasher-widget>
 
   <div class="log download-logging" id="download-logging" *ngIf="files.length > 0">
     <p *ngFor="let fileObject of files">File "{{fileObject.file.name}}" downloaded by widget id="{{fileObject.widgetId}}"</p>

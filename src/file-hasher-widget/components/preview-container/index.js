@@ -3,6 +3,7 @@ import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 import PdfPreview from 'FileHasherWidget/components/preview-container/pdf-preview';
+import faFile from 'Resources/images/file.svg';
 import faRedo from 'Resources/images/redo.svg';
 
 /**
@@ -11,14 +12,6 @@ import faRedo from 'Resources/images/redo.svg';
  */
 class PreviewContainer {
   constructor(widget) {
-    const {
-      icons: {
-        preview: {
-          common: commonIcon
-        }
-      }
-    } = widget.configurator.get();
-    const self = this;
     this.element = null;
     this.url = null;
     this.widget = widget;
@@ -31,16 +24,17 @@ class PreviewContainer {
     // Merge the extensions to get an array of allowed files
     this.allowedType = this.previewFileTypes.concat(this.textFileTypes);
 
-    if (commonIcon) {
-      utils.toDataUrl(commonIcon, (response) => {
-        self.commomPreviewIcon = response;
-      });
-    }
     this.init();
   }
 
   // Create all container elements and initialize them
   init() {
+    const {
+      visibility: {
+        controls: controlVisibility
+      }
+    } = this.widget.configurator.get();
+
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.code)
     });
@@ -49,8 +43,16 @@ class PreviewContainer {
       classes: utils.extractClasses(styles, styleCodes.preview.body.code)
     });
 
+    this.element.body.icon = VirtualDOMService.createElement('img', {
+      classes: utils.extractClasses(styles, styleCodes.preview.body.icon.code)
+    });
+
     this.element.body.wrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.image.wrapper.code)
+    });
+
+    this.element.body.wrapper.image = VirtualDOMService.createElement('img', {
+      classes: utils.extractClasses(styles, styleCodes.preview.body.image.code)
     });
 
     // create an element to display PDF files
@@ -61,6 +63,12 @@ class PreviewContainer {
     this.element.control = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.control.code)
     });
+
+    if (controlVisibility && controlVisibility.reset) {
+      this.element.control.redo = VirtualDOMService.createElement('img', {
+        classes: utils.extractClasses(styles, styleCodes.preview.control.icon.redo.code)
+      });
+    }
 
     this.element.hide();
 
@@ -80,6 +88,8 @@ class PreviewContainer {
     });
 
     self.widget.observers.fileSelectedObserver.subscribe((file) => {
+      self.element.show();
+      self.element.body.show();
       self.downloadingFinished(file);
     });
 
@@ -202,6 +212,7 @@ class PreviewContainer {
 
     if (this.previewFileTypes.includes(filetype)) { // Display an image
       this.element.body.wrapper.show();
+      this.element.body.icon.hide();
       this.fileReader.readAsDataURL(file);
     } else if (this.textFileTypes.includes(filetype)) { // Or a PDF file
       this.element.body.hide();
