@@ -69,10 +69,6 @@ class DropContainer {
       this.uploadModeInitiated(data);
       this.hashingCanceled(data);
     });
-    this.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
-      this.uploadModeInitiated(data);
-      this.hashingCanceled(data);
-    });
     this.widget.observers.widgetResetObserver.subscribe(() => {
       this.hashingCanceled();
     });
