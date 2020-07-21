@@ -102,18 +102,6 @@ class DropContainer {
    * Stylize the container
    */
   stylize() {
-    const {
-      width: widgetWidth,
-      height: widgetHeight
-    } = this.widget.configurator.getStyles();
-
-    this.element.body.style({
-      'width': `${widgetWidth}`
-    });
-    this.element.body.style({
-      'height': `${widgetHeight}`
-    });
-
     if (!this.widget.configurator.get().visibility.icon) {
       this.element.body.icon.style({
         'display': 'none'

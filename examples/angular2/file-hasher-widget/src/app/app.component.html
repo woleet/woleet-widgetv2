@@ -5,11 +5,51 @@
   </h1>
   <app-file-hasher-widget [lang]="widgetConfig.lang" [config]="widgetConfig"></app-file-hasher-widget>
 
-  <div class="log download-logging" id="download-logging" *ngIf="files.length > 0">
-    <p *ngFor="let fileObject of files">File "{{fileObject.file.name}}" downloaded by widget id="{{fileObject.widgetId}}"</p>
+  <div *ngIf="file">
+    <span>Hashed file:</span><br>
+    <span>{{file.name}}</span><br>
+    <span>{{file.type}}</span>
+    <br>
   </div>
-  <div class="log hash-logging" id="hash-logging" *ngIf="hashes.length > 0">
-    <p *ngFor="let hashObject of hashes">Hash "{{hashObject.hash}}" computed by widget id="{{hashObject.widgetId}}"</p>
-  </div>
-</div>
 
+
+  <div *ngIf="hash">
+    <span>hash: </span>
+    <span>{{hash}}</span>
+    <br>
+  </div>
+
+  <div *ngIf="progress">
+    <span>progress: </span>
+    <span>{{progress}}</span>
+    <br>
+  </div>
+
+  <div *ngIf="fileUrl">
+    <span>Downloaded file url: </span>
+    <span>{{fileUrl}}</span>
+    <br>
+  </div>
+
+  <div *ngIf="downloadProgress">
+    <span>Download progress: </span>
+    <span>{{downloadProgress}}</span>
+    <br>
+  </div>
+
+  <div *ngIf="downloadedFile">
+    <span>Downloaded file:</span><br>
+    <span>{{downloadedFile.name}}</span><br>
+    <span>{{downloadedFile.type}}</span>
+    <br>
+  </div>
+
+  <div *ngIf="error">
+    <span>error:</span><br>
+    <span>{{error.code}}</span><br>
+    <span>{{error.status}}</span><br>
+    <span>{{error.message}}</span>
+  </div>
+
+  <button (click)="reset()">RESET</button>
+</div>

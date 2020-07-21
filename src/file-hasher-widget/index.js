@@ -12,6 +12,8 @@ import i18next from 'i18next';
 
 import FileHasherWidget from './components';
 
+const fileHashers = [];
+
 /**
  * The main entry of the widget
  * @param window
@@ -102,25 +104,13 @@ function initialize(widgetConfigurations) {
     const configuration = getFileHasherDefaults();
     utils.extendObject(configuration, customConfiguration);
 
-    const {
-      icon: {
-        width: iconWidth
-      },
-      width: widgetWidth
-    } = configuration.styles;
-    const widgetWidths = utils.calculateWidgetWidths(widgetWidth, iconWidth, widgetElement);
-
-    if (widgetWidths && widgetWidths.iconWidth) {
-      configuration.styles.icon.width = widgetWidths.iconWidth;
-    }
-
-    configuration.properties = widgetWidths;
-
     // Render a widget instance and render it but remove all children before
     while (widgetElement.firstChild) {
       widgetElement.removeChild(widgetElement.firstChild);
     }
-    widgetElement.appendChild(new FileHasherWidget(configuration).render());
+    const fileHasherWidget = new FileHasherWidget(configuration);
+    widgetElement.appendChild(fileHasherWidget.render());
+    fileHashers.push(fileHasherWidget);
   });
 }
 
@@ -155,9 +145,18 @@ function addCssLink() {
   return sourcePath;
 }
 
+function reset(id) {
+  fileHashers.forEach(fileHasher => {
+    if (fileHasher.configuration.id === id) {
+      fileHasher.reset();
+    }
+  });
+}
+
 // Create the method to initialize the widget in js code
 window.fileHasherWidget = {
-  init: initialize
+  init: initialize,
+  reset: reset
 };
 
 widget(window, document);

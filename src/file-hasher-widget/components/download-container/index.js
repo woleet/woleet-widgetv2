@@ -112,7 +112,7 @@ class DownloadContainer {
    */
   stylize() {
     const self = this;
-    const { icon: { width: iconWidth, color: iconColor } } = this.widget.configurator.getStyles();
+    const { icon: { color: iconColor } } = this.widget.configurator.getStyles();
     const { icons: { download: downloadIcon } } = this.widget.configurator.get();
 
     if (downloadIcon) {
@@ -121,10 +121,6 @@ class DownloadContainer {
       utils.toDataUrl(downloadIcon, (response) => {
         self.element.body.icon.setSrc(response);
       });
-    }
-
-    if (!!(iconWidth)) {
-      this.element.body.style({ 'width': `${iconWidth}` });
     }
 
     // If download icon wasn't customized, display the default one

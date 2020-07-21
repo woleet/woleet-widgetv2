@@ -3,7 +3,6 @@ import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 import PdfPreview from 'FileHasherWidget/components/preview-container/pdf-preview';
-import faFile from 'Resources/images/file.svg';
 import faRedo from 'Resources/images/redo.svg';
 
 /**

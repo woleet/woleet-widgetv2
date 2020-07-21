@@ -21,6 +21,7 @@ class FileHasherWidget {
     this.provenFileConfiguration = configuration.file;
     this.observers = {};
     this.element = null;
+    this.previewContainer = null;
 
     this.configurator.init(configuration);
 
@@ -101,7 +102,10 @@ class FileHasherWidget {
             this.observers.downloadingFailedObserver.subscribe((error, code, message) => observer(self.widgetId, error, code, message));
             break;
           case 'hashcalculated':
-            this.observers.hashingFinishedObserver.subscribe(({ hash, file }) => observer(self.widgetId, hash, file));
+            this.observers.hashingFinishedObserver.subscribe(({
+              hash,
+              file
+            }) => observer(self.widgetId, hash, file));
             break;
           case 'hashingstarted':
             this.observers.hashingStartedObserver.subscribe((file, isPreviewable) => observer(self.widgetId, file, isPreviewable));
@@ -126,7 +130,6 @@ class FileHasherWidget {
    * Create all container elements and initialize them
    */
   init() {
-    const { styles: { width: widgetWidget, align } } = this.configuration;
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.code),
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
@@ -135,7 +138,8 @@ class FileHasherWidget {
     // Container to drop and select user files
     this.element.dropContainer = (new DropContainer(this)).get();
     // Container to preview all allowed files
-    this.element.previewContainer = (new PreviewContainer(this)).get();
+    this.previewContainer = new PreviewContainer(this);
+    this.element.previewContainer = this.previewContainer.get();
 
     // Container to download file if it was listed in the configuration
     if (!!(this.provenFileConfiguration.url)) {
@@ -151,9 +155,11 @@ class FileHasherWidget {
     }
 
     this.element.attr('id', this.widgetId);
-    this.element.style({ width: `${widgetWidget}` });
-    this.element.target().style
-      .setProperty('--file-hasher-widget-alignment', align);
+  }
+
+  reset() {
+    this.previewContainer.resetFile();
+    this.observers.widgetResetObserver.broadcast();
   }
 
   render() {

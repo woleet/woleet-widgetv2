@@ -32,6 +32,7 @@ declare global {
   interface Window {
     fileHasherWidget: {
       init(params: Array<any>): void;
+      reset(params: string): void;
     };
   }
 }

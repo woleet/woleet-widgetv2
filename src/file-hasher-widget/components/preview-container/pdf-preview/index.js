@@ -141,8 +141,6 @@ class PdfPreview {
       preview: { icon: { color: previewIconColor } }
     } = this.widget.configurator.getStyles();
 
-    this.element.canvasWrapper.canvas.style({ width: `${this.styles.width}` });
-
     this.element.control.prev.setSvg(faCaretLeft, previewIconColor);
 
     this.element.control.next.setSvg(faCaretRight, previewIconColor);
@@ -158,28 +156,9 @@ class PdfPreview {
     // Using promise to fetch the page
     self.pdfDoc.getPage(num)
       .then((page) => {
-        // Calculate the final size parameters
-        let styleWidth = parseInt(self.styles.width);
-        const [x, y, pageWidth, pageHeight] = page.view;
-
-        // If the widget size is initialized in percents, get the pixel values
-        if (self.styles.width.indexOf('%') !== -1) {
-          styleWidth = (styleWidth * pageWidth) / 100;
-        }
-
-        // Calculate the ratio
-        const ratio = pageHeight / pageWidth;
-        const scale = styleWidth / pageWidth;
-        const viewport = page.getViewport({ scale });
-
-        // The final preview size shouldn't be wider than the widget
-        self.element.canvasWrapper.canvas.height(styleWidth * ratio);
-        self.element.canvasWrapper.canvas.width(styleWidth);
-
         // Render PDF page into canvas context
         const renderContext = {
-          canvasContext: this.ctx,
-          viewport: viewport
+          canvasContext: this.ctx
         };
 
         const renderTask = page.render(renderContext);
@@ -224,7 +203,6 @@ class PdfPreview {
     if (this.ctx) {
       // Clear the canvas background
       this.ctx.fillStyle = 'white';
-      this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
   }
 
