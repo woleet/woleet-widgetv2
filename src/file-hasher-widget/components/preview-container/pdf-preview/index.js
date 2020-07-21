@@ -22,8 +22,6 @@ class PdfPreview {
     this.typedArray = null;
     this.fileReader = new FileReader();
 
-    this.styles = this.widget.configurator.getStyles();
-
     if (!window.pdfJs) {
       // If the library pdf.js isn't available, do the lazy loading
       loader.getPdfJs()
@@ -53,9 +51,7 @@ class PdfPreview {
      * TODO: optimize the initialization
      * initialize the worker for pdf.js
      */
-    if (window['file-hasher-widget-source']) {
-      this.pdfjsLib.GlobalWorkerOptions.workerSrc = window['file-hasher-widget-source'] + '/pdf.worker.min.js';
-    }
+    this.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.228/pdf.worker.js';
     this.reset();
   }
 
@@ -138,7 +134,11 @@ class PdfPreview {
   stylize() {
     // Select all needful options
     const {
-      preview: { icon: { color: previewIconColor } }
+      preview: {
+        icon: {
+          color: previewIconColor
+        }
+      }
     } = this.widget.configurator.getStyles();
 
     this.element.control.prev.setSvg(faCaretLeft, previewIconColor);
@@ -156,9 +156,24 @@ class PdfPreview {
     // Using promise to fetch the page
     self.pdfDoc.getPage(num)
       .then((page) => {
+        // Calculate the final size parameters
+        const [x, y, pageWidth, pageHeight] = page.view;
+
+        // Calculate the ratio
+        const ratio = pageHeight / pageWidth;
+        const scale = 1;
+        const viewport = page.getViewport({
+          scale
+        });
+
+        // The final preview size shouldn't be wider than the widget
+        self.element.canvasWrapper.canvas.height(pageWidth * ratio);
+        self.element.canvasWrapper.canvas.width(pageWidth);
+
         // Render PDF page into canvas context
         const renderContext = {
-          canvasContext: this.ctx
+          canvasContext: this.ctx,
+          viewport: viewport
         };
 
         const renderTask = page.render(renderContext);
@@ -203,6 +218,7 @@ class PdfPreview {
     if (this.ctx) {
       // Clear the canvas background
       this.ctx.fillStyle = 'white';
+      this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
   }
 
