@@ -87,6 +87,14 @@ export class AppComponent {
 
   widgetReset(widgetId) {
     console.log('widgetReset');
+    this.hash = null;
+    this.file = null;
+    this.isPreviewable = null;
+    this.progress = null;
+    this.fileUrl = null;
+    this.downloadProgress = null;
+    this.downloadedFile = null;
+    this.error = null;
   }
 
   reset() {
