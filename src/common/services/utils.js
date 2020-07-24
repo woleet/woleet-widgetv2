@@ -481,64 +481,6 @@ function saveObjectAs(object, filename, type = 'application/json;charset=utf-8')
 }
 
 /**
- * Calculate the widget widths
- * @param widgetWidth
- * @param iconWidth
- * @param parent
- * @return {{iconWidth: *, widgetWidth: *, px: {iconWidth: *, widgetWidth: *}, percent: {iconWidth: *, widgetWidth: *}}}
- */
-// TO DELETE
-function calculateWidgetWidths(widgetWidth, iconWidth, parent) {
-  const results = {
-    widgetWidth,
-    iconWidth,
-    px: {
-      widgetWidth,
-      iconWidth
-    },
-    percent: {
-      widgetWidth,
-      iconWidth
-    }
-  };
-
-  const {
-    offsetWidth: parentOffsetWidth
-  } = parent;
-  let integerWidgetWidth = parseInt(widgetWidth, 10);
-  let integerIconWidth = parseInt(iconWidth, 10);
-
-  // If all widgetWidth and iconWidth are in percents
-  const widgetWidthIsPercent = widgetWidth && widgetWidth.indexOf('%') !== -1;
-  const iconWidthIsPercent = iconWidth && iconWidth.indexOf('%') !== -1;
-
-  if (!iconWidth) {
-    results.iconWidth = widgetWidth;
-  }
-
-  integerIconWidth = parseInt(results.iconWidth, 10);
-
-  // Calculate the widget and icon widths in pixels and percents
-  if (widgetWidthIsPercent) {
-    results.percent.widgetWidth = integerWidgetWidth;
-    results.px.widgetWidth = parseFloat(((integerWidgetWidth * parentOffsetWidth) / 100).toFixed(2));
-  } else {
-    results.px.widgetWidth = integerWidgetWidth;
-    results.percent.widgetWidth = parseFloat(((integerWidgetWidth * 100) / parentOffsetWidth).toFixed(2));
-  }
-
-  if (iconWidthIsPercent) {
-    results.percent.iconWidth = integerIconWidth;
-    results.px.iconWidth = parseFloat(((integerIconWidth * results.px.widgetWidth) / 100).toFixed(2));
-  } else {
-    results.px.iconWidth = integerIconWidth;
-    results.percent.iconWidth = parseFloat(((integerIconWidth * 100) / results.px.widgetWidth).toFixed(2));
-  }
-
-  return results;
-}
-
-/**
  * Check if the argument is Object
  * TODO: move to a separate type service
  */
@@ -551,25 +493,6 @@ function isObject(value) {
  */
 function isNumber(value) {
   return typeof value === 'number' && isFinite(value);
-}
-
-/**
- * Calculate the responsive font size
- * @param elementWidth
- * @param ratio
- * @param maxFontSize
- * @return {number}
- */
-function calculateResponsiveFontSize(elementWidth, ratio = 0.08, maxFontSize = 14) {
-  const elementFloatWidth = parseFloat(elementWidth);
-
-  // Recalculate the font size of the text zone to make it responsive
-  let fontsize = elementFloatWidth * ratio;
-  if (fontsize > maxFontSize) {
-    fontsize = maxFontSize;
-  }
-
-  return fontsize;
 }
 
 /**
@@ -631,8 +554,6 @@ export default {
   getObjectByString,
   getObjectProperty,
   getWidthDifference,
-  calculateWidgetWidths,
-  calculateResponsiveFontSize,
   parseWidgetAttributeConfiguration,
   isPreviewable
 };

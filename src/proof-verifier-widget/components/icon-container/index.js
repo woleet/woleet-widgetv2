@@ -1,6 +1,6 @@
 import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
-import woleetApi from 'Common/services/api';
+import woleetApi from 'ProofVerifierWidget/services/api';
 import constants from 'Common/constants';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';

@@ -1,12 +1,12 @@
-import constants from 'Common/constants'
-import { getDefaultLanguage } from 'Common/services/configurator'
-import {getProofVerifierWidgetDefaults} from 'ProofVerifierWidget/defaults'
-import utils from 'Common/services/utils'
-import widgetLogger from 'Common/services/logger'
-import resources from 'Resources/locales'
-import i18next from 'i18next'
+import constants from 'Common/constants';
+import { getDefaultLanguage } from 'Common/services/configurator';
+import { getProofVerifierWidgetDefaults } from 'ProofVerifierWidget/defaults';
+import utils from 'Common/services/utils';
+import widgetLogger from 'Common/services/logger';
+import resources from 'Resources/locales';
+import i18next from 'i18next';
 
-import ProofVerifierWidget from './components'
+import ProofVerifierWidget from './components';
 
 /**
  * The main entry of the widget
@@ -20,8 +20,7 @@ function widget(window, document) {
   // Grab the object created during the widget creation
   const widgetElementCollection = document.getElementsByClassName(widgetClassName);
 
-  if (!widgetElementCollection.length === 0)
-    widgetLogger.error(`The widget elements were not found`);
+  if (!widgetElementCollection.length === 0) { widgetLogger.error('The widget elements were not found'); }
 
   // Convert the element collection to an array
   const widgetElements = Array.from(widgetElementCollection);
@@ -36,8 +35,8 @@ function widget(window, document) {
       // Try to find the widget observers
       observerCodes.forEach(observerCode => {
         const observerName = widgetConfiguration.observers[observerCode];
-        widgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function() {};
-      })
+        widgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function () {};
+      });
     }
 
     widgetConfigurations.push({
@@ -60,12 +59,12 @@ function loadDependencies() {
   const sourceLink = addCssLink();
 
   // Initialize the translation library
-  i18next.init({fallbackLng: getDefaultLanguage(), debug: window.dev, resources});
-  
+  i18next.init({ fallbackLng: getDefaultLanguage(), debug: window.dev, resources });
+
   if (!window['proof-verifier-widget-source'] && sourceLink !== null) {
     window['proof-verifier-widget-source'] = sourceLink;
   }
-  
+
   return new Promise((resolve) => resolve(true));
 }
 
@@ -77,10 +76,10 @@ function initialize(widgetConfigurations) {
   // Initialize all instances of the widget
   widgetConfigurations.forEach(widgetConfiguration => {
     const uniqueWidgetId = utils.getUniqueId(`${constants.PROOF_VERIFIER_WIDGET_ID}-`);
-    const {config: customConfiguration, el: widgetElement, id: widgetId = uniqueWidgetId} = widgetConfiguration;
+    const { config: customConfiguration, el: widgetElement, id: widgetId = uniqueWidgetId } = widgetConfiguration;
 
     if (!widgetElement) {
-      widgetLogger.error(`Widget element wasn't found`);
+      widgetLogger.error('Widget element wasn\'t found');
     }
 
     customConfiguration.widgetId = widgetId;
@@ -89,8 +88,8 @@ function initialize(widgetConfigurations) {
     const configuration = getProofVerifierWidgetDefaults();
     utils.extendObject(configuration, customConfiguration);
 
-    if (!widgetElement){
-      widgetLogger.error(`Widget element wasn't found`);
+    if (!widgetElement) {
+      widgetLogger.error('Widget element wasn\'t found');
     }
 
     /**

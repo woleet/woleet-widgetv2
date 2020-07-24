@@ -2,7 +2,7 @@ import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
-import constants from "Common/constants";
+import constants from 'Common/constants';
 import faElectronicSignature from 'Resources/images/esig.svg';
 import faTimestamp from 'Resources/images/timestamp.svg';
 
@@ -20,7 +20,7 @@ class BannerContainer {
     // Get the class for cursor-pointer style
     this.cursorPointerClass = utils.extractClasses(styles, ['cursor-pointer'])[0];
     this.expanded = false;
-  
+
     this.init();
   }
 
@@ -31,15 +31,15 @@ class BannerContainer {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.bannerContainer.code)
     });
-    
+
     this.element.wrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.bannerContainer.wrapper.code)
     });
-    
-    //add icon
+
+    // add icon
     this.element.wrapper.icon = VirtualDOMService.createElement('i', {
       classes: utils.extractClasses(styles, styleCodes.bannerContainer.wrapper.icon.code)
-    }); 
+    });
 
     this.element.wrapper.title = VirtualDOMService.createElement('span', {
       classes: utils.extractClasses(styles, styleCodes.bannerContainer.wrapper.title.code)
@@ -47,11 +47,11 @@ class BannerContainer {
 
 
     this.element.hide();
-    
+
     this.initializeObservers();
     // Initialize the selected mode
     this.initializeView(this.mode);
-    this.stylize()
+    this.stylize();
   }
 
   /**
@@ -75,7 +75,7 @@ class BannerContainer {
     });
 
     self.widget.observers.receiptDownloadingFailedObserver.subscribe((data) => {
-      self.receiptFileFailed(data)
+      self.receiptFileFailed(data);
     });
 
     self.widget.observers.windowResizedObserver.subscribe(() => {
@@ -87,21 +87,26 @@ class BannerContainer {
    * Stylize the element: responsive, customization and etc.
    */
   stylize() {
-    const { banner: bannerOptions, zindex: zIndex } = this.widget.configurator.getStyles();
-    this.element.style({height: `${bannerOptions.height}`});
+    const {
+      banner: bannerOptions,
+      zindex: zIndex
+    } = this.widget.configurator.getStyles();
+    this.element.style({
+      height: `${bannerOptions.height}`
+    });
 
     if (zIndex) {
       this.element.target().style
         .setProperty('--z-index', zIndex);
     }
   }
-  
+
   /**
    * Initialize events for the BANNER mode
    */
   initializeEvents() {
     this.element.on('click', () => {
-      this.widget.observers.bannerClickedObserver.broadcast()
+      this.widget.observers.bannerClickedObserver.broadcast();
     });
   }
 
@@ -119,7 +124,9 @@ class BannerContainer {
    */
   receiptParsed(message, receipt) {
     const self = this;
-    const { icon: iconStyles } = this.widget.configurator.getStyles();
+    const {
+      icon: iconStyles
+    } = this.widget.configurator.getStyles();
 
     if (message) {
       const sig = receipt.signature;
@@ -132,7 +139,9 @@ class BannerContainer {
       // If the result has the confirmations, then parse it and display the info
       if (message.confirmations) {
         let date = utils.formatDate(message.timestamp, self.lang);
-        let transParams = {date: date};
+        let transParams = {
+          date: date
+        };
         let transCode = pubKey ? 'signed' : 'timestamped';
 
         if (identity) {
@@ -140,7 +149,7 @@ class BannerContainer {
           transParams.context = 'by';
         }
 
-        //const bannerWidth = utils.getWidthDifference(this.element.target().parentElement.offsetWidth, iconStyles.width);
+        // const bannerWidth = utils.getWidthDifference(this.element.target().parentElement.offsetWidth, iconStyles.width);
         const translatedText = utils.translate(transCode, self.lang, transParams);
         self.element.wrapper.title.text(translatedText);
         if (pubKey) {
@@ -148,7 +157,7 @@ class BannerContainer {
         } else {
           self.element.wrapper.icon.html(faTimestamp);
         }
-        //self.changeTitleFont(bannerWidth);
+        // self.changeTitleFont(bannerWidth);
       }
     }
   }
@@ -170,7 +179,10 @@ class BannerContainer {
    */
   onIconClicked() {
     const self = this;
-    const { icon: iconStyles, width } = this.widget.configurator.getStyles();
+    const {
+      icon: iconStyles,
+      width
+    } = this.widget.configurator.getStyles();
 
     // To expand the banner just change the style width
     if (self.expanded) {
@@ -186,21 +198,29 @@ class BannerContainer {
    */
   initializeView(mode) {
     const self = this;
-    const { icon: iconStyles, width, banner } = self.widget.configurator.getStyles();
-    
-    switch(mode) {
+    const {
+      icon: iconStyles,
+      width,
+      banner
+    } = self.widget.configurator.getStyles();
+
+    switch (mode) {
       // If the mode is PANEL show the banner and does not allow it to be hidden
       case constants.PROOF_VERIFIER_MODE_PANEL:
-        self.element.style({width: `calc(${width} - ${iconStyles.width})`});
+        self.element.style({
+          width: `calc(${width} - ${iconStyles.width})`
+        });
         break;
-      // If the mode is PANEL show the banner and does not allow it to be hidden but make it clickable to open th panel
+        // If the mode is PANEL show the banner and does not allow it to be hidden but make it clickable to open th panel
       case constants.PROOF_VERIFIER_MODE_BANNER:
         self.element.addClass(self.cursorPointerClass);
-        self.element.style({width: `calc(${width} - ${iconStyles.width})`});
+        self.element.style({
+          width: `calc(${width} - ${iconStyles.width})`
+        });
 
         this.initializeEvents();
         break;
-      // If the mode is PANEL hide the banner and allow it to be showned
+        // If the mode is PANEL hide the banner and allow it to be showned
       case constants.PROOF_VERIFIER_MODE_ICON:
       default:
         break;
@@ -218,7 +238,7 @@ class BannerContainer {
   receiptFileFailed() {
     this.element.hide();
   }
-  
+
   get() {
     return this.element;
   }

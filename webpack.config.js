@@ -82,16 +82,16 @@ module.exports = (resourcePath = '') => {
             const uglifyJsOptions = {
               toplevel: true
             };
-  
+
             if (sourceMap) {
               uglifyJsOptions.sourceMap = {
-                content: sourceMap,
+                content: sourceMap
               };
             }
             return require('terser').minify(file, uglifyJsOptions);
-          },
-        }),
-      ],
+          }
+        })
+      ]
     }
   };
 };
