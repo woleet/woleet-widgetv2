@@ -47,6 +47,7 @@ class ConfigurationService {
     if (this.configuration && this.configuration.styles) {
       return this.configuration.styles;
     }
+    return null;
   }
 
   /**
