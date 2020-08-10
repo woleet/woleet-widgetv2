@@ -1,5 +1,5 @@
 import VirtualDOMService from 'Common/services/virtual-dom';
-import constants from 'Common/constants';
+import constants from 'ProofVerifierWidget/services/constants';
 import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
@@ -18,7 +18,7 @@ class ControlPanelContainer {
     this.lang = this.widget.configurator.getLanguage();
     this.styles = this.widget.configurator.getStyles();
     this.receipt = null;
-  
+
     this.init();
   }
 
@@ -33,7 +33,7 @@ class ControlPanelContainer {
     this.element.wrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.control.wrapper.code)
     });
-    
+
     // The link to show the transaction
     // this.element.wrapper.viewTransactionEl = VirtualDOMService.createElement('div', {
     //   classes: utils.extractClasses(styles, styleCodes.panelContainer.control.item.code)
@@ -50,7 +50,7 @@ class ControlPanelContainer {
     this.element.wrapper.downloadReceiptEl = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.panelContainer.control.item.code)
     });
-    this.element.wrapper.downloadReceiptEl.linkEl = VirtualDOMService.createElement('a',{
+    this.element.wrapper.downloadReceiptEl.linkEl = VirtualDOMService.createElement('a', {
       classes: utils.extractClasses(styles, styleCodes.widget.cursorPointer)
     });
     this.element.wrapper.downloadReceiptEl.linkEl.html(
@@ -58,12 +58,12 @@ class ControlPanelContainer {
     );
     this.element.wrapper.downloadReceiptEl.hide();
     this.element.hide();
-    
+
     this.initializeEvents();
     this.initializeObservers();
     this.stylize();
   };
-  
+
   /**
    * Initialize the observers
    */
@@ -75,7 +75,7 @@ class ControlPanelContainer {
       self.receiptParsed(result, receipt);
     });
   }
-  
+
   /**
    * Initialize the events
    */
@@ -84,7 +84,9 @@ class ControlPanelContainer {
     // Download the receipt file if the link was clicked
     this.element.wrapper.downloadReceiptEl.linkEl.on('click', () => {
       if (self.receipt !== null) {
-        const { targetHash: targetHash = null } = self.receipt;
+        const {
+          targetHash: targetHash = null
+        } = self.receipt;
         if (targetHash !== null) {
           const filename = `${targetHash}_receipt.json`;
           utils.saveObjectAs(self.receipt, filename);
@@ -97,7 +99,11 @@ class ControlPanelContainer {
    * Stylize the element: responsive, customization and etc.
    */
   stylize() {
-    const { panel: { control: controlOptions } } = this.widget.configurator.getStyles();
+    const {
+      panel: {
+        control: controlOptions
+      }
+    } = this.widget.configurator.getStyles();
 
     this.element.target().style
       .setProperty('--proof-verifier-control-color', controlOptions.color);
@@ -137,7 +143,7 @@ class ControlPanelContainer {
     //   }
     // }
   }
-  
+
   get() {
     return this.element;
   }

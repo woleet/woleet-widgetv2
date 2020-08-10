@@ -2,11 +2,11 @@ import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
-import constants from "Common/constants";
-import AnchorPanelContainer from "ProofVerifierWidget/components/panel-container/anchor-panel-container";
-import ControlPanelContainer from "ProofVerifierWidget/components/panel-container/control-panel-container";
-import SignPanelContainer from "ProofVerifierComponents/panel-container/sign-panel-container";
-import CommonPanelContainer from "ProofVerifierComponents/panel-container/common-panel-container";
+import constants from 'ProofVerifierWidget/services/constants';
+import AnchorPanelContainer from 'ProofVerifierWidget/components/panel-container/anchor-panel-container';
+import ControlPanelContainer from 'ProofVerifierWidget/components/panel-container/control-panel-container';
+import SignPanelContainer from 'ProofVerifierComponents/panel-container/sign-panel-container';
+import CommonPanelContainer from 'ProofVerifierComponents/panel-container/common-panel-container';
 
 /**
  * PanelContainer
@@ -22,7 +22,7 @@ class PanelContainer {
     this.mode = this.widget.configuration.mode;
     this.lang = this.widget.configurator.getLanguage();
     this.styles = this.widget.configurator.getStyles();
-  
+
     this.init();
   }
 
@@ -37,19 +37,19 @@ class PanelContainer {
     this.widget.panel = this.element;
     // The section that contains controls and links
     this.element.control = (new ControlPanelContainer(this.widget)).get();
-      // There are three different sections: common
+    // There are three different sections: common
     this.element.common = (new CommonPanelContainer(this.widget)).get();
     // The section that contains signed hash info
     this.element.sign = (new SignPanelContainer(this.widget)).get();
     // The section that contains anchored hash info
     this.element.anchor = (new AnchorPanelContainer(this.widget)).get();
-    
+
     this.initializeObservers();
     // Initialize the selected mode
     this.initializeView(this.mode);
     this.stylize();
   }
-  
+
   // Initialize the observers
   initializeObservers() {
     const self = this;
@@ -98,7 +98,7 @@ class PanelContainer {
   initializeView(mode) {
     const self = this;
 
-    switch(mode) {
+    switch (mode) {
       // If the mode is PANEL, show the panel and does not allow it to be hidden
       case constants.PROOF_VERIFIER_MODE_PANEL:
         self.element.target().style.setProperty('--proof-verifier-panel-position', 'relative');
@@ -113,7 +113,7 @@ class PanelContainer {
         break;
     }
   }
-  
+
   get() {
     return this.element;
   }

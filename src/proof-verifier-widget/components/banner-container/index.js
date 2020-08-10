@@ -2,7 +2,7 @@ import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
-import constants from 'Common/constants';
+import constants from 'ProofVerifierWidget/services/constants';
 import faElectronicSignature from 'Resources/images/esig.svg';
 import faTimestamp from 'Resources/images/timestamp.svg';
 

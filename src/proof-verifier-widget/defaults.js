@@ -1,4 +1,5 @@
-import constants from "Common/constants";
+import constants from 'Common/constants';
+import constantsProofVerifierWidget from 'ProofVerifierWidget/services/constants';
 
 // Default configuration of the widget. For more information check the README file
 function getProofVerifierWidgetDefaults() {
@@ -12,7 +13,7 @@ function getProofVerifierWidgetDefaults() {
       },
       banner: {
         color: '#555555',
-        background: '#FBFBFB',
+        background: '#FBFBFB'
       },
       panel: {
         color: '#999999',
@@ -22,7 +23,7 @@ function getProofVerifierWidgetDefaults() {
         },
         control: {
           color: '#555555',
-          background: '#FBFBFB',
+          background: '#FBFBFB'
         },
         value: {
           background: 'none',
@@ -30,11 +31,11 @@ function getProofVerifierWidgetDefaults() {
           style: {
             anchoredHash: {
               background: '#EBEBEB',
-              color: '#555555',
+              color: '#555555'
             },
             signedHash: {
               background: '#EBEBEB',
-              color: '#555555',
+              color: '#555555'
             }
           }
         }
@@ -53,10 +54,10 @@ function getProofVerifierWidgetDefaults() {
       identification: null
     },
     lang: constants.DEFAULT_WIDGET_LANGUAGE,
-    mode: constants.PROOF_VERIFIER_MODE_ICON
+    mode: constantsProofVerifierWidget.PROOF_VERIFIER_MODE_ICON
   };
 }
 
 export {
-  getProofVerifierWidgetDefaults,
-}
+  getProofVerifierWidgetDefaults
+};

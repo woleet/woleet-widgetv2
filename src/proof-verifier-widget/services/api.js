@@ -1,4 +1,4 @@
-import constants from 'Common/constants';
+import constants from 'ProofVerifierWidget/services/constants';
 
 /**
  * Verify user receipt
