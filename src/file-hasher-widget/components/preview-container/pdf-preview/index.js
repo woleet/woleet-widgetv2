@@ -157,7 +157,7 @@ class PdfPreview {
     self.pdfDoc.getPage(num)
       .then((page) => {
         // Calculate the final size parameters
-        const [x, y, pageWidth, pageHeight] = page.view;
+        const [, , pageWidth, pageHeight] = page.view;
 
         // Calculate the ratio
         const ratio = pageHeight / pageWidth;

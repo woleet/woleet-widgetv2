@@ -144,7 +144,6 @@ class PreviewContainer {
       this.element.attr('style', 'cursor: unset;');
     }
 
-
     // If the reset button was clicked
     if (this.element.control.redo) {
       this.element.control.redo.on('click', function (event) {
