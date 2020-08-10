@@ -30,17 +30,13 @@
           border: 2px solid var(--file-hasher-widget-control-border-color);
 
           &--next {
-            padding-left: 8px;
-            padding-right: 5px;
-            width: 10px;
-            height: 20px;
+            height: 25px;
+            padding-left: 7px;
           }
 
           &--prev {
-            padding-left: 6px;
+            height: 25px;
             padding-right: 7px;
-            width: 10px;
-            height: 20px;
           }
         }
 

@@ -1,5 +1,5 @@
 import constants from 'Common/constants';
-import constantsProofVerifierWidget from 'ProofVerifierWidget/services/constants';
+import constantsProofVerifierWidget from 'ProofVerifierWidget/constants';
 
 // Default configuration of the widget. For more information check the README file
 function getProofVerifierWidgetDefaults() {

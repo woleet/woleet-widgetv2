@@ -1,5 +1,5 @@
 import VirtualDOMService from 'Common/services/virtual-dom';
-import constants from 'ProofVerifierWidget/services/constants';
+import constants from 'ProofVerifierWidget/constants';
 import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';

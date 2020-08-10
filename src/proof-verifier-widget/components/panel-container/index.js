@@ -2,7 +2,7 @@ import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'ProofVerifierComponents/style-codes';
 import styles from './index.scss';
-import constants from 'ProofVerifierWidget/services/constants';
+import constants from 'ProofVerifierWidget/constants';
 import AnchorPanelContainer from 'ProofVerifierWidget/components/panel-container/anchor-panel-container';
 import ControlPanelContainer from 'ProofVerifierWidget/components/panel-container/control-panel-container';
 import SignPanelContainer from 'ProofVerifierComponents/panel-container/sign-panel-container';

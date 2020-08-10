@@ -1,4 +1,4 @@
-import constants from 'ProofVerifierWidget/services/constants';
+import constants from 'ProofVerifierWidget/constants';
 import { getDefaultLanguage } from 'Common/services/configurator';
 import { getProofVerifierWidgetDefaults } from 'ProofVerifierWidget/defaults';
 import utils from 'Common/services/utils';
