@@ -11,8 +11,7 @@ module.exports = (resourcePath = '') => {
   }
 
   const entry = {
-    'file-hasher-widget': './src/file-hasher-widget/index.js',
-    'proof-verifier-widget': './src/proof-verifier-widget/index.js'
+    'file-hasher-widget': './src/file-hasher-widget/index.js'
   };
 
   const node = {
@@ -24,9 +23,7 @@ module.exports = (resourcePath = '') => {
       Common: path.resolve(__dirname, 'src/common/'),
       FileHasherWidget: path.resolve(__dirname, 'src/file-hasher-widget/'),
       FileHasherComponents: path.resolve(__dirname, 'src/file-hasher-widget/components'),
-      Resources: path.resolve(__dirname, 'src/resources/'),
-      ProofVerifierWidget: path.resolve(__dirname, 'src/proof-verifier-widget/'),
-      ProofVerifierComponents: path.resolve(__dirname, 'src/proof-verifier-widget/components')
+      Resources: path.resolve(__dirname, 'src/resources/')
     }
   };
 

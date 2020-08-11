@@ -184,6 +184,8 @@ There are several ways to configure the widget:
 
 The dynamic initialization is also available. It is realized using the method __init__ of the widget. The an example in the file [examples/file-hasher-widget-delayed-several-instances-example.html](examples/file-hasher-widget-delayed-several-instances-example.html)
 
+You can dynamically reset the widget while keeping the same configuration with the method __reset__ of the widget.
+
 ## Examples
 
 ### Embed the widget in a regular web page
