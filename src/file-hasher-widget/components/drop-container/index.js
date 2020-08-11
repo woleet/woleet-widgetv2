@@ -49,7 +49,6 @@ class DropContainer {
       classes: utils.extractClasses(styles, styleCodes.drop.body.input.code)
     });
 
-    this.stylize();
     this.initializeObservers();
     this.initializeEvents();
   }
@@ -99,17 +98,6 @@ class DropContainer {
           }
         });
     });
-  }
-
-  /**
-   * Stylize the container
-   */
-  stylize() {
-    if (!this.widget.configurator.get().visibility.icon) {
-      this.element.body.icon.style({
-        'display': 'none'
-      });
-    }
   }
 
   /**

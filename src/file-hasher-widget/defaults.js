@@ -11,18 +11,14 @@ function getFileHasherDefaults() {
       width: '100%',
       height: '100%',
       align: 'center',
-      icon: {
-        width: null,
-        color: '#696969'
-      },
       preview: {
         icon: {
-          color: '#FF9494'
+          color: '#000'
         }
       },
       progress: {
         icon: {
-          color: '#FF9494'
+          color: '#000'
         }
       },
       hash: {
@@ -32,19 +28,11 @@ function getFileHasherDefaults() {
     },
     icons: {
       import: null,
-      download: null,
-      preview: {
-        common: null
-      }
+      download: null
     },
     visibility: {
-      title: true,
-      filename: true,
-      progress: true,
-      hash: true,
-      icon: true,
       controls: {
-        reset: true
+        reset: false
       }
     },
     proxy: {
