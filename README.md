@@ -54,25 +54,17 @@ The following attributes can be set on `<div>` tag to configure the look and beh
 
 * __styles__ - Styling options:
     
-    * __width__ - width of the widget; _DEFAULT_: ___130px___
-
-    * __height__ - height of the widget; _DEFAULT_: ___130px___
-    
-    * __align__ - alignment of elements inside the widget; _DEFAULT_: ___center___
-       
-       Possible values are `left`, `center`, `right`
-    
     * __icon__ - Widget icons styles:
     
         * __width__ - width of the icons; _DEFAULT_: ___null___
         
-        * __color__ - color of the icons; _DEFAULT_: ___#696969___
+        * __color__ - color of the icons; _DEFAULT_: ___#000___
         
     * __preview__ - Preview zone styles:
     
-        * __icon__ - reset, next and previous page icons styles;
+        * __icon__ - next and previous page icons styles;
                     
-            * __color__ - color of the icons; _DEFAULT_: ___#FF9494___
+            * __color__ - color of the icons; _DEFAULT_: ___#000___
         
     * __progress__ - Progress bar styles:
     
@@ -85,34 +77,12 @@ The following attributes can be set on `<div>` tag to configure the look and beh
         * __color__ - color of hash text; _DEFAULT_: ___#FFF___
     
         * __background__ - background color of the hash text; _DEFAULT_: ___#00A2FF___
-        
-* __visibility__ - Visibility options:
-    
-    * __title__ - visibility of the title; _DEFAULT_: ___true___
-    
-    * __filename__ - visibility of the file name; _DEFAULT_: ___true___
-    
-    * __progress__ - visibility of the progress bar; _DEFAULT_: ___true___
-    
-    * __preview__ - display the file in new tab for images and pdf on click in the icon; _DEFAULT_: ___true___
-    
-    * __hash__ - visibility of the hash label; _DEFAULT_: ___true___
-
-    * __icon__ - visibility of the drop container icon; _DEFAULT_: ___true___
-    
-    * __controls__ - visibility of the widget controls;
-       
-       * __reset__ - visibility of reset icon; _DEFAULT_: ___true___
        
 * __icons__ - The option to customize widget icons:
     
     * __import__ - The icon URL of the drop container; _DEFAULT_: ___fa-file-import___
     
     * __download__ - The icon URL of the download file container; _DEFAULT_: ___fa-download___
-    
-    * __preview__ - The preview icon URLs;
-       
-       * __common__ - The common icon URL of the preview container; _DEFAULT_: ___fa-file___
        
 * __proxy__ - A proxy to download external files via XMLHttpRequest:
            
@@ -124,7 +94,7 @@ The following attributes can be set on `<div>` tag to configure the look and beh
     
     * __url__ - URL of the file to download
     
-    * __fastDownload__ - download the file as soon as the widget is initialized; _DEFAULT_: ___false___
+    * __fastDownload__ - download the file as soon as the widget is initialized; _DEFAULT_: ___true___
 
 * __observers__ - callback functions called by the widget
 

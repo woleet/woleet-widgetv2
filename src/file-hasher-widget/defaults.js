@@ -5,7 +5,7 @@ function getFileHasherDefaults() {
   return {
     file: {
       url: null,
-      fastDownload: false
+      fastDownload: true
     },
     styles: {
       width: '100%',
@@ -18,7 +18,7 @@ function getFileHasherDefaults() {
       },
       progress: {
         icon: {
-          color: '#000'
+          color: '#FF9494'
         }
       },
       hash: {
