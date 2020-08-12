@@ -274,10 +274,8 @@ class PdfPreview {
   reset() {
     if (this.pdfDoc) {
       // And free the widget memory to avoid memory leaks
-      this.pdfDoc.destroy();
       delete this.typedArray;
-      delete this.pdfDoc._transport.pdfDocument;
-      delete this.pdfDoc._transport._params;
+      delete this.pdfDoc;
     }
     this.delayedFile = null;
     this.pageNum = 1;

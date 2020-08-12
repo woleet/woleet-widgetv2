@@ -30,11 +30,6 @@ function getFileHasherDefaults() {
       import: null,
       download: null
     },
-    visibility: {
-      controls: {
-        reset: false
-      }
-    },
     proxy: {
       url: null,
       enabled: false

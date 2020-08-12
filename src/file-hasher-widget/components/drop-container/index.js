@@ -61,7 +61,7 @@ class DropContainer {
     this.widget.observers.downloadModeInitiatedObserver.subscribe((data) => {
       this.downloadModeInitiated(data);
     });
-    this.widget.observers.downloadingFailedObserver.subscribe((data, code, message) => {
+    this.widget.observers.downloadingFailedObserver.subscribe((data) => {
       this.downloadingFailed(data);
     });
     this.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
@@ -123,7 +123,7 @@ class DropContainer {
     if (!this.hasher) {
       this.delayedFile = file;
 
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve,) => {
         resolve(false);
       });
     }

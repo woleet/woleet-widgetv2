@@ -3,7 +3,6 @@ import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 import PdfPreview from 'FileHasherWidget/components/preview-container/pdf-preview';
-import faRedo from 'Resources/images/redo.svg';
 
 /**
  * PreviewContainer
@@ -16,7 +15,6 @@ class PreviewContainer {
     this.widget = widget;
     this.fileReader = new FileReader();
     this.file = null;
-    this.commomPreviewIcon = null;
     this.pdfPreview = null;
     this.previewFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml', 'image/svg'];
     this.textFileTypes = ['application/pdf'];
@@ -28,12 +26,6 @@ class PreviewContainer {
 
   // Create all container elements and initialize them
   init() {
-    const {
-      visibility: {
-        controls: controlVisibility
-      }
-    } = this.widget.configurator.get();
-
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.code)
     });
@@ -57,17 +49,6 @@ class PreviewContainer {
     // create an element to display PDF files
     this.pdfPreview = new PdfPreview(this.widget);
     this.element.pdf = (this.pdfPreview).get();
-
-    // the control to reset the preview
-    this.element.control = VirtualDOMService.createElement('div', {
-      classes: utils.extractClasses(styles, styleCodes.preview.control.code)
-    });
-
-    if (controlVisibility && controlVisibility.reset) {
-      this.element.control.redo = VirtualDOMService.createElement('img', {
-        classes: utils.extractClasses(styles, styleCodes.preview.control.icon.redo.code)
-      });
-    }
 
     this.element.hide();
 
@@ -103,56 +84,37 @@ class PreviewContainer {
   initializeEvents() {
     const self = this;
 
-    // Display or not the document in new tab when the user click in the widget
-    const enablePreview = self.widget.configurator.get().visibility.preview;
+    // displays the document in new tab
+    self.element.on('click', () => {
+      if (self.file) {
+        const {
+          type: filetype
+        } = self.file;
 
-    // If a parameter is define to true or by default, it displays the document in new tab
-    if (enablePreview === undefined || enablePreview) {
-      self.element.on('click', () => {
-        if (self.file) {
-          const {
-            type: filetype
-          } = self.file;
-
-          if (self.url !== null) {
-            window.open(self.url, '_blank');
-          } else if (this.allowedType.includes(filetype)) {
-            // Check if it's possible to open popup windows
-            utils.adsBlocked((blocked) => {
-              if (!blocked) {
-                // The solution for both IE and Edge
-                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                  window.navigator.msSaveOrOpenBlob(self.file, self.file.name);
-                } else {
-                  // For all other normal browsers
-                  const objUrl = window.URL.createObjectURL(self.file, {
-                    oneTimeOnly: true
-                  });
-                  const tab = window.open();
-                  tab.location.href = objUrl;
-                }
+        if (self.url !== null) {
+          window.open(self.url, '_blank');
+        } else if (this.allowedType.includes(filetype)) {
+          // Check if it's possible to open popup windows
+          utils.adsBlocked((blocked) => {
+            if (!blocked) {
+              // The solution for both IE and Edge
+              if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                window.navigator.msSaveOrOpenBlob(self.file, self.file.name);
               } else {
-                console.log('Disable ads blockers, please!');
+                // For all other normal browsers
+                const objUrl = window.URL.createObjectURL(self.file, {
+                  oneTimeOnly: true
+                });
+                const tab = window.open();
+                tab.location.href = objUrl;
               }
-            });
-          }
+            } else {
+              console.log('Disable ads blockers, please!');
+            }
+          });
         }
-      });
-    } else {
-      // If a parameter is define to false
-      // then change cursor  on hover on the widget to make not clickable/cannot display preview of the file in a tab
-      this.element.attr('style', 'cursor: unset;');
-    }
-
-    // If the reset button was clicked
-    if (this.element.control.redo) {
-      this.element.control.redo.on('click', function (event) {
-        event.stopPropagation();
-        self.widget.observers.widgetResetObserver.broadcast();
-        self.resetFile();
-        return false;
-      });
-    }
+      }
+    });
 
     // If the file was loaded display an image
     self.fileReader.onload = function (file) {
@@ -172,10 +134,6 @@ class PreviewContainer {
         }
       }
     } = this.widget.configurator.getStyles();
-
-    if (this.element.control && this.element.control.redo) {
-      this.element.control.redo.setSvg(faRedo, previewIconColor);
-    }
 
     // Change the button color
     this.element.target().style.setProperty('--file-hasher-widget-control-border-color', previewIconColor);
@@ -235,6 +193,7 @@ class PreviewContainer {
    */
   resetFile() {
     this.file = null;
+    this.element.body.wrapper.hide();
   }
 
   get() {

@@ -1,3 +1,5 @@
+/* eslint-disable no-return-assign */
+
 import utils from './utils';
 
 // The class to make and element hidden
@@ -9,7 +11,7 @@ let hiddenClass = 'hidden';
  * @constructor
  */
 function DOM(element) {
-  if ((!element instanceof Element)) {
+  if ((!(element instanceof Element))) {
     throw new TypeError();
   }
   /**
@@ -34,10 +36,10 @@ function DOM(element) {
   defineProp('attr', (attr, val) => getSelf(val ? target.setAttribute(attr, val) : target.removeAttribute(attr)));
 
   // Remove element's class
-  defineProp('removeClass', (e) => getSelf(Array.isArray(e) ? e.forEach(e => target.classList.remove(e)) : target.classList.remove(e)));
+  defineProp('removeClass', (e) => getSelf(Array.isArray(e) ? e.forEach(elt => target.classList.remove(elt)) : target.classList.remove(e)));
 
   // Add element's classes
-  defineProp('addClass', (e) => getSelf(Array.isArray(e) ? e.forEach(e => target.classList.add(e)) : target.classList.add(e)));
+  defineProp('addClass', (e) => getSelf(Array.isArray(e) ? e.forEach(elt => target.classList.add(elt)) : target.classList.add(e)));
 
   // Define element's text
   defineProp('text', (text, add) => getSelf(add ? target.innerText += text : target.innerText = text));
@@ -77,9 +79,11 @@ function DOM(element) {
     if (typeof props === 'string') return target.style[props];
 
     for (let prop in props) {
-      // noinspection JSUnfilteredForInLoop
-      target.style[prop] = props[prop];
+      if (Object.prototype.hasOwnProperty.call(props, prop)) {
+        target.style[prop] = props[prop];
+      }
     }
+    return null;
   });
 
   // Add the event's listener
@@ -91,9 +95,9 @@ function DOM(element) {
   // Render the element content
   defineProp('render', () => {
     let root = self.target();
-    for (let e in self) {
-      if (self.hasOwnProperty(e)) {
-        const elt = self[e];
+    for (let key in self) {
+      if (Object.prototype.hasOwnProperty.call(self, key)) {
+        const elt = self[key];
         try {
           if (Array.isArray(elt)) {
             elt.forEach((e) => root.appendChild(e.render()));
@@ -101,7 +105,7 @@ function DOM(element) {
             root.appendChild(elt.render());
           }
         } catch (err) {
-          console.warn(e, target, self[e], err);
+          console.warn(key, target, self[key], err);
         }
       }
     }

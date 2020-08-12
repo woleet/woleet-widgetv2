@@ -419,7 +419,7 @@ function getObjectProperty(object, property) {
   let result = false;
 
   for (let key in object) {
-    if (object.hasOwnProperty(key) && key.toLowerCase() === property.toLowerCase()) {
+    if (Object.prototype.hasOwnProperty.call(object, key) && key.toLowerCase() === property.toLowerCase()) {
       result = object[key];
     }
   }
