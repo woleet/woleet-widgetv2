@@ -142,17 +142,6 @@ function s4() {
 }
 
 /**
- * Set a timer for a callback with delay
- * @param callback
- * @param delay
- */
-function setTimer(callback, delay) {
-  if (delay && delay > 0) {
-    setTimeout(callback, delay);
-  }
-}
-
-/**
  * The function converts Blob to File
  * @param blob
  * @param filename
@@ -204,15 +193,6 @@ function isPreviewable(file) {
     type: filetype
   } = file;
   return previewableFileTypes.includes(filetype);
-}
-
-/**
- * Get filename of a URL
- * @param filename
- * @returns {string}
- */
-function getFileExtension(filename) {
-  return filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
 }
 
 /**
@@ -311,18 +291,6 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
 }
 
 /**
- * Bind context to a function
- * @param func
- * @param context
- * @return {function(): *}
- */
-function bind(func, context) {
-  return function () {
-    return func.apply(context, arguments);
-  };
-}
-
-/**
  * Get nested object property by string
  * @param o
  * @param s
@@ -342,28 +310,6 @@ function byString(o, s) {
     }
   }
   return o;
-}
-
-/**
- * Get HTML element from SVG string
- * @param svg
- * @returns {*}
- */
-function svgToHTML(svg) {
-  const div = document.createElement('div');
-  div.innerHTML = svg.trim();
-
-  const element = div.firstChild;
-  const attributes = element.attributes;
-
-  // Return the HTML element and its size params
-  return {
-    el: element,
-    attributes: {
-      width: attributes.width.value + 'px',
-      height: attributes.height.value + 'px'
-    }
-  };
 }
 
 /**
@@ -411,76 +357,6 @@ function getObjectByString(str, value, result = {}) {
 }
 
 /**
- * Check is the property exists in the object
- * @param object
- * @param property
- */
-function getObjectProperty(object, property) {
-  let result = false;
-
-  for (let key in object) {
-    if (Object.prototype.hasOwnProperty.call(object, key) && key.toLowerCase() === property.toLowerCase()) {
-      result = object[key];
-    }
-  }
-
-  return result;
-}
-
-/**
- * Format a date according with given lang
- * @param date
- * @param lang
- * @return {string}
- */
-function formatDate(date, lang) {
-  let options = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric'
-  };
-
-  let timestamp = date;
-
-  if (isNumber(timestamp)) {
-    timestamp = new Date();
-    timestamp.setTime(date);
-  }
-
-  return timestamp.toLocaleDateString(lang, options);
-}
-
-/**
- * Save the object in browser memory as a file
- * @param object
- * @param filename
- * @param type
- */
-function saveObjectAs(object, filename, type = 'application/json;charset=utf-8') {
-  const strObject = JSON.stringify(object, null, 4);
-  const file = new Blob([strObject], {
-    type
-  });
-  // If it's EDGE of IE
-  if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-    window.navigator.msSaveOrOpenBlob(file, filename);
-  } else {
-    const a = document.createElement('a');
-    const url = URL.createObjectURL(file);
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(function () {
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    }, 0);
-  }
-}
-
-/**
  * Check if the argument is Object
  * TODO: move to a separate type service
  */
@@ -488,72 +364,21 @@ function isObject(value) {
   return value && typeof value === 'object' && value.constructor === Object;
 }
 
-/**
- * Return true if a value is really a number
- */
-function isNumber(value) {
-  return typeof value === 'number' && isFinite(value);
-}
-
-/**
- *
- * @param parentWidth
- * @param width
- * @return {number}
- */
-function getWidthDifference(parentWidth, width) {
-  let result = 0;
-
-  if (width.indexOf('%') >= 0) {
-    const widthInPercent = parseFloat(width);
-    result = parentWidth - ((widthInPercent * width) / 100).toFixed(2);
-  } else {
-    const widthInPixel = parseFloat(width);
-    result = parentWidth - widthInPixel;
-  }
-
-  return result;
-}
-
-function toDataUrl(url, callback) {
-  let xhr = new XMLHttpRequest();
-  xhr.onload = function () {
-    let reader = new FileReader();
-    reader.onloadend = function () {
-      callback(reader.result);
-    };
-    reader.readAsDataURL(xhr.response);
-  };
-  xhr.open('GET', url);
-  xhr.responseType = 'blob';
-  xhr.send();
-}
-
 export default {
-  bind,
   byString,
   isObject,
-  isNumber,
-  setTimer,
-  svgToHTML,
   translate,
-  toDataUrl,
   blobToFile,
-  formatDate,
   adsBlocked,
   getUniqueId,
-  saveObjectAs,
   extendObject: mergeDeep,
   defineProperty,
   getHttpRequest,
   extractClasses,
   getFilenameUrl,
-  getFileExtension,
   getUrlToDownload,
   getFilenameSource,
   getObjectByString,
-  getObjectProperty,
-  getWidthDifference,
   parseWidgetAttributeConfiguration,
   isPreviewable
 };
