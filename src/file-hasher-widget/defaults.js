@@ -7,10 +7,10 @@ function getFileHasherDefaults() {
       url: null,
       fastDownload: true
     },
+    visibility: {
+      preview: true
+    },
     styles: {
-      width: '100%',
-      height: '100%',
-      align: 'center',
       preview: {
         icon: {
           color: '#000'

@@ -54,7 +54,6 @@ class PreviewContainer {
 
     this.initializeObservers();
     this.initializeEvents();
-    this.stylize();
   }
 
   /**
@@ -120,23 +119,6 @@ class PreviewContainer {
     self.fileReader.onload = function (file) {
       self.showFilePreview(file);
     };
-  }
-
-  /**
-   * Stylize the container
-   */
-  stylize() {
-    // Select all needful options
-    const {
-      preview: {
-        icon: {
-          color: previewIconColor
-        }
-      }
-    } = this.widget.configurator.getStyles();
-
-    // Change the button color
-    this.element.target().style.setProperty('--file-hasher-widget-control-border-color', previewIconColor);
   }
 
   /**
