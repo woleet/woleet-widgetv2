@@ -11,24 +11,8 @@ function getFileHasherDefaults() {
       preview: true
     },
     styles: {
-      preview: {
-        icon: {
-          color: '#000'
-        }
-      },
-      download: {
-        icon: {
-          color: '#000'
-        }
-      },
-      progress: {
-        icon: {
-          color: '#FF9494'
-        }
-      },
-      hash: {
-        color: '#FFF',
-        background: '#00A2FF'
+      icons: {
+        color: '#000'
       }
     },
     icons: {

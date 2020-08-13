@@ -134,16 +134,14 @@ class PdfPreview {
   stylize() {
     // Select all needful options
     const {
-      preview: {
-        icon: {
-          color: previewIconColor
-        }
+      icons: {
+        color: iconColor
       }
     } = this.widget.configurator.getStyles();
 
-    this.element.control.prev.setSvg(faCaretLeft, previewIconColor);
+    this.element.control.prev.setSvg(faCaretLeft, iconColor);
 
-    this.element.control.next.setSvg(faCaretRight, previewIconColor);
+    this.element.control.next.setSvg(faCaretRight, iconColor);
   }
 
   /**

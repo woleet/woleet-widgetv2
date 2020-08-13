@@ -11,7 +11,11 @@ import constants from 'Common/constants';
  */
 class DownloadContainer {
   constructor(widget) {
-    const { file: { url: provenFileUrl } } = widget.configuration;
+    const {
+      file: {
+        url: provenFileUrl
+      }
+    } = widget.configuration;
 
     this.element = null;
     this.request = null;
@@ -32,7 +36,12 @@ class DownloadContainer {
     };
 
     if (this.url !== null) {
-      let { proxy: { url: proxyUrl, enabled: proxyEnabled } } = widget.configuration;
+      let {
+        proxy: {
+          url: proxyUrl,
+          enabled: proxyEnabled
+        }
+      } = widget.configuration;
 
       if (window.dev) {
         proxyEnabled = true;
@@ -111,22 +120,14 @@ class DownloadContainer {
    * Stylize the container
    */
   stylize() {
-    const self = this;
-    const { icon: { color: iconColor } } = this.widget.configurator.getStyles();
-    const { icons: { download: downloadIcon } } = this.widget.configurator.get();
-
-    if (downloadIcon) {
-      this.downloadIcon = true;
-
-      utils.toDataUrl(downloadIcon, (response) => {
-        self.element.body.icon.setSrc(response);
-      });
-    }
+    const {
+      icons: {
+        color: iconColor
+      }
+    } = this.widget.configurator.getStyles();
 
     // If download icon wasn't customized, display the default one
-    if (!this.downloadIcon) {
-      this.element.body.icon.setSvg(faDownload, iconColor);
-    }
+    this.element.body.icon.setSvg(faDownload, iconColor);
 
     this.element.body.icon.attr('title', utils.translate('click_to_download', this.lang));
   }
