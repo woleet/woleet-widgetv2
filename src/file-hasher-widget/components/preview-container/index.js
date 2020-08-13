@@ -63,6 +63,8 @@ class PreviewContainer {
     const self = this;
 
     self.widget.observers.downloadingFinishedObserver.subscribe((file) => {
+      self.element.show();
+      self.element.body.show();
       self.downloadingFinished(file);
     });
 
