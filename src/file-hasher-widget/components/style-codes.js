@@ -1,18 +1,6 @@
 const styleCodes = {
   // Define all style codes to control uniqueness of class names
   code: ['file_hasher_widget--wrapper'],
-  title: {
-    code: ['title'],
-    container: {
-      code: ['title_container']
-    }
-  },
-  hash: {
-    code: ['hash'],
-    container: {
-      code: ['hash_container']
-    }
-  },
   error: {
     code: ['error'],
     container: {
@@ -23,9 +11,6 @@ const styleCodes = {
     code: ['drop_container'],
     body: {
       code: ['drop_container--body'],
-      icon: {
-        code: ['drop_container--body-icon']
-      },
       input: {
         code: ['drop_container--body-input']
       }
@@ -83,41 +68,6 @@ const styleCodes = {
           code: ['preview_container--control_icon', 'preview_container--control_icon--redo']
         }
       }
-    }
-  },
-  progress: {
-    container: {
-      code: ['progress_bar--container'],
-      wrapper: {
-        code: ['progress_bar--container_wrapper']
-      }
-    },
-    bar: {
-      code: ['progress_bar']
-    },
-    control: {
-      code: ['progress_bar--control'],
-      icon: {
-        code: ['progress_bar--control-icon']
-      }
-    },
-    wrapper: {
-      code: ['progress_bar--wrapper']
-    },
-    body: {
-      code: ['progress_bar--body']
-    },
-    title: {
-      code: ['progress_bar--title'],
-      span: {
-        code: ['progress_bar--title__span']
-      }
-    }
-  },
-  filename: {
-    code: ['filename_container--title'],
-    wrapper: {
-      code: ['filename_container--title_wrapper']
     }
   },
 

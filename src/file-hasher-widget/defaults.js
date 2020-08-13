@@ -16,6 +16,11 @@ function getFileHasherDefaults() {
           color: '#000'
         }
       },
+      download: {
+        icon: {
+          color: '#000'
+        }
+      },
       progress: {
         icon: {
           color: '#FF9494'
