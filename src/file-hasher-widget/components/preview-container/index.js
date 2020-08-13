@@ -83,37 +83,42 @@ class PreviewContainer {
   initializeEvents() {
     const self = this;
 
-    // displays the document in new tab
-    self.element.on('click', () => {
-      if (self.file) {
-        const {
-          type: filetype
-        } = self.file;
+    // Display or not the document in new tab when the user click in the widget
+    const enablePreview = self.widget.configurator.get().visibility.preview;
 
-        if (self.url !== null) {
-          window.open(self.url, '_blank');
-        } else if (this.allowedType.includes(filetype)) {
-          // Check if it's possible to open popup windows
-          utils.adsBlocked((blocked) => {
-            if (!blocked) {
-              // The solution for both IE and Edge
-              if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                window.navigator.msSaveOrOpenBlob(self.file, self.file.name);
+    if (enablePreview) {
+      // displays the document in new tab
+      self.element.on('click', () => {
+        if (self.file) {
+          const {
+            type: filetype
+          } = self.file;
+
+          if (self.url !== null) {
+            window.open(self.url, '_blank');
+          } else if (this.allowedType.includes(filetype)) {
+            // Check if it's possible to open popup windows
+            utils.adsBlocked((blocked) => {
+              if (!blocked) {
+                // The solution for both IE and Edge
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                  window.navigator.msSaveOrOpenBlob(self.file, self.file.name);
+                } else {
+                  // For all other normal browsers
+                  const objUrl = window.URL.createObjectURL(self.file, {
+                    oneTimeOnly: true
+                  });
+                  const tab = window.open();
+                  tab.location.href = objUrl;
+                }
               } else {
-                // For all other normal browsers
-                const objUrl = window.URL.createObjectURL(self.file, {
-                  oneTimeOnly: true
-                });
-                const tab = window.open();
-                tab.location.href = objUrl;
+                console.log('Disable ads blockers, please!');
               }
-            } else {
-              console.log('Disable ads blockers, please!');
-            }
-          });
+            });
+          }
         }
-      }
-    });
+      });
+    }
 
     // If the file was loaded display an image
     self.fileReader.onload = function (file) {
