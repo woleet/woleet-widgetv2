@@ -1,103 +1,12 @@
 {
   "translation": {
-    "select_file_to_hash": "Please select a file",
     "click_to_download": "Click the icon to download the file",
-    "click_to_download_proof_receipt": "Download the Chainpoint proof receipt",
-    "file_downloading_in_progress": "File downloading...",
-    "file_hashing_in_progress": "File hashing...",
-    "file_hashing_done": "File hashing is done",
-    "view_transaction": "View transaction",
-    "claimed_identity": "Claimed identity",
-    "identity_server": "Identity server",
-    "server_certificates": "Server certificates",
-    "identity_url": "Identity URL",
-    "status": "Status",
-    "identity": "Identity",
-    "certified_by": "Certified by",
-    "common_name": "Common name",
-    "country": "Country",
-    "locality": "Locality",
-    "organization": "Organization",
-    "organizational_unit": "Unit",
-    "timestamp": "Timestamp",
-    "confirmations": "Confirmations",
-    "merkleRoot": "Merkle Root",
-    "proofType": "Proof type",
-    "transaction": "Transaction",
-    "bitcoin_proof": "Bitcoin proof",
-    "digital_signature": "Digital Signature",
-    "signed_hash": "Signed hash",
-    "anchored_hash": "Anchored hash",
-    "signature": "Signature",
-    "signee": "Signee",
-    "signed": "Signed on {{date}}",
-    "signed_by": "Signed on {{date}} by {{organization}}",
-    "timestamped": "Timestamped on {{date}}",
-    "timestamped_by": "Timestamped on {{date}} by {{organization}}",
     "errors": {
       "url_not_found": "Url wasn't found",
       "cors": "CORS policy error",
-      "proof_receipt_not_found": "Proof receipt not found",
-      "receipt_json_broken": "The receipt JSON file is invalid",
-      "need_receipt": {
-        "main": "No public proof found",
-        "sub": "No public proof receipt found at Woleet: you must provide one to verify this file"
-      },
-      "file_matched_but_anchor_not_yet_processed": {
-        "main": "No public proof found at Woleet",
-        "sub": "No public proof receipt found at Woleet: you must provide one to verify this file"
-      },
-      "target_hash_mismatch": {
-        "main": "The proof mismatches the file",
-        "sub": "The proof receipt's target hash attribute doesn't match the file hash"
-      },
-      "unable_to_parse_json": {
-        "main": "The proof cannot be parsed",
-        "sub": "The file you provided is not a valid Chainpoint 1 or 2 proof receipt"
-      },
-      "merkle_root_mismatch": {
-        "main": "The proof is corrupted",
-        "sub": "The proof receipt's merkle root attribute does not match the proof result"
-      },
-      "non_sha256_target_proof_element": {
-        "main": "The proof is corrupted",
-        "sub": "An attribute in the proof (parent or left or right) in not a SHA256 hash"
-      },
-      "invalid_parent_in_proof_element": {
-        "main": "The proof is corrupted",
-        "sub": "A parent in the proof is not the SHA256 of its children"
-      },
-      "invalid_receipt_format": {
-        "main": "The proof is corrupted",
-        "sub": "The proof receipt does not conform to the Chainpoint 1 or 2 format"
-      },
-      "invalid_target_proof": {
-        "main": "The proof is corrupted",
-        "sub": "The proof receipt's merkle proof attribute is invalid"
-      },
-      "op_return_mismatches_merkle_root": {
-        "main": "The proof is corrupted",
-        "sub": "The transaction's OP_RETURN mismatches the proof receipt's merkle root"
-      },
       "http_error": {
         "main": "Unexpected HTTP error",
         "sub": "An unexpected HTTP error occurred during the verification process"
-      },
-      "tx_not_found": {
-        "main": "The transaction cannot be found",
-        "sub": "The proof receipt's transaction doesn't exist in the blockchain"
-      },
-      "tx_not_confirmed": {
-        "main": "The transaction is not confirmed",
-        "sub": "The proof receipt's transaction is not yet confirmed by the blockchain"
-      },
-      "invalid_receipt_signature": {
-        "main": "The signature is invalid",
-        "sub": "The proof receipt's signature is not valid for signedHash and pubKey attributes"
-      },
-      "invalid_receipt_signature_format": {
-        "main": "The signature is corrupted",
-        "sub": "The proof receipt does not conform to the Chainpoint 1 or 2 format with signature extension"
       },
       "file_too_big_to_be_hashed_without_worker": {
         "main": "Cannot hash without worker",

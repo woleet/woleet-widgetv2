@@ -28,27 +28,6 @@ function getFileHasherDefaults() {
   };
 }
 
-/**
- * Define the observer mappers for progress container
- */
-function getFileHasherObserverMappers() {
-  return {
-    downloadProgressBar: {
-      processProgressObserver: 'downloadingProgressObserver',
-      processStartedObserver: 'downloadingStartedObserver',
-      processFinishedObserver: 'downloadingFinishedObserver',
-      processCanceledObserver: 'downloadingCanceledObserver'
-    },
-    hashProgressBar: {
-      processProgressObserver: 'hashingProgressObserver',
-      processStartedObserver: 'hashingStartedObserver',
-      processFinishedObserver: 'hashingFinishedObserver',
-      processCanceledObserver: 'hashingCanceledObserver'
-    }
-  };
-}
-
 export {
-  getFileHasherDefaults,
-  getFileHasherObserverMappers
+  getFileHasherDefaults
 };

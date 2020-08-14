@@ -1,103 +1,12 @@
 {
   "translation": {
-    "select_file_to_hash": "Veuillez sélectionner un fichier",
     "click_to_download": "Cliquez sur l’icône pour télécharger le fichier",
-    "click_to_download_proof_receipt": "Téléchargez l’accusé de réception Chainpoint",
-    "file_downloading_in_progress": "Fichier en cours de téléchargement...",
-    "file_hashing_in_progress": "Fichier en cours de hachage...",
-    "file_hashing_done": "Hachage du fichier terminé",
-    "view_transaction": "Afficher la transaction",
-    "claimed_identity": "Identité déclarée",
-    "identity_server": "Serveur d’identités",
-    "server_certificates": "Certificats du serveur",
-    "identity_url": "URL d’identité",
-    "status": "Statut",
-    "identity": "Identité",
-    "certified_by": "Certifié par",
-    "common_name": "Nom usuel",
-    "country": "Pays",
-    "locality": "Localité",
-    "organization": "Organisation",
-    "organizational_unit": "Unité",
-    "timestamp": "Horodatage",
-    "confirmations": "Confirmations",
-    "merkleRoot": "Racine de Merkle",
-    "proofType": "Type de preuve",
-    "transaction": "Transaction",
-    "bitcoin_proof": "Preuve de l’horodatage",
-    "digital_signature": "Preuve de la signature",
-    "signed_hash": "Hachage signé",
-    "anchored_hash": "Hachage ancré",
-    "signature": "Signature",
-    "signee": "Signataire",
-    "signed": "Signé le {{date}}",
-    "signed_by": "Signé le {{date}} par {{organization}}",
-    "timestamped": "Horodaté le {{date}}",
-    "timestamped_by": "Horodaté le {{date}} par {{organization}}",
     "errors": {
       "url_not_found": "URL introuvable",
       "cors": "Erreur concernant la politique CORS",
-      "proof_receipt_not_found": "Accusé de réception introuvable",
-      "receipt_json_broken": "Fichier JSON de réception invalide",
-      "need_receipt": {
-        "main": "Preuve publique introuvable",
-        "sub": "Preuve publique introuvable chez Woleet : vous devez en fournir une pour vérifier ce fichier"
-      },
-      "file_matched_but_anchor_not_yet_processed": {
-        "main": "Preuve publique introuvable chez Woleet",
-        "sub": "Preuve publique introuvable chez Woleet : vous devez en fournir une pour vérifier ce fichier"
-      },
-      "target_hash_mismatch": {
-        "main": "La preuve ne correspond pas au fichier",
-        "sub": "L’attribut de hachage de la cible de l’accusé de réception ne correspond pas au fichier haché"
-      },
-      "unable_to_parse_json": {
-        "main": "Impossible d’analyser la preuve",
-        "sub": "Le fichier que vous avez fourni n’est pas un accusé de réception Chainpoint 1 or 2 valide"
-      },
-      "merkle_root_mismatch": {
-        "main": "Preuve corrompue",
-        "sub": "L’attribut de la racine de Merkel de l’accusé de réception ne correspond pas au résultat de preuve"
-      },
-      "non_sha256_target_proof_element": {
-        "main": "Preuve corrompue",
-        "sub": "Un attribut de la preuve (parent ou gauche ou droit) n’est pas la fonction de hachage SHA256"
-      },
-      "invalid_parent_in_proof_element": {
-        "main": "Preuve corrompue",
-        "sub": "Un parent de la preuve n’est pas le SHA256 de ses enfants"
-      },
-      "invalid_receipt_format": {
-        "main": "Preuve corrompue",
-        "sub": "L’accusé de réception ne correspond pas au format Chainpoint 1 ou 2"
-      },
-      "invalid_target_proof": {
-        "main": "Preuve corrompue",
-        "sub": "Attribut de la preuve de Merkel de l’accusé de réception invalide"
-      },
-      "op_return_mismatches_merkle_root": {
-        "main": "Preuve corrompue",
-        "sub": "Le OP_RETURN de la transaction ne correspond pas à la racine de Merkel de l’accusé de réception"
-      },
       "http_error": {
         "main": "Erreur HTTP inattendue",
         "sub": "Une erreur HTTP inattendue est survenue lors du processus de vérification"
-      },
-      "tx_not_found": {
-        "main": "Transaction introuvable",
-        "sub": "La transaction de l’accusé de réception inexistante dans la chaîne de blocs"
-      },
-      "tx_not_confirmed": {
-        "main": "Transaction non confirmée",
-        "sub": "La transaction de l’accusé de réception n’est pas encore confirmée par la chaîne de blocs"
-      },
-      "invalid_receipt_signature": {
-        "main": "Signature invalide",
-        "sub": "Signature de l’accusé de réception invalide pour les attributs HachageSigné et CléPublique"
-      },
-      "invalid_receipt_signature_format": {
-        "main": "Signature corrompue",
-        "sub": "L’accusé de réception ne correspond pas au format Chainpoint 1 ou 2 avec l’extension de la signature"
       },
       "file_too_big_to_be_hashed_without_worker": {
         "main": "Impossible de hacher sans travailleur",
