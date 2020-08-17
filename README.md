@@ -46,7 +46,7 @@ The following attributes can be set on `<div>` tag to configure the look and beh
 
 * __lang__ - Language of the widget (the browser language is used by default).
  
- Possible values are `'en'` or `'fr'`.
+ Possible values are `'en'`, `'fr'`, `'jp'`, `'ru'` or `'sc'`.
 
 * __id__ - Identifier of the widget.
  
@@ -54,29 +54,9 @@ The following attributes can be set on `<div>` tag to configure the look and beh
 
 * __styles__ - Styling options:
     
-    * __icon__ - Widget icons styles:
-    
-        * __width__ - width of the icons; _DEFAULT_: ___null___
+    * __icons__ - Widget icons styles:
         
         * __color__ - color of the icons; _DEFAULT_: ___#000___
-        
-    * __preview__ - Preview zone styles:
-    
-        * __icon__ - next and previous page icons styles;
-                    
-            * __color__ - color of the icons; _DEFAULT_: ___#000___
-        
-    * __progress__ - Progress bar styles:
-    
-        * __icon__ - cancel icon styles
-            
-            * __color__ - color of the icon; _DEFAULT_: ___#FF9494___
-        
-    * __hash__ - Hash label styles:
-    
-        * __color__ - color of hash text; _DEFAULT_: ___#FFF___
-    
-        * __background__ - background color of the hash text; _DEFAULT_: ___#00A2FF___
        
 * __icons__ - The option to customize widget icons:
     
@@ -131,14 +111,13 @@ There are several ways to configure the widget:
 * All parameters are in the attribute <b>config</b> as JSON object:
 
 ```html
-<div class="file-hasher-widget" config='{"file": {"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}, "styles": {"width": 250}, "observers": {"hashCalculated": "hashCalculated", "fileDownloaded": "fileDownloadedObserver"}}'></div>
+<div class="file-hasher-widget" config='{"file": {"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}, "observers": {"hashCalculated": "hashCalculated", "fileDownloaded": "fileDownloadedObserver"}}'></div>
 ```
 * The parameters are attributes of the HTML element:
 
 ```html
 <div class='file-hasher-widget'
      lang='fr'
-     styles='{"width": 150}'
      file='{"url": "http://pngimg.com/uploads/google/google_PNG19634.png", "fastDownload": true}'
      observers='{"hashCalculated": "test.hashCalculated"}'></div>
  ```
@@ -148,7 +127,6 @@ There are several ways to configure the widget:
 <div class='file-hasher-widget'
      id='file-hasher-widget-de'
      observers-hashCalculated='window.hashCalculated'
-     styles-width='270'
      lang='fr'></div>
 ```
 
@@ -183,289 +161,4 @@ Execute next command to launch the server:
 ```bash
 cd ./server
 node app
-```
-
-# Proof Verifier widget
-
-This widget allows to verify and display a proof independently from Woleet.
-
-## Integration
-
-To integrate one or several widgets in a web page, first insert the following code:
-
-```javascript
-<script>
-  (function (d,s,i,f) {
-    var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
-    js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'proof-verifier-widget', '<url_to_script>/proof-verifier-widget.js'));
-</script>
-```
-You can also integrate it directly like this:
-
-```html
-<script type="text/javascript" id="proof-verifier-widget" src="<url_to_script>/proof-verifier-widget.js"></script>
-```
-
-Note that you need to replace *<url_to_script>* with the actual path of the script.
-
-Then, instantiate the widget by creating a `<div>` tag with a `class="proof-verifier-widget"` attribute:
-
-```html
-<div class="proof-verifier-widget"></div>
-```
-
-## For Angular 2+ integration 
-
-for easy integration: 
-open the angular.json at root of your project and add vidget line 
-
-```json
-{   
-    ....
-    "architect": {
-         "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "vendors*.js",
-                "input": "node_modules/woleet-widgetv2/",
-                "output": "/dist"
-              },
-              {
-                "glob": "pdf*.js",
-                "input": "node_modules/woleet-widgetv2/",
-                "output": "/dist"
-              },
-              {
-                "glob": "woleet*.js",
-                "input": "node_modules/woleet-widgetv2/",
-                "output": "/dist"
-              },
-              {
-                "glob": "file-hasher-widget.js",
-                "input": "node_modules/woleet-widgetv2/",
-                "output": "/dist"
-              },
-              {
-                "glob": "proof-verifier-widget.js",
-                "input": "node_modules/woleet-widgetv2/",
-                "output": "/dist"
-              },
-              {
-                "glob": "*.map",
-                "input": "node_modules/woleet-widgetv2/",
-                "output": "/dist"
-              }
-            ],
-            "styles": [
-              "src/styles.scss",
-              "node_modules/woleet-widgetv2/file-hasher-widget.css",
-            ],
-        ...
-    }
-}
-```
-
-in index.html file add script
-
-```html
-<script src="dist/file-hasher-widget.js" ></script>
-```
-
-Then see the angular 2 example for component implementation 
-
-```
-cd /examples/angular2/file-hasher-widget
-```
-
-
-## Configuration
-
-### Attributes
-
-The following attributes can be set on `<div>` tag to configure the look and behavior of the widget (see [Usage](#Usage) for more details).
-
-* __lang__ - Language of the widget (the browser language is used by default).
- 
- Possible values are `'en'` or `'fr'`.
-
-* __id__ - Identifier of the widget.
- 
- If it isn't defined it is generated by the widget (ex. _proof-verifier-widget-00becbf7-f2d5-37c5-1b48-961c7389c900_).
- 
-* __mode__ - The display mode of the widget. _DEFAULT_: ___icon___
- 
- Possible values are `icon`, `banner`, `panel`
-
-* __styles__ - Styling options:
-    
-    * __zindex__ - z-index of the panel block; _DEFAULT_: ___3___
-    
-    * __width__ - width of the widget; _DEFAULT_: ___600px___
-    
-    * __icon__ - Widget icon styles:
-    
-        * __width__ - width of the icon; _DEFAULT_: ___null___
-        
-        * __height__ - height of the icon; _DEFAULT_: ___null___
-        
-    * __banner__ - Widget banner styles:
-        
-        * __color__ - the banner text color;_DEFAULT_: ___#31708f___
-                
-        * __background__ - the banner background color;_DEFAULT_: ___#dff0d8___
-            
-    * __panel__ - Widget panel styles:
-        
-        * __color__ - the title color of panels;_DEFAULT_: ___#333___
-        
-        * __background__ - the background color of panels;_DEFAULT_: ___#dff0d8___
-        
-        * __header__ - the styles of sections headers:
-                
-            * __color__ - the header color;_DEFAULT_: ___#31708f___
-            
-        * __control__ - the styles of the control section:
-                
-            * __color__ - the link color;_DEFAULT_: ___#31708f___
-            
-            * __background__ - the background color;_DEFAULT_: ___#eee___
-            
-        * __value__ - the value styles:
-        
-            * __color__ - the value color;_DEFAULT_: ___#31708f___
-        
-            * __background__ - the background value color;_DEFAULT_: ___none___
-            
-            * __style__ - the decoration style of the value element
-            
-                * __anchoredHash__ - The styles of the anchored hash value:
-            
-                    * __color__ - the value color of the anchored hash value;_DEFAULT_: ___#31708f___
-                        
-                    * __background__ - the background value color of the anchored hash value;_DEFAULT_: ___#D7E9F6___
-                    
-                * __signedHash__ - The styles of the signed hash value:
-                        
-                     * __color__ - the value color of the the signed hash value;_DEFAULT_: ___#fff___
-                     
-                     * __background__ - the background value color of the signed hash value;_DEFAULT_: ___#31708f___
-        
-* __receipt__ - The receipt file option:
-    
-    * __url__ - the receipt file URL; _DEFAULT_: ___null___
-    
-    * __payload__ - the receipt payload; _DEFAULT_: ___null___
-    
-* __endpoints__ - The endpoint configuration:
-    
-    * __transaction__ - the transaction endpoint; _DEFAULT_: ___https://blockstream.info/tx/$sourceId___
-    
-    Possible params:
-     
-        $sourceId - the transaction hash;
-    
-    * __verification__ - the verification endpoint; _DEFAULT_: ___https://share.woleet.io/api/receipt/verify___
-    
-    * __identification__ - the identification endpoint; _DEFAULT_: ___https://identity.woleet.io/identity___
-       
-* __verification__ - The receipt file verification:
-           
-    * __client__ - The option defined the side of the receipt verification; _DEFAULT_: ___true___
-    
-    If the option is *true*, the the client side (Woleet WebLibs) is used for the verification process.
-    If the option is *false*, receipt is verified by Woleet API (ie. backend side).
-
-### Usage
-
-There are several ways to configure the widget:
-
-* The parameters are attributes of the HTML element:
-
-```html
-<div class='proof-verifier-widget'
-     lang='en'
-     verification='{"server": false}'
-     styles='{"banner": {"width": "450px"}}'
-     receipt='{"url": "https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967"}'
-></div>
- ```
-* If a option has nested options they can be set also as HTML attributes by joining via '-' in lower case:
-
-```html
-<div class='proof-verifier-widget'
-     lang='fr'
-     mode="banner"
-     verification-client="false"
-     styles-banner-width="650px"
-     styles-zIndex="20"
-     receipt-url='https://api.woleet.io/v1/receipt/54ceeadc-e2e2-4d37-b76c-432ddf4b3967'
-></div>
-```
-
-The dynamic initialization is also available. It is realized using the method __init__ of the widget. The an example in the file [examples/proof-verifier-widget-delayed-several-instances-example.html](examples/proof-verifier-widget-delayed-several-instances-example.html)
-
-## Examples
-
-### Embed the widget in a regular web page
-
-See [examples/proof-verifier-widget-example.html](examples/proof-verifier-widget-example.html) for an example about how to insert the widget in a web page.
-
-### Embed the widget in an Angular2+ web app
-
-Go to `examples/angular2/proof-verifier-widget` and read [README.md](examples/angular2/proof-verifier-widget/README.md) to install and run a demo Angular2+ application using the widget.
-
-See [index.html](examples/angular2/proof-verifier-widget/src/index.html) and [app.component.html](examples/angular2/proof-verifier-widget/src/app/app.component.html)
-for an example about how to insert the widget in an Angular2+ application.
-
-An example of a working Angular2+ component using the widget can be found in the [components](examples/angular2/proof-verifier-widget/src/app/file-verifier-widget) directory.
-
-
-## For Angular 2+ integration 
-
-for easy integration: 
-open the angular.json at root of your project and add vidget line 
-
-```json
-{   
-    ....
-    "architect": {
-         "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "vendors*.js",
-                "input": "../../../dist/",
-                "output": "/dist"
-              },
-              {
-                "glob": "woleet*.js",
-                "input": "../../../dist/",
-                "output": "/dist"
-              },
-              {
-                "glob": "proof-verifier-widget.js",
-                "input": "../../../dist/",
-                "output": "/dist"
-              },
-              {
-                "glob": "*.map",
-                "input": "../../../dist/",
-                "output": "/dist"
-              }
-            ],
-            "styles": [
-              "src/styles.scss",
-              "../../../dist/proof-verifier-widget.css"
-            ],
-        ...
-    }
-}
-```
-
-in index.html file add script
-
-```html
-<script src="dist/proof-verifier-widget.js" ></script>
 ```

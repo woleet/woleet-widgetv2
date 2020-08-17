@@ -110,14 +110,14 @@
     <p>Light PDF file: http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf</p>
   </div>
   <div>
-    <div class='file-hasher-widget' styles-icon-width='90px' visibility-title="false" visibility-progress="false"
+    <div class='file-hasher-widget' visibility-title="false" visibility-progress="false"
       visibility-controls-reset="false" id='file-hasher-widget-de'
       observers='{"hashCalculated": "window.hashCalculated", "hashingStarted": "hashingStarted", "hashingCanceled": "hashingCanceled", "hashingProgress": "hashingProgress", "widgetReset": "widgetReset"}'>
     </div>
     <button id="file-hasher-widget-reset-button" onclick="window.fileHasherWidget.reset('file-hasher-widget-de');"
       style="display:none"> Reset </button>
   </div>
-  <div class='file-hasher-widget' lang='fr' styles-color='#FFFFFF' styles-width='100%'
+  <div class='file-hasher-widget' lang='fr' styles-icons-color='#4814ad'
     observers-hashCalculated='test.hashCalculatedObserver'
     observers-downloadingFinished='test.downloadingFinishedObserver'
     observers-downloadingStarted='test.downloadingStartedObserver'
@@ -125,18 +125,16 @@
     observers-downloadingProgress='test.downloadingProgressObserver'
     file='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf", "fastDownload": true}'>
   </div>
-  <div class='file-hasher-widget' styles='{"width": "150px", "progress": {"icon": {"color": "red"}}}'
+  <div class='file-hasher-widget' styles='{"icons": {"color": "red"}}'
     proxy='{"url": "http://localhost:3000/download?url=", "enabled": false}'
     file='{"url": "https://drive.google.com/uc?id=1si1n3q0LH_Wl7m8hO6J85dhia3JSK9da&export=download"}'
-    icons-preview-common="https://image.flaticon.com/icons/svg/874/874984.svg"
     icons-download="https://image.flaticon.com/icons/svg/947/947089.svg"
     icons-import="https://image.flaticon.com/icons/svg/1053/1053324.svg"
     observers='{"hashCalculated": "test.hashCalculatedObserver", "fileDownloaded": "test.downloadingFinishedObserver", "downloadingFailed": "test.downloadingFailedObserver"}'>
   </div>
-  <div class='file-hasher-widget' styles='{"width": "150px", "progress": {"icon": {"color": "red"}}}'
+  <div class='file-hasher-widget' styles='{"icons": {"color": "red"}}'
     proxy='{"url": "http://localhost:3000/download?url=", "enabled": false}'
     file='{"url": "https://drive.google.com/uc?id=1si1n3q0LH_Wl7m8hO6J85dhia3JSK9da&export=download"}'
-    icons-preview-common="https://image.flaticon.com/icons/svg/874/874984.svg"
     icons-download="http://localhost:3000/static/img/svg/flag.svg"
     icons-import="https://cdn.glitch.com/4c9ebeb9-8b9a-4adc-ad0a-238d9ae00bb5%2Fmdn_logo-only_color.svg"
     observers='{"hashCalculated": "test.hashCalculatedObserver", "fileDownloaded": "test.downloadingFinishedObserver", "downloadingFailed": "test.downloadingFailedObserver"}'>
