@@ -6,7 +6,6 @@ import styleCodes from './style-codes';
 import styles from './index.scss';
 
 import DropContainer from 'FileHasherWidget/components/drop-container';
-import ErrorContainer from 'FileHasherWidget/components/error-container';
 import DownloadContainer from 'FileHasherWidget/components/download-container';
 import PreviewContainer from 'FileHasherWidget/components/preview-container';
 
@@ -119,6 +118,9 @@ class FileHasherWidget {
           case 'widgetreset':
             this.observers.widgetResetObserver.subscribe(() => observer(self.widgetId));
             break;
+          case 'errorcaught':
+            this.observers.errorCaughtObserver.subscribe((error) => observer(self.widgetId, error));
+            break;
           default:
             break;
         }
@@ -145,9 +147,6 @@ class FileHasherWidget {
     if (!!(this.provenFileConfiguration.url)) {
       this.element.downloadContainer = (new DownloadContainer(this)).get();
     }
-
-    // Container to display widget errors
-    this.element.errorContainer = (new ErrorContainer(this)).get();
 
     // If the proven file was set, initialize the download mode
     if (!!(this.provenFileConfiguration.url)) {

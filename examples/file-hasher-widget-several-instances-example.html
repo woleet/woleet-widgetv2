@@ -53,6 +53,9 @@
       widgetReset(widgetId) {
         console.log('Widget was reset', widgetId);
         document.getElementById(widgetId + '-reset-button').style.display = 'none';
+      },
+      errorCaught(widgetId, error) {
+        console.error(error);
       }
     };
 
@@ -84,7 +87,7 @@
     style="display:none"> Reset </button>
   <div class='file-hasher-widget' id='file-hasher-widget-fr' lang='fr'
     file='{"url": "http://pngimg.com/uploads/google/google_PNG19634.png", "fastDownload": true}'
-    observers='{"hashCalculated": "test.hashCalculated", "widgetReset": "test.widgetReset"}'></div>
+    observers='{"hashCalculated": "test.hashCalculated", "widgetReset": "test.widgetReset", "errorCaught": "test.errorCaught"}'></div>
   <button id="file-hasher-widget-fr-reset-button" onclick="window.fileHasherWidget.reset('file-hasher-widget-fr');"
     style="display:none"> Reset </button>
   <div class="file-hasher-widget"
