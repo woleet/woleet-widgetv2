@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 
-const previewableFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml', 'image/svg', 'application/pdf'];
+const previewableFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/svg+xml', 'image/svg', 'application/pdf'];
 
 /**
  * Deep merge two objects.

@@ -16,7 +16,7 @@ class PreviewContainer {
     this.fileReader = new FileReader();
     this.file = null;
     this.pdfPreview = null;
-    this.previewFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml', 'image/svg'];
+    this.previewFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/svg+xml', 'image/svg'];
     this.textFileTypes = ['application/pdf'];
     // Merge the extensions to get an array of allowed files
     this.allowedType = this.previewFileTypes.concat(this.textFileTypes);
