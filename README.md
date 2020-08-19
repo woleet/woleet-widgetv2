@@ -153,7 +153,7 @@ An example of a working Angular2+ component using the widget can be found in the
 
 ### Proxy Server
 
-To allow the widget to download a file, the file URL must be proxied or the URL must support CORS.
+To allow the widget to download a file, the file URL must be proxied, or the URL must support CORS.
 
 For testing, a Node.js server is provided. This simple server simply redirect the resource flow to the widget.
 Execute next command to launch the server:

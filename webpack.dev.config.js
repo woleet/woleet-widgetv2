@@ -10,7 +10,7 @@ const port = 9000;
 let widgetLabel = process.env.npm_lifecycle_event || 'hasher';
 
 if (widgetLabel === 'dev') {
-  widgetLabel = 'verifier';
+  widgetLabel = 'hasher';
 }
 
 config.devtool = 'inline-source-map';

@@ -138,7 +138,6 @@
                 "input": "../../../dist/woleet-widgetv2/dist/",
                 "output": "/dist"
               }
-              
             ],
             "styles": [
               "src/styles.scss",
