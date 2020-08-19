@@ -1,11 +1,9 @@
-### JetBrains template
+# macOS
+.DS_Store
+
+# IntelliJ IDEA
 .idea
 *.iml
-### Node
-# Logs
-logs
-npm-debug.log*
-node_modules/
-/package-lock.json
 
-**/*.map
+# Node module and distribution
+node_modules/
