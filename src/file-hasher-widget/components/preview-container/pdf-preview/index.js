@@ -51,7 +51,7 @@ class PdfPreview {
      * TODO: optimize the initialization
      * initialize the worker for pdf.js
      */
-    this.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.228/pdf.worker.js';
+    this.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.worker.js';
     this.reset();
   }
 
