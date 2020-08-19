@@ -5,7 +5,6 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack --config webpack.build.config.js --bail --progress",
     "dev": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js --hot --inline",
-    "verifier": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js --hot --inline",
     "hasher": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js --hot --inline"
   },
   "keywords": [
