@@ -1,18 +1,17 @@
 {
-    "translation": {
-      "click_to_download": "µã»÷Í¼±êÏÂÔØÎÄ¼þ",
-      "errors": {
-        "url_not_found": "UrlµØÖ·Î´ÕÒµ½",
-        "cors": "¿çÓò×ÊÔ´¹²Ïí£¨CORS£©Õþ²ß´íÎó",
-        "http_error": {
-          "main": "ÒâÍâµÄHTTP´íÎó",
-          "sub": "ÑéÖ¤¹ý³ÌÖÐ·¢ÉúÁËÒâÍâµÄHTTP´íÎó"
-        },
-        "file_too_big_to_be_hashed_without_worker": {
-          "main": "Ã»ÓÐÈÎÎñ¶ÔÏó£¬²»ÄÜ½øÐÐÉ¢ÁÐ",
-          "sub": "ÎÄ¼þÌ«´ó£¬Ã»ÓÐÈÎÎñ¶ÔÏóÎÞ·¨½øÐÐÉ¢ÁÐ"
-        }
+  "translation": {
+    "click_to_download": "µã»÷Í¼±êÏÂÔØÎÄ¼þ",
+    "errors": {
+      "url_not_found": "UrlµØÖ·Î´ÕÒµ½",
+      "cors": "¿çÓò×ÊÔ´¹²Ïí£¨CORS£©Õþ²ß´íÎó",
+      "http_error": {
+        "main": "ÒâÍâµÄHTTP´íÎó",
+        "sub": "ÑéÖ¤¹ý³ÌÖÐ·¢ÉúÁËÒâÍâµÄHTTP´íÎó"
+      },
+      "file_too_big_to_be_hashed_without_worker": {
+        "main": "Ã»ÓÐÈÎÎñ¶ÔÏó£¬²»ÄÜ½øÐÐÉ¢ÁÐ",
+        "sub": "ÎÄ¼þÌ«´ó£¬Ã»ÓÐÈÎÎñ¶ÔÏóÎÞ·¨½øÐÐÉ¢ÁÐ"
       }
     }
   }
-  
+}
