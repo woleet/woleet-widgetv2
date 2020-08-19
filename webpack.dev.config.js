@@ -37,6 +37,7 @@ config.devServer = {
     chunk: false
   }
 };
+
 /**
  * Add development plugins
  */
