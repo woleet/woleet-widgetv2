@@ -1,10 +1,6 @@
 import constants from 'Common/constants';
-import {
-  getDefaultLanguage
-} from 'Common/services/configurator';
-import {
-  getFileHasherDefaults
-} from 'FileHasherWidget/defaults';
+import { getDefaultLanguage } from 'Common/services/configurator';
+import { getFileHasherDefaults } from 'FileHasherWidget/defaults';
 import utils from 'Common/services/utils';
 import widgetLogger from 'Common/services/logger';
 import resources from 'Resources/locales';
@@ -25,7 +21,6 @@ function widget(window, document) {
 
   // Grab the object created during the widget creation
   const widgetElementCollection = document.getElementsByClassName(widgetClassName);
-
   if (!widgetElementCollection.length === 0) {
     widgetLogger.error('The widget elements were not found');
   }
@@ -63,6 +58,7 @@ function widget(window, document) {
  * Load widget styles, libraries and dependencies
  */
 function loadDependencies() {
+
   // Load the widget styles
   const sourceLink = addCssLink();
 
