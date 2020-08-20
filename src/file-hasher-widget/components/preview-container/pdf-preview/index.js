@@ -5,7 +5,6 @@ import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 import faCaretLeft from 'Resources/images/caret-left.svg';
 import faCaretRight from 'Resources/images/caret-right.svg';
-import pdfjsWorker from 'pdfjs-dist';
 
 /**
  * PdfPreview
@@ -15,7 +14,6 @@ class PdfPreview {
   constructor(widget) {
     const self = this;
     this.element = null;
-    // An instance of the library pdf.js
     this.pdfjsLib = null;
     this.widget = widget;
     // To save the file if it was loaded before the library is initialized
@@ -48,11 +46,8 @@ class PdfPreview {
   }
 
   loaded() {
-    /**
-     * TODO: optimize the initialization
-     * initialize the worker for pdf.js
-     */
-    this.pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+    // Initialize the worker for pdf.js
+    this.pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js';
     this.reset();
   }
 
