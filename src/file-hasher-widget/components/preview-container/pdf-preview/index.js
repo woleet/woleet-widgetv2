@@ -5,6 +5,7 @@ import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 import faCaretLeft from 'Resources/images/caret-left.svg';
 import faCaretRight from 'Resources/images/caret-right.svg';
+import pdfjsWorker from 'pdfjs-dist';
 
 /**
  * PdfPreview
@@ -51,7 +52,7 @@ class PdfPreview {
      * TODO: optimize the initialization
      * initialize the worker for pdf.js
      */
-    this.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.worker.js';
+    this.pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
     this.reset();
   }
 
@@ -99,7 +100,8 @@ class PdfPreview {
       delete this.result;
 
       // Initialize the instance of pdf.js once the file is available
-      self.pdfjsLib.getDocument(self.typedArray).promise
+      self.pdfjsLib.getDocument(self.typedArray)
+        .promise
         .then((pdf) => {
           self.pdfDoc = pdf;
           self.pageCount = self.pdfDoc.numPages;

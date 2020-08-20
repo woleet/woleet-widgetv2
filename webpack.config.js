@@ -29,13 +29,22 @@ module.exports = (resourcePath = '') => {
 
   const modules = {
     rules: [
-      { test: /locales/, loader: '@alienfast/i18next-loader' },
+      {
+        test: /locales/,
+        loader: '@alienfast/i18next-loader'
+      },
       {
         test: /\.(css|scss)$/i,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
-            { loader: 'css-loader', options: { modules: true, localIdentName: '[hash:base64:5]--[local]' } },
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[hash:base64:5]--[local]'
+              }
+            },
             { loader: 'sass-loader' }
           ]
         })
@@ -48,15 +57,40 @@ module.exports = (resourcePath = '') => {
       {
         test: /\.js$/i,
         exclude: [/node_modules/, /dist/],
-        use: { loader: 'babel-loader', options: { presets: [['@babel/env', { targets: { browsers: ['ie 6', 'safari 7'] } }]] } }
+        use: {
+          loader: 'babel-loader',
+          options: { presets: [['@babel/env', { targets: { browsers: ['ie 6', 'safari 7'] } }]] }
+        }
       }
     ]
   };
 
   const plugins = [
-    new ExtractTextPlugin({ filename: (getPath) => { return getPath(resourcePath + '[name].css'); } }),
-    new CopyWebpackPlugin([{ from: 'node_modules/@woleet/woleet-weblibs/dist/*.min.js', to: resourcePath, flatten: true }]),
-    new CopyWebpackPlugin([{ from: 'node_modules/pdfjs-dist/build/pdf.worker.min.js', to: resourcePath, flatten: true }]),
+    new ExtractTextPlugin({
+      filename: (getPath) => {
+        return getPath(resourcePath + '[name].css');
+      }
+    }),
+
+    // Woleet WebLibs need its worker, which requires the crypto lib
+    new CopyWebpackPlugin([{
+      from: 'node_modules/@woleet/woleet-weblibs/dist/woleet-hashfile-worker.min.js',
+      to: resourcePath,
+      flatten: true
+    }]),
+    new CopyWebpackPlugin([{
+      from: 'node_modules/@woleet/woleet-weblibs/dist/woleet-crypto.min.js',
+      to: resourcePath,
+      flatten: true
+    }]),
+
+    // PDF.js needs its worker
+    new CopyWebpackPlugin([{
+      from: 'node_modules/pdfjs-dist/build/pdf.worker.min.js',
+      to: resourcePath,
+      flatten: true
+    }]),
+
     new webpack.LoaderOptionsPlugin({
       options: {
         handlebarsLoader: {}
@@ -85,7 +119,8 @@ module.exports = (resourcePath = '') => {
                 content: sourceMap
               };
             }
-            return require('terser').minify(file, uglifyJsOptions);
+            return require('terser')
+              .minify(file, uglifyJsOptions);
           }
         })
       ]
