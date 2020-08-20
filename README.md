@@ -140,15 +140,6 @@ You can dynamically reset the widget while keeping the same configuration with t
 
 See [examples/file-hasher-widget-example.html](examples/file-hasher-widget-example.html) for an example about how to insert the widget in a web page.
 
-### Embed the widget in an Angular2+ web app
-
-Go to `examples/angular2/file-hasher-widget` and read [README.md](examples/angular2/file-hasher-widget/README.md) to install and run a demo Angular2+ application using the widget.
-
-See [index.html](examples/angular2/file-hasher-widget/src/index.html) and [app.component.html](examples/angular2/file-hasher-widget/src/app/app.component.html)
-for an example about how to insert the widget in an Angular2+ application.
-
-An example of a working Angular2+ component using the widget can be found in the [components](examples/angular2/file-hasher-widget/src/app/components) directory.
-
 ## Development
 
 ### Proxy Server

@@ -4,9 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Woleet File Hasher widget</title>
-</head>
 
-<body>
   <script>
     (function (d, s, i, f) {
       var js = d.createElement(s);
@@ -16,16 +14,13 @@
       js.async = 1;
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'file-hasher-widget', '../dist/file-hasher-widget.js'));
-
-    function downloadingFailedObserver(widgetId, error, code, message) {
-      console.log('FAILED', widgetId, error, code, message);
-    }
   </script>
-  <div style="width: 100%;height: 350px;border: 1px solid black">
-    <div class="file-hasher-widget"
-      file='{"url": "https://archive.org/download/Mahabharata_201712/6_Mahabharat", "fastDownload": true}'
-      observers='{"downloadingFailed": "downloadingFailedObserver"}' lang="fr"></div>
-  </div>
+</head>
+
+<body>
+
+<div style="width: 100%; height: 100%" class="file-hasher-widget"></div>
+
 </body>
 
 </html>
