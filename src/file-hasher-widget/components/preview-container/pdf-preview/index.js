@@ -19,10 +19,8 @@ class PdfPreview {
     this.typedArray = null;
     this.fileReader = new FileReader();
 
-    window.pdfJs = pdfjsLib;
-
-    // PDF.js library requires its worker source to be set
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js';
+    // Set PDF.js library worker source
+    pdfjsLib.GlobalWorkerOptions.workerSrc = (window.hasher && window.hasher.pdfjsLibworkerScriptPath) || 'pdf.worker.min.js';
     this.reset();
 
     this.init();

@@ -5,96 +5,99 @@
   <meta charset="UTF-8">
   <title>Woleet File Hasher widget</title>
   <style>
-    .file-hasher-widget {
-      padding: 20px 0;
-      border: 1px solid black;
-      height: 200px;
-    }
+      .file-hasher-widget {
+          padding: 20px 0;
+          border: 1px solid black;
+          height: 200px;
+      }
 
-    .file-hasher-widget>div {
-      margin: 0 auto;
-    }
+      .file-hasher-widget > div {
+          margin: 0 auto;
+      }
 
-    .log {
-      max-width: 500px;
-      margin: 20px auto;
-      padding: 10px 20px;
-      text-align: justify;
-      color: white;
-      font-size: 18px;
-    }
+      .log {
+          max-width: 500px;
+          margin: 20px auto;
+          padding: 10px 20px;
+          text-align: justify;
+          color: white;
+          font-size: 18px;
+      }
 
-    .download-logging {
-      background: #0074D9;
-    }
+      .download-logging {
+          background: #0074D9;
+      }
 
-    .hash-logging {
-      background: #2ECC40;
-    }
+      .hash-logging {
+          background: #2ECC40;
+      }
   </style>
 </head>
 
 <body>
-  <script>
-    var test = {
-      hashCalculated: function (widgetId, hash) {
-        var logElement = document.getElementById('hash-logging');
-        var logElementItem = document.createElement('p');
-        logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id  "' + widgetId + '"';
-        logElement.appendChild(logElementItem);
-        document.getElementById(widgetId + '-reset-button').style.display = 'block';
-      },
-      fileDownloadedObserver: function (widgetId, file) {
-        var logElement = document.getElementById('download-logging');
-        var logElementItem = document.createElement('p');
-        logElementItem.innerHTML = 'Deep observer: "' + file.name + '" downloaded by widget id  "' + widgetId + '"';
-        logElement.appendChild(logElementItem);
-      },
-      widgetReset(widgetId) {
-        console.log('Widget was reset', widgetId);
-        document.getElementById(widgetId + '-reset-button').style.display = 'none';
-      },
-      errorCaught(widgetId, error) {
-        console.error(error);
-      }
-    };
-
-    function hashCalculated(widgetId, hash) {
+<script>
+  var test = {
+    hashCalculated: function (widgetId, hash) {
       var logElement = document.getElementById('hash-logging');
       var logElementItem = document.createElement('p');
-      logElementItem.innerHTML = 'Window observer: Hash "' + hash + '" computed by widget id "' + widgetId + '"';
+      logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id  "' + widgetId + '"';
       logElement.appendChild(logElementItem);
       document.getElementById(widgetId + '-reset-button').style.display = 'block';
-    }
-
-    function widgetReset(widgetId) {
+    },
+    fileDownloadedObserver: function (widgetId, file) {
+      var logElement = document.getElementById('download-logging');
+      var logElementItem = document.createElement('p');
+      logElementItem.innerHTML = 'Deep observer: "' + file.name + '" downloaded by widget id  "' + widgetId + '"';
+      logElement.appendChild(logElementItem);
+    },
+    widgetReset(widgetId) {
       console.log('Widget was reset', widgetId);
       document.getElementById(widgetId + '-reset-button').style.display = 'none';
+    },
+    errorCaught(widgetId, error) {
+      console.error(error);
     }
+  };
 
-    (function (d, s, i, f) {
-      var js = d.createElement(s);
-      var fjs = d.getElementsByTagName(s)[0];
-      js.id = i;
-      js.src = f;
-      js.async = 1;
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'file-hasher-widget', '../dist/file-hasher-widget.js'));
-  </script>
-  <div class='file-hasher-widget' id='file-hasher-widget-de' observers-hashCalculated='window.hashCalculated'
-    observers-widgetReset='window.widgetReset'></div>
-  <button id="file-hasher-widget-de-reset-button" onclick="window.fileHasherWidget.reset('file-hasher-widget-de');"
-    style="display:none"> Reset </button>
-  <div class='file-hasher-widget' id='file-hasher-widget-fr' lang='fr'
-    file='{"url": "http://pngimg.com/uploads/google/google_PNG19634.png", "fastDownload": true}'
-    observers='{"hashCalculated": "test.hashCalculated", "widgetReset": "test.widgetReset", "errorCaught": "test.errorCaught"}'></div>
-  <button id="file-hasher-widget-fr-reset-button" onclick="window.fileHasherWidget.reset('file-hasher-widget-fr');"
-    style="display:none"> Reset </button>
-  <div class="file-hasher-widget"
-    config='{"file": {"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}, "observers": {"hashCalculated": "test.hashCalculated", "downloadingFinished": "test.fileDownloadedObserver"}}'>
-  </div>
-  <div class="log download-logging" id="download-logging"></div>
-  <div class="log hash-logging" id="hash-logging"></div>
+  function hashCalculated(widgetId, hash) {
+    var logElement = document.getElementById('hash-logging');
+    var logElementItem = document.createElement('p');
+    logElementItem.innerHTML = 'Window observer: Hash "' + hash + '" computed by widget id "' + widgetId + '"';
+    logElement.appendChild(logElementItem);
+    document.getElementById(widgetId + '-reset-button').style.display = 'block';
+  }
+
+  function widgetReset(widgetId) {
+    console.log('Widget was reset', widgetId);
+    document.getElementById(widgetId + '-reset-button').style.display = 'none';
+  }
+
+  (function (d, s, i, f) {
+    var js = d.createElement(s);
+    var fjs = d.getElementsByTagName(s)[0];
+    js.id = i;
+    js.src = f;
+    js.async = 1;
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'file-hasher-widget', '../dist/file-hasher-widget.js'));
+  hasher = { pdfjsLibworkerScriptPath: '../dist/pdf.worker.min.js' };
+</script>
+<div class='file-hasher-widget' id='file-hasher-widget-de' observers-hashCalculated='window.hashCalculated'
+  observers-widgetReset='window.widgetReset'></div>
+<button id="file-hasher-widget-de-reset-button" onclick="window.fileHasherWidget.reset('file-hasher-widget-de');"
+  style="display:none"> Reset
+</button>
+<div class='file-hasher-widget' id='file-hasher-widget-fr' lang='fr'
+  file='{"url": "http://pngimg.com/uploads/google/google_PNG19634.png", "fastDownload": true}'
+  observers='{"hashCalculated": "test.hashCalculated", "widgetReset": "test.widgetReset", "errorCaught": "test.errorCaught"}'></div>
+<button id="file-hasher-widget-fr-reset-button" onclick="window.fileHasherWidget.reset('file-hasher-widget-fr');"
+  style="display:none"> Reset
+</button>
+<div class="file-hasher-widget"
+  config='{"file": {"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}, "observers": {"hashCalculated": "test.hashCalculated", "downloadingFinished": "test.fileDownloadedObserver"}}'>
+</div>
+<div class="log download-logging" id="download-logging"></div>
+<div class="log hash-logging" id="hash-logging"></div>
 </body>
 
 </html>
