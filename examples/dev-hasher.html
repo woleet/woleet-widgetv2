@@ -4,143 +4,143 @@
 <head>
   <meta charset="UTF-8">
   <title>File Hasher widget: development page</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
   <style>
-    .file-hasher-widget {
-      width: 500px;
-      height: 400px;
-      border: 1px solid black;
-      margin: 20px;
-    }
+      .file-hasher-widget {
+          width: 500px;
+          height: 400px;
+          border: 1px solid black;
+          margin: 20px;
+      }
 
-    .file-hasher-widget>div {
-      margin: 0 auto;
-    }
+      .file-hasher-widget > div {
+          margin: 0 auto;
+      }
 
-    .log {
-      max-width: 500px;
-      margin: 20px auto;
-      padding: 10px 20px;
-      text-align: justify;
-      color: white;
-      font-size: 18px;
-    }
+      .log {
+          max-width: 500px;
+          margin: 20px auto;
+          padding: 10px 20px;
+          text-align: justify;
+          color: white;
+          font-size: 18px;
+      }
 
-    .download-logging {
-      background: #0074D9;
-    }
+      .download-logging {
+          background: #0074D9;
+      }
 
-    .hash-logging {
-      background: #2ECC40;
-    }
+      .hash-logging {
+          background: #2ECC40;
+      }
   </style>
 </head>
 
 <body>
-  <script>
-    var dev = true;
-    var canReset = false;
+<script>
+  var dev = true;
+  var canReset = false;
 
-    var test = {
-      hashCalculatedObserver: function (widgetId, hash) {
-        var logElement = document.getElementById('hash-logging');
-        var logElementItem = document.createElement('p');
-        logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id  "' + widgetId + '"';
-        logElement.appendChild(logElementItem);
-      },
-      downloadingFinishedObserver: function (widgetId, file) {
-        var logElement = document.getElementById('download-logging');
-        var logElementItem = document.createElement('p');
-        logElementItem.innerHTML = 'Deep observer: File "' + file.name + '" downloaded by widget id  "' + widgetId +
-          '"';
-        logElement.appendChild(logElementItem);
-      },
-      downloadingStartedObserver: function (widgetId, filename) {
-        console.log('started', widgetId, filename);
-      },
-      downloadingCanceledObserver: function (widgetId) {
-        console.log('Canceled', widgetId);
-      },
-      downloadingProgressObserver: function (widgetId, progress) {
-        console.log('progress', widgetId, progress);
-      },
-      downloadingFailedObserver: function (widgetId, error, code, message) {
-        console.log('FAILED', widgetId, error, code, message);
-      }
-    };
-
-    function hashCalculated(widgetId, hash, file) {
+  var test = {
+    hashCalculatedObserver: function (widgetId, hash) {
       var logElement = document.getElementById('hash-logging');
       var logElementItem = document.createElement('p');
-
-      logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id "' + widgetId + '"';
+      logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id  "' + widgetId + '"';
       logElement.appendChild(logElementItem);
-      document.getElementById('file-hasher-widget-reset-button').style.display = 'block';
+    },
+    downloadingFinishedObserver: function (widgetId, file) {
+      var logElement = document.getElementById('download-logging');
+      var logElementItem = document.createElement('p');
+      logElementItem.innerHTML = 'Deep observer: File "' + file.name + '" downloaded by widget id  "' + widgetId +
+        '"';
+      logElement.appendChild(logElementItem);
+    },
+    downloadingStartedObserver: function (widgetId, filename) {
+      console.log('started', widgetId, filename);
+    },
+    downloadingCanceledObserver: function (widgetId) {
+      console.log('Canceled', widgetId);
+    },
+    downloadingProgressObserver: function (widgetId, progress) {
+      console.log('progress', widgetId, progress);
+    },
+    downloadingFailedObserver: function (widgetId, error, code, message) {
+      console.log('FAILED', widgetId, error, code, message);
     }
+  };
 
-    function hashingStarted(widgetId, file, isPreviewable) {
-      console.log('Hashing started', widgetId, file, isPreviewable);
-    }
+  function hashCalculated(widgetId, hash, file) {
+    var logElement = document.getElementById('hash-logging');
+    var logElementItem = document.createElement('p');
 
-    function hashingCanceled(widgetId) {
-      console.log('Hashing canceled', widgetId);
-    }
+    logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id "' + widgetId + '"';
+    logElement.appendChild(logElementItem);
+    document.getElementById('file-hasher-widget-reset-button').style.display = 'block';
+  }
 
-    function hashingProgress(widgetId, progress) {
-      console.log('Hashing progress', widgetId, progress);
-    }
+  function hashingStarted(widgetId, file, isPreviewable) {
+    console.log('Hashing started', widgetId, file, isPreviewable);
+  }
 
-    function widgetReset(widgetId) {
-      console.log('Widget was reset', widgetId);
-      document.getElementById('file-hasher-widget-reset-button').style.display = 'none';
-    }
-    (function (d, s, i, f) {
-      var js = d.createElement(s);
-      var fjs = d.getElementsByTagName(s)[0];
-      js.id = i;
-      js.src = f;
-      js.async = 1;
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'file-hasher-widget', '../dist/file-hasher-widget.js'));
-  </script>
-  <div>
-    <p>Big PDF file: https://archive.org/download/Mahabharata_201712/6_Mahabharata.pdf</p>
-    <p>Light PDF file: http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf</p>
+  function hashingCanceled(widgetId) {
+    console.log('Hashing canceled', widgetId);
+  }
+
+  function hashingProgress(widgetId, progress) {
+    console.log('Hashing progress', widgetId, progress);
+  }
+
+  function widgetReset(widgetId) {
+    console.log('Widget was reset', widgetId);
+    document.getElementById('file-hasher-widget-reset-button').style.display = 'none';
+  }
+
+  (function (d, s, i, f) {
+    var js = d.createElement(s);
+    var fjs = d.getElementsByTagName(s)[0];
+    js.id = i;
+    js.src = f;
+    js.async = 1;
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'file-hasher-widget', '../dist/file-hasher-widget.js'));
+</script>
+<div>
+  <p>Big PDF file: https://archive.org/download/Mahabharata_201712/6_Mahabharata.pdf</p>
+  <p>Light PDF file: http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf</p>
+</div>
+<div>
+  <div class='file-hasher-widget' visibility-title="false" visibility-progress="false"
+    visibility-controls-reset="false" id='file-hasher-widget-de'
+    observers='{"hashCalculated": "window.hashCalculated", "hashingStarted": "hashingStarted", "hashingCanceled": "hashingCanceled", "hashingProgress": "hashingProgress", "widgetReset": "widgetReset"}'>
   </div>
-  <div>
-    <div class='file-hasher-widget' visibility-title="false" visibility-progress="false"
-      visibility-controls-reset="false" id='file-hasher-widget-de'
-      observers='{"hashCalculated": "window.hashCalculated", "hashingStarted": "hashingStarted", "hashingCanceled": "hashingCanceled", "hashingProgress": "hashingProgress", "widgetReset": "widgetReset"}'>
-    </div>
-    <button id="file-hasher-widget-reset-button" onclick="window.fileHasherWidget.reset('file-hasher-widget-de');"
-      style="display:none"> Reset </button>
-  </div>
-  <div class='file-hasher-widget' lang='fr' styles-icons-color='#4814ad'
-    observers-hashCalculated='test.hashCalculatedObserver'
-    observers-downloadingFinished='test.downloadingFinishedObserver'
-    observers-downloadingStarted='test.downloadingStartedObserver'
-    observers-downloadingCanceled='test.downloadingCanceledObserver'
-    observers-downloadingProgress='test.downloadingProgressObserver'
-    file='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf", "fastDownload": true}'>
-  </div>
-  <div class='file-hasher-widget' styles='{"icons": {"color": "red"}}'
-    proxy='{"url": "http://localhost:3000/download?url=", "enabled": false}'
-    file='{"url": "https://drive.google.com/uc?id=1si1n3q0LH_Wl7m8hO6J85dhia3JSK9da&export=download"}'
-    icons-download="https://image.flaticon.com/icons/svg/947/947089.svg"
-    icons-import="https://image.flaticon.com/icons/svg/1053/1053324.svg"
-    observers='{"hashCalculated": "test.hashCalculatedObserver", "fileDownloaded": "test.downloadingFinishedObserver", "downloadingFailed": "test.downloadingFailedObserver"}'>
-  </div>
-  <div class='file-hasher-widget' styles='{"icons": {"color": "red"}}'
-    proxy='{"url": "http://localhost:3000/download?url=", "enabled": false}'
-    file='{"url": "https://drive.google.com/uc?id=1si1n3q0LH_Wl7m8hO6J85dhia3JSK9da&export=download"}'
-    icons-download="http://localhost:3000/static/img/svg/flag.svg"
-    icons-import="https://cdn.glitch.com/4c9ebeb9-8b9a-4adc-ad0a-238d9ae00bb5%2Fmdn_logo-only_color.svg"
-    observers='{"hashCalculated": "test.hashCalculatedObserver", "fileDownloaded": "test.downloadingFinishedObserver", "downloadingFailed": "test.downloadingFailedObserver"}'>
-  </div>
-  <div class="log download-logging" id="download-logging"></div>
-  <div class="log hash-logging" id="hash-logging"></div>
+  <button id="file-hasher-widget-reset-button" onclick="window.fileHasherWidget.reset('file-hasher-widget-de');"
+    style="display:none"> Reset
+  </button>
+</div>
+<div class='file-hasher-widget' lang='fr' styles-icons-color='#4814ad'
+  observers-hashCalculated='test.hashCalculatedObserver'
+  observers-downloadingFinished='test.downloadingFinishedObserver'
+  observers-downloadingStarted='test.downloadingStartedObserver'
+  observers-downloadingCanceled='test.downloadingCanceledObserver'
+  observers-downloadingProgress='test.downloadingProgressObserver'
+  file='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf", "fastDownload": true}'>
+</div>
+<div class='file-hasher-widget' styles='{"icons": {"color": "red"}}'
+  proxy='{"url": "http://localhost:3000/download?url=", "enabled": false}'
+  file='{"url": "https://drive.google.com/uc?id=1si1n3q0LH_Wl7m8hO6J85dhia3JSK9da&export=download"}'
+  icons-download="https://image.flaticon.com/icons/svg/947/947089.svg"
+  icons-import="https://image.flaticon.com/icons/svg/1053/1053324.svg"
+  observers='{"hashCalculated": "test.hashCalculatedObserver", "fileDownloaded": "test.downloadingFinishedObserver", "downloadingFailed": "test.downloadingFailedObserver"}'>
+</div>
+<div class='file-hasher-widget' styles='{"icons": {"color": "red"}}'
+  proxy='{"url": "http://localhost:3000/download?url=", "enabled": false}'
+  file='{"url": "https://drive.google.com/uc?id=1si1n3q0LH_Wl7m8hO6J85dhia3JSK9da&export=download"}'
+  icons-download="http://localhost:3000/static/img/svg/flag.svg"
+  icons-import="https://cdn.glitch.com/4c9ebeb9-8b9a-4adc-ad0a-238d9ae00bb5%2Fmdn_logo-only_color.svg"
+  observers='{"hashCalculated": "test.hashCalculatedObserver", "fileDownloaded": "test.downloadingFinishedObserver", "downloadingFailed": "test.downloadingFailedObserver"}'>
+</div>
+<div class="log download-logging" id="download-logging"></div>
+<div class="log hash-logging" id="hash-logging"></div>
 </body>
 
 </html>
