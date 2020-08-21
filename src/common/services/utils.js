@@ -1,5 +1,3 @@
-import i18next from 'i18next';
-
 const previewableFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/svg+xml', 'image/svg', 'application/pdf'];
 
 /**
@@ -57,22 +55,6 @@ function extractClasses(styles, classCodes) {
   return Object.keys(styles)
     .map(classCode => classCodes.indexOf(classCode) !== -1 ? styles[classCode] : '')
     .filter(className => className && className.length > 0);
-}
-
-/**
- * Translate the phrase to lang
- * @param code
- * @param lang
- * @param options
- * @returns {string | * | *|*}
- */
-function translate(code, lang = '', options = {}) {
-  if (i18next.t) {
-    return i18next.t(code, mergeDeep({
-      lng: lang
-    }, options));
-  }
-  return code;
 }
 
 /**
@@ -367,7 +349,6 @@ function isObject(value) {
 export default {
   byString,
   isObject,
-  translate,
   blobToFile,
   adsBlocked,
   getUniqueId,

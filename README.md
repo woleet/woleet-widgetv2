@@ -73,8 +73,6 @@ The following attributes can be set on `<div>` tag to configure the look and beh
 * __file__ - Downloaded file options:
     
     * __url__ - URL of the file to download
-    
-    * __fastDownload__ - download the file as soon as the widget is initialized; _DEFAULT_: ___true___
 
 * __observers__ - callback functions called by the widget
 
@@ -118,7 +116,7 @@ There are several ways to configure the widget:
 ```html
 <div class='file-hasher-widget'
      lang='fr'
-     file='{"url": "http://pngimg.com/uploads/google/google_PNG19634.png", "fastDownload": true}'
+     file='{"url": "http://pngimg.com/uploads/google/google_PNG19634.png"}'
      observers='{"hashCalculated": "test.hashCalculated"}'></div>
  ```
 * If a option has nested options they can be set also as HTML attributes by joining via '-' in lower case:

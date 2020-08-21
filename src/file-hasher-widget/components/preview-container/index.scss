@@ -11,17 +11,6 @@
       display: contents;
     }
     &--body {
-      &-icon {
-        display: inline-block;
-        cursor: pointer;
-        height: 100%;
-        width: 100%;
-        object-fit: contain;
-        svg {
-          width: 100% !important;
-          height: 100%;
-        }
-      }
 
       &-image {
         width: 100%;

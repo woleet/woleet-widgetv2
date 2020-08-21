@@ -77,11 +77,14 @@ class PdfPreview {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.icon.next.code)
     });
 
+    this.element.control.prev.setSvg(faCaretLeft);
+
+    this.element.control.next.setSvg(faCaretRight);
+
     this.element.hide();
     this.element.control.hide();
 
     this.initializeEvents();
-    this.stylize();
   }
 
   /**
@@ -123,22 +126,6 @@ class PdfPreview {
     this.element.on('mouseleave', function () {
       self.element.control.hide();
     });
-  }
-
-  /**
-   * Stylize the container
-   */
-  stylize() {
-    // Select all needful options
-    const {
-      icons: {
-        color: iconColor
-      }
-    } = this.widget.configurator.getStyles();
-
-    this.element.control.prev.setSvg(faCaretLeft, iconColor);
-
-    this.element.control.next.setSvg(faCaretRight, iconColor);
   }
 
   /**

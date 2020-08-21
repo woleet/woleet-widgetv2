@@ -34,10 +34,6 @@ class PreviewContainer {
       classes: utils.extractClasses(styles, styleCodes.preview.body.code)
     });
 
-    this.element.body.icon = VirtualDOMService.createElement('img', {
-      classes: utils.extractClasses(styles, styleCodes.preview.body.icon.code)
-    });
-
     this.element.body.wrapper = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.body.image.wrapper.code)
     });
@@ -157,7 +153,6 @@ class PreviewContainer {
 
     if (this.previewFileTypes.includes(filetype)) { // Display an image
       this.element.body.wrapper.show();
-      this.element.body.icon.hide();
       this.fileReader.readAsDataURL(file);
     } else if (this.textFileTypes.includes(filetype)) { // Or a PDF file
       this.element.body.hide();

@@ -30,10 +30,6 @@ module.exports = (resourcePath = '') => {
   const modules = {
     rules: [
       {
-        test: /locales/,
-        loader: '@alienfast/i18next-loader'
-      },
-      {
         test: /\.(css|scss)$/i,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',

@@ -1,14 +1,9 @@
 import constants from 'Common/constants';
 import {
-  getDefaultLanguage
-} from 'Common/services/configurator';
-import {
   getFileHasherDefaults
 } from 'FileHasherWidget/defaults';
 import utils from 'Common/services/utils';
 import widgetLogger from 'Common/services/logger';
-import resources from 'Resources/locales';
-import i18next from 'i18next';
 
 import FileHasherWidget from './components';
 
@@ -65,13 +60,6 @@ function widget(window, document) {
 function loadDependencies() {
   // Load the widget styles
   const sourceLink = addCssLink();
-
-  // Initialize the translation library
-  i18next.init({
-    fallbackLng: getDefaultLanguage(),
-    debug: window.dev,
-    resources
-  });
 
   if (!window['file-hasher-widget-source'] && sourceLink !== null) {
     window['file-hasher-widget-source'] = sourceLink;

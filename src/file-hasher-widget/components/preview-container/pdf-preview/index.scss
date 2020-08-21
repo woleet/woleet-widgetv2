@@ -4,9 +4,11 @@
       position: relative;
       height: 100%;
       width: 100%;
+
       div:first-child {
         display: contents;
       }
+
       &-canvas {
         max-width: 100%;
         max-height: 100%;
@@ -26,9 +28,18 @@
           cursor: pointer;
           max-width: 30px;
           max-height: 30px;
+
+          &--next {
+            color: black;
+          }
+
+          &--prev {
+            color: black;
+          }
         }
 
-        &_icon:active, &_icon:hover {
+        &_icon:active,
+        &_icon:hover {
           opacity: 0.6;
         }
 

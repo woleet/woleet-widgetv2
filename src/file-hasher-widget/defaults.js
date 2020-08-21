@@ -4,8 +4,7 @@ import constants from 'Common/constants';
 function getFileHasherDefaults() {
   return {
     file: {
-      url: null,
-      fastDownload: true
+      url: null
     },
     visibility: {
       preview: true
