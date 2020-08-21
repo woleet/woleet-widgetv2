@@ -24,20 +24,8 @@
 
         &_icon {
           cursor: pointer;
-          max-width: 25px;
-          max-height: 25px;
-          border-radius: 16px;
-          border: 2px solid var(--file-hasher-widget-control-border-color);
-
-          &--next {
-            padding: 1px 6px 1px 8px;
-            background: white;
-          }
-
-          &--prev {
-            padding: 1px 8px 1px 6px;
-            background: white;
-          }
+          max-width: 30px;
+          max-height: 30px;
         }
 
         &_icon:active, &_icon:hover {
