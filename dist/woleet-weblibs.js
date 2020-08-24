@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-(window.webpackJsonp=window.webpackJsonp||[]).push([[5],{104:function(n,o){},107:function(n,o){},67:function(n,o){},69:function(n,o){},82:function(n,o){},84:function(n,o){}}]);
-=======
-(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{104:function(n,o){},107:function(n,o){},67:function(n,o){},69:function(n,o){},82:function(n,o){},84:function(n,o){}}]);
->>>>>>> master
+(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{103:function(n,o){},106:function(n,o){},66:function(n,o){},68:function(n,o){},81:function(n,o){},83:function(n,o){}}]);
