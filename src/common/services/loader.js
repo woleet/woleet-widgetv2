@@ -2,7 +2,7 @@
  * The function set to download external libraries as lazy as possible
  * @return {Promise<T | string>}
  */
-function getWoleetLibs() {
+function getWoleetWebLibs() {
   return import(/* webpackChunkName: "woleet-weblibs" */'@woleet/woleet-weblibs')
     .then(({ default: woleet }) => {
       return woleet;
@@ -10,15 +10,6 @@ function getWoleetLibs() {
     .catch(_ => 'An error occurred while loading the component');
 }
 
-function getPdfJs() {
-  return import(/* webpackChunkName: "pdf.js" */'pdfjs-dist')
-    .then((module) => {
-      return module.default;
-    })
-    .catch(_ => 'An error occurred while loading the component');
-}
-
 export default {
-  getPdfJs,
-  getWoleetLibs
+  getWoleetWebLibs: getWoleetWebLibs
 };

@@ -42,7 +42,7 @@ class PreviewContainer {
       classes: utils.extractClasses(styles, styleCodes.preview.body.image.code)
     });
 
-    // create an element to display PDF files
+    // Create an element to display PDF files
     this.pdfPreview = new PdfPreview(this.widget);
     this.element.pdf = (this.pdfPreview).get();
 
@@ -81,11 +81,9 @@ class PreviewContainer {
   initializeEvents() {
     const self = this;
 
-    // Display or not the document in new tab when the user click in the widget
+    // Displays the document in new tab when the user click in the widget
     const enablePreview = self.widget.configurator.get().visibility.preview;
-
     if (enablePreview) {
-      // displays the document in new tab
       self.element.on('click', () => {
         if (self.file) {
           const {
@@ -95,13 +93,16 @@ class PreviewContainer {
           if (self.url !== null) {
             window.open(self.url, '_blank');
           } else if (this.allowedType.includes(filetype)) {
+
             // Check if it's possible to open popup windows
             utils.adsBlocked((blocked) => {
               if (!blocked) {
+
                 // The solution for both IE and Edge
                 if (window.navigator && window.navigator.msSaveOrOpenBlob) {
                   window.navigator.msSaveOrOpenBlob(self.file, self.file.name);
                 } else {
+
                   // For all other normal browsers
                   const objUrl = window.URL.createObjectURL(self.file, {
                     oneTimeOnly: true

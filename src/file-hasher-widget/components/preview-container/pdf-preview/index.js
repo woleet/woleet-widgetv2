@@ -1,10 +1,10 @@
 import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
-import loader from 'Common/services/loader';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 import faCaretLeft from 'Resources/images/caret-left.svg';
 import faCaretRight from 'Resources/images/caret-right.svg';
+import pdfjsLib from 'pdfjs-dist';
 
 /**
  * PdfPreview
@@ -12,43 +12,18 @@ import faCaretRight from 'Resources/images/caret-right.svg';
  */
 class PdfPreview {
   constructor(widget) {
-    const self = this;
     this.element = null;
-    this.pdfjsLib = null;
     this.widget = widget;
-    // To save the file if it was loaded before the library is initialized
-    this.delayedFile = null;
+
+    // Used to save the file if it was loaded before the library is initialized
     this.typedArray = null;
     this.fileReader = new FileReader();
 
-    if (!window.pdfJs) {
-      // If the library pdf.js isn't available, do the lazy loading
-      loader.getPdfJs()
-        .then((pdfJs) => {
-          window.pdfJs = pdfJs;
-          self.pdfjsLib = pdfJs;
-
-          /**
-           * And display a delayed file if it exists
-           */
-          if (this.delayedFile) {
-            self.displayPdfFile(this.delayedFile);
-          } else {
-            self.loaded();
-          }
-        });
-    } else {
-      self.pdfjsLib = window.pdfJs;
-      self.loaded();
-    }
+    // Set PDF.js library worker source
+    pdfjsLib.GlobalWorkerOptions.workerSrc = (window.hasher && window.hasher.pdfjsLibworkerScriptPath) || 'pdf.worker.min.js';
+    this.reset();
 
     this.init();
-  }
-
-  loaded() {
-    // Initialize the worker for pdf.js
-    this.pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js';
-    this.reset();
   }
 
   // Create all container elements and initialize them
@@ -98,7 +73,7 @@ class PdfPreview {
       delete this.result;
 
       // Initialize the instance of pdf.js once the file is available
-      self.pdfjsLib.getDocument(self.typedArray)
+      pdfjsLib.getDocument(self.typedArray)
         .promise
         .then((pdf) => {
           self.pdfDoc = pdf;
@@ -177,13 +152,7 @@ class PdfPreview {
    * @param file
    */
   setPdfFile(file) {
-    const self = this;
-
-    if (!self.pdfjsLib) {
-      this.delayedFile = file;
-    } else {
-      this.displayPdfFile(file);
-    }
+    this.displayPdfFile(file);
   }
 
   /**
@@ -193,10 +162,10 @@ class PdfPreview {
   displayPdfFile(file) {
     this.reset();
     let canvasElement = this.element.canvasWrapper.canvas.target();
-    this.ctx = canvasElement.getContext('2d');
     this.fileReader.readAsArrayBuffer(file);
     this.element.show();
 
+    this.ctx = canvasElement.getContext('2d');
     if (this.ctx) {
       // Clear the canvas background
       this.ctx.fillStyle = 'white';
@@ -254,12 +223,11 @@ class PdfPreview {
    * Reset the container state to default
    */
   reset() {
+    // Free the widget memory to avoid memory leaks
     if (this.pdfDoc) {
-      // And free the widget memory to avoid memory leaks
       delete this.typedArray;
       delete this.pdfDoc;
     }
-    this.delayedFile = null;
     this.pageNum = 1;
     this.pageRendering = false;
     this.pageCount = null;

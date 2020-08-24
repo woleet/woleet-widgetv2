@@ -5,72 +5,59 @@
   <meta charset="UTF-8">
   <title>Woleet File Hasher widget</title>
   <style>
-    .file-hasher-widget {
-      padding: 20px 0;
-      border: 1px solid black;
-      height: 200px;
-    }
+      .file-hasher-widget {
+          padding: 20px 0;
+          border: 1px solid black;
+          height: 200px;
+      }
 
-    .file-hasher-widget>div {
-      margin: 0 auto;
-    }
+      .file-hasher-widget > div {
+          margin: 0 auto;
+      }
 
-    .log {
-      max-width: 500px;
-      margin: 20px auto;
-      padding: 10px 20px;
-      text-align: justify;
-      color: white;
-      font-size: 18px;
-    }
+      .log {
+          max-width: 500px;
+          margin: 20px auto;
+          padding: 10px 20px;
+          text-align: justify;
+          color: white;
+          font-size: 18px;
+      }
 
-    .download-logging {
-      background: #0074D9;
-    }
+      .download-logging {
+          background: #0074D9;
+      }
 
-    .hash-logging {
-      background: #2ECC40;
-    }
+      .hash-logging {
+          background: #2ECC40;
+      }
   </style>
 </head>
 
 <body>
-  <script>
-    var test = {
-      hashCalculated: function (widgetId, hash) {
-        var logElement = document.getElementById('hash-logging');
-        var logElementItem = document.createElement('p');
-        logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id  "' + widgetId + '"';
-        logElement.appendChild(logElementItem);
-        document.getElementById(widgetId + '-reset-button').style.display = 'block';
-      },
-      fileDownloadedObserver: function (widgetId, file) {
-        var logElement = document.getElementById('download-logging');
-        var logElementItem = document.createElement('p');
-        logElementItem.innerHTML = 'Deep observer: "' + file.name + '" downloaded by widget id  "' + widgetId + '"';
-        logElement.appendChild(logElementItem);
-      },
-      widgetReset(widgetId) {
-        console.log('Widget was reset', widgetId);
-        document.getElementById(widgetId + '-reset-button').style.display = 'none';
-      },
-      errorCaught(widgetId, error) {
-        console.error(error);
-      }
-    };
-
-    function hashCalculated(widgetId, hash) {
+<script>
+  var test = {
+    hashCalculated: function (widgetId, hash) {
       var logElement = document.getElementById('hash-logging');
       var logElementItem = document.createElement('p');
-      logElementItem.innerHTML = 'Window observer: Hash "' + hash + '" computed by widget id "' + widgetId + '"';
+      logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id  "' + widgetId + '"';
       logElement.appendChild(logElementItem);
       document.getElementById(widgetId + '-reset-button').style.display = 'block';
-    }
-
-    function widgetReset(widgetId) {
+    },
+    fileDownloadedObserver: function (widgetId, file) {
+      var logElement = document.getElementById('download-logging');
+      var logElementItem = document.createElement('p');
+      logElementItem.innerHTML = 'Deep observer: "' + file.name + '" downloaded by widget id  "' + widgetId + '"';
+      logElement.appendChild(logElementItem);
+    },
+    widgetReset(widgetId) {
       console.log('Widget was reset', widgetId);
       document.getElementById(widgetId + '-reset-button').style.display = 'none';
+    },
+    errorCaught(widgetId, error) {
+      console.error(error);
     }
+  };
 
     (function (d, s, i, f) {
       var js = d.createElement(s);

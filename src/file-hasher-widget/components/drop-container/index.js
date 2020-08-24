@@ -10,18 +10,16 @@ import loader from 'Common/services/loader';
  * It's a container to drop and select user files and hash them
  */
 class DropContainer {
-  constructor(widget, parent) {
+  constructor(widget) {
     const self = this;
 
     this.element = null;
     this.widget = widget;
-    this.parent = parent;
     this.delayedFile = null;
-    this.importIcon = null;
 
+    // If Woleet WebLibs are not initialized: do it
     if (!window.woleet) {
-      // Woleet library wasn't initialized do it
-      loader.getWoleetLibs()
+      loader.getWoleetWebLibs()
         .then((woleet) => {
           window.woleet = woleet;
           self.hasher = new woleet.file.Hasher();
@@ -72,11 +70,12 @@ class DropContainer {
       this.hashingCanceled();
     });
     this.widget.observers.downloadingFinishedObserver.subscribe((data) => {
-      this.startHashing(data).then(result => {
-        if (result) {
-          self.widget.observers.hashingFinishedObserver.broadcast(result);
-        }
-      });
+      this.startHashing(data)
+        .then(result => {
+          if (result) {
+            self.widget.observers.hashingFinishedObserver.broadcast(result);
+          }
+        });
     });
     this.widget.observers.errorCaughtObserver.subscribe(() => {
       this.downloadingStarted();
@@ -89,7 +88,8 @@ class DropContainer {
    */
   initializeEvents() {
     const self = this;
-    // if the user select a file, start the hash process
+
+    // If the user select a file, start the hasher process
     this.element.body.input.on('change', function () {
       self.onInputFileChanged.call(this, self)
         .then(result => {
@@ -123,7 +123,7 @@ class DropContainer {
     if (!this.hasher) {
       this.delayedFile = file;
 
-      return new Promise((resolve,) => {
+      return new Promise((resolve) => {
         resolve(false);
       });
     }
@@ -137,11 +137,12 @@ class DropContainer {
   hashDelayedFile() {
     const self = this;
     if (this.delayedFile) {
-      return this.hash(this.delayedFile).then(result => {
-        if (result) {
-          self.widget.observers.hashingFinishedObserver.broadcast(result);
-        }
-      });
+      return this.hash(this.delayedFile)
+        .then(result => {
+          if (result) {
+            self.widget.observers.hashingFinishedObserver.broadcast(result);
+          }
+        });
     }
     return null;
   }
@@ -182,13 +183,9 @@ class DropContainer {
 
   onInputFileChanged(self) {
     let file = this.files[0];
-
     if (!file) {
-      widgetLogger.error(`${this.widget.widgetId}: File isn't found`);
+      widgetLogger.error(`${this.widget.widgetId}: File not found`);
     }
-
-    // Reset input value
-    this.value = null;
 
     self.widget.observers.fileSelectedObserver.broadcast(file);
 
