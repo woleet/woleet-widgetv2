@@ -54,6 +54,8 @@ class PdfPreview {
 
     this.element.control.prev.setSvg(faCaretLeft);
 
+    this.element.control.prev.hide();
+
     this.element.control.next.setSvg(faCaretRight);
 
     this.element.hide();
@@ -203,6 +205,14 @@ class PdfPreview {
     }
     self.pageNum--;
     self.queueRenderPage(self.pageNum);
+
+    if (self.pageNum <= 1) {
+      this.element.control.prev.hide();
+    }
+
+    if (self.pageNum < self.pdfDoc.numPages) {
+      this.element.control.next.show();
+    }
   }
 
   /**
@@ -217,6 +227,14 @@ class PdfPreview {
     }
     self.pageNum++;
     self.queueRenderPage(self.pageNum);
+
+    if (self.pageNum > 1) {
+      this.element.control.prev.show();
+    }
+
+    if (self.pageNum >= self.pdfDoc.numPages) {
+      this.element.control.next.hide();
+    }
   }
 
   /**

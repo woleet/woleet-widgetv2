@@ -8,11 +8,8 @@
   },
   "keywords": [
     "Woleet",
-    "chainpoint",
-    "receipt",
-    "verification",
     "widget",
-    "bitcoin"
+    "file-hasher"
   ],
   "author": "Woleet",
   "license": "MIT",

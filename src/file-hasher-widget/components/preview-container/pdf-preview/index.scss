@@ -19,7 +19,7 @@
 
       &-control {
         position: absolute;
-        bottom: 1%;
+        bottom: calc(1% + 30px);
         left: 0;
         right: 0;
         text-align: center;
@@ -30,17 +30,16 @@
           max-height: 30px;
 
           &--next {
+            position: absolute;
+            left: calc(50% - 10px);
             color: black;
           }
 
           &--prev {
+            position: absolute;
+            left: calc(50% - 50px);
             color: black;
           }
-        }
-
-        &_icon:active,
-        &_icon:hover {
-          opacity: 0.6;
         }
 
         &_icon:not(:last-child) {
