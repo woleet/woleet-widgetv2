@@ -31,13 +31,13 @@
 
           &--next {
             position: absolute;
-            left: calc(50% - 10px);
+            left: calc(50% + 5px);
             color: black;
           }
 
           &--prev {
             position: absolute;
-            left: calc(50% - 50px);
+            left: calc(50% - 35px);
             color: black;
           }
         }

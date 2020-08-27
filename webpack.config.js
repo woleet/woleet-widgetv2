@@ -85,13 +85,7 @@ module.exports = (resourcePath = '') => {
       from: 'node_modules/pdfjs-dist/build/pdf.worker.min.js',
       to: resourcePath,
       flatten: true
-    }]),
-
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        handlebarsLoader: {}
-      }
-    })
+    }])
   ];
 
   return {
