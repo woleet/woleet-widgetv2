@@ -73,7 +73,8 @@ const styleCodes = {
 
   // Common styles
   widget: {
-    hidden: ['woleet_widget_hidden']
+    hidden: ['woleet_widget_hidden'],
+    disabled: ['woleet_widget_disabled']
   }
 };
 

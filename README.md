@@ -84,7 +84,7 @@ The following attributes can be set on `<div>` tag to configure the look and beh
     
     * __hashingProgress__ - is called once the hashing progress has changed. Parameters: ___widgetId___, ___progress___ (_in percents_);
     
-    * __hashCalculated__ - is called once the file is hashed. Parameters: ___widgetId___, ___hash___, ___hashed file___;
+    * __hashingFinished__ - is called once the file is hashed. Parameters: ___widgetId___, ___hash___, ___hashed file___;
     
     * __widgetReset__ - is called when the widget is reset. Parameters: ___widgetId___;
 
@@ -95,21 +95,21 @@ There are several ways to configure the widget:
 * All parameters are in the attribute <b>config</b> as JSON object:
 
 ```html
-<div class="file-hasher-widget" config='{"file": {"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}, "observers": {"hashCalculated": "hashCalculated", "fileDownloaded": "fileDownloadedObserver"}}'></div>
+<div class="file-hasher-widget" config='{"file": {"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}, "observers": {"hashingFinished": "hashingFinished", "fileDownloaded": "fileDownloadedObserver"}}'></div>
 ```
 * The parameters are attributes of the HTML element:
 
 ```html
 <div class='file-hasher-widget'
      file='{"url": "http://pngimg.com/uploads/google/google_PNG19634.png"}'
-     observers='{"hashCalculated": "test.hashCalculated"}'></div>
+     observers='{"hashingFinished": "test.hashingFinished"}'></div>
  ```
 * If a option has nested options they can be set also as HTML attributes by joining via '-' in lower case:
 
 ```html
 <div class='file-hasher-widget'
      id='file-hasher-widget-de'
-     observers-hashCalculated='window.hashCalculated'></div>
+     observers-hashingFinished='window.hashingFinished'></div>
 ```
 
 The dynamic initialization is also available. It is realized using the method __init__ of the widget. The an example in the file [examples/file-hasher-widget-delayed-several-instances-example.html](examples/file-hasher-widget-delayed-several-instances-example.html)

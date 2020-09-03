@@ -5,6 +5,9 @@ import utils from './utils';
 // The class to make and element hidden
 let hiddenClass = 'hidden';
 
+// The class to make and element disabled
+let disabledClass = 'disabled';
+
 /**
  * The service to create elements of virtual DOM
  * @param element
@@ -68,8 +71,17 @@ function DOM(element) {
   // Hide the element
   defineProp('hide', () => self.addClass(hiddenClass));
 
+  // Innable the element
+  defineProp('innable', () => self.removeClass(disabledClass));
+
+  // Disable the element
+  defineProp('disable', () => self.addClass(disabledClass));
+
   // Define the hidden class
   defineProp('setHiddenClass', className => hiddenClass = className);
+
+  // Define the disabled class
+  defineProp('setDisabledClass', className => disabledClass = className);
 
   // Define the element's class
   defineProp('style', (props) => {
@@ -128,6 +140,10 @@ function createElement(element = 'div', options = {}, attrs = {}) {
 
   if (options.hidden) {
     domElement.setHiddenClass(options.hidden);
+  }
+
+  if (options.disabled) {
+    domElement.setDisabledClass(options.disabled);
   }
 
   if (attrs) {

@@ -4,6 +4,11 @@
       &_hidden {
         display: none !important;
       }
+
+      &_disabled {
+        opacity: 0.7;
+        cursor: not-allowed !important;
+      }
     }
   }
 }

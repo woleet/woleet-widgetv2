@@ -40,11 +40,6 @@ class DownloadContainer {
         }
       } = widget.configuration;
 
-      if (window.dev) {
-        proxyEnabled = true;
-        proxyUrl = constants.PROXY_URL;
-      }
-
       /**
        * If the proxy is listed then change the download URL
        * @type {string}

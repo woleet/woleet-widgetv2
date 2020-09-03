@@ -100,7 +100,7 @@ class FileHasherWidget {
           case 'downloadingfailed':
             this.observers.downloadingFailedObserver.subscribe((error, code, message) => observer(self.widgetId, error, code, message));
             break;
-          case 'hashcalculated':
+          case 'hashingfinished':
             this.observers.hashingFinishedObserver.subscribe(({
               hash,
               file
@@ -134,7 +134,8 @@ class FileHasherWidget {
   init() {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.code),
-      hidden: utils.extractClasses(styles, styleCodes.widget.hidden)
+      hidden: utils.extractClasses(styles, styleCodes.widget.hidden),
+      disabled: utils.extractClasses(styles, styleCodes.widget.disabled)
     });
 
     // Container to drop and select user files
