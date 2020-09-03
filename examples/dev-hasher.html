@@ -23,7 +23,7 @@
 
 <script>
   function downloadingFinishedObserver(widgetId, file) {
-    console.log('Download finished', file, widgetId);
+    console.log('Download finished', widgetId, file);
   }
 
   function downloadingStartedObserver(widgetId, filename) {
@@ -43,14 +43,14 @@
   }
 
   function hashingFinishedObserver(widgetId, hash) {
-    console.log('Hashing finished', hash, widgetId);
+    console.log('Hashing finished', widgetId, hash);
     if (widgetId === 'first-file-hasher-widget') {
       document.getElementById('file-hasher-widget-reset-button').style.display = 'block';
     }
   }
 
   function hashingStartedObserver(widgetId, file, isPreviewable) {
-    console.log('Hashing started', file, widgetId, isPreviewable);
+    console.log('Hashing started', widgetId, file, isPreviewable);
   }
 
   function hashingCanceledObserver(widgetId) {
@@ -74,7 +74,7 @@
     js.async = 1;
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'file-hasher-widget', '../dist/file-hasher-widget.js'));
-  hasher = { pdfjsLibworkerScriptPath: '../dist/pdf.worker.min.js' };
+  hasher = { pdfjsLibWorkerScriptPath: '../dist/pdf.worker.min.js' };
 </script>
 
 <div>

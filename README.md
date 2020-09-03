@@ -28,7 +28,7 @@ To integrate one or several widgets in a web page, first insert the following co
     var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
     js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'file-hasher-widget', '<script_path>/file-hasher-widget.js'));
-  hasher = { pdfjsLibworkerScriptPath: '<script_path>/dist/pdf.worker.min.js' };
+  hasher = { pdfjsLibWorkerScriptPath: '<script_path>/dist/pdf.worker.min.js' };
 </script>
 ```
 
@@ -44,7 +44,7 @@ Then, instantiate the widget by creating a `<div>` tag with a `class="file-hashe
 
 ### Attributes
 
-The following attributes can be set on `<div>` tag to configure the look and behavior of the widget (see [Usage](#Usage) for more details).
+The following attributes can be set on `<div>` tag to configure the behavior of the widget (see [Usage](#Usage) for more details).
 
 * __id__ - Identifier of the widget.
  
@@ -112,7 +112,7 @@ There are several ways to configure the widget:
      observers-hashingFinished='window.hashingFinished'></div>
 ```
 
-The dynamic initialization is also available. It is realized using the method __init__ of the widget. The an example in the file [examples/file-hasher-widget-delayed-several-instances-example.html](examples/file-hasher-widget-delayed-several-instances-example.html)
+The dynamic initialization is also available. It is realized using the method __init__ of the widget. The an example in the file [examples/file-hasher-widget-delayed-example.html](examples/file-hasher-widget-delayed-example.html)
 
 You can dynamically reset the widget while keeping the same configuration with the method __reset__ of the widget.
 

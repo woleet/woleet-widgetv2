@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Woleet File Hasher widget</title>
+</head>
+
+<body>
+
+<script>
+
+  (function (d, s, i, f) {
+    let js = d.createElement(s);
+    let fjs = d.getElementsByTagName(s)[0];
+    js.id = i;
+    js.src = f;
+    js.async = 1;
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'file-hasher-widget', '../dist/file-hasher-widget.js'));
+  hasher = { pdfjsLibWorkerScriptPath: '../dist/pdf.worker.min.js' };
+
+  setTimeout(function () {
+
+    console.log('File hasher widget is ready!');
+
+    fileHasherWidget.init([{
+      id: 'fileHasherId',
+      el: document.getElementById('fileHasherContainer'),
+      config: {}
+    }]);
+
+  }, 3000);
+
+</script>
+
+<div style="width: 200px; height:200px; border:1px solid black" id="fileHasherContainer"></div>
+
+</body>
+
+</html>

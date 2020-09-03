@@ -16,6 +16,27 @@
   </style>
 
   <script>
+
+    function hashingStartedObserver(widgetId, file, isPreviewable) {
+      window.isPreviewable = isPreviewable;
+    }
+
+    function hashingProgressObserver(widgetId, progress) {
+      document.getElementById('file-hash').innerText = 'Hashing... ' + progress + '%';
+    }
+
+    function hashingFinishedObserver(widgetId, hash) {
+      document.getElementById('file-hash').innerText = 'File hash is: ' + hash;
+      if (!window.isPreviewable) {
+        document.getElementById('file-hash').innerText += ' (no preview available)';
+      }
+    }
+
+    function reset() {
+      fileHasherWidget.reset('fileHasherId');
+      document.getElementById('file-hash').innerText = 'Please select a file';
+    }
+
     (function (d, s, i, f) {
       var js = d.createElement(s);
       var fjs = d.getElementsByTagName(s)[0];
@@ -24,13 +45,26 @@
       js.async = 1;
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'file-hasher-widget', '../dist/file-hasher-widget.js'));
-    hasher = { pdfjsLibworkerScriptPath: '../dist/pdf.worker.min.js' };
+    hasher = { pdfjsLibWorkerScriptPath: '../dist/pdf.worker.min.js' };
+
   </script>
 </head>
 
 <body>
 
-<div style="background: #eee" class="file-hasher-widget full-height"></div>
+<div class="full-height">
+
+  <div id="file-hash">Please select a file</div>
+
+  <div id="fileHasherId" class="file-hasher-widget" style="background: #eee; width: 100%; height: 80%"
+    observers-hashingStarted='hashingStartedObserver'
+    observers-hashingProgress='hashingProgressObserver'
+    observers-hashingFinished='hashingFinishedObserver'>
+  </div>
+
+  <button onclick="reset()">Reset</button>
+
+</div>
 
 </body>
 
