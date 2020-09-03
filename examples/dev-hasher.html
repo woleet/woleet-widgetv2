@@ -85,8 +85,8 @@
 <div>
   <div>
     <div class='file-hasher-widget' id='first-file-hasher-widget'
-      observers-hashCalculated='hashingFinishedObserver'
-      observers='{"hashCalculated": "hashingFinishedObserver", "hashingStarted": "hashingStartedObserver", "hashingCanceled": "hashingCanceledObserver", "hashingProgress": "hashingProgressObserver", "widgetReset": "widgetResetObserver"}'>
+      observers-hashingFinished='hashingFinishedObserver'
+      observers='{"hashingFinished": "hashingFinishedObserver", "hashingStarted": "hashingStartedObserver", "hashingCanceled": "hashingCanceledObserver", "hashingProgress": "hashingProgressObserver", "widgetReset": "widgetResetObserver"}'>
     </div>
     <button id="file-hasher-widget-reset-button" onclick="window.fileHasherWidget.reset('first-file-hasher-widget');"
       style="display:none">
@@ -96,7 +96,7 @@
   <div class='file-hasher-widget'
     proxy='{"url": "http://localhost:3000/download?url=", "enabled": true}'
     file='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf"}'
-    observers-hashCalculated='hashingFinishedObserver'
+    observers-hashingFinished='hashingFinishedObserver'
     observers-downloadingFinished='downloadingFinishedObserver'
     observers-downloadingStarted='downloadingStartedObserver'
     observers-downloadingCanceled='downloadingCanceledObserver'
@@ -105,7 +105,7 @@
   <div class='file-hasher-widget'
     proxy='{"url": "http://localhost:3000/download?url=", "enabled": true}'
     file='{"url": "https://drive.google.com/uc?id=1si1n3q0LH_Wl7m8hO6J85dhia3JSK9da&export=download"}'
-    observers='{"hashCalculated": "hashingFinishedObserver", "fileDownloaded": "fileDownloadedObserver", "downloadingFailed": "downloadingFailedObserver"}'>
+    observers='{"hashingFinished": "hashingFinishedObserver", "fileDownloaded": "fileDownloadedObserver", "downloadingFailed": "downloadingFailedObserver"}'>
   </div>
   <div class="log download-logging" id="download-logging"></div>
 </div>
