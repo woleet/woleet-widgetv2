@@ -1,5 +1,16 @@
 # Woleet widgets (version 2)
 
+This package contains web widgets useful to deal with Woleet proofs.  
+
+# File Hasher widget
+
+This web widget, easily embeddable in any web page, allows to preview and compute the SHA256 hash of a file
+(computing the hash of the proven file is the first step when you want to create or verify a Woleet proof).
+
+The file can be dropped by the user, or its URL can be provided to the widget for an automated download.
+A preview is automatically displayed if the file is an image or a PDF file. When the user clicks on the preview, the file is displayed full screen.
+The computation of the SHA256 hash of the file is automated and performed in background: callbacks can be used to get the hashing progress and result.
+
 ## Build
 
 ```bash
@@ -7,30 +18,26 @@ npm i
 npm run build
 ```
 
-# File Hasher widget
-
-This widget allows to drop or download a file, compute its hash and preview it.
-
 ## Integration
 
 To integrate one or several widgets in a web page, first insert the following code:
 
-```javascript
+```html
 <script>
   (function (d,s,i,f) {
     var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
     js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'file-hasher-widget', '<url_to_script>/file-hasher-widget.js'));
+  }(document, 'script', 'file-hasher-widget', '<script_path>/file-hasher-widget.js'));
 </script>
 ```
 
 You can also integrate it directly like this:
 
 ```html
-<script type="text/javascript" id="file-hasher-widget" src="<url_to_script>/file-hasher-widget.js"></script>
+<script type="text/javascript" id="file-hasher-widget" src="<script_path>/file-hasher-widget.js"></script>
 ```
 
-Note that you need to replace *<url_to_script>* with the actual path of the script.
+Note that you need to replace *<script_path>* with the actual path of the script.
 
 Then, instantiate the widget by creating a `<div>` tag with a `class="file-hasher-widget"` attribute:
 
