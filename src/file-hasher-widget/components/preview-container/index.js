@@ -159,6 +159,8 @@ class PreviewContainer {
       this.element.body.hide();
       // Initialize the PDF viewer
       this.pdfPreview.setPdfFile(file);
+    } else {
+      this.element.disable();
     }
   }
 
@@ -179,6 +181,7 @@ class PreviewContainer {
   resetFile() {
     this.file = null;
     this.element.body.wrapper.hide();
+    this.element.enable();
   }
 
   get() {

@@ -84,7 +84,7 @@ class PdfPreview {
           self.pageCount = self.pdfDoc.numPages;
           self.renderPage(self.pageNum);
           if (self.pageCount > 1) {
-            self.element.control.next.innable();
+            self.element.control.next.enable();
           }
         });
     };
@@ -216,7 +216,7 @@ class PdfPreview {
     }
 
     if (self.pageNum < self.pdfDoc.numPages) {
-      this.element.control.next.innable();
+      this.element.control.next.enable();
     }
   }
 
@@ -234,7 +234,7 @@ class PdfPreview {
     self.queueRenderPage(self.pageNum);
 
     if (self.pageNum > 1) {
-      this.element.control.prev.innable();
+      this.element.control.prev.enable();
     }
 
     if (self.pageNum >= self.pdfDoc.numPages) {

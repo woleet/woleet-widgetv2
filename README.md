@@ -92,19 +92,19 @@ The following attributes can be set on `<div>` tag to configure the behavior of 
 
 There are several ways to configure the widget:
 
-* All parameters are in the attribute <b>config</b> as JSON object:
+* parameters are in the attribute <b>config</b> as a JSON object:
 
 ```html
-<div class="file-hasher-widget" config='{"file": {"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}, "observers": {"hashingFinished": "hashingFinished", "fileDownloaded": "fileDownloadedObserver"}}'></div>
+<div class="file-hasher-widget" config='{"file": {"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}, "observers": {"hashingFinished": "hashingFinishedObserver", "downloadingFinished": "downloadingFinishedObserver"}}'></div>
 ```
-* The parameters are attributes of the HTML element:
+* parameters are attributes of the HTML element:
 
 ```html
 <div class='file-hasher-widget'
      file='{"url": "http://pngimg.com/uploads/google/google_PNG19634.png"}'
      observers='{"hashingFinished": "test.hashingFinished"}'></div>
  ```
-* If a option has nested options they can be set also as HTML attributes by joining via '-' in lower case:
+If a option has nested options they can be set also as HTML attributes by joining via '-' in lower case:
 
 ```html
 <div class='file-hasher-widget'
@@ -112,7 +112,8 @@ There are several ways to configure the widget:
      observers-hashingFinished='window.hashingFinished'></div>
 ```
 
-The dynamic initialization is also available. It is realized using the method __init__ of the widget. The an example in the file [examples/file-hasher-widget-delayed-example.html](examples/file-hasher-widget-delayed-example.html)
+Dynamic initialization is also available. It can be done using the method __init__ of the widget.
+There is an example in the file [examples/file-hasher-widget-delayed-example.html](examples/file-hasher-widget-delayed-example.html)
 
 You can dynamically reset the widget while keeping the same configuration with the method __reset__ of the widget.
 
