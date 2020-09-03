@@ -71,8 +71,8 @@ function DOM(element) {
   // Hide the element
   defineProp('hide', () => self.addClass(hiddenClass));
 
-  // Innable the element
-  defineProp('innable', () => self.removeClass(disabledClass));
+  // Enable the element
+  defineProp('enable', () => self.removeClass(disabledClass));
 
   // Disable the element
   defineProp('disable', () => self.addClass(disabledClass));
