@@ -16,124 +16,99 @@
       .file-hasher-widget > div {
           margin: 0 auto;
       }
-
-      .log {
-          max-width: 500px;
-          margin: 20px auto;
-          padding: 10px 20px;
-          text-align: justify;
-          color: white;
-          font-size: 18px;
-      }
-
-      .download-logging {
-          background: #0074D9;
-      }
-
-      .hash-logging {
-          background: #2ECC40;
-      }
   </style>
 </head>
 
 <body>
+
 <script>
-  var dev = true;
-  var canReset = false;
+  function downloadingFinishedObserver(widgetId, file) {
+    console.log('Download finished', file, widgetId);
+  }
 
-  var test = {
-    hashCalculatedObserver: function (widgetId, hash) {
-      var logElement = document.getElementById('hash-logging');
-      var logElementItem = document.createElement('p');
-      logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id  "' + widgetId + '"';
-      logElement.appendChild(logElementItem);
-    },
-    downloadingFinishedObserver: function (widgetId, file) {
-      var logElement = document.getElementById('download-logging');
-      var logElementItem = document.createElement('p');
-      logElementItem.innerHTML = 'Deep observer: File "' + file.name + '" downloaded by widget id  "' + widgetId +
-        '"';
-      logElement.appendChild(logElementItem);
-    },
-    downloadingStartedObserver: function (widgetId, filename) {
-      console.log('started', widgetId, filename);
-    },
-    downloadingCanceledObserver: function (widgetId) {
-      console.log('Canceled', widgetId);
-    },
-    downloadingProgressObserver: function (widgetId, progress) {
-      console.log('progress', widgetId, progress);
-    },
-    downloadingFailedObserver: function (widgetId, error, code, message) {
-      console.log('FAILED', widgetId, error, code, message);
+  function downloadingStartedObserver(widgetId, filename) {
+    console.log('Download started', widgetId, filename);
+  }
+
+  function downloadingCanceledObserver(widgetId) {
+    console.log('Download canceled', widgetId);
+  }
+
+  function downloadingProgressObserver(widgetId, progress) {
+    console.log('Download progress', widgetId, progress);
+  }
+
+  function downloadingFailedObserver(widgetId, error, code, message) {
+    console.log('Download failed', widgetId, error, code, message);
+  }
+
+  function hashingFinishedObserver(widgetId, hash) {
+    console.log('Hashing finished', hash, widgetId);
+    if (widgetId === 'first-file-hasher-widget') {
+      document.getElementById('file-hasher-widget-reset-button').style.display = 'block';
     }
-  };
-
-  function hashCalculated(widgetId, hash, file) {
-    var logElement = document.getElementById('hash-logging');
-    var logElementItem = document.createElement('p');
-
-    logElementItem.innerHTML = 'Deep observer: Hash "' + hash + '" computed by widget id "' + widgetId + '"';
-    logElement.appendChild(logElementItem);
-    document.getElementById('file-hasher-widget-reset-button').style.display = 'block';
   }
 
-  function hashingStarted(widgetId, file, isPreviewable) {
-    console.log('Hashing started', widgetId, file, isPreviewable);
+  function hashingStartedObserver(widgetId, file, isPreviewable) {
+    console.log('Hashing started', file, widgetId, isPreviewable);
   }
 
-  function hashingCanceled(widgetId) {
+  function hashingCanceledObserver(widgetId) {
     console.log('Hashing canceled', widgetId);
   }
 
-  function hashingProgress(widgetId, progress) {
+  function hashingProgressObserver(widgetId, progress) {
     console.log('Hashing progress', widgetId, progress);
   }
 
-  function widgetReset(widgetId) {
-    console.log('Widget was reset', widgetId);
+  function widgetResetObserver(widgetId) {
+    console.log('Widget reset', widgetId);
     document.getElementById('file-hasher-widget-reset-button').style.display = 'none';
   }
 
   (function (d, s, i, f) {
-    var js = d.createElement(s);
-    var fjs = d.getElementsByTagName(s)[0];
+    let js = d.createElement(s);
+    let fjs = d.getElementsByTagName(s)[0];
     js.id = i;
     js.src = f;
     js.async = 1;
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'file-hasher-widget', '../dist/file-hasher-widget.js'));
 </script>
+
 <div>
   <p>Big PDF file: https://archive.org/download/Mahabharata_201712/6_Mahabharata.pdf</p>
   <p>Light PDF file: http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf</p>
 </div>
+
 <div>
   <div>
-    <div class='file-hasher-widget' visibility-title="false" visibility-progress="false"
-      visibility-controls-reset="false" id='file-hasher-widget-de'
-      observers='{"hashCalculated": "window.hashCalculated", "hashingStarted": "hashingStarted", "hashingCanceled": "hashingCanceled", "hashingProgress": "hashingProgress", "widgetReset": "widgetReset"}'>
+    <div class='file-hasher-widget' id='first-file-hasher-widget'
+      observers-hashCalculated='hashingFinishedObserver'
+      observers='{"hashCalculated": "hashingFinishedObserver", "hashingStarted": "hashingStartedObserver", "hashingCanceled": "hashingCanceledObserver", "hashingProgress": "hashingProgressObserver", "widgetReset": "widgetResetObserver"}'>
     </div>
-    <button id="file-hasher-widget-reset-button" onclick="window.fileHasherWidget.reset('file-hasher-widget-de');"
-      style="display:none"> Reset </button>
+    <button id="file-hasher-widget-reset-button" onclick="window.fileHasherWidget.reset('first-file-hasher-widget');"
+      style="display:none">
+      Reset
+    </button>
   </div>
-  <div class='file-hasher-widget' lang='fr' styles-icons-color='#4814ad'
-    observers-hashCalculated='test.hashCalculatedObserver'
-    observers-downloadingFinished='test.downloadingFinishedObserver'
-    observers-downloadingStarted='test.downloadingStartedObserver'
-    observers-downloadingCanceled='test.downloadingCanceledObserver'
-    observers-downloadingProgress='test.downloadingProgressObserver'
-    file='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf"}'>
+  <div class='file-hasher-widget'
+    proxy='{"url": "http://localhost:3000/download?url=", "enabled": true}'
+    file='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf"}'
+    observers-hashCalculated='hashingFinishedObserver'
+    observers-downloadingFinished='downloadingFinishedObserver'
+    observers-downloadingStarted='downloadingStartedObserver'
+    observers-downloadingCanceled='downloadingCanceledObserver'
+    observers-downloadingProgress='downloadingProgressObserver'>
   </div>
-  <div class='file-hasher-widget' styles='{"icons": {"color": "red"}}'
-    proxy='{"url": "http://localhost:3000/download?url=", "enabled": false}'
+  <div class='file-hasher-widget'
+    proxy='{"url": "http://localhost:3000/download?url=", "enabled": true}'
     file='{"url": "https://drive.google.com/uc?id=1si1n3q0LH_Wl7m8hO6J85dhia3JSK9da&export=download"}'
-    icons-download="http://localhost:3000/static/img/svg/flag.svg"
-    icons-import="https://cdn.glitch.com/4c9ebeb9-8b9a-4adc-ad0a-238d9ae00bb5%2Fmdn_logo-only_color.svg"
-    observers='{"hashCalculated": "test.hashCalculatedObserver", "fileDownloaded": "test.downloadingFinishedObserver", "downloadingFailed": "test.downloadingFailedObserver"}'>
+    observers='{"hashCalculated": "hashingFinishedObserver", "fileDownloaded": "fileDownloadedObserver", "downloadingFailed": "downloadingFailedObserver"}'>
   </div>
   <div class="log download-logging" id="download-logging"></div>
-  <div class="log hash-logging" id="hash-logging"></div>
+</div>
+
 </body>
 
 </html>

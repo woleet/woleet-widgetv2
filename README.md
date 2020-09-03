@@ -28,13 +28,8 @@ To integrate one or several widgets in a web page, first insert the following co
     var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
     js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'file-hasher-widget', '<script_path>/file-hasher-widget.js'));
+  hasher = { pdfjsLibworkerScriptPath: '<script_path>/dist/pdf.worker.min.js' };
 </script>
-```
-
-You can also integrate it directly like this:
-
-```html
-<script type="text/javascript" id="file-hasher-widget" src="<script_path>/file-hasher-widget.js"></script>
 ```
 
 Note that you need to replace *<script_path>* with the actual path of the script.
@@ -133,7 +128,7 @@ See [examples/file-hasher-widget-example.html](examples/file-hasher-widget-examp
 
 To allow the widget to download a file, the file URL must be proxied, or the URL must support CORS.
 
-For testing, a Node.js server is provided. This simple server simply redirect the resource flow to the widget.
+For testing, a Node.js server is provided. This simple server redirects the resource flow to the widget.
 Execute next command to launch the server:
 
 ```bash
