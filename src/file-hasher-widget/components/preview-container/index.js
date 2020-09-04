@@ -18,13 +18,16 @@ class PreviewContainer {
     this.pdfPreview = null;
     this.previewFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/svg+xml', 'image/svg'];
     this.textFileTypes = ['application/pdf'];
+
     // Merge the extensions to get an array of allowed files
     this.allowedType = this.previewFileTypes.concat(this.textFileTypes);
 
     this.init();
   }
 
-  // Create all container elements and initialize them
+  /**
+   * Create and initialize all container elements
+   */
   init() {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.code)
@@ -93,16 +96,13 @@ class PreviewContainer {
           if (self.url !== null) {
             window.open(self.url, '_blank');
           } else if (this.allowedType.includes(filetype)) {
-
             // Check if it's possible to open popup windows
             utils.adsBlocked((blocked) => {
               if (!blocked) {
-
                 // The solution for both IE and Edge
                 if (window.navigator && window.navigator.msSaveOrOpenBlob) {
                   window.navigator.msSaveOrOpenBlob(self.file, self.file.name);
                 } else {
-
                   // For all other normal browsers
                   const objUrl = window.URL.createObjectURL(self.file, {
                     oneTimeOnly: true
