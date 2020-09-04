@@ -22,7 +22,6 @@ function getFileHasherDefaults() {
       url: null,
       enabled: false
     },
-    lang: constants.DEFAULT_WIDGET_LANGUAGE,
     type: constants.FILE_HASHER_WIDGET_TYPE
   };
 }
