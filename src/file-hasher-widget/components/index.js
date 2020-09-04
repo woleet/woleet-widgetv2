@@ -34,23 +34,28 @@ class FileHasherWidget {
    */
   initializeObservers() {
     this.observers = {
+
       // Events: widget
       widgetResetObserver: new EventObserver(),
+
       // Events: modes
       downloadModeInitiatedObserver: new EventObserver(),
       uploadModeInitiatedObserver: new EventObserver(),
+
       // Events: file downloading
       downloadingProgressObserver: new EventObserver(),
       downloadingStartedObserver: new EventObserver(),
       downloadingFinishedObserver: new EventObserver(),
       downloadingCanceledObserver: new EventObserver(),
       downloadingFailedObserver: new EventObserver(),
+
       // Events: file hashing
       fileSelectedObserver: new EventObserver(),
       hashingProgressObserver: new EventObserver(),
       hashingStartedObserver: new EventObserver(),
       hashingFinishedObserver: new EventObserver(),
       hashingCanceledObserver: new EventObserver(),
+
       // Events: errors
       errorCaughtObserver: new EventObserver(),
       errorHiddenObserver: new EventObserver()
@@ -129,7 +134,7 @@ class FileHasherWidget {
   }
 
   /**
-   * Create all container elements and initialize them
+   * Create and initialize all container elements
    */
   init() {
     this.element = VirtualDOMService.createElement('div', {
@@ -140,6 +145,7 @@ class FileHasherWidget {
 
     // Container to drop and select user files
     this.element.dropContainer = (new DropContainer(this)).get();
+
     // Container to preview all allowed files
     this.previewContainer = new PreviewContainer(this);
     this.element.previewContainer = this.previewContainer.get();
