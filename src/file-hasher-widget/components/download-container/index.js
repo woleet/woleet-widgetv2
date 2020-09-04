@@ -2,7 +2,6 @@ import VirtualDOMService from 'Common/services/virtual-dom';
 import utils from 'Common/services/utils';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
-import constants from 'Common/constants';
 
 /**
  * DownloadContainer
