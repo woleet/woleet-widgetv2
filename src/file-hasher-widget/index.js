@@ -13,33 +13,22 @@ const fileHashers = [];
  * @param document
  */
 function widget(window, document) {
-  const widgetConfigurations = [];
-  const widgetClassName = constants.FILE_HASHER_WIDGET_ID;
-
   // Grab the object created during the widget creation
-  const widgetElementCollection = document.getElementsByClassName(widgetClassName);
-  if (!widgetElementCollection.length === 0) {
-    widgetLogger.error('Widget elements not found');
-  }
-
-  // Convert the element collection to an array
-  const widgetElements = Array.from(widgetElementCollection);
+  const widgetElementCollection = document.getElementsByClassName(constants.FILE_HASHER_WIDGET_ID);
 
   // Initialize and configure all instances of the widget
+  const widgetConfigurations = [];
+  const widgetElements = Array.from(widgetElementCollection);
   widgetElements.forEach(widgetElement => {
     let widgetConfiguration = utils.parseWidgetAttributeConfiguration(widgetElement);
-
     if (widgetConfiguration && widgetConfiguration.observers) {
       const observerCodes = Object.keys(widgetConfiguration.observers);
-
-      // Try to find the widget observers
       observerCodes.forEach(observerCode => {
         const observerName = widgetConfiguration.observers[observerCode];
         widgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function () {
         };
       });
     }
-
     widgetConfigurations.push({
       el: widgetElement,
       id: widgetConfiguration.id,
@@ -47,7 +36,7 @@ function widget(window, document) {
     });
   });
 
-  // Initialize the widget but load all dependencies before
+  // Load all dependencies then initialize the widget
   loadDependencies()
     .then(() => initialize(widgetConfigurations));
 }
@@ -80,6 +69,7 @@ function initialize(widgetConfigurations) {
 
     if (!widgetElement) {
       widgetLogger.error('Widget element not found');
+      return;
     }
 
     customConfiguration.widgetId = widgetId;

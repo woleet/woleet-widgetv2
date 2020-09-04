@@ -3,37 +3,21 @@ import utils from 'Common/services/utils';
 import widgetLogger from 'Common/services/logger';
 import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
-import loader from 'Common/services/loader';
+import woleet from '@woleet/woleet-weblibs';
 
 /**
- * DropContainer area
- * It's a container to drop and select user files and hash them
+ * DropContainer area: a container to drop and select user files and hash them
  */
 class DropContainer {
   constructor(widget) {
-    const self = this;
-
     this.element = null;
     this.widget = widget;
-    this.delayedFile = null;
-
-    // If Woleet WebLibs are not initialized: do it
-    if (!window.woleet) {
-      loader.getWoleetWebLibs()
-        .then((woleet) => {
-          window.woleet = woleet;
-          self.hasher = new woleet.file.Hasher();
-          self.hashDelayedFile();
-        });
-    } else {
-      self.hasher = new window.woleet.file.Hasher();
-    }
-
+    this.hasher = new woleet.file.Hasher();
     this.init();
   }
 
   /**
-   * Create all container elements and initialize them
+   * Create and initialize all container elements
    */
   init() {
     this.element = VirtualDOMService.createElement('div', {
@@ -101,12 +85,11 @@ class DropContainer {
   }
 
   /**
-   * And update the progress periodically
+   * Update the progress periodically
    * @param event
    */
   updateProgress(event) {
     let progress = (event.progress * 100);
-
     if (!progress) {
       progress = 0;
     }
@@ -120,49 +103,22 @@ class DropContainer {
   }
 
   startHashing(file) {
-    if (!this.hasher) {
-      this.delayedFile = file;
-
-      return new Promise((resolve) => {
-        resolve(false);
-      });
-    }
     return this.hash(file);
   }
 
   /**
-   * If there is a delayed file, start its hashing
-   * @return {Promise<T | never>}
-   */
-  hashDelayedFile() {
-    const self = this;
-    if (this.delayedFile) {
-      return this.hash(this.delayedFile)
-        .then(result => {
-          if (result) {
-            self.widget.observers.hashingFinishedObserver.broadcast(result);
-          }
-        });
-    }
-    return null;
-  }
-
-  /**
-   * Hash the file
+   * Hash a file
    * @param file
    * @return {Promise}
    */
   hash(file) {
     const self = this;
 
-    self.updateProgress({
-      progress: 0
-    });
+    self.updateProgress({ progress: 0 });
 
     const isPreviewable = utils.isPreviewable(file);
     self.widget.observers.hashingStartedObserver.broadcast(file, isPreviewable);
     self.element.hide();
-    self.delayedFile = null;
 
     return new Promise((resolve) => {
       self.hasher.start(file);
@@ -182,13 +138,19 @@ class DropContainer {
   }
 
   onInputFileChanged(self) {
+    // Get the first file
     let file = this.files[0];
     if (!file) {
       widgetLogger.error(`${this.widget.widgetId}: File not found`);
     }
 
+    // Reset file input value to ensure the 'onchange' event is triggered even if the next file is the same
+    this.value = null;
+
+    // Broadcast the file selected event
     self.widget.observers.fileSelectedObserver.broadcast(file);
 
+    // Start hasing
     return self.startHashing(file);
   }
 
@@ -209,9 +171,7 @@ class DropContainer {
   }
 
   hashingCanceled() {
-    if (this.hasher) {
-      this.hasher.cancel();
-    }
+    this.hasher.cancel();
   }
 
   get() {
