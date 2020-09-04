@@ -26,7 +26,9 @@ class PdfPreview {
     this.init();
   }
 
-  // Create all container elements and initialize them
+  /**
+   * Create and initialize all container elements
+   */
   init() {
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.code)
