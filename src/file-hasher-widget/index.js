@@ -19,7 +19,7 @@ function widget(window, document) {
   // Grab the object created during the widget creation
   const widgetElementCollection = document.getElementsByClassName(widgetClassName);
   if (!widgetElementCollection.length === 0) {
-    widgetLogger.error('The widget elements were not found');
+    widgetLogger.error('Widget elements not found');
   }
 
   // Convert the element collection to an array
@@ -35,7 +35,8 @@ function widget(window, document) {
       // Try to find the widget observers
       observerCodes.forEach(observerCode => {
         const observerName = widgetConfiguration.observers[observerCode];
-        widgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function () {};
+        widgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function () {
+        };
       });
     }
 
@@ -55,14 +56,11 @@ function widget(window, document) {
  * Load widget styles, libraries and dependencies
  */
 function loadDependencies() {
-
   // Load the widget styles
   const sourceLink = addCssLink();
-
   if (!window['file-hasher-widget-source'] && sourceLink !== null) {
     window['file-hasher-widget-source'] = sourceLink;
   }
-
   return new Promise((resolve) => resolve(true));
 }
 
@@ -81,7 +79,7 @@ function initialize(widgetConfigurations) {
     } = widgetConfiguration;
 
     if (!widgetElement) {
-      widgetLogger.error('Widget element wasn\'t found');
+      widgetLogger.error('Widget element not found');
     }
 
     customConfiguration.widgetId = widgetId;
@@ -139,7 +137,7 @@ function reset(id) {
   });
 }
 
-// Create the method to initialize the widget in js code
+// Create the method to initialize and reset the widget in js code
 window.fileHasherWidget = {
   init: initialize,
   reset: reset
