@@ -3,7 +3,7 @@ module.exports = {
     'airbnb-base/legacy'
   ],
   parserOptions: {
-    "sourceType": "module",
+    'sourceType': 'module',
     ecmaVersion: 2017
   },
   env: {
