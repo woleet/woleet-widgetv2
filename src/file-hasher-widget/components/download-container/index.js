@@ -51,7 +51,7 @@ class DownloadContainer {
   }
 
   /**
-   * Create all container elements and initialize them
+   * Create and initialize all container elements
    */
   init() {
     this.element = VirtualDOMService.createElement('div', {
