@@ -160,6 +160,7 @@ class PreviewContainer {
       // Initialize the PDF viewer
       this.pdfPreview.setPdfFile(file);
     } else {
+      this.element.body.wrapper.hide();
       this.element.disable();
     }
   }
