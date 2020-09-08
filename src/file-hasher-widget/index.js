@@ -38,7 +38,7 @@ function widget(window, document) {
 
   // Load all dependencies then initialize the widget
   loadDependencies()
-    .then(() => initialize(widgetConfigurations));
+    .then(() => init(widgetConfigurations));
 }
 
 /**
@@ -57,7 +57,7 @@ function loadDependencies() {
  * Initialize the widget
  * @param widgetConfigurations
  */
-function initialize(widgetConfigurations) {
+function init(widgetConfigurations) {
   // Initialize all instances of the widget
   widgetConfigurations.forEach(widgetConfiguration => {
     const uniqueWidgetId = utils.getUniqueId(`${constants.FILE_HASHER_WIDGET_ID}-`);
@@ -129,7 +129,7 @@ function reset(id) {
 
 // Create the method to initialize and reset the widget in js code
 window.fileHasherWidget = {
-  init: initialize,
+  init: init,
   reset: reset
 };
 
