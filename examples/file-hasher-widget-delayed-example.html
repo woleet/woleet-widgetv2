@@ -23,21 +23,21 @@
     weblibsWorkerScriptPath: '../dist/woleet-hashfile-worker.min.js'
   };
 
+  console.log('Waiting 3s before initializing file hasher widget');
   setTimeout(function () {
-
-    console.log('File hasher widget is ready!');
-
     fileHasherWidget.init([{
       id: 'fileHasherId',
       el: document.getElementById('fileHasherContainer'),
       config: {}
     }]);
-
+    console.log('File hasher widget is ready!');
   }, 3000);
 
 </script>
 
-<div style="width: 200px; height:200px; border:1px solid black" id="fileHasherContainer"></div>
+<div style="width: 200px; height:200px; border:1px solid black" id="fileHasherContainer">
+  <!-- The File Hasher widget will be inserted here -->
+</div>
 
 </body>
 
