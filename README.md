@@ -28,7 +28,10 @@ To integrate one or several widgets in a web page, first insert the following co
     var js = d.createElement(s); var fjs = d.getElementsByTagName(s)[0];
     js.id = i; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'file-hasher-widget', '<script_path>/file-hasher-widget.js'));
-  hasher = { pdfjsLibWorkerScriptPath: '<script_path>/dist/pdf.worker.min.js' };
+  hasher = {
+    pdfjsLibWorkerScriptPath: '<script_path>/pdf.worker.min.js',
+    weblibsWorkerScriptPath: '<script_path>/woleet-hashfile-worker.min.js'
+  };
 </script>
 ```
 

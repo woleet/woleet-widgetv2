@@ -12,7 +12,7 @@ class DropContainer {
   constructor(widget) {
     this.element = null;
     this.widget = widget;
-    this.hasher = new woleet.file.Hasher('../dist/woleet-hashfile-worker.min.js');
+    this.hasher = new woleet.file.Hasher((window.hasher && window.hasher.weblibsWorkerScriptPath) || 'woleet-hashfile-worker.min.js');
     this.init();
   }
 

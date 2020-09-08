@@ -74,7 +74,10 @@
     js.async = 1;
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'file-hasher-widget', '../dist/file-hasher-widget.js'));
-  hasher = { pdfjsLibWorkerScriptPath: '../dist/pdf.worker.min.js' };
+  hasher = {
+    pdfjsLibWorkerScriptPath: '../dist/pdf.worker.min.js',
+    weblibsWorkerScriptPath: '../dist/woleet-hashfile-worker.min.js'
+  };
 </script>
 
 <div>
