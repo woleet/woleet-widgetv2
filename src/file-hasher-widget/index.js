@@ -1,8 +1,7 @@
 import constants from 'Common/constants';
-import { getFileHasherDefaults } from 'FileHasherWidget/defaults';
+import fileHasherDefaults from 'FileHasherWidget/defaults';
 import utils from 'Common/services/utils';
 import widgetLogger from 'Common/services/logger';
-
 import FileHasherWidget from './components';
 
 const fileHashers = [];
@@ -72,13 +71,12 @@ function init(widgetConfigurations) {
       return;
     }
 
-    customConfiguration.widgetId = widgetId;
-
     // Extend the default widget configuration by user settings
-    const configuration = getFileHasherDefaults();
+    customConfiguration.widgetId = widgetId;
+    const configuration = fileHasherDefaults;
     utils.extendObject(configuration, customConfiguration);
 
-    // Render a widget instance and render it but remove all children before
+    // Render a widget instance (remove all children before)
     while (widgetElement.firstChild) {
       widgetElement.removeChild(widgetElement.firstChild);
     }
@@ -100,11 +98,10 @@ function addCssLink() {
 
   // Check it js link exists
   if (script && script.src && style === null) {
-    // Grab the url of js file and generate the css path
+    // Grab the URL of the JS file and generate the CSS path
     const styleSrc = script.src.replace('.js', '.css');
     const head = document.getElementsByTagName('head')[0];
     const link = document.createElement('link');
-
     sourcePath = utils.getFilenameSource(script.src);
 
     // Then append it to the HTML code
@@ -127,7 +124,7 @@ function reset(id) {
   });
 }
 
-// Create the method to initialize and reset the widget in js code
+// Create the methods to initialize and reset the widget from JS code
 window.fileHasherWidget = {
   init: init,
   reset: reset

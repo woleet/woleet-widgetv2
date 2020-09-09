@@ -1,8 +1,6 @@
 const path = require('path');
-const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const devtool = 'source-map';
 
 module.exports = (resourcePath = '') => {
@@ -48,7 +46,6 @@ module.exports = (resourcePath = '') => {
       {
         test: /\.svg$/,
         loader: 'raw-loader'
-        // loader: 'svg-inline-loader?classPrefix'
       },
       {
         test: /\.js$/i,
@@ -94,26 +91,6 @@ module.exports = (resourcePath = '') => {
     entry,
     resolve,
     module: modules,
-    plugins,
-    optimization: {
-      minimizer: [
-        new UglifyJsPlugin({
-          cache: true,
-          minify(file, sourceMap) {
-            const uglifyJsOptions = {
-              toplevel: true
-            };
-
-            if (sourceMap) {
-              uglifyJsOptions.sourceMap = {
-                content: sourceMap
-              };
-            }
-            return require('terser')
-              .minify(file, uglifyJsOptions);
-          }
-        })
-      ]
-    }
+    plugins
   };
 };

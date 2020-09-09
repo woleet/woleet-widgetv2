@@ -3,11 +3,11 @@ const path = require('path');
 
 const resourcePath = '';
 const config = require('./webpack.config')(resourcePath);
+
 const port = 9000;
 
 config.devtool = 'inline-source-map';
 config.mode = 'development';
-config.optimization = { minimize: true };
 
 config.output = {
   filename: '[name].js',
