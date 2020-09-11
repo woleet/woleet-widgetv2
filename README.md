@@ -59,11 +59,11 @@ The following attributes can be set on `<div>` tag to configure the behavior of 
            
     * __enabled__ - the proxy state; _DEFAULT_: ___false___
     
-* __file__ - Downloaded file options:
+* __file__ - Downloaded file:
     
     * __url__ - URL of the file to download
 
-* __observers__ - callback functions called by the widget
+* __observers__ - Callback functions called by the widget:
 
     * __downloadingStarted__ - is called once the file is started to download. Parameters: ___widgetId___, ___url___;
 
@@ -95,23 +95,24 @@ The following attributes can be set on `<div>` tag to configure the behavior of 
 
 There are several ways to configure the widget:
 
-* parameters are in the attribute <b>config</b> as a JSON object:
+* set parameters using the `config` attribute of the HTML element:
 
 ```html
 <div class="file-hasher-widget" config='{"file": {"url": "http://pngimg.com/uploads/google/google_PNG19644.png"}, "observers": {"hashingFinished": "hashingFinishedObserver", "downloadingFinished": "downloadingFinishedObserver"}}'></div>
 ```
-* parameters are attributes of the HTML element:
+* set parameters as attributes of the HTML element:
 
 ```html
 <div class='file-hasher-widget'
      file='{"url": "http://pngimg.com/uploads/google/google_PNG19634.png"}'
      observers='{"hashingFinished": "test.hashingFinished"}'></div>
  ```
-If a option has nested options they can be set also as HTML attributes by joining via '-' in lower case:
+Note that if a parameter has nested parameters they can be set also as attributes by joining via '-' in lower case:
 
 ```html
 <div class='file-hasher-widget'
      id='file-hasher-widget-de'
+     file-url='http://pngimg.com/uploads/google/google_PNG19634.png'
      observers-hashingFinished='window.hashingFinished'></div>
 ```
 
