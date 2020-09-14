@@ -121,7 +121,7 @@ function init(widgetConfigurations) {
  */
 function reset(id) {
   fileHashers.forEach(fileHasher => {
-    if (fileHasher.configuration.id === id) {
+    if (fileHasher.configuration.widgetId === id) {
       fileHasher.reset();
     }
   });
