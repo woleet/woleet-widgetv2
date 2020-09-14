@@ -40,21 +40,20 @@ class DropContainer {
    */
   initializeObservers() {
     const self = this;
-    this.widget.observers.downloadModeInitiatedObserver.subscribe((data) => {
-      this.downloadModeInitiated(data);
+    this.widget.observers.downloadModeInitiatedObserver.subscribe(() => {
+      this.downloadModeInitiated();
     });
-    this.widget.observers.downloadingFailedObserver.subscribe((data) => {
-      this.downloadingFailed(data);
+    this.widget.observers.uploadModeInitiatedObserver.subscribe(() => {
+      this.uploadModeInitiated();
     });
-    this.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
-      this.uploadModeInitiated(data);
-      this.hashingCanceled(data);
+    this.widget.observers.downloadingFailedObserver.subscribe(() => {
+      this.downloadingFailed();
     });
     this.widget.observers.widgetResetObserver.subscribe(() => {
       this.hashingCanceled();
     });
-    this.widget.observers.downloadingFinishedObserver.subscribe((data) => {
-      this.startHashing(data)
+    this.widget.observers.downloadingFinishedObserver.subscribe((file) => {
+      this.startHashing(file)
         .then(result => {
           if (result) {
             self.widget.observers.hashingFinishedObserver.broadcast(result);
@@ -62,7 +61,6 @@ class DropContainer {
         });
     });
     this.widget.observers.errorCaughtObserver.subscribe(() => {
-      this.downloadingStarted();
       this.hashingCanceled();
     });
   }
@@ -150,7 +148,7 @@ class DropContainer {
     // Broadcast the file selected event
     self.widget.observers.fileSelectedObserver.broadcast(file);
 
-    // Start hasing
+    // Start hashing
     return self.startHashing(file);
   }
 
@@ -158,16 +156,12 @@ class DropContainer {
     this.element.hide();
   }
 
-  downloadingFailed() {
-    this.element.hide();
-  }
-
   uploadModeInitiated() {
     this.element.show();
   }
 
-  downloadingStarted() {
-    this.element.show();
+  downloadingFailed() {
+    this.element.hide();
   }
 
   hashingCanceled() {
