@@ -77,8 +77,8 @@ class PreviewContainer {
       self.downloadingFinished(file);
     });
 
-    self.widget.observers.uploadModeInitiatedObserver.subscribe((data) => {
-      self.uploadModeInitiated(data);
+    self.widget.observers.uploadModeInitiatedObserver.subscribe(() => {
+      self.uploadModeInitiated();
     });
   }
 
