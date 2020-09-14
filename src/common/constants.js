@@ -2,10 +2,8 @@
  * File hasher widget constants
  * @type {string}
  */
-const FILE_HASHER_WIDGET_ID = 'file-hasher-widget';
-const FILE_HASHER_WIDGET_TYPE = 'FILE_HASHER_WIDGET';
+const FILE_HASHER_WIDGET = 'file-hasher-widget';
 
 export default {
-  FILE_HASHER_WIDGET_ID,
-  FILE_HASHER_WIDGET_TYPE
+  FILE_HASHER_WIDGET
 };

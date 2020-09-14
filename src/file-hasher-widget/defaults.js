@@ -1,5 +1,3 @@
-import constants from 'Common/constants';
-
 // Default configuration of the widget. For more information check the README file
 const fileHasherDefaults = {
   file: {
@@ -20,8 +18,7 @@ const fileHasherDefaults = {
   proxy: {
     url: null,
     enabled: false
-  },
-  type: constants.FILE_HASHER_WIDGET_TYPE
+  }
 };
 
 export default fileHasherDefaults;

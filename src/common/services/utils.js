@@ -77,7 +77,6 @@ function parseWidgetAttributeConfiguration(widgetElement) {
   }
 
   const attributesKeys = Object.keys(elementAttributes);
-
   attributesKeys.forEach((key) => {
     if (forbiddenAttributes.indexOf(key) === -1) {
       const attributeValue = elementAttributes[key];
@@ -85,7 +84,8 @@ function parseWidgetAttributeConfiguration(widgetElement) {
       // Get a property by code and replace the config values if they exists
       try {
         widgetConfiguration[key] = JSON.parse(attributeValue);
-      } catch (e) {
+      }
+      catch (e) {
         widgetConfiguration[key] = attributeValue;
       }
 
@@ -120,7 +120,9 @@ function getUniqueId(prefix = '', suffix = '') {
  */
 function s4() {
   // eslint-disable-next-line no-bitwise
-  return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  return (((1 + Math.random()) * 0x10000) | 0)
+    .toString(16)
+    .substring(1);
 }
 
 /**
@@ -264,7 +266,8 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
     try {
       request.open('GET', downloadFilename, true);
       request.send();
-    } catch (err) {
+    }
+    catch (err) {
       console.log('downloading failed', err);
     }
   };
@@ -309,13 +312,16 @@ function adsBlocked(callback) {
 
   const myRequest = new Request(testURL, myInit);
 
-  fetch(myRequest).then(function (response) {
-    return response;
-  }).then(function () {
-    callback(false);
-  }).catch(function () {
-    callback(true);
-  });
+  fetch(myRequest)
+    .then(function (response) {
+      return response;
+    })
+    .then(function () {
+      callback(false);
+    })
+    .catch(function () {
+      callback(true);
+    });
 }
 
 /**

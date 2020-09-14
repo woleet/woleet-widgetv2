@@ -44,9 +44,6 @@
 
   function hashingFinishedObserver(widgetId, hash) {
     console.log('Hashing finished', widgetId, hash);
-    if (widgetId === 'first-file-hasher-widget') {
-      document.getElementById('file-hasher-widget-reset-button').style.display = 'block';
-    }
   }
 
   function hashingStartedObserver(widgetId, file, isPreviewable) {
@@ -63,7 +60,6 @@
 
   function widgetResetObserver(widgetId) {
     console.log('Widget reset', widgetId);
-    document.getElementById('file-hasher-widget-reset-button').style.display = 'none';
   }
 
   (function (d, s, i, f) {
@@ -81,36 +77,33 @@
 </script>
 
 <div>
-  <p>Big PDF file: https://archive.org/download/Mahabharata_201712/6_Mahabharata.pdf</p>
-  <p>Light PDF file: http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf</p>
-</div>
-
-<div>
-  <div>
-    <div class='file-hasher-widget' id='first-file-hasher-widget'
-      observers-hashingFinished='hashingFinishedObserver'
-      observers='{"hashingFinished": "hashingFinishedObserver", "hashingStarted": "hashingStartedObserver", "hashingCanceled": "hashingCanceledObserver", "hashingProgress": "hashingProgressObserver", "widgetReset": "widgetResetObserver"}'>
-    </div>
-    <button id="file-hasher-widget-reset-button" onclick="window.fileHasherWidget.reset('first-file-hasher-widget');"
-      style="display:none">
-      Reset
-    </button>
+  <!-- File hasher widget instance with no preloaded file, observing hashing finished and a widget reset events -->
+  <div class='file-hasher-widget' id='first-file-hasher-widget'
+    observers-hashingFinished='hashingFinishedObserver'
+    observers-widgetReset="widgetResetObserver">
   </div>
-  <div class='file-hasher-widget'
+  <button onclick="window.fileHasherWidget.reset('first-file-hasher-widget');">Reset</button>
+
+  <!-- File hasher widget instance preloading a file and observing file downloading events -->
+  <div class='file-hasher-widget' id='second-file-hasher-widget'
     proxy='{"url": "http://localhost:3000/download?url=", "enabled": true}'
     file='{"url": "http://demos.codexworld.com/embed-pdf-document-file-in-html-web-page/files/Brochure.pdf"}'
-    observers-hashingFinished='hashingFinishedObserver'
-    observers-downloadingFinished='downloadingFinishedObserver'
     observers-downloadingStarted='downloadingStartedObserver'
+    observers-downloadingProgress='downloadingProgressObserver'
+    observers-downloadingFinished='downloadingFinishedObserver'
     observers-downloadingCanceled='downloadingCanceledObserver'
-    observers-downloadingProgress='downloadingProgressObserver'>
+    observers-downloadingFailed='downloadingFailedObserver'>
   </div>
-  <div class='file-hasher-widget'
+  <button onclick="window.fileHasherWidget.reset('second-file-hasher-widget');">Reset</button>
+
+  <!-- File hasher widget instance preloading a file and observing file hashing events -->
+  <div class='file-hasher-widget' id='third-file-hasher-widget'
     proxy='{"url": "http://localhost:3000/download?url=", "enabled": true}'
     file='{"url": "https://drive.google.com/uc?id=1si1n3q0LH_Wl7m8hO6J85dhia3JSK9da&export=download"}'
-    observers='{"hashingFinished": "hashingFinishedObserver", "downloadingFinished": "downloadingFinishedObserver", "downloadingFailed": "downloadingFailedObserver"}'>
+    observers='{"hashingStarted": "hashingStartedObserver", "hashingProgress": "hashingProgressObserver", "hashingFinished": "hashingFinishedObserver", "hashingCanceled": "hashingCanceledObserver"}'>
   </div>
-  <div class="log download-logging" id="download-logging"></div>
+  <button onclick="window.fileHasherWidget.reset('third-file-hasher-widget');">Reset</button>
+
 </div>
 
 </body>

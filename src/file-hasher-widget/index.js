@@ -7,35 +7,32 @@ import FileHasherWidget from './components';
 const fileHashers = [];
 
 /**
- * The main entry of the widget
+ * Main entry point of the file hasher widget
  * @param window
  * @param document
  */
 function widget(window, document) {
-  // Grab the object created during the widget creation
-  const widgetElementCollection = document.getElementsByClassName(constants.FILE_HASHER_WIDGET_ID);
-
-  // Initialize and configure all instances of the widget
+  // Build the configurations for all instances of the widget
   const widgetConfigurations = [];
-  const widgetElements = Array.from(widgetElementCollection);
-  widgetElements.forEach(widgetElement => {
-    let widgetConfiguration = utils.parseWidgetAttributeConfiguration(widgetElement);
-    if (widgetConfiguration && widgetConfiguration.observers) {
-      const observerCodes = Object.keys(widgetConfiguration.observers);
-      observerCodes.forEach(observerCode => {
-        const observerName = widgetConfiguration.observers[observerCode];
-        widgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function () {
-        };
+  Array.from(document.getElementsByClassName(constants.FILE_HASHER_WIDGET))
+    .forEach(widgetElement => {
+      let widgetConfiguration = utils.parseWidgetAttributeConfiguration(widgetElement);
+      if (widgetConfiguration && widgetConfiguration.observers) {
+        const observerCodes = Object.keys(widgetConfiguration.observers);
+        observerCodes.forEach(observerCode => {
+          const observerName = widgetConfiguration.observers[observerCode];
+          widgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function () {
+          };
+        });
+      }
+      widgetConfigurations.push({
+        el: widgetElement,
+        id: widgetConfiguration.id,
+        config: widgetConfiguration
       });
-    }
-    widgetConfigurations.push({
-      el: widgetElement,
-      id: widgetConfiguration.id,
-      config: widgetConfiguration
     });
-  });
 
-  // Load all dependencies then initialize the widget
+  // Load all dependencies then initialize all the instances of the widget
   loadDependencies()
     .then(() => init(widgetConfigurations));
 }
@@ -44,7 +41,7 @@ function widget(window, document) {
  * Load widget styles, libraries and dependencies
  */
 function loadDependencies() {
-  // Load the widget styles
+  // Load the CSS styles
   const sourceLink = addCssLink();
   if (!window['file-hasher-widget-source'] && sourceLink !== null) {
     window['file-hasher-widget-source'] = sourceLink;
@@ -53,50 +50,16 @@ function loadDependencies() {
 }
 
 /**
- * Initialize the widget
- * @param widgetConfigurations
- */
-function init(widgetConfigurations) {
-  // Initialize all instances of the widget
-  widgetConfigurations.forEach(widgetConfiguration => {
-    const uniqueWidgetId = utils.getUniqueId(`${constants.FILE_HASHER_WIDGET_ID}-`);
-    const {
-      config: customConfiguration,
-      el: widgetElement,
-      id: widgetId = uniqueWidgetId
-    } = widgetConfiguration;
-
-    if (!widgetElement) {
-      widgetLogger.error('Widget element not found');
-      return;
-    }
-
-    // Extend the default widget configuration by user settings
-    customConfiguration.widgetId = widgetId;
-    const configuration = fileHasherDefaults;
-    utils.extendObject(configuration, customConfiguration);
-
-    // Render a widget instance (remove all children before)
-    while (widgetElement.firstChild) {
-      widgetElement.removeChild(widgetElement.firstChild);
-    }
-    const fileHasherWidget = new FileHasherWidget(configuration);
-    widgetElement.appendChild(fileHasherWidget.render());
-    fileHashers.push(fileHasherWidget);
-  });
-}
-
-/**
- * Load CSS styles
+ * Load the CSS styles
  * Check if the styles weren't loaded before
  */
 function addCssLink() {
-  const styleId = `${constants.FILE_HASHER_WIDGET_ID}-style`;
-  const script = document.getElementById(constants.FILE_HASHER_WIDGET_ID);
+  const script = document.getElementById(constants.FILE_HASHER_WIDGET);
+  const styleId = `${constants.FILE_HASHER_WIDGET}-style`;
   const style = document.getElementById(styleId);
   let sourcePath = null;
 
-  // Check it js link exists
+  // If file hasher's JS script is imported but not its CSS style sheet
   if (script && script.src && style === null) {
     // Grab the URL of the JS file and generate the CSS path
     const styleSrc = script.src.replace('.js', '.css');
@@ -116,6 +79,46 @@ function addCssLink() {
   return sourcePath;
 }
 
+/**
+ * Initialize all the instances of the widget
+ * @param widgetConfigurations
+ */
+function init(widgetConfigurations) {
+  // For all widget instances
+  widgetConfigurations.forEach(widgetConfiguration => {
+    // Get instance configuration
+    const uniqueWidgetId = utils.getUniqueId(`${constants.FILE_HASHER_WIDGET}-`);
+    const {
+      el: widgetElement,
+      id: widgetId = uniqueWidgetId,
+      config: widgetConfig = {}
+    } = widgetConfiguration;
+
+    // Check that widget element is present
+    if (!widgetElement) {
+      widgetLogger.error('Widget element not found');
+      return;
+    }
+
+    // Extend the default config with widget config
+    const configuration = Object.assign({}, fileHasherDefaults);
+    utils.extendObject(configuration, widgetConfig);
+    configuration.widgetId = widgetId;
+
+    // Render the widget instance (remove all children before)
+    while (widgetElement.firstChild) {
+      widgetElement.removeChild(widgetElement.firstChild);
+    }
+    const fileHasherWidget = new FileHasherWidget(configuration);
+    widgetElement.appendChild(fileHasherWidget.render());
+    fileHashers.push(fileHasherWidget);
+  });
+}
+
+/**
+ * Reset an instance of the widget
+ * @param id identifier of the widget
+ */
 function reset(id) {
   fileHashers.forEach(fileHasher => {
     if (fileHasher.configuration.id === id) {

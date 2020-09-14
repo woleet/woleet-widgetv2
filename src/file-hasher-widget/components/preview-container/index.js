@@ -16,11 +16,15 @@ class PreviewContainer {
     this.fileReader = new FileReader();
     this.file = null;
     this.pdfPreview = null;
-    this.previewFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/svg+xml', 'image/svg'];
-    this.textFileTypes = ['application/pdf'];
 
-    // Merge the extensions to get an array of allowed files
-    this.allowedType = this.previewFileTypes.concat(this.textFileTypes);
+    // Allowed image file types
+    this.imageFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/svg+xml', 'image/svg'];
+
+    // Allowed PDF file types
+    this.pdfFileTypes = ['application/pdf'];
+
+    // Build the list of allowed file types
+    this.allowedTypes = this.imageFileTypes.concat(this.pdfFileTypes);
 
     this.init();
   }
@@ -95,7 +99,7 @@ class PreviewContainer {
 
           if (self.url !== null) {
             window.open(self.url, '_blank');
-          } else if (this.allowedType.includes(filetype)) {
+          } else if (this.allowedTypes.includes(filetype)) {
             // Check if it's possible to open popup windows
             utils.adsBlocked((blocked) => {
               if (!blocked) {
@@ -152,12 +156,11 @@ class PreviewContainer {
 
     this.file = file;
 
-    if (this.previewFileTypes.includes(filetype)) { // Display an image
+    if (this.imageFileTypes.includes(filetype)) { // Display an image
       this.element.body.wrapper.show();
       this.fileReader.readAsDataURL(file);
-    } else if (this.textFileTypes.includes(filetype)) { // Or a PDF file
+    } else if (this.pdfFileTypes.includes(filetype)) { // Or a PDF file
       this.element.body.hide();
-      // Initialize the PDF viewer
       this.pdfPreview.setPdfFile(file);
     } else {
       this.element.body.wrapper.hide();
