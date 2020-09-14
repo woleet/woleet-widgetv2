@@ -57,8 +57,7 @@ class FileHasherWidget {
       hashingCanceledObserver: new EventObserver(),
 
       // Events: errors
-      errorCaughtObserver: new EventObserver(),
-      errorHiddenObserver: new EventObserver()
+      errorCaughtObserver: new EventObserver()
     };
 
     // Reinitialize the widget if hashing process was canceled
