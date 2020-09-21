@@ -21,8 +21,7 @@ function widget(window, document) {
         const observerCodes = Object.keys(widgetConfiguration.observers);
         observerCodes.forEach(observerCode => {
           const observerName = widgetConfiguration.observers[observerCode];
-          widgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function () {
-          };
+          widgetConfiguration.observers[observerCode] = utils.byString(window, observerName) || function () {};
         });
       }
       widgetConfigurations.push({
@@ -100,8 +99,11 @@ function init(widgetConfigurations) {
       return;
     }
 
+    // Deep merge the fileHasherDefaults into a new object to prevent the modification of the fileHasherDefaults properties by the widget config
+    const configuration = {};
+    utils.extendObject(configuration, fileHasherDefaults);
+
     // Extend the default config with widget config
-    const configuration = Object.assign({}, fileHasherDefaults);
     utils.extendObject(configuration, widgetConfig);
     configuration.widgetId = widgetId;
 
