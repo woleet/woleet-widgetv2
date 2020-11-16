@@ -1,7 +1,3 @@
-# Examples & server files
-examples
-server
-
 # macOS
 .DS_Store
 
@@ -11,13 +7,6 @@ server
 
 # Node module
 **/node_modules
-
-# Bower components
-
-
-.gitignore
-.eslintrc.js
-.babelrc
 
 # Webpack configs
 webpack.config.js
