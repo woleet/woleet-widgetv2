@@ -1,8 +1,8 @@
 {
   "name": "@woleet/woleet-widgetv2",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
-  "description": "This repository contains the sources code of **Woleet web widgets**.",
+  "description": "Woleet web widgets V2",
   "scripts": {
     "build": "./node_modules/.bin/webpack --config webpack.build.config.js --bail --progress",
     "dev": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js --hot --inline"
@@ -41,7 +41,7 @@
     "request-progress": "3.0.0"
   },
   "dependencies": {
-    "@woleet/woleet-weblibs": "0.11.0",
+    "@woleet/woleet-weblibs": "0.11.1",
     "pdfjs-dist": "2.4.456"
   }
 }

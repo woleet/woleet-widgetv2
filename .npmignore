@@ -1,3 +1,7 @@
+# Exclude examples and server
+examples
+server
+
 # macOS
 .DS_Store
 
