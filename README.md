@@ -1,15 +1,16 @@
 # Woleet widgets (version 2)
 
-This package contains web widgets useful to deal with Woleet proofs.  
+This package contains web widgets useful when you want to deal with Woleet proofs.  
 
 # File Hasher widget
 
-This web widget, easily embeddable in any web page, allows to preview and compute the SHA256 hash of a file
-(computing the hash of the proven file is the first step when you want to create or verify a Woleet proof).
+This web widget allows to preview a file and compute its SHA256 hash. It is easily embeddable in any web page.
+Since computing the hash of the proven file is the first step when you want to create or verify a Woleet proof, this widget is
+particularly useful.
 
 The file can be dropped by the user, or its URL can be provided to the widget for an automated download.
 A preview is automatically displayed if the file is an image or a PDF file. When the user clicks on the preview, the file is displayed full screen.
-The computation of the SHA256 hash of the file is automated and performed in background: callbacks can be used to get the hashing progress and result.
+The SHA256 hash of the file is computed in background: callbacks can be used to get the hashing progress and result.
 
 ## Build
 
@@ -61,7 +62,7 @@ The following attributes can be set on `<div>` tag to configure the behavior of 
     
 * __file__ - Downloaded file:
     
-    * __url__ - URL of the file to download
+    * __url__ - URL of the file to download (the URL must be local URL or must support CORS)
 
 * __observers__ - Callback functions called by the widget:
 
@@ -131,12 +132,18 @@ See [examples/file-hasher-widget-example.html](examples/file-hasher-widget-examp
 
 ### Proxy Server
 
-To allow the widget to download a file, the file URL must be proxied, or the URL must support CORS.
+To allow the widget to download a file, the file URL must be a local URL or must support CORS.
 
-For testing, a Node.js server is provided. This simple server redirects the resource flow to the widget.
+To easy testing during development, a Node.js server is provided.
+This simple server proxies any URL on the local URL `http://localhost:3000/download?url=<URL>`
+
 Execute next command to launch the server:
 
 ```bash
 cd ./server
 node app
 ```
+
+# Proof Verifier widget
+
+COMING SOON! Please contact support@woleet.com.
