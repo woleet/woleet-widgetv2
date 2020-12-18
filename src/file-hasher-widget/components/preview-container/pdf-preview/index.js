@@ -103,13 +103,7 @@ class PdfPreview {
       return false;
     });
 
-    this.element.on('mouseenter', function () {
-      self.element.control.show();
-    });
-
-    this.element.on('mouseleave', function () {
-      self.element.control.hide();
-    });
+    this.element.control.show();
   }
 
   /**
