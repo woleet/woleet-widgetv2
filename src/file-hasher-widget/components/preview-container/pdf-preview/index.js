@@ -54,16 +54,11 @@ class PdfPreview {
       classes: utils.extractClasses(styles, styleCodes.preview.pdf.control.icon.next.code)
     });
 
-    this.element.control.prev.setSvg(faCaretLeft);
-
-    this.element.control.prev.disable();
-
-    this.element.control.next.disable();
-
-    this.element.control.next.setSvg(faCaretRight);
-
     this.element.hide();
     this.element.control.hide();
+
+    this.element.control.prev.setSvg(faCaretLeft);
+    this.element.control.next.setSvg(faCaretRight);
 
     this.initializeEvents();
   }
@@ -74,6 +69,9 @@ class PdfPreview {
   initializeEvents() {
     const self = this;
     this.fileReader.onload = function () {
+      self.element.control.prev.disable();
+      self.element.control.next.disable();
+
       self.typedArray = new Uint8Array(this.result);
 
       delete this.result;
@@ -85,6 +83,7 @@ class PdfPreview {
           self.pdfDoc = pdf;
           self.pageCount = self.pdfDoc.numPages;
           self.renderPage(self.pageNum);
+
           if (self.pageCount > 1) {
             self.element.control.next.enable();
           }

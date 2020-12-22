@@ -99,7 +99,8 @@ function init(widgetConfigurations) {
       return;
     }
 
-    // Deep merge the fileHasherDefaults into a new object to prevent the modification of the fileHasherDefaults properties by the widget config
+    // Deep merge the fileHasherDefaults into a new object
+    // to prevent the modification of the fileHasherDefaults properties by the widget config
     const configuration = {};
     utils.extendObject(configuration, fileHasherDefaults);
 
