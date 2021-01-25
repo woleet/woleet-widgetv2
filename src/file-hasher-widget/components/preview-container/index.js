@@ -65,19 +65,19 @@ class PreviewContainer {
   initializeObservers() {
     const self = this;
 
-    self.widget.observers.downloadingFinishedObserver.subscribe((file) => {
+    this.widget.observers.downloadingFinishedObserver.subscribe((file) => {
       self.element.show();
       self.element.body.show();
       self.downloadingFinished(file);
     });
 
-    self.widget.observers.fileSelectedObserver.subscribe((file) => {
+    this.widget.observers.fileSelectedObserver.subscribe((file) => {
       self.element.show();
       self.element.body.show();
       self.downloadingFinished(file);
     });
 
-    self.widget.observers.uploadModeInitiatedObserver.subscribe(() => {
+    this.widget.observers.uploadModeInitiatedObserver.subscribe(() => {
       self.uploadModeInitiated();
     });
   }

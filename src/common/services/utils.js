@@ -84,8 +84,7 @@ function parseWidgetAttributeConfiguration(widgetElement) {
       // Get a property by code and replace the config values if they exists
       try {
         widgetConfiguration[key] = JSON.parse(attributeValue);
-      }
-      catch (e) {
+      } catch (e) {
         widgetConfiguration[key] = attributeValue;
       }
 
@@ -228,6 +227,14 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
           const downloadingFailedObserver = observerMapper.downloadingFailed;
           widget.observers[downloadingFailedObserver].broadcast('url_not_found', request.status, request.statusText);
         }
+      } else if (request.status === 403) {
+        if (observerMapper.downloadingFailed) {
+          const downloadingFailedObserver = observerMapper.downloadingFailed;
+          widget.observers[downloadingFailedObserver].broadcast('forbidden', request.status, request.statusText);
+        }
+      } else if (observerMapper.downloadingFailed) {
+        const downloadingFailedObserver = observerMapper.downloadingFailed;
+        widget.observers[downloadingFailedObserver].broadcast('download_unavailable', request.status, request.statusText);
       }
     }
   });
@@ -266,8 +273,7 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
     try {
       request.open('GET', downloadFilename, true);
       request.send();
-    }
-    catch (err) {
+    } catch (err) {
       console.log('downloading failed', err);
     }
   };

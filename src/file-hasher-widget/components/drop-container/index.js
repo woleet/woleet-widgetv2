@@ -161,7 +161,7 @@ class DropContainer {
   }
 
   downloadingFailed() {
-    this.element.hide();
+    this.element.show();
   }
 
   hashingCanceled() {
