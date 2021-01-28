@@ -81,6 +81,10 @@ The following attributes can be set on `<div>` tag to configure the behavior of 
             url_not_found - the download url is wrong;
             
             cors - CORS policy issue;
+
+            forbidden - the download is forbidden with this url
+
+            download_unavailable - the download is unavailable for more information see the response message
     
     * __hashingStarted__ - is called once the hashing process is started. Parameters: ___widgetId___, ___hashed file___, ___isPreviewable___;
     
