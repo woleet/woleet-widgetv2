@@ -1,6 +1,6 @@
 {
   "name": "@woleet/woleet-widgetv2",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": false,
   "description": "Woleet web widgets V2",
   "scripts": {
