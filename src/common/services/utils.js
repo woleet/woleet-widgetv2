@@ -154,7 +154,7 @@ function getUrlToDownload(filename, proxyUrl, useProxy) {
  * @returns {string}
  */
 function getFileNameFromUrl(url) {
-  const testRegEx = /^[\w,\s-]+\.[A-Za-z]{3}$/;
+  const testRegEx = /^.*\.*/;
   const filename = url.substring(url.lastIndexOf('/') + 1);
   return testRegEx.test(filename) ? filename : null;
 }
