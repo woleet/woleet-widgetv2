@@ -100,7 +100,7 @@
   <!-- File hasher widget instance preloading a file and observing all file hashing events + widget reset event -->
   <div class='file-hasher-widget' id='third-file-hasher-widget'
     proxy='{"url": "http://localhost:3000/download?url=", "enabled": true}'
-    file='{"url": "https://drive.google.com/uc?id=1si1n3q0LH_Wl7m8hO6J85dhia3JSK9da&export=download", "filename": "tcu.pdf"}'
+    file='{"url": "https://drive.google.com/uc?id=1si1n3q0LH_Wl7m8hO6J85dhia3JSK9da&export=download"}'
     observers='{"hashingStarted": "hashingStartedObserver", "hashingProgress": "hashingProgressObserver", "hashingFinished": "hashingFinishedObserver", "hashingCanceled": "hashingCanceledObserver", "widgetReset": "widgetResetObserver"}'>
   </div>
   <button onclick="window.fileHasherWidget.reset('third-file-hasher-widget');">Reset</button>
