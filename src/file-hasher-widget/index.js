@@ -3,6 +3,7 @@ import fileHasherDefaults from 'FileHasherWidget/defaults';
 import utils from 'Common/services/utils';
 import widgetLogger from 'Common/services/logger';
 import FileHasherWidget from './components';
+import { mergeDeep } from '../common/services/utils';
 
 const fileHashers = [];
 
@@ -64,7 +65,7 @@ function addCssLink() {
     const styleSrc = script.src.replace('.js', '.css');
     const head = document.getElementsByTagName('head')[0];
     const link = document.createElement('link');
-    sourcePath = utils.getFilenameSource(script.src);
+    sourcePath = utils.getFilePathFromUrl(script.src);
 
     // Then append it to the HTML code
     link.rel = 'stylesheet';
@@ -102,10 +103,10 @@ function init(widgetConfigurations) {
     // Deep merge the fileHasherDefaults into a new object
     // to prevent the modification of the fileHasherDefaults properties by the widget config
     const configuration = {};
-    utils.extendObject(configuration, fileHasherDefaults);
+    utils.mergeDeep(configuration, fileHasherDefaults);
 
     // Extend the default config with widget config
-    utils.extendObject(configuration, widgetConfig);
+    utils.mergeDeep(configuration, widgetConfig);
     configuration.widgetId = widgetId;
 
     // Render the widget instance (remove all children before)

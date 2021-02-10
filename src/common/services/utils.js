@@ -138,7 +138,7 @@ function blobToFile(blob, filename) {
 }
 
 /**
- * Get url to download file using Proxy Server
+ * Get an URL allowing to download a file using the proxy server.
  * @param filename
  * @param proxyUrl
  * @param useProxy
@@ -149,27 +149,27 @@ function getUrlToDownload(filename, proxyUrl, useProxy) {
 }
 
 /**
- * Get filename of a URL
+ * Try to extract the name of the file targeted by an URL.
  * @param url
  * @returns {string}
  */
-function getFilenameUrl(url) {
-  const filenameTest = /^[\w,\s-]+\.[A-Za-z]{3}$/;
-  const testedFilename = url.substring(url.lastIndexOf('/') + 1);
-  return filenameTest.test(testedFilename) ? testedFilename : null;
+function getFileNameFromUrl(url) {
+  const testRegEx = /^[\w,\s-]+\.[A-Za-z]{3}$/;
+  const filename = url.substring(url.lastIndexOf('/') + 1);
+  return testRegEx.test(filename) ? filename : null;
 }
 
 /**
- *
+ * Get the path of the file targeted by an URL.
  * @param url
  * @returns {string}
  */
-function getFilenameSource(url) {
+function getFilePathFromUrl(url) {
   return url.substring(0, url.lastIndexOf('/'));
 }
 
 /**
- * Get filename of a URL
+ * Check if a file can be previewed.
  * @param file
  * @returns {boolean}
  */
@@ -204,7 +204,7 @@ function getHttpRequest(downloadFilename, widget, observerMapper, filename = nul
     } else if (request.readyState === 4) {
       // Downloading has finished
       if (request.response && request.status === 200) {
-        filename = filename || getFilenameUrl(downloadFilename);
+        filename = filename || getFileNameFromUrl(downloadFilename);
 
         let file = request.response;
 
@@ -366,13 +366,13 @@ export default {
   blobToFile,
   adsBlocked,
   getUniqueId,
-  extendObject: mergeDeep,
+  mergeDeep,
   defineProperty,
   getHttpRequest,
   extractClasses,
-  getFilenameUrl,
+  getFileNameFromUrl,
   getUrlToDownload,
-  getFilenameSource,
+  getFilePathFromUrl,
   getObjectByString,
   parseWidgetAttributeConfiguration,
   isPreviewable

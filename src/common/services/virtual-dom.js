@@ -161,7 +161,7 @@ function createElement(element = 'div', options = {}, attrs = {}) {
  * @param attrs
  */
 function createFileInput(options = {}, attrs = {}) {
-  return createElement('input', options, utils.extendObject({
+  return createElement('input', options, utils.mergeDeep({
     type: 'file',
     title: ''
   }, attrs));
