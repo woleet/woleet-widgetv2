@@ -1,7 +1,8 @@
 // Default configuration of the widget. For more information check the README file
 const fileHasherDefaults = {
   file: {
-    url: null
+    url: null,
+    filename: null
   },
   visibility: {
     preview: true

@@ -154,7 +154,9 @@ function getUrlToDownload(filename, proxyUrl, useProxy) {
  * @returns {string}
  */
 function getFilenameUrl(url) {
-  return url.substring(url.lastIndexOf('/') + 1);
+  const filenameTest = /^[\w,\s-]+\.[A-Za-z]{3}$/;
+  const testedFilename = url.substring(url.lastIndexOf('/') + 1);
+  return filenameTest.test(testedFilename) ? testedFilename : null;
 }
 
 /**
@@ -186,7 +188,7 @@ function isPreviewable(file) {
  * @param toBlob
  * @returns {XMLHttpRequest}
  */
-function getHttpRequest(downloadFilename, widget, observerMapper, url = false, toBlob = false) {
+function getHttpRequest(downloadFilename, widget, observerMapper, filename = null, url = false, toBlob = false) {
   let request = new XMLHttpRequest();
 
   // If the request status was changed
@@ -202,7 +204,7 @@ function getHttpRequest(downloadFilename, widget, observerMapper, url = false, t
     } else if (request.readyState === 4) {
       // Downloading has finished
       if (request.response && request.status === 200) {
-        const filename = getFilenameUrl(downloadFilename);
+        filename = filename || getFilenameUrl(downloadFilename);
 
         let file = request.response;
 

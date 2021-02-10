@@ -11,7 +11,8 @@ class DownloadContainer {
   constructor(widget) {
     const {
       file: {
-        url: provenFileUrl
+        url: provenFileUrl,
+        filename: filename
       }
     } = widget.configuration;
 
@@ -43,8 +44,8 @@ class DownloadContainer {
        * If the proxy is listed then change the download URL
        * @type {string}
        */
-      const downloadFilename = utils.getUrlToDownload(this.url, proxyUrl, proxyEnabled);
-      this.request = utils.getHttpRequest(downloadFilename, this.widget, this.observerMapper, this.url);
+      const downloadUrl = utils.getUrlToDownload(this.url, proxyUrl, proxyEnabled);
+      this.request = utils.getHttpRequest(downloadUrl, this.widget, this.observerMapper, filename, this.url);
     }
 
     this.init();

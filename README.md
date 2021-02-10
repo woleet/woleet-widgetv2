@@ -64,6 +64,8 @@ The following attributes can be set on `<div>` tag to configure the behavior of 
     
     * __url__ - URL of the file to download (the URL must be local URL or must support CORS)
 
+    * __filename__ - The name of the file
+
 * __observers__ - Callback functions called by the widget:
 
     * __downloadingStarted__ - is called once the file is started to download. Parameters: ___widgetId___, ___url___;
