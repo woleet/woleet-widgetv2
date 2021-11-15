@@ -137,15 +137,8 @@ class PdfPreview {
 
         const renderTask = page.render(renderContext);
 
-        console.log('rendering START : ', renderTask);
-
-        setTimeout(function () {
-          console.log('rendering check : ', renderTask);
-        }, 3000);
-
         // Wait for rendering to finish
         renderTask.promise.then(function () {
-          console.log('rendering OK');
           self.pageRendering = false;
           if (self.pageNumPending !== null) {
             // New page rendering is pending

@@ -4,7 +4,7 @@ const progress = require('request-progress');
 const app = express();
 const cors = require('cors');
 const conf = {
-  port: 3005
+  port: 3000
 };
 
 app.use(cors());
