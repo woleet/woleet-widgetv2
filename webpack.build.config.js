@@ -1,33 +1,19 @@
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const path = require('path');
 
 const resourcePath = 'dist';
-const config = require('./webpack.config')(resourcePath);
+const config = require('./webpack.config')('.', true);
 
 config.mode = 'production';
 
 config.output = {
-  filename: resourcePath + '/[name].js',
-  chunkFilename: resourcePath + '/[name].js',
-  path: path.resolve(__dirname),
-  publicPath: '../'
+  filename: './[name].js',
+  chunkFilename: './[name].js',
+  path: path.resolve(__dirname, resourcePath),
+  publicPath: '../',
+  clean: true
 };
 
-/**
- * Add production plugins
- */
-config.plugins.unshift(new CleanWebpackPlugin([
-  path.resolve(__dirname, resourcePath)
-]));
-
-config.plugins.push(new OptimizeCssAssetsPlugin({
-  assetNameRegExp: /\.css$/g,
-  cssProcessor: require('cssnano'),
-  cssProcessorPluginOptions: {
-    preset: ['default', { discardComments: { removeAll: true } }]
-  },
-  canPrint: true
-}));
+config.plugins.push(new CssMinimizerPlugin());
 
 module.exports = config;

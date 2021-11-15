@@ -2,7 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 const resourcePath = '';
-const config = require('./webpack.config')(resourcePath);
+const config = require('./webpack.config')(resourcePath, false);
 
 const port = 9000;
 
@@ -17,17 +17,12 @@ config.output = {
 };
 
 config.devServer = {
-  compress: true,
+  static: {
+    directory: path.join(__dirname)
+  },
   port: port,
   open: false,
-  disableHostCheck: true,
-  historyApiFallback: true,
-  stats: {
-    modules: false,
-    cached: false,
-    colors: true,
-    chunk: false
-  }
+  historyApiFallback: true
 };
 
 /**

@@ -3,7 +3,6 @@ import fileHasherDefaults from 'FileHasherWidget/defaults';
 import utils from 'Common/services/utils';
 import widgetLogger from 'Common/services/logger';
 import FileHasherWidget from './components';
-import { mergeDeep } from '../common/services/utils';
 
 const fileHashers = [];
 

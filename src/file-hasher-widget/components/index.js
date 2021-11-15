@@ -136,6 +136,9 @@ class FileHasherWidget {
    * Create and initialize all container elements
    */
   init() {
+    console.log('------------------');
+    console.log(Object.keys(styles));
+    console.log('------------------');
     this.element = VirtualDOMService.createElement('div', {
       classes: utils.extractClasses(styles, styleCodes.code),
       hidden: utils.extractClasses(styles, styleCodes.widget.hidden),

@@ -5,7 +5,7 @@
   "description": "Woleet web widgets V2",
   "scripts": {
     "build": "./node_modules/.bin/webpack --config webpack.build.config.js --bail --progress",
-    "dev": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js --hot --inline"
+    "dev": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js --hot"
   },
   "keywords": [
     "Woleet",
@@ -15,33 +15,34 @@
   "author": "Woleet",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.11.6",
-    "@babel/preset-env": "7.11.5",
-    "webpack": "4.44.1",
-    "webpack-cli": "3.3.12",
-    "webpack-dev-server": "3.11.0",
-    "clean-webpack-plugin": "1.0.1",
-    "copy-webpack-plugin": "5.1.2",
-    "extract-text-webpack-plugin": "4.0.0-beta.0",
-    "html-webpack-plugin": "4.4.1",
-    "optimize-css-assets-webpack-plugin": "5.0.4",
+    "@babel/core": "7.16.0",
+    "@babel/preset-env": "7.16.0",
+    "babel-loader": "8.2.3",
+    "buffer": "6.0.3",
+    "copy-webpack-plugin": "9.0.1",
     "cors": "2.8.5",
+    "css-loader": "6.5.1",
+    "css-minimizer-webpack-plugin": "3.1.2",
     "eslint": "7.8.1",
     "eslint-config-airbnb-base": "14.2.0",
     "eslint-plugin-import": "2.22.0",
     "express": "4.17.1",
-    "node-sass": "4.14.1",
+    "html-webpack-plugin": "5.5.0",
+    "mini-css-extract-plugin": "2.4.4",
+    "node-sass": "6.0.1",
     "path": "0.12.7",
-    "babel-loader": "8.1.0",
-    "css-loader": "2.1.1",
-    "raw-loader": "4.0.1",
-    "sass-loader": "9.0.3",
-    "style-loader": "1.2.1",
+    "raw-loader": "4.0.2",
     "request": "2.88.2",
-    "request-progress": "3.0.0"
+    "request-progress": "3.0.0",
+    "sass-loader": "12.3.0",
+    "style-loader": "3.3.1",
+    "stream-browserify": "3.0.0",
+    "webpack": "5.62.1",
+    "webpack-cli": "4.9.1",
+    "webpack-dev-server": "4.4.0"
   },
   "dependencies": {
     "@woleet/woleet-weblibs": "0.11.1",
-    "pdfjs-dist": "2.4.456"
+    "pdfjs-dist": "2.10.377"
   }
 }

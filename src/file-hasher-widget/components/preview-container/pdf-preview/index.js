@@ -4,7 +4,7 @@ import styleCodes from 'FileHasherComponents/style-codes';
 import styles from './index.scss';
 import faCaretLeft from 'Resources/images/caret-left.svg';
 import faCaretRight from 'Resources/images/caret-right.svg';
-import pdfjsLib from 'pdfjs-dist';
+import * as pdfjsLib from 'pdfjs-dist';
 
 /**
  * PdfPreview
@@ -137,8 +137,15 @@ class PdfPreview {
 
         const renderTask = page.render(renderContext);
 
+        console.log('rendering START : ', renderTask);
+
+        setTimeout(function () {
+          console.log('rendering check : ', renderTask);
+        }, 3000);
+
         // Wait for rendering to finish
         renderTask.promise.then(function () {
+          console.log('rendering OK');
           self.pageRendering = false;
           if (self.pageNumPending !== null) {
             // New page rendering is pending
@@ -222,6 +229,7 @@ class PdfPreview {
     event.stopPropagation();
 
     const self = this;
+
     if (self.pageNum >= self.pdfDoc.numPages) {
       return;
     }
