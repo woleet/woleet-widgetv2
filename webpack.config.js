@@ -50,7 +50,7 @@ module.exports = (resourcePath = '.', prod = false) => {
       },
       {
         test: /\.js$/i,
-        exclude: [/node_modules(?!(\/|\\)pdfjs-dist)/, /dist/],
+        exclude: [/node_modules/, /dist/],
         use: {
           loader: 'babel-loader',
           options: {
