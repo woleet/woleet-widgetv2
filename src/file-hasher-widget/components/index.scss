@@ -1,4 +1,4 @@
-@import '../scss/_common.scss';
+@import '../scss/common.scss';
 
 :root {
   --file-hasher-widget-control-border-color: black;
@@ -14,7 +14,7 @@
       overflow: hidden;
     }
   }
-  
+
   .description {
     &-block {
       margin-bottom: 5px;

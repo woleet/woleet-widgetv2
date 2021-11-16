@@ -5,11 +5,13 @@
     @extend .description-block;
     height: 100%;
     width: 100%;
+
     &--body {
       position: relative;
       display: inline-block;
       height: 100%;
       width: 100%;
+
       &-input {
         outline: none;
         opacity: 0;
