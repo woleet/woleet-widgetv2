@@ -7,6 +7,7 @@ This package contains web widgets useful when you want to deal with Woleet proof
 This web widget allows to preview a file and compute its SHA256 hash. It is easily embeddable in any web page.
 Since computing the hash of the proven file is the first step when you want to create or verify a Woleet proof, this widget is
 particularly useful.
+particularly useful.
 
 The file can be dropped by the user, or its URL can be provided to the widget for an automated download.
 A preview is automatically displayed if the file is an image or a PDF file. When the user clicks on the preview, the file is displayed full screen.
