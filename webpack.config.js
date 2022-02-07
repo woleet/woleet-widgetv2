@@ -11,7 +11,7 @@ module.exports = (resourcePath = '.', prod = false) => {
 
   const entry = {
     'file-hasher-widget': './src/file-hasher-widget/index.js',
-    'pdf.worker': 'pdfjs-dist/build/pdf.worker.entry'
+    'pdf.worker': 'pdfjs-dist/build/pdf.worker.entry.js'
   };
 
   const resolve = {
